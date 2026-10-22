@@ -25,7 +25,7 @@ async function openPage(viewport) {
   page.on("pageerror", (e) => errors.push(String(e)));
   page.on("request", (r) => {
     const u = new URL(r.url());
-    if (!["localhost", "127.0.0.1"].includes(u.hostname) && u.protocol.startsWith("http")) offsite.push(r.url());
+    if (!["localhost", "127.0.0.1", new URL(BASE).hostname].includes(u.hostname) && u.protocol.startsWith("http")) offsite.push(r.url());
   });
   await page.goto(BASE, { waitUntil: "networkidle0" });
   return { page, errors, offsite };

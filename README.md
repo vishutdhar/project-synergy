@@ -84,6 +84,16 @@ With Wrangler, from this folder:
 npx wrangler pages deploy site --project-name project-synergy
 ```
 
+How the live site is deployed today: a direct upload with `scripts/deploy-pages.mjs`, using the project's short-lived upload token. No API token is stored anywhere.
+
+1. Get the upload token from `GET /accounts/{account_id}/pages/projects/project-synergy/upload-token` and save it to a temp file only you can read (`chmod 600`).
+2. Upload the files: `CF_PAGES_UPLOAD_JWT_FILE=/path/to/that/file node scripts/deploy-pages.mjs upload`
+3. Print the manifest: `node scripts/deploy-pages.mjs manifest`
+4. Create the deployment with `POST /accounts/{account_id}/pages/projects/project-synergy/deployments` as `multipart/form-data`, with the fields `manifest` (the JSON from step 3), `branch` set to `main`, and `_headers` (the contents of `site/_headers`).
+5. Delete the token file.
+
+The token expires after a few minutes. If the upload says 401, get a new one.
+
 The live site is https://project-synergy.pages.dev, with no custom domain. If the address changes, update `appUrl` in `site/config.js` and the canonical, `og:` and `twitter:` URLs in `site/index.html`.
 
 `site/_headers` sets a Content Security Policy that allows only the site itself, Hugging Face (`huggingface.co`, `*.huggingface.co`, `*.hf.co`) and `cdn.jsdelivr.net`, plus `wasm-unsafe-eval` and `blob:` for ONNX Runtime. It also sets `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: credentialless`, which lets Chrome and Firefox run the WebAssembly model with multiple threads. Every file is under Cloudflare's 25 MiB limit.
