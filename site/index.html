@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Synergy: Corporate Speak Translator</title>
+  <meta name="description" content="Paste a CEO memo to see what it really means, or turn plain words into corporate speak. Free, private, and it runs in your browser.">
+  <meta name="theme-color" content="#14213d">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="canonical" href="https://synergy.freedom-terminal.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Freedom Terminal">
+  <meta property="og:title" content="Project Synergy: Corporate Speak Translator">
+  <meta property="og:description" content="Paste a CEO memo to see what it really means. Or turn plain words into corporate speak. Free, and your text stays on your device.">
+  <meta property="og:url" content="https://synergy.freedom-terminal.com/">
+  <meta property="og:image" content="https://synergy.freedom-terminal.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Project Synergy. What they really mean: no raises this year.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Project Synergy: Corporate Speak Translator">
+  <meta name="twitter:description" content="Paste a CEO memo to see what it really means. Free, and your text stays on your device.">
+  <meta name="twitter:image" content="https://synergy.freedom-terminal.com/og-image.png">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#input">Skip to the text box</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Project Synergy home">
+        <img src="/favicon.svg" alt="" width="36" height="36">
+        <span>
+          <span class="brand-name">Project Synergy</span>
+          <span class="brand-sub">Corporate Speak Translator</span>
+        </span>
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap" id="main">
+    <h1 class="sr-only">Project Synergy: Corporate Speak Translator</h1>
+    <p class="lede" id="lede">Paste a memo or a LinkedIn post and see what it really says.</p>
+
+    <form class="card" id="form" novalidate>
+      <fieldset class="direction">
+        <legend class="sr-only">Direction</legend>
+        <input type="radio" name="direction" id="dir-normal" value="toNormal" checked>
+        <label for="dir-normal">Corporate to normal</label>
+        <input type="radio" name="direction" id="dir-corporate" value="toCorporate">
+        <label for="dir-corporate">Normal to corporate</label>
+      </fieldset>
+
+      <div class="field">
+        <div class="field-head">
+          <label for="input" id="input-label">Corporate text</label>
+          <div class="field-tools">
+            <button type="button" class="link-btn" id="example">Try an example</button>
+            <button type="button" class="link-btn" id="clear">Clear</button>
+          </div>
+        </div>
+        <div class="input-wrap">
+          <textarea id="input" name="input" rows="9" spellcheck="true" aria-describedby="count cap-note"
+            placeholder="Paste a CEO memo, a LinkedIn post or an all-hands email."></textarea>
+          <button type="button" class="mic" id="mic" hidden aria-pressed="false" aria-label="Start dictation" title="Dictate">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>
+          </button>
+        </div>
+        <div class="field-foot">
+          <span id="count" class="muted">0 characters</span>
+          <span id="mic-note" class="muted" hidden>Dictation uses your browser's speech service, which may process audio on Google or Apple servers.</span>
+        </div>
+        <p id="cap-note" class="note" hidden></p>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <label for="level" id="level-label">Bluntness</label>
+          <output for="level" id="level-name" class="level-name">Honest</output>
+        </div>
+        <input type="range" id="level" name="level" min="1" max="3" step="1" value="2" list="level-ticks" aria-describedby="level-name">
+        <datalist id="level-ticks"><option value="1"></option><option value="2"></option><option value="3"></option></datalist>
+        <div class="ticks" aria-hidden="true"><span id="tick-1">Polite</span><span id="tick-2">Honest</span><span id="tick-3">Blunt</span></div>
+      </div>
+
+      <fieldset class="field engine">
+        <legend>Engine</legend>
+        <div class="engine-options">
+          <label class="choice"><input type="radio" name="engine" value="instant" checked> <span><strong>Instant</strong> <span class="muted">Phrasebook. Works everywhere, no download.</span></span></label>
+          <label class="choice"><input type="radio" name="engine" value="ai"> <span><strong>AI</strong> <span class="muted" id="ai-desc">Small open model that runs in your browser. One-time download.</span></span></label>
+        </div>
+        <div id="ai-status" class="ai-status" hidden>
+          <progress id="ai-progress" max="100" value="0" aria-label="Model download progress"></progress>
+          <span id="ai-status-text" role="status"></span>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit" class="btn primary" id="run">Decode</button>
+        <button type="button" class="btn" id="reroll" disabled>Reroll</button>
+        <span class="kbd-hint muted">Ctrl or Cmd + Enter also works.</span>
+      </div>
+    </form>
+
+    <section class="card result" id="result" aria-labelledby="result-title" hidden>
+      <div class="result-head">
+        <h2 id="result-title">Result</h2>
+        <div class="result-tools">
+          <button type="button" class="btn small" id="copy">Copy</button>
+          <a class="btn small x" id="share" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer">Share to X</a>
+        </div>
+      </div>
+      <div id="output" aria-live="polite"></div>
+      <p id="result-note" class="note" hidden></p>
+    </section>
+
+    <section class="about">
+      <h2>How it works</h2>
+      <p>Everything runs on your device. Instant mode uses a built-in phrasebook and pattern rules. AI mode downloads a small open model (Qwen2.5 0.5B Instruct, Apache 2.0) from Hugging Face once, keeps it in your browser cache, and runs it locally. There are no accounts and no tracking, and your text is never sent to a server. The one exception is the mic: dictation uses your browser's speech service, which may send audio to Google or Apple.</p>
+      <p>Corporate to normal gives you a one-line summary of what the memo really means, then goes through it sentence by sentence. It's a joke tool, so read the original before you quit.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>A Freedom Terminal app</p>
+      <nav aria-label="More Freedom Terminal apps">
+        <a href="https://vishutdhar.github.io/runwalk-site/">Canter</a>
+        <a href="https://smarthomeqr.vishutdhar.com/">SmartHomeQR</a>
+        <a href="https://dosepop.vishutdhar.com/">Dose Pop</a>
+        <a href="https://habitflame.vishutdhar.com/">HabitFlame</a>
+      </nav>
+    </div>
+  </footer>
+
+  <dialog id="consent" aria-labelledby="consent-title" aria-describedby="consent-body">
+    <form method="dialog">
+      <h2 id="consent-title">Download the AI model?</h2>
+      <div id="consent-body">
+        <p>AI mode needs a one-time download of about <strong id="consent-size">500 MB</strong> from Hugging Face. Your browser keeps it, so later visits skip the download.</p>
+        <p>The model runs on your device. Your text stays here. Use Wi-Fi if your data plan is limited.</p>
+        <p class="muted" id="consent-tech"></p>
+      </div>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn">Not now</button>
+        <button value="ok" class="btn primary" id="consent-ok">Download</button>
+      </div>
+    </form>
+  </dialog>
+
+  <noscript><p class="wrap note">Project Synergy needs JavaScript to run. Nothing you type is sent anywhere.</p></noscript>
+</body>
+</html>

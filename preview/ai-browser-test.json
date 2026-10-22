@@ -1,0 +1,132 @@
+{
+  "log": [
+    "[15:03:03Z] console.warn: No available adapters.",
+    "[15:03:05Z] backend guess: Small open model that runs in your browser. One-time download, about 800 MB.",
+    "[15:03:05Z] worker created: http://localhost:8787/ai-worker.js",
+    "[15:03:10Z] consent dialog shown: false (model already cached)",
+    "[15:03:17Z] worker created: blob:http://localhost:8787/21372b23-4ff9-448c-9dcb-96aaaa76b101",
+    "[15:03:17Z] worker created: blob:http://localhost:8787/21372b23-4ff9-448c-9dcb-96aaaa76b101",
+    "[15:03:17Z] worker created: blob:http://localhost:8787/21372b23-4ff9-448c-9dcb-96aaaa76b101",
+    "[15:03:34Z] status: AI mode is ready (WebAssembly, q4).",
+    "[15:03:34Z] load finished after 24s: AI mode is ready (WebAssembly, q4).",
+    "[15:04:43Z] layoff: 68.6s, summary: What they really mean: The company is laying off its workforce, reducing costs, and we're cutting jobs., note: ",
+    "[15:10:20Z] record-year: 337.3s, summary: What they really mean: Tessaline's strong performance and your dedication have led to our success, so no raises for now., note: ",
+    "[15:10:29Z] corporate: 8.5s: I can't attend the meeting, I'm bogged down. This proposal is flawed.",
+    "[15:10:29Z] hosts contacted before consent: localhost:8787",
+    "[15:10:29Z] hosts contacted overall: localhost:8787, ",
+    "[15:10:29Z] transformers-cache entries: https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/config.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer_config.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/generation_config.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/onnx/model_q4.onnx, https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.mjs, https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.wasm"
+  ],
+  "outputs": {
+    "layoff": {
+      "summary": "What they really mean: The company is laying off its workforce, reducing costs, and we're cutting jobs.",
+      "lines": [
+        {
+          "original": "Today I'm sharing some difficult news.",
+          "plain": "I'm not happy about this."
+        },
+        {
+          "original": "After a thorough review of our priorities, we have made the hard decision to reduce our workforce by approximately 12%, impacting around 340 roles across Product, Sales, and Operations.",
+          "plain": "Layoffs of 12% announced."
+        },
+        {
+          "original": "This was not a decision we made lightly.",
+          "plain": "It wasn't a quick choice."
+        },
+        {
+          "original": "The macroeconomic headwinds we discussed last quarter have persisted, and we need to build a leaner, more focused Corvane that can win in this next chapter.",
+          "plain": "We're cutting costs, which means fewer people and less money."
+        },
+        {
+          "original": "Impacted colleagues will receive an email from People Operations within the next hour.",
+          "plain": "Layoffs expected soon."
+        },
+        {
+          "original": "Everyone affected will receive a separation package, extended healthcare, and career transition support.",
+          "plain": "Layoffs for everyone."
+        },
+        {
+          "original": "To those leaving us: thank you.",
+          "plain": "Congratulations."
+        },
+        {
+          "original": "Your contributions shaped who we are, and I am deeply grateful for everything you have given to this journey.",
+          "plain": "Thank you for your hard work."
+        },
+        {
+          "original": "For those staying, I know this is hard.",
+          "plain": "It's tough for everyone."
+        },
+        {
+          "original": "We will come out of this stronger, more agile, and better positioned for long-term growth.",
+          "plain": "Stronger, more agile, and better positioned."
+        },
+        {
+          "original": "I'll share more at Thursday's all-hands.",
+          "plain": "More details to come."
+        }
+      ],
+      "note": "",
+      "seconds": "68.6"
+    },
+    "record-year": {
+      "summary": "What they really mean: Tessaline's strong performance and your dedication have led to our success, so no raises for now.",
+      "lines": [
+        {
+          "original": "What a year!",
+          "plain": "A great year."
+        },
+        {
+          "original": "I'm incredibly proud to share that Tessaline just closed the strongest year in our history: record revenue, up 31%, and our best operating margin ever.",
+          "plain": "Tessaline's strong performance was impressive."
+        },
+        {
+          "original": "This happened because of all of you.",
+          "plain": "It was due to everyone."
+        },
+        {
+          "original": "Your passion and grit are why we exceeded our targets in every region.",
+          "plain": "Your enthusiasm and determination are the reason we achieved great success."
+        },
+        {
+          "original": "As we look ahead, we are being prudent.",
+          "plain": "Cutting costs."
+        },
+        {
+          "original": "Given the uncertain macro environment, we have made the decision to pause merit increases for this cycle and to keep our bonus pool at a modest level.",
+          "plain": "No raises for now."
+        },
+        {
+          "original": "We believe this disciplined approach positions us to keep investing in growth and shareholder value.",
+          "plain": "This strategy ensures continued growth and shareholder value."
+        },
+        {
+          "original": "I've never been more excited about our future.",
+          "plain": "Absolutely thrilled!"
+        },
+        {
+          "original": "The best is yet to come!",
+          "plain": "Good news coming up."
+        }
+      ],
+      "note": "",
+      "seconds": "337.3"
+    },
+    "corporate": {
+      "text": "I can't attend the meeting, I'm bogged down. This proposal is flawed.",
+      "seconds": "8.5"
+    }
+  },
+  "cache": [
+    "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/config.json",
+    "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer_config.json",
+    "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/generation_config.json",
+    "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer.json",
+    "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/onnx/model_q4.onnx",
+    "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.mjs",
+    "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.wasm"
+  ],
+  "hosts": [
+    "localhost:8787",
+    ""
+  ]
+}

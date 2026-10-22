@@ -1,0 +1,11 @@
+node_modules/
+.model-cache/
+.chrome-profile/
+*.log
+.DS_Store
+preview/mobile-decode.png
+preview/desktop-dark.png
+preview/desktop-empty.png
+preview/ai-downloading.png
+preview/ai-ready.png
+preview/ai-decode-record-year.png
