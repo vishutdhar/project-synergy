@@ -15,12 +15,14 @@ const LOWERABLE = new Set(("the a an this that these those there it it's its our
   "so then now today tomorrow tonight yesterday apparently honestly basically one two three half most none each every any " +
   "here what who when where why how which is are was were do does did can could will would should has have had").split(" "));
 
+// Common words that start sentences and are not names: "Conversion dropped", "Ticket #4821 is still open".
+const COMMON_NOUN = /^(?:[a-z]+(?:tion|sion|ment|ness|ity|ance|ence|ings?|ed|ure|ery|ory|ship|work|ware|ets|ers|ies)|that's|there's|here's|what's|who's|it's|ticket|report|server|client|customer|vendor|supplier|team|deadline|budget|meeting|project|design|support|website|release|launch|deploy|build|office|company|board|contract|data|dashboard|email|policy|roadmap|product|app|site|demo|slides|deck|printer|wifi|onboarding|new|old|next|last|first|every|refund|order|invoice|payment|prod|production|staging|traffic|engineering|marketing|sales|legal|finance|security|management|leadership|everybody|nobody|holiday|parking|zoom|tests|qa)$/;
 export function lowerFirst(marked, { force = false } = {}) {
   return marked.replace(/^(\u0000?)([A-Z])([\w'-]*)/, (m, mk, c, rest) => {
     const w = (c + rest).toLowerCase();
     if (/^I(?:'m|'ve|'ll|'d)?$/.test(c + rest)) return m;
     if (rest && rest === rest.toUpperCase() && /[A-Z]/.test(rest)) return m; // acronyms: API, PTO
-    if (force || LOWERABLE.has(w)) return mk + c.toLowerCase() + rest;
+    if (force || LOWERABLE.has(w) || COMMON_NOUN.test(w)) return mk + c.toLowerCase() + rest;
     return m;
   });
 }
@@ -28,7 +30,9 @@ export function lowerFirst(marked, { force = false } = {}) {
 // Verbs a sentence can open with as an instruction to the reader.
 const REQUEST_VERBS = "send|call|check|fix|review|look|update|tell|ask|add|share|book|schedule|cancel|delete|remove|push|merge|finish|sign|approve|submit|print|bring|grab|join|help|confirm|double-check|find|write|fill|order|pay|clean|turn|open|close|restart|install|include|invite|reply|respond|answer|forward|email|text|ping|post|upload|download|print|rename|move|reschedule|resend|re-send|give|show|get|read|test|deploy|ship|stop|quit|keep|remember|make|put|set|leave|come|follow|wait|hold|take|label|tag|file|fill out|note|loop|cc|bcc|unmute|mute|mention|explain|clarify|walk|send over|hand|return|start|try|run|pull|use";
 const DECISION_VERBS = "pick|choose|go|skip|drop|cut|kill|stick|ditch|scrap|pause|postpone|delay|push back|wait|just";
-const REQ_RE = new RegExp(`^(?:just )?(?:${REQUEST_VERBS})\\b`, "i");
+const REQ_RE0 = new RegExp(`^(?:just )?(?:${REQUEST_VERBS})\\b`, "i");
+// "Call with the Tokyo office at 7am" is a noun, not an instruction.
+const REQ_RE = { test: (s) => REQ_RE0.test(s) && !/^(?:just )?\w+(?:'s)?\s+(?:with|at|is|was|went|for|from|in|on|about|starts|ends|tomorrow|today|moved|got|has|had)\b/i.test(s) };
 const DEC_RE = new RegExp(`^(?:${DECISION_VERBS})\\b`, "i");
 const REQ_ME = /^(?:skip|drop|count|leave|take|put|keep|add|remove|sign) (?:me|my)\b/i;
 // Opening words that are not instructions even though they look like verbs.
@@ -138,6 +142,7 @@ function fixFragment(marked) {
   // Clause fragments after a comma: ", looking into it" -> ", and I'm looking into it".
   t = t.replace(/,\s+(doing it|doing that|looking into|working on|checking|chasing|digging into|fixing|investigating|on it\b|handling|panicking|borrowing|using|going to|gonna|logging|working from)/i, (_m, w) => `, and I'm ${w.toLowerCase()}`);
   t = t.replace(/,\s+will (\w+)/i, ", and I'll $1");
+  t = t.replace(/,\s+((?:\d+|some|most|all|none|one|two|three|four|five|half)(?: of (?:us|them|the \w+|\w+))? (?:are|is|were|was|have|had)\b)/i, ", and $1");
   t = t.replace(/,\s+(sent|shipped|pushed|merged|filed|emailed|forwarded|told|cc'd|uploaded|posted|shared)\b/i, (_m, w) => ` and ${w.toLowerCase()}`);
   t = t.replace(/(^|[.!?]\s+)still (broken|down|not working|failing|open|pending|stuck|blocked|missing|wrong|slow|happening)\b/gi, (_m, p, w) => `${p}${p ? "It's" : "It's"} still ${w.toLowerCase()}`);
   t = t.replace(/,\s+back (by|on|at|in|after|tomorrow|monday|tuesday|wednesday|thursday|friday)\b/i, (_m, w) => `, and I'll be back ${w}`);
@@ -378,7 +383,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       return done(`${M("Please don't")} ${r}.`, "polite-negative");
     }
     const please = body.match(/^(?:please|pls|plz),? (.+)$/i);
-    if (please && REQ_RE.test(please[1]) && words <= 22 && !/,\s*(?:I|we|you|it|they)\b/i.test(please[1])) {
+    if (please && REQ_RE.test(please[1]) && words <= 22 && !/,\s*(?:I|we|you|it|they)\b/i.test(please[1]) && !/\band (?:I|I'll|we|we'll|then)\b/i.test(please[1])) {
       const r = markedBody.replace(/^\u0000?(?:please|pls|plz)\u0001?,?\s+/i, "");
       if (lvl === 1) return done(`${M("Could you please")} ${lowerFirst(r, { force: true })}?`, "indirect-request");
       if (lvl === 2) return done(`${had ? M("Could you please") : useLabel("Quick ask:") + " " + M("could you please")} ${lowerFirst(r, { force: true })}?`, "indirect-request");
@@ -398,7 +403,7 @@ function restructureAt(marked, lvl, ctx = {}) {
         if (lvl === 2) return done(`${M("My recommendation would be to")} ${r}.`, "suggestion");
         return none;
       }
-      if ((REQ_RE.test(body) || REQ_ME.test(body)) && !/^let me know\b/i.test(body)) {
+      if ((REQ_RE.test(body) || REQ_ME.test(body)) && !/^let me know\b/i.test(body) && !/\band (?:I|I'll|we|we'll|then)\b/i.test(body)) {
         const r = lowerFirst(markedBody, { force: true });
         const urgent = /\b(?:asap|now|immediately|right away|urgent\w*|today|tonight|eod|eow|cob|by \w+|deadline|tomorrow)\b/i.test(body);
         if (ctx.later) {
@@ -488,7 +493,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       const r = m[2];
       if (lvl === 1) return done(`${M(`Could ${who === "i" ? "I" : who}`)} ${r}?`, "indirect-question");
       if (lvl === 2) {
-        const lead = /^not\b/i.test(r) ? (who === "you" ? "Could you please" : `Could ${who === "i" ? "I" : who} please`) : who === "we" ? "Would it be possible to" : who === "you" ? "Would you be able to" : who === "i" ? "Would it be possible for me to" : `Would ${who} be able to`;
+        const lead = /^(?:with|from|in|on|at|who|that|here|there|else)\b/i.test(r) ? `Could ${who === "i" ? "I" : who}` : /^not\b/i.test(r) ? (who === "you" ? "Could you please" : `Could ${who === "i" ? "I" : who} please`) : who === "we" ? "Would it be possible to" : who === "you" ? "Would you be able to" : who === "i" ? "Would it be possible for me to" : `Would ${who} be able to`;
         return done(`${M(lead)} ${r}?`, "indirect-question");
       }
       const lead = who === "we" ? "Is there an opportunity to" : who === "you" ? "Do you have the bandwidth to" : null;

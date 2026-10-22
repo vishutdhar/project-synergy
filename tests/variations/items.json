@@ -4568,7 +4568,7 @@
   "category": "one-liner",
   "input": "no",
   "ideal": [
-   "No.",
+   "No, I'm not able to do that.",
    "No, I'm not able to do that.",
    "I'm going to have to decline on this one."
   ],
@@ -4592,7 +4592,7 @@
   "category": "one-liner",
   "input": "sounds good",
   "ideal": [
-   "Sounds good.",
+   "That sounds good to me.",
    "Sounds good to me.",
    "Sounds good. I'm fully aligned."
   ],
@@ -4616,8 +4616,8 @@
   "category": "one-liner",
   "input": "on it",
   "ideal": [
-   "On it.",
    "I'm on it.",
+   "Heads-up: I'm on it.",
    "I'm on it and will drive this forward."
   ],
   "source": "normal-01.txt"
@@ -4628,7 +4628,7 @@
   "category": "one-liner",
   "input": "yep",
   "ideal": [
-   "Yes.",
+   "Yes, that works for me.",
    "Yes, confirmed.",
    "Confirmed. Fully aligned."
   ],
@@ -4640,7 +4640,7 @@
   "category": "one-liner",
   "input": "nope",
   "ideal": [
-   "No.",
+   "No, I'm not able to do that.",
    "No, that won't work.",
    "That's a no from me at this time."
   ],
@@ -4652,7 +4652,7 @@
   "category": "one-liner",
   "input": "ty!",
   "ideal": [
-   "Thank you!",
+   "Thank you so much.",
    "Thanks so much!",
    "Thank you. Deeply appreciated!"
   ],
@@ -4688,7 +4688,7 @@
   "category": "one-liner",
   "input": "will do",
   "ideal": [
-   "Will do.",
+   "Will do, thanks.",
    "Will do, I'll take care of it.",
    "Will do. I'll own this."
   ],
@@ -4724,7 +4724,7 @@
   "category": "one-liner",
   "input": "fine",
   "ideal": [
-   "Fine.",
+   "Okay.",
    "That works.",
    "That works for me."
   ],
@@ -4748,7 +4748,7 @@
   "category": "one-liner",
   "input": "can't today",
   "ideal": [
-   "I can't today.",
+   "Unfortunately, I'm unable to today.",
    "I'm not able to today.",
    "I don't have the bandwidth for this today."
   ],
@@ -4760,8 +4760,8 @@
   "category": "one-liner",
   "input": "done",
   "ideal": [
-   "Done.",
    "This is done.",
+   "Quick heads-up: this is completed.",
    "This is complete and closed out."
   ],
   "source": "normal-01.txt"
@@ -4796,7 +4796,7 @@
   "category": "one-liner",
   "input": "lmk",
   "ideal": [
-   "Let me know.",
+   "Please let me know.",
    "Let me know when you can.",
    "Please keep me posted."
   ],
@@ -4808,7 +4808,7 @@
   "category": "one-liner",
   "input": "no worries",
   "ideal": [
-   "No worries.",
+   "No worries at all.",
    "No worries at all.",
    "No worries at all. All good."
   ],
@@ -4820,7 +4820,7 @@
   "category": "one-liner",
   "input": "agreed",
   "ideal": [
-   "Agreed.",
+   "I agree.",
    "Agreed, I'm on the same page.",
    "Agreed. Fully aligned."
   ],
@@ -4868,8 +4868,8 @@
   "category": "one-liner",
   "input": "lgtm",
   "ideal": [
-   "Looks good to me.",
-   "Looks good to me, approved.",
+   "This looks good to me.",
+   "Quick heads-up: Looks good to me, approved.",
    "Looks good to me. Approved from my side."
   ],
   "source": "normal-01.txt"
@@ -4880,7 +4880,7 @@
   "category": "one-liner",
   "input": "ship it",
   "ideal": [
-   "Ship it.",
+   "Could you ship it?",
    "Let's ship it.",
    "Let's ship it and get it in front of users."
   ],
@@ -4940,7 +4940,7 @@
   "category": "one-liner",
   "input": "sorry!!",
   "ideal": [
-   "Sorry!",
+   "Apologies!",
    "Sorry about that!",
    "Apologies for that!"
   ],
@@ -4952,7 +4952,7 @@
   "category": "one-liner",
   "input": "thx",
   "ideal": [
-   "Thanks.",
+   "Thank you so much.",
    "Thanks a lot.",
    "Thank you, much appreciated."
   ],
@@ -4976,7 +4976,7 @@
   "category": "one-liner",
   "input": "not yet",
   "ideal": [
-   "Not yet.",
+   "Not just yet.",
    "Not yet, still working on it.",
    "Not yet. It's still in progress."
   ],
@@ -4988,8 +4988,8 @@
   "category": "one-liner",
   "input": "got it 👍",
   "ideal": [
-   "Got it 👍",
-   "Got it, thanks 👍",
+   "Got it, thanks.",
+   "Understood, thanks.",
    "Got it. Noted 👍"
   ],
   "source": "normal-01.txt"
@@ -5036,7 +5036,7 @@
   "category": "one-liner",
   "input": "on a call",
   "ideal": [
-   "I'm on a call.",
+   "I'm on a call at the moment.",
    "I'm on a call right now.",
    "I'm on a call at the moment."
   ],
@@ -5048,7 +5048,7 @@
   "category": "one-liner",
   "input": "call me",
   "ideal": [
-   "Call me.",
+   "Could you call me?",
    "Can you give me a call?",
    "Could you give me a call when you have a moment?"
   ],
@@ -5096,7 +5096,7 @@
   "category": "one-liner",
   "input": "nice!!",
   "ideal": [
-   "Nice!",
+   "Nice work.",
    "Great work!",
    "Excellent work!"
   ],
@@ -5110,7 +5110,7 @@
   "ideal": [
    "👀",
    "I'm looking into it 👀",
-   "I'm looking into it 👀"
+   "Thinking out loud as a servant leader: I'm looking into it."
   ],
   "source": "normal-01.txt"
  },
@@ -5120,7 +5120,7 @@
   "category": "one-liner",
   "input": "so true",
   "ideal": [
-   "So true.",
+   "That's very true.",
    "Very true.",
    "That's spot on."
   ],
@@ -5146,7 +5146,7 @@
   "ideal": [
    "I'm heading out.",
    "I'm signing off for the day.",
-   "I'm signing off for the day."
+   "Quick strategic download: I'm signing off for the day. Let's move the needle."
   ],
   "source": "normal-01.txt"
  },
@@ -5180,7 +5180,7 @@
   "category": "one-liner",
   "input": "pls",
   "ideal": [
-   "Please.",
+   "Please, if you can.",
    "Please, if you can.",
    "Please, if you're able to."
   ],
@@ -5192,7 +5192,7 @@
   "category": "one-liner",
   "input": "maybe",
   "ideal": [
-   "Maybe.",
+   "Possibly.",
    "Maybe, I'm not sure yet.",
    "Possibly. I'll need to assess."
   ],
@@ -5228,7 +5228,7 @@
   "category": "one-liner",
   "input": "sure thing",
   "ideal": [
-   "Sure thing.",
+   "Of course.",
    "Sure, happy to.",
    "Absolutely, happy to support."
   ],
@@ -5252,8 +5252,8 @@
   "category": "one-liner",
   "input": "yikes",
   "ideal": [
-   "Yikes.",
    "That's concerning.",
+   "Quick heads-up: that's concerning.",
    "That's a concerning development."
   ],
   "source": "normal-01.txt"
@@ -5264,7 +5264,7 @@
   "category": "decline",
   "input": "i can't make the meeting, i'm swamped",
   "ideal": [
-   "I can't make the meeting. I'm swamped.",
+   "Unfortunately, I'm unable to make the catch-up. I'm buried.",
    "I won't be able to make the meeting. My plate is full right now.",
    "I won't be able to join the meeting, as my bandwidth is fully committed right now."
   ],
@@ -5276,7 +5276,7 @@
   "category": "decline",
   "input": "I won't make the 3pm meeting with Dana. Can we move it to Friday?",
   "ideal": [
-   "I can't make the 3pm meeting with Dana. Could we move it to Friday?",
+   "Unfortunately, I'm unable to make the 3pm catch-up with Dana. Could we move it to Friday?",
    "I won't be able to make the 3pm meeting with Dana. Could we move it to Friday?",
    "I won't be able to join the 3pm sync with Dana. Could we realign it to Friday?"
   ],
@@ -5288,7 +5288,7 @@
   "category": "decline",
   "input": "can't do lunch tmrw, sorry",
   "ideal": [
-   "I can't do lunch tomorrow, sorry.",
+   "Apologies, I'm unable to do lunch tomorrow.",
    "I'm not able to make lunch tomorrow, apologies.",
    "Unfortunately I won't be able to make lunch tomorrow. Apologies."
   ],
@@ -5312,7 +5312,7 @@
   "category": "decline",
   "input": "I can't take on another project right now",
   "ideal": [
-   "I can't take on another project right now.",
+   "Unfortunately, I'm unable to take on another project at the moment.",
    "I don't have the bandwidth to take on another project right now.",
    "I don't have the bandwidth to absorb another initiative at this time."
   ],
@@ -5360,7 +5360,7 @@
   "category": "decline",
   "input": "Can't review your PR today, maybe tomorrow",
   "ideal": [
-   "I can't review your PR today. Maybe tomorrow.",
+   "Unfortunately, I'm unable to review your PR today. Possibly tomorrow.",
    "I won't get to your PR review today. Tomorrow is more likely.",
    "I won't have capacity to review your PR today. Tomorrow is more realistic."
   ],
@@ -5372,9 +5372,9 @@
   "category": "decline",
   "input": "I'm not going to the offsite",
   "ideal": [
-   "I'm not going to the offsite.",
+   "I won't be going to the offsite.",
    "I won't be attending the offsite.",
-   "I won't be attending the offsite."
+   "For full visibility: I will not be attending the offsite. Onward and upward."
   ],
   "source": "normal-02.txt"
  },
@@ -5384,7 +5384,7 @@
   "category": "decline",
   "input": "we can't do that price",
   "ideal": [
-   "We can't do that price.",
+   "Unfortunately, we cannot do that price.",
    "We're not able to meet that price.",
    "We're unable to support that price point."
   ],
@@ -5420,7 +5420,7 @@
   "category": "decline",
   "input": "I'm not covering for Mike again",
   "ideal": [
-   "I'm not covering for Mike again.",
+   "I won't be covering for Mike again.",
    "I'm not able to cover for Mike again.",
    "I won't be able to backfill for Mike again."
   ],
@@ -5432,7 +5432,7 @@
   "category": "decline",
   "input": "no more meetings this week please",
   "ideal": [
-   "No more meetings this week, please.",
+   "No more catch-ups this week, please.",
    "Please don't schedule any more meetings for me this week.",
    "Please hold off on any further meetings for me this week."
   ],
@@ -5468,7 +5468,7 @@
   "category": "late-sick-pto",
   "input": "stuck in traffic, start without me",
   "ideal": [
-   "I'm stuck in traffic. Please start without me.",
+   "I'm stuck in traffic. Could you please start without me?",
    "I'm stuck in traffic, so please go ahead and start without me.",
    "I'm delayed in traffic. Please kick things off without me."
   ],
@@ -5480,7 +5480,7 @@
   "category": "late-sick-pto",
   "input": "my kid is sick so I'm working from home",
   "ideal": [
-   "My kid is sick, so I'm working from home.",
+   "I wanted to let you know that my kid is sick, so I'm working from home.",
    "My child is sick, so I'll be working from home today.",
    "My child is unwell, so I'll be working remotely today."
   ],
@@ -5492,9 +5492,9 @@
   "category": "late-sick-pto",
   "input": "i'm taking friday off",
   "ideal": [
-   "I'm taking Friday off.",
+   "I'll be taking Friday off.",
    "I'll be out of office on Friday.",
-   "I'll be out of office on Friday."
+   "Putting on my visionary hat: I'll be out of office on Friday."
   ],
   "source": "normal-02.txt"
  },
@@ -5504,8 +5504,8 @@
   "category": "late-sick-pto",
   "input": "I'll be out the week of the 14th, back on the 21st",
   "ideal": [
-   "I'll be out the week of the 14th, back on the 21st.",
-   "I'll be out of office the week of the 14th and back on the 21st.",
+   "I'll be out the week of the 14th, and I'll be back on the 21st.",
+   "Heads-up: I'll be out of office the week of the 14th and back on the 21st.",
    "I'll be out of office the week of the 14th and back online on the 21st."
   ],
   "source": "normal-02.txt"
@@ -5528,7 +5528,7 @@
   "category": "late-sick-pto",
   "input": "overslept, sorry, logging on now",
   "ideal": [
-   "I overslept, sorry. Logging on now.",
+   "Apologies, I overslept. Logging on now.",
    "Apologies, I overslept. I'm logging on now.",
    "Apologies, I had a late start. Logging on now."
   ],
@@ -5552,8 +5552,8 @@
   "category": "late-sick-pto",
   "input": "my flight got cancelled so I won't be in Denver tmrw",
   "ideal": [
-   "My flight got cancelled, so I won't be in Denver tomorrow.",
-   "My flight was cancelled, so I won't be in Denver tomorrow.",
+   "My flight got cancelled, so I will not be in Denver tomorrow.",
+   "Quick heads-up: my flight was cancelled, so I will not be in Denver tomorrow.",
    "My flight was cancelled, so I won't be on site in Denver tomorrow."
   ],
   "source": "normal-02.txt"
@@ -5576,7 +5576,7 @@
   "category": "late-sick-pto",
   "input": "taking a mental health day",
   "ideal": [
-   "I'm taking a mental health day.",
+   "I'll be taking a mental health day.",
    "I'm taking a personal day today.",
    "I'm taking a wellness day today."
   ],
@@ -5588,9 +5588,9 @@
   "category": "late-sick-pto",
   "input": "can someone cover my 1:1s while I'm out",
   "ideal": [
-   "Can someone cover my 1:1s while I'm out?",
+   "Could someone cover my 1:1s while I'm out?",
    "Could someone cover my 1:1s while I'm out of office?",
-   "Could someone backfill my 1:1s while I'm out of office?"
+   "Speaking as a steward of our north star: Could someone backfill my 1:1s while I'm out of office? Onward and upward."
   ],
   "source": "normal-02.txt"
  },
@@ -5601,7 +5601,7 @@
   "input": "I need to leave at 4 for my kid's recital",
   "ideal": [
    "I need to leave at 4 for my kid's recital.",
-   "I'll need to leave at 4 for my child's recital.",
+   "Heads-up: I'll need to leave at 4 for my child's recital.",
    "I'll need to log off at 4 for a family commitment, my child's recital."
   ],
   "source": "normal-02.txt"
@@ -5624,7 +5624,7 @@
   "category": "late-sick-pto",
   "input": "running late, the train is stuck",
   "ideal": [
-   "I'm running late. The train is stuck.",
+   "I'm running a bit behind. The train is stuck.",
    "I'm running behind because the train is stuck.",
    "I'm running behind due to a transit delay."
   ],
@@ -5636,9 +5636,9 @@
   "category": "late-sick-pto",
   "input": "won't make standup, at the doctor",
   "ideal": [
-   "I won't make standup. I'm at the doctor.",
+   "Unfortunately, I will not make standup. I'm at the doctor.",
    "I won't be at standup. I'm at a doctor's appointment.",
-   "I won't be at standup. I'm at a medical appointment."
+   "For full visibility: I will not be at standup. I'm at a medical appointment."
   ],
   "source": "normal-02.txt"
  },
@@ -5660,7 +5660,7 @@
   "category": "late-sick-pto",
   "input": "back from PTO, what did I miss",
   "ideal": [
-   "I'm back from PTO. What did I miss?",
+   "I'm back from PTO. Could you let me know what I missed?",
    "I'm back from PTO. Could someone catch me up on what I missed?",
    "I'm back from PTO. Could someone bring me up to speed?"
   ],
@@ -5674,7 +5674,7 @@
   "ideal": [
    "I'll be offline Monday for jury duty.",
    "I'll be out of office Monday for jury duty.",
-   "I'll be out of office Monday for jury duty."
+   "Putting on my visionary hat: I'll be out of office Monday for jury duty. Onward and upward."
   ],
   "source": "normal-02.txt"
  },
@@ -5684,7 +5684,7 @@
   "category": "request",
   "input": "can you send me the deck",
   "ideal": [
-   "Can you send me the deck?",
+   "Could you send me the deck?",
    "Could you send me the deck when you get a chance?",
    "Could you share the deck with me when you have a moment?"
   ],
@@ -5696,7 +5696,7 @@
   "category": "request",
   "input": "I need the numbers by Thursday",
   "ideal": [
-   "I need the numbers by Thursday.",
+   "Could I get the figures by Thursday?",
    "Could you get me the numbers by Thursday?",
    "I'll need the numbers by Thursday."
   ],
@@ -5708,9 +5708,9 @@
   "category": "request",
   "input": "pls review my doc before 5",
   "ideal": [
-   "Please review my doc before 5.",
+   "Could you please review my doc before 5?",
    "Could you review my doc before 5?",
-   "Could you review my doc before 5?"
+   "From a thirty-thousand-foot view: Do you have the bandwidth to review my working doc before 5?"
   ],
   "source": "normal-02.txt"
  },
@@ -5720,8 +5720,8 @@
   "category": "request",
   "input": "can someone fix the printer, it's been broken for a week",
   "ideal": [
-   "Can someone fix the printer? It's been broken for a week.",
-   "Could someone fix the printer? It's been broken for a week.",
+   "Could someone fix the printer? It's been down for a week.",
+   "Quick question: could someone address the printer? It's been down for a week.",
    "Could someone remediate the printer? It's been down for a week."
   ],
   "source": "normal-02.txt"
@@ -5732,7 +5732,7 @@
   "category": "request",
   "input": "stop cc'ing me on everything",
   "ideal": [
-   "Please stop cc'ing me on everything.",
+   "Could you please stop cc'ing me on everything?",
    "Please only cc me when I'm needed.",
    "Please limit cc's to items that need my input."
   ],
@@ -5756,7 +5756,7 @@
   "category": "request",
   "input": "can we get more people on this, we're drowning",
   "ideal": [
-   "Can we get more people on this? We're overloaded.",
+   "Could we get more people on this? We're overloaded.",
    "Could we add more people to this? The team is overloaded.",
    "Could we add resourcing here? The team is significantly over capacity."
   ],
@@ -5768,7 +5768,7 @@
   "category": "request",
   "input": "please don't schedule meetings over lunch",
   "ideal": [
-   "Please don't schedule meetings over lunch.",
+   "Please don't schedule catch-ups over lunch.",
    "Please avoid scheduling meetings over lunch.",
    "Please avoid booking meetings over the lunch hour."
   ],
@@ -5780,9 +5780,9 @@
   "category": "request",
   "input": "I need admin access to Jira",
   "ideal": [
-   "I need admin access to Jira.",
+   "I wanted to let you know that I need admin access to Jira.",
    "Could I get admin access to Jira?",
-   "Could I get admin access to Jira?"
+   "Leaning into radical transparency: Could I get admin access to Jira?"
   ],
   "source": "normal-02.txt"
  },
@@ -5792,8 +5792,8 @@
   "category": "request",
   "input": "can you give me a heads up next time",
   "ideal": [
-   "Can you give me a heads up next time?",
    "Could you give me a heads up next time?",
+   "Would you be able to give me a heads up next time?",
    "Going forward, could you give me advance notice?"
   ],
   "source": "normal-02.txt"
@@ -5804,7 +5804,7 @@
   "category": "request",
   "input": "I need you to answer my emails",
   "ideal": [
-   "I need you to answer my emails.",
+   "Could you answer my emails?",
    "I need you to reply to my emails.",
    "I need timely responses to my emails."
   ],
@@ -5817,7 +5817,7 @@
   "input": "could you take notes today, I'm presenting",
   "ideal": [
    "Could you take notes today? I'm presenting.",
-   "Could you take notes today? I'm presenting.",
+   "Would you be able to take notes today? I'm presenting.",
    "Could you capture notes today? I'm presenting."
   ],
   "source": "normal-02.txt"
@@ -5828,9 +5828,9 @@
   "category": "request",
   "input": "can I get Friday afternoon off",
   "ideal": [
-   "Can I take Friday afternoon off?",
+   "Could I take Friday afternoon off?",
    "Would it be possible to take Friday afternoon off?",
-   "Would it be possible to take Friday afternoon off?"
+   "Quick strategic download: Would it be possible to take Friday afternoon off?"
   ],
   "source": "normal-02.txt"
  },
@@ -5842,7 +5842,7 @@
   "ideal": [
    "Can someone please restock the coffee?",
    "Could someone please restock the coffee?",
-   "Could someone please restock the coffee?"
+   "Big picture: Could someone please restock the coffee?"
   ],
   "source": "normal-02.txt"
  },
@@ -5853,7 +5853,7 @@
   "input": "send me the invoice and I'll pay it today",
   "ideal": [
    "Send me the invoice and I'll pay it today.",
-   "Please send me the invoice and I'll pay it today.",
+   "Quick heads-up: Please send me the invoice and I'll pay it today.",
    "Please send over the invoice and I'll process payment today."
   ],
   "source": "normal-02.txt"
@@ -5876,9 +5876,9 @@
   "category": "request",
   "input": "I need a second monitor",
   "ideal": [
-   "I need a second monitor.",
    "Could I get a second monitor?",
-   "Could I get a second monitor?"
+   "Could I get a second monitor?",
+   "For full visibility: Could I get a second monitor?"
   ],
   "source": "normal-02.txt"
  },
@@ -5888,7 +5888,7 @@
   "category": "request",
   "input": "can you check if the client paid yet",
   "ideal": [
-   "Can you check if the client has paid yet?",
+   "Could you check if the client has paid yet?",
    "Could you check whether the client has paid yet?",
    "Could you confirm whether the client has paid yet?"
   ],
@@ -5900,7 +5900,7 @@
   "category": "request",
   "input": "please put your updates in the doc not in slack",
   "ideal": [
-   "Please put your updates in the doc, not in Slack.",
+   "Could you please put your updates in the doc, not in Slack?",
    "Please add your updates to the doc rather than Slack.",
    "Please capture your updates in the doc rather than in Slack."
   ],
@@ -5912,8 +5912,8 @@
   "category": "request",
   "input": "need someone to sign off on this by noon",
   "ideal": [
-   "I need someone to sign off on this by noon.",
-   "I need sign-off on this by noon.",
+   "Could someone sign off on this by noon?",
+   "Quick ask: could I get sign-off on this by noon?",
    "I need sign-off on this by noon."
   ],
   "source": "normal-02.txt"
@@ -5924,7 +5924,7 @@
   "category": "question",
   "input": "what's the status on the Acme renewal?",
   "ideal": [
-   "What's the status of the Acme renewal?",
+   "Could you let me know what the status of the Acme renewal is?",
    "Could you share where the Acme renewal stands?",
    "Could you give me a status update on the Acme renewal?"
   ],
@@ -5936,8 +5936,8 @@
   "category": "question",
   "input": "why is this taking so long",
   "ideal": [
-   "Why is this taking so long?",
-   "Can you help me understand why this is taking so long?",
+   "Could you help me understand why this is taking so long?",
+   "Would you be able to lend me some bandwidth to get why this is taking so long?",
    "Can you help me understand what's driving the timeline here?"
   ],
   "source": "normal-03.txt"
@@ -5948,7 +5948,7 @@
   "category": "question",
   "input": "who approved this?",
   "ideal": [
-   "Who approved this?",
+   "Could you let me know who approved this?",
    "Could you tell me who approved this?",
    "Could you clarify who signed off on this?"
   ],
@@ -5960,8 +5960,8 @@
   "category": "question",
   "input": "is the 2pm still happening",
   "ideal": [
-   "Is the 2pm still happening?",
-   "Is the 2pm still on?",
+   "Just to check, is the 2pm still happening?",
+   "Quick question: is the 2pm still on?",
    "Can we confirm the 2pm is still on?"
   ],
   "source": "normal-03.txt"
@@ -5972,7 +5972,7 @@
   "category": "question",
   "input": "did anyone actually read my email",
   "ideal": [
-   "Did anyone read my email?",
+   "Just to check, did anyone read my email?",
    "Has anyone had a chance to read my email?",
    "Has anyone had a chance to review my email?"
   ],
@@ -5984,7 +5984,7 @@
   "category": "question",
   "input": "where are we on hiring the designer",
   "ideal": [
-   "Where are we on hiring the designer?",
+   "Could you let me know where we are on hiring the designer?",
    "What's the latest on hiring the designer?",
    "What's the latest on the designer hire?"
   ],
@@ -6020,8 +6020,8 @@
   "category": "question",
   "input": "how many tickets are still open",
   "ideal": [
-   "How many tickets are still open?",
-   "How many tickets are still open?",
+   "Could you let me know how many tickets are still open?",
+   "Quick question: how many tickets are still open?",
    "What's the current count of open tickets?"
   ],
   "source": "normal-03.txt"
@@ -6032,9 +6032,9 @@
   "category": "question",
   "input": "when is the deadline again",
   "ideal": [
-   "When is the deadline again?",
+   "Could you let me know when the deadline again is?",
    "Could you remind me of the deadline?",
-   "Could you remind me of the deadline?"
+   "For full visibility: Do you have the bandwidth to gently escalate me of the hard stop? Onward and upward."
   ],
   "source": "normal-03.txt"
  },
@@ -6044,7 +6044,7 @@
   "category": "question",
   "input": "can I work remote next week?",
   "ideal": [
-   "Can I work remotely next week?",
+   "Could I work remotely next week?",
    "Would it be possible to work remotely next week?",
    "Would it be possible for me to work remotely next week?"
   ],
@@ -6056,7 +6056,7 @@
   "category": "question",
   "input": "do we really need another meeting about this",
   "ideal": [
-   "Do we really need another meeting about this?",
+   "Just to check, do we really need another catch-up about this?",
    "Do we need another meeting about this, or could we handle it async?",
    "Is another meeting the best use of time here, or could we handle it async?"
   ],
@@ -6068,8 +6068,8 @@
   "category": "question",
   "input": "what's the budget for Q3",
   "ideal": [
-   "What's the budget for Q3?",
-   "What's the budget for Q3?",
+   "Could you let me know what the budget for Q3 is?",
+   "Quick question: what's the budget for Q3?",
    "What's the budget envelope for Q3?"
   ],
   "source": "normal-03.txt"
@@ -6092,7 +6092,7 @@
   "category": "question",
   "input": "is anyone else's VPN broken or just me",
   "ideal": [
-   "Is anyone else's VPN broken, or is it just me?",
+   "Just to check, is anyone else's VPN broken, or is it just me?",
    "Is anyone else having VPN issues, or is it just me?",
    "Is anyone else experiencing VPN issues, or is it isolated to me?"
   ],
@@ -6104,8 +6104,8 @@
   "category": "question",
   "input": "wait are we launching tomorrow??",
   "ideal": [
-   "Wait, are we launching tomorrow?",
-   "Sorry, are we launching tomorrow?",
+   "Just to check, are we launching tomorrow?",
+   "Quick heads-up, and apologies: are we launching tomorrow?",
    "Just to confirm, are we launching tomorrow?"
   ],
   "source": "normal-03.txt"
@@ -6116,7 +6116,7 @@
   "category": "question",
   "input": "how did we lose the Globex account",
   "ideal": [
-   "How did we lose the Globex account?",
+   "Could you help me understand how we lost the Globex account?",
    "What happened with the Globex account?",
    "Could we get a readout on how we lost the Globex account?"
   ],
@@ -6128,7 +6128,7 @@
   "category": "question",
   "input": "who's going to own this after Sam leaves?",
   "ideal": [
-   "Who's going to own this after Sam leaves?",
+   "Could you let me know who's going to own this after Sam leaves?",
    "Who will own this after Sam leaves?",
    "Who will take ownership of this after Sam's departure?"
   ],
@@ -6152,7 +6152,7 @@
   "category": "question",
   "input": "what are we actually trying to solve here",
   "ideal": [
-   "What are we trying to solve here?",
+   "Could you let me know what we are trying to solve here?",
    "Can we clarify the problem we're trying to solve?",
    "Can we align on the core problem we're solving?"
   ],
@@ -6164,7 +6164,7 @@
   "category": "question",
   "input": "has legal looked at this yet",
   "ideal": [
-   "Has Legal looked at this yet?",
+   "Just to check, has Legal looked at this yet?",
    "Has Legal reviewed this yet?",
    "Has Legal had a chance to review this?"
   ],
@@ -6176,7 +6176,7 @@
   "category": "question",
   "input": "why am I on this thread",
   "ideal": [
-   "Why am I on this thread?",
+   "Could you help me understand why I'm on this thread?",
    "Could you let me know why I'm on this thread?",
    "Could you clarify what's needed from me on this thread?"
   ],
@@ -6188,7 +6188,7 @@
   "category": "question",
   "input": "how much is this going to cost us",
   "ideal": [
-   "How much is this going to cost us?",
+   "Could you let me know how much this is going to cost us?",
    "What's the expected cost of this?",
    "What's the anticipated cost impact here?"
   ],
@@ -6212,7 +6212,7 @@
   "category": "question",
   "input": "are we still doing the Tuesday sync or is that dead",
   "ideal": [
-   "Are we still doing the Tuesday sync, or is it cancelled?",
+   "Just to check, are we still doing the Tuesday sync, or is it cancelled?",
    "Is the Tuesday sync still happening, or has it been cancelled?",
    "Is the Tuesday sync still on, or has it been retired?"
   ],
@@ -6224,7 +6224,7 @@
   "category": "status",
   "input": "finished the report, sent it to Kim",
   "ideal": [
-   "I finished the report and sent it to Kim.",
+   "I completed the report and sent it to Kim.",
    "The report is done and I've sent it to Kim.",
    "The report is complete and has been shared with Kim."
   ],
@@ -6236,8 +6236,8 @@
   "category": "status",
   "input": "the build is broken again",
   "ideal": [
-   "The build is broken again.",
-   "The build is failing again.",
+   "It looks like the build is down again.",
+   "Flagging that the build is failing again.",
    "The build is failing again."
   ],
   "source": "normal-03.txt"
@@ -6248,7 +6248,7 @@
   "category": "status",
   "input": "fixed the login bug, deploying at 4",
   "ideal": [
-   "I fixed the login bug and I'm deploying at 4.",
+   "I repaired the login issue and I'm deploying at 4.",
    "The login bug is fixed, and I'm deploying at 4.",
    "The login bug is remediated, with deployment scheduled for 4."
   ],
@@ -6260,8 +6260,8 @@
   "category": "status",
   "input": "we closed 3 deals this week!!",
   "ideal": [
-   "We closed 3 deals this week!",
-   "We closed 3 deals this week!",
+   "I wanted to let you know that we closed 3 deals this week!",
+   "Quick heads-up: we closed 3 deals this week!",
    "We closed 3 deals this week, a strong result!"
   ],
   "source": "normal-03.txt"
@@ -6285,7 +6285,7 @@
   "input": "still waiting on Finance for the PO",
   "ideal": [
    "I'm still waiting on Finance for the PO.",
-   "I'm still waiting on Finance for the PO.",
+   "Heads-up: I'm still waiting on Finance for the PO.",
    "We're still blocked on Finance for the PO."
   ],
   "source": "normal-03.txt"
@@ -6320,7 +6320,7 @@
   "category": "status",
   "input": "halfway done with the migration",
   "ideal": [
-   "I'm halfway done with the migration.",
+   "I wanted to let you know that I'm halfway done with the migration.",
    "The migration is about halfway done.",
    "The migration is approximately 50% complete."
   ],
@@ -6356,8 +6356,8 @@
   "category": "status",
   "input": "the app crashed for like 400 users this morning",
   "ideal": [
-   "The app crashed for about 400 users this morning.",
-   "The app crashed for about 400 users this morning.",
+   "It looks like the app crashed for about 400 users this morning.",
+   "Flagging that the app crashed for about 400 users this morning.",
    "This morning's crash impacted roughly 400 users."
   ],
   "source": "normal-03.txt"
@@ -6368,7 +6368,7 @@
   "category": "status",
   "input": "QA found 12 bugs, 2 are blockers",
   "ideal": [
-   "QA found 12 bugs, and 2 are blockers.",
+   "It looks like QA found 12 issues, and 2 are blockers.",
    "QA found 12 bugs, 2 of which are blockers.",
    "QA surfaced 12 bugs, 2 of which are blockers."
   ],
@@ -6380,8 +6380,8 @@
   "category": "status",
   "input": "we hit 10k signups yesterday",
   "ideal": [
-   "We hit 10k signups yesterday.",
-   "We reached 10k signups yesterday.",
+   "I wanted to let you know that we hit 10k signups yesterday.",
+   "Quick heads-up: we reached 10k signups yesterday.",
    "We crossed the 10k signup milestone yesterday."
   ],
   "source": "normal-03.txt"
@@ -6404,8 +6404,8 @@
   "category": "status",
   "input": "i'm blocked until design sends the mockups",
   "ideal": [
-   "I'm blocked until Design sends the mockups.",
-   "I'm blocked until Design sends over the mockups.",
+   "I wanted to let you know that I'm blocked until Design sends the mockups.",
+   "Heads-up: I'm blocked until Design sends over the mockups.",
    "I'm blocked pending the mockups from Design."
   ],
   "source": "normal-03.txt"
@@ -6416,8 +6416,8 @@
   "category": "status",
   "input": "the vendor missed the deadline again",
   "ideal": [
-   "The vendor missed the deadline again.",
-   "The vendor missed the deadline again.",
+   "Unfortunately, the supplier missed the deadline again.",
+   "Quick heads-up: the partner missed the due date once again.",
    "The vendor missed the deadline again."
   ],
   "source": "normal-03.txt"
@@ -6428,7 +6428,7 @@
   "category": "status",
   "input": "we're over budget by $40k",
   "ideal": [
-   "We're over budget by $40k.",
+   "Unfortunately, we're over budget by $40k.",
    "We're $40k over budget.",
    "We're running $40k over budget."
   ],
@@ -6440,8 +6440,8 @@
   "category": "status",
   "input": "onboarding for the new hires is done",
   "ideal": [
-   "Onboarding for the new hires is done.",
-   "Onboarding for the new hires is complete.",
+   "I wanted to let you know that onboarding for the new hires is done.",
+   "Quick heads-up: onboarding for the new hires is complete.",
    "Onboarding for the new hires is complete."
   ],
   "source": "normal-03.txt"
@@ -6452,7 +6452,7 @@
   "category": "status",
   "input": "I pushed the fix but haven't tested it",
   "ideal": [
-   "I pushed the fix, but I haven't tested it yet.",
+   "I wanted to let you know that I pushed the fix, but I haven't tested it yet.",
    "I've pushed the fix, but it hasn't been tested yet.",
    "I've pushed the fix, but testing is still outstanding."
   ],
@@ -6464,8 +6464,8 @@
   "category": "status",
   "input": "we lost the Hooli deal",
   "ideal": [
-   "We lost the Hooli deal.",
-   "We lost the Hooli deal.",
+   "Unfortunately, we lost the Hooli deal.",
+   "Quick heads-up: we lost the Hooli deal.",
    "We did not win the Hooli deal."
   ],
   "source": "normal-03.txt"
@@ -6476,7 +6476,7 @@
   "category": "status",
   "input": "support queue is at 300 tickets and climbing",
   "ideal": [
-   "The support queue is at 300 tickets and climbing.",
+   "I wanted to let you know that the support queue is at 300 tickets and climbing.",
    "The support queue is at 300 tickets and growing.",
    "The support queue is at 300 tickets and trending up."
   ],
@@ -6502,7 +6502,7 @@
   "ideal": [
    "The contract is signed, and kickoff is Nov 3.",
    "The contract is signed, and kickoff is set for Nov 3.",
-   "The contract is executed, and kickoff is set for Nov 3."
+   "Thinking out loud as a servant leader: The contract is executed, and kickoff is set for Nov 3. Let's keep the momentum going."
   ],
   "source": "normal-03.txt"
  },
@@ -6524,8 +6524,8 @@
   "category": "status",
   "input": "we're on track for the 15th",
   "ideal": [
-   "We're on track for the 15th.",
-   "We're on track for the 15th.",
+   "I wanted to let you know that we're on track for the 15th.",
+   "Quick heads-up: we're on track for the 15th.",
    "We're on track to deliver on the 15th."
   ],
   "source": "normal-03.txt"
@@ -6560,7 +6560,7 @@
   "category": "pushback",
   "input": "I disagree, the data says the opposite",
   "ideal": [
-   "I disagree. The data says the opposite.",
+   "I see it differently. The data says the opposite.",
    "I see it differently. The data points the other way.",
    "I'd offer a different view. The data points in the opposite direction."
   ],
@@ -6572,8 +6572,8 @@
   "category": "pushback",
   "input": "that's not what we agreed on",
   "ideal": [
-   "That's not what we agreed on.",
-   "That's not what we agreed to.",
+   "I don't think that's what we agreed on.",
+   "My two cents: I don't think that's what we agreed to.",
    "That doesn't match what we aligned on."
   ],
   "source": "normal-04.txt"
@@ -6584,7 +6584,7 @@
   "category": "pushback",
   "input": "we shouldn't launch on a Friday",
   "ideal": [
-   "We shouldn't launch on a Friday.",
+   "I don't think we should launch on a Friday.",
    "I'd recommend we don't launch on a Friday.",
    "I'd recommend we avoid a Friday launch."
   ],
@@ -6608,7 +6608,7 @@
   "category": "pushback",
   "input": "I think you're wrong about the pricing",
   "ideal": [
-   "I think you're wrong about the pricing.",
+   "I think you're mistaken about the pricing.",
    "I see the pricing differently.",
    "I'd like to offer a different perspective on the pricing."
   ],
@@ -6620,7 +6620,7 @@
   "category": "pushback",
   "input": "this is the third time we've changed the requirements",
   "ideal": [
-   "This is the third time we've changed the requirements.",
+   "I wanted to let you know that this is the third time we've changed the requirements.",
    "This is the third time the requirements have changed.",
    "This is the third time the requirements have shifted."
   ],
@@ -6656,7 +6656,7 @@
   "category": "pushback",
   "input": "why are we building this, nobody asked for it",
   "ideal": [
-   "Why are we building this? Nobody asked for it.",
+   "Could you help me understand why we are building this? I don't think anyone asked for it.",
    "Could you help me understand why we're building this? I haven't seen customer demand for it.",
    "Can we revisit the rationale for this build? I haven't seen customer demand for it."
   ],
@@ -6668,7 +6668,7 @@
   "category": "pushback",
   "input": "we tried that last year and it failed",
   "ideal": [
-   "We tried that last year and it failed.",
+   "I wanted to let you know that we tried that last year and it failed.",
    "We tried that last year, and it didn't work.",
    "We piloted that last year, and it didn't deliver."
   ],
@@ -6680,7 +6680,7 @@
   "category": "pushback",
   "input": "your numbers don't add up",
   "ideal": [
-   "Your numbers don't add up.",
+   "Your figures don't make sense.",
    "I'm having trouble making the numbers add up.",
    "The numbers don't seem to reconcile."
   ],
@@ -6692,7 +6692,7 @@
   "category": "pushback",
   "input": "stop changing the scope",
   "ideal": [
-   "Please stop changing the scope.",
+   "Could you please stop changing the scope?",
    "We need to stop changing the scope.",
    "We need to lock the scope."
   ],
@@ -6704,7 +6704,7 @@
   "category": "pushback",
   "input": "I don't have time for this",
   "ideal": [
-   "I don't have time for this.",
+   "Unfortunately, I don't have time for this.",
    "I don't have the bandwidth for this.",
    "I don't have the bandwidth to take this on."
   ],
@@ -6752,7 +6752,7 @@
   "category": "pushback",
   "input": "the old design was better",
   "ideal": [
-   "The old design was better.",
+   "I wanted to let you know that the old design was better.",
    "I think the old design worked better.",
    "I believe the previous design performed better."
   ],
@@ -6764,7 +6764,7 @@
   "category": "pushback",
   "input": "no one is going to use this feature",
   "ideal": [
-   "No one is going to use this feature.",
+   "I don't think anyone is going to use this feature.",
    "I don't think anyone will use this feature.",
    "I don't see adoption for this feature."
   ],
@@ -6776,9 +6776,9 @@
   "category": "pushback",
   "input": "we need more than 2 days to test",
   "ideal": [
-   "We need more than 2 days to test.",
+   "I think we'll need more than 2 days to test.",
    "We'll need more than 2 days for testing.",
-   "We'll need more than 2 days for testing."
+   "Putting on my visionary hat: We'll need more than 2 days for testing. Onward and upward."
   ],
   "source": "normal-04.txt"
  },
@@ -6788,7 +6788,7 @@
   "category": "vent",
   "input": "I'm so tired of these meetings. They could have been emails.",
   "ideal": [
-   "I'm really tired of these meetings. They could have been emails.",
+   "I'm really fed up with these catch-ups. They could have been emails.",
    "These meetings are wearing me down. Many of them could have been emails.",
    "These meetings are draining my bandwidth. Many could have been handled via email."
   ],
@@ -6824,7 +6824,7 @@
   "category": "vent",
   "input": "the new tool is slower than the old one and everyone hates it",
   "ideal": [
-   "The new tool is slower than the old one, and everyone dislikes it.",
+   "I wanted to let you know that the new tool is slower than the old one, and everyone dislikes it.",
    "The new tool is slower than the old one, and the team isn't happy with it.",
    "The new tool is slower than the legacy one, and adoption sentiment is negative."
   ],
@@ -6836,7 +6836,7 @@
   "category": "vent",
   "input": "i stayed till 9 last night fixing someone else's mess",
   "ideal": [
-   "I stayed until 9 last night fixing someone else's mistakes.",
+   "I wanted to let you know that I stayed until 9 last night fixing someone else's slips.",
    "I stayed until 9 last night cleaning up an issue I didn't create.",
    "I worked until 9 last night remediating an issue that originated elsewhere."
   ],
@@ -6848,7 +6848,7 @@
   "category": "vent",
   "input": "My manager keeps moving my 1:1 and then forgets it",
   "ideal": [
-   "My manager keeps moving my 1:1 and then forgets it.",
+   "I wanted to let you know that my manager keeps moving my 1:1 and then forgets it.",
    "My 1:1 keeps getting rescheduled and then missed.",
    "My 1:1 keeps getting rescheduled and then dropped."
   ],
@@ -6860,8 +6860,8 @@
   "category": "vent",
   "input": "we got a 2% raise and the CEO got a yacht",
   "ideal": [
-   "We got a 2% raise and the CEO got a yacht.",
-   "We got a 2% raise while the CEO bought a yacht.",
+   "I wanted to let you know that we got a 2% raise and the CEO got a yacht.",
+   "Quick heads-up: we got a 2% raise while the CEO bought a yacht.",
    "We received a 2% raise while the CEO acquired a yacht."
   ],
   "source": "normal-04.txt"
@@ -6884,7 +6884,7 @@
   "category": "vent",
   "input": "Every week there's a new priority and nothing gets finished",
   "ideal": [
-   "Every week there's a new priority, and nothing gets finished.",
+   "I wanted to let you know that every week there's a new priority, and nothing gets completed.",
    "Priorities change every week, so nothing gets finished.",
    "Priorities shift every week, so nothing gets to completion."
   ],
@@ -6896,7 +6896,7 @@
   "category": "vent",
   "input": "The client yelled at me on the call for something that wasn't my fault",
   "ideal": [
-   "The client yelled at me on the call for something that wasn't my fault.",
+   "I wanted to let you know that the client yelled at me on the call for something that wasn't my fault.",
    "The client was very harsh with me on the call about something outside my control.",
    "The client escalated aggressively with me on the call over something outside my control."
   ],
@@ -6908,8 +6908,8 @@
   "category": "vent",
   "input": "I've asked IT three times to fix my laptop. Still broken.",
   "ideal": [
-   "I've asked IT three times to fix my laptop. It's still broken.",
-   "I've asked IT three times to fix my laptop, and it's still broken.",
+   "I wanted to let you know that I've asked IT three times to fix my laptop. It's still broken.",
+   "Heads-up: I've asked IT three times to address my laptop, and it's still broken.",
    "I've raised my laptop issue with IT three times, and it's still unresolved."
   ],
   "source": "normal-04.txt"
@@ -6920,7 +6920,7 @@
   "category": "vent",
   "input": "open office is so loud I can't think",
   "ideal": [
-   "The open office is so loud that I can't think.",
+   "Unfortunately, the open office is so loud that I'm unable to think.",
    "The open office is too loud for me to focus.",
    "The open office noise level is impacting my ability to focus."
   ],
@@ -6932,7 +6932,7 @@
   "category": "vent",
   "input": "we keep hiring managers but no one to do the actual work",
   "ideal": [
-   "We keep hiring managers, but no one to do the actual work.",
+   "I wanted to let you know that we keep hiring managers, but no one to do the actual work.",
    "We keep adding managers, but not the people who do the hands-on work.",
    "We keep adding management layers, but not individual contributor capacity."
   ],
@@ -6968,7 +6968,7 @@
   "category": "sarcasm",
   "input": "oh great, another reorg",
   "ideal": [
-   "Oh great, another reorg.",
+   "Wonderful, another reorg.",
    "Oh, wonderful, another reorg.",
    "How exciting, another reorg."
   ],
@@ -6982,7 +6982,7 @@
   "ideal": [
    "Love that for us.",
    "Love that for us.",
-   "Love that for us."
+   "Speaking as a steward of our north star: I love that for us."
   ],
   "source": "normal-04.txt"
  },
@@ -6993,7 +6993,7 @@
   "input": "wow, a pizza party instead of raises, how generous",
   "ideal": [
    "Wow, a pizza party instead of raises. How generous.",
-   "A pizza party instead of raises. How generous.",
+   "Quick heads-up: a pizza party instead of raises. How generous.",
    "A pizza party in lieu of raises. How generous."
   ],
   "source": "normal-04.txt"
@@ -7004,8 +7004,8 @@
   "category": "sarcasm",
   "input": "sure, I'll just work 3 jobs, no problem",
   "ideal": [
-   "Sure, I'll just work 3 jobs, no problem.",
-   "Sure, I'll just handle 3 jobs, no problem.",
+   "Of course, I'll just work 3 jobs, no problem.",
+   "Happy to, I'll just handle 3 jobs, no problem.",
    "Sure, I'll just absorb 3 roles, no problem."
   ],
   "source": "normal-04.txt"
@@ -7016,7 +7016,7 @@
   "category": "sarcasm",
   "input": "can't wait for the 7am meeting tomorrow",
   "ideal": [
-   "Can't wait for the 7am meeting tomorrow.",
+   "I can't wait for the 7am catch-up tomorrow.",
    "Really looking forward to the 7am meeting tomorrow.",
    "Truly looking forward to tomorrow's 7am meeting."
   ],
@@ -7028,8 +7028,8 @@
   "category": "sarcasm",
   "input": "nothing says teamwork like a 40 person reply-all",
   "ideal": [
-   "Nothing says teamwork like a 40-person reply-all.",
-   "Nothing says teamwork like a 40-person reply-all.",
+   "I wanted to let you know that nothing says teamwork like a 40-person reply-all.",
+   "Quick heads-up: nothing says teamwork like a 40-person reply-all.",
    "Nothing says collaboration like a 40-person reply-all."
   ],
   "source": "normal-04.txt"
@@ -7040,7 +7040,7 @@
   "category": "sarcasm",
   "input": "thanks for the last minute heads up, super helpful",
   "ideal": [
-   "Thanks for the last-minute heads up. Super helpful.",
+   "Thank you for the last-minute heads up. Really helpful.",
    "Thanks for the last-minute notice. Very helpful.",
    "Thank you for the last-minute notice. Extremely helpful."
   ],
@@ -7052,7 +7052,7 @@
   "category": "sarcasm",
   "input": "oh good, the printer's broken. shocking.",
   "ideal": [
-   "Oh good, the printer's broken. Shocking.",
+   "Wonderful, the printer's broken. Shocking.",
    "Oh good, the printer is broken. What a surprise.",
    "Oh good, the printer is down. What a surprise."
   ],
@@ -7064,8 +7064,8 @@
   "category": "sarcasm",
   "input": "yeah because that worked so well last time",
   "ideal": [
-   "Yeah, because that worked so well last time.",
-   "Sure, because that worked so well last time.",
+   "Sounds good, because that worked so well last time.",
+   "Of course, because that worked so well last time.",
    "Sure, because that delivered so well last time."
   ],
   "source": "normal-04.txt"
@@ -7076,7 +7076,7 @@
   "category": "sarcasm",
   "input": "another \"quick\" call that's an hour long, amazing",
   "ideal": [
-   "Another \"quick\" call that's an hour long. Amazing.",
+   "I wanted to let you know that Another \"quick\" call that's an hour long. Really good.",
    "Another \"quick\" call that runs an hour. Amazing.",
    "Another \"quick\" sync that runs an hour. Amazing."
   ],
@@ -7100,7 +7100,7 @@
   "category": "sarcasm",
   "input": "perfect, the deploy broke on a friday at 5",
   "ideal": [
-   "Perfect, the deploy broke on a Friday at 5.",
+   "Wonderful, the deploy broke on a Friday at 5.",
    "Perfect, the deploy broke at 5 on a Friday.",
    "Perfect, the deploy failed at 5 on a Friday."
   ],
@@ -7112,7 +7112,7 @@
   "category": "sarcasm",
   "input": "I love being told about deadlines after they pass",
   "ideal": [
-   "I love being told about deadlines after they pass.",
+   "I really like being told about deadlines after they pass.",
    "It's great finding out about deadlines after they've passed.",
    "It's great to learn about deadlines after they've passed."
   ],
@@ -7126,7 +7126,7 @@
   "ideal": [
    "Ah yes, the annual \"we're a family\" email.",
    "Ah yes, the annual \"we're a family\" email.",
-   "Ah yes, the annual \"we're a family\" email."
+   "Leaning into radical transparency: Ah yes, the annual \"we're a family\" email. Let's move the needle."
   ],
   "source": "normal-04.txt"
  },
@@ -7137,7 +7137,7 @@
   "input": "cool, so we're doing the thing we said we'd never do",
   "ideal": [
    "Cool, so we're doing the thing we said we'd never do.",
-   "Okay, so we're doing the thing we said we'd never do.",
+   "I'm aligned, so we're doing the thing we said we'd never do.",
    "Understood, so we're doing the thing we said we'd never do."
   ],
   "source": "normal-04.txt"
@@ -7148,7 +7148,7 @@
   "category": "crude",
   "input": "this meeting is a fucking waste of time",
   "ideal": [
-   "This meeting is a waste of time.",
+   "This catch-up is a waste of time.",
    "This meeting isn't a good use of our time.",
    "This meeting isn't a productive use of our bandwidth."
   ],
@@ -7162,7 +7162,7 @@
   "ideal": [
    "Who scheduled this at 6am?",
    "Who scheduled this for 6am?",
-   "Who scheduled this for 6am?"
+   "Putting on my visionary hat: Who scheduled this for 6am? Let's move the needle."
   ],
   "source": "normal-05.txt"
  },
@@ -7172,8 +7172,8 @@
   "category": "crude",
   "input": "Kevin's code is shit and I have to fix it again",
   "ideal": [
-   "Kevin's code has problems, and I have to fix it again.",
-   "Kevin's code needs work, and I have to fix it again.",
+   "It looks like Kevin's code has issues, and I have to fix it again.",
+   "Quick heads-up: Kevin's code needs work, and I have to address it once again.",
    "Kevin's code has quality gaps, and I need to remediate it again."
   ],
   "source": "normal-05.txt"
@@ -7209,7 +7209,7 @@
   "input": "holy shit we actually shipped it",
   "ideal": [
    "Wow, we actually shipped it.",
-   "Wow, we actually shipped it!",
+   "Wow, we genuinely shipped it!",
    "Wow, we actually shipped it. Huge milestone!"
   ],
   "source": "normal-05.txt"
@@ -7269,7 +7269,7 @@
   "input": "what the fuck happened to the staging environment",
   "ideal": [
    "What happened to the staging environment?",
-   "What happened to the staging environment?",
+   "Quick question: what happened to the staging environment?",
    "What happened to the staging environment?"
   ],
   "source": "normal-05.txt"
@@ -7316,9 +7316,9 @@
   "category": "crude",
   "input": "damn, the demo crashed in front of the CEO",
   "ideal": [
-   "Ugh, the demo crashed in front of the CEO.",
+   "It looks like the demo crashed in front of the CEO.",
    "Unfortunately, the demo crashed in front of the CEO.",
-   "Unfortunately, the demo crashed in front of the CEO."
+   "From a thirty-thousand-foot view: Unfortunately, the demo crashed in front of the CEO."
   ],
   "source": "normal-05.txt"
  },
@@ -7330,7 +7330,7 @@
   "ideal": [
    "I deleted the production database.",
    "I accidentally deleted the production database.",
-   "I accidentally deleted the production database."
+   "Speaking as a steward of our north star: I accidentally deleted the production database."
   ],
   "source": "normal-05.txt"
  },
@@ -7388,7 +7388,7 @@
   "category": "crude",
   "input": "this spreadsheet is a goddamn nightmare",
   "ideal": [
-   "This spreadsheet is a nightmare.",
+   "I wanted to let you know that this spreadsheet is a nightmare.",
    "This spreadsheet is really hard to work with.",
    "This spreadsheet is a significant pain point."
   ],
@@ -7424,7 +7424,7 @@
   "category": "crude",
   "input": "i fucked up the invoice, sending a corrected one",
   "ideal": [
-   "I messed up the invoice. Sending a corrected one.",
+   "I made a mess of the invoice. Forwarding a corrected one.",
    "I made a mistake on the invoice. Sending a corrected one now.",
    "I made an error on the invoice. Sending a corrected version now."
   ],
@@ -7448,7 +7448,7 @@
   "category": "crude",
   "input": "wtf is this email from HR",
   "ideal": [
-   "What is this email from HR?",
+   "Could you let me know what this email from HR is?",
    "What is this email from HR about?",
    "Could someone clarify this email from HR?"
   ],
@@ -7460,7 +7460,7 @@
   "category": "crude",
   "input": "no fucking way we hit the target",
   "ideal": [
-   "No way, we hit the target!",
+   "Definitely not, we hit the target!",
    "Wow, we really hit the target!",
    "Incredible, we hit the target!"
   ],
@@ -7484,7 +7484,7 @@
   "category": "crude",
   "input": "Legal is cockblocking the whole deal",
   "ideal": [
-   "Legal is blocking the whole deal.",
+   "I wanted to let you know that legal is blocking the whole deal.",
    "Legal is holding up the whole deal.",
    "Legal is a blocker on the whole deal."
   ],
@@ -7508,7 +7508,7 @@
   "category": "crude",
   "input": "i don't know what the fuck I'm doing with this budget",
   "ideal": [
-   "I don't know what I'm doing with this budget.",
+   "I'm not sure what I'm doing with this budget.",
    "I'm not sure how to approach this budget.",
    "I need support on how to approach this budget."
   ],
@@ -7594,7 +7594,7 @@
   "ideal": [
    "The train is cancelled again.",
    "Unfortunately, the train is cancelled again.",
-   "Unfortunately, the train is cancelled again."
+   "Leaning into radical transparency: Unfortunately, the train is cancelled yet again."
   ],
   "source": "normal-05.txt"
  },
@@ -7604,7 +7604,7 @@
   "category": "crude",
   "input": "shit, I forgot the 3pm",
   "ideal": [
-   "I forgot the 3pm.",
+   "I lost track of the 3pm.",
    "I'm sorry, I forgot the 3pm.",
    "Apologies, the 3pm slipped my mind."
   ],
@@ -7628,7 +7628,7 @@
   "category": "crude",
   "input": "this is a clusterfuck, nobody knows who owns what",
   "ideal": [
-   "This is a mess. Nobody knows who owns what.",
+   "I think this is a mess. I don't think anyone knows who owns what.",
    "This is chaotic. Nobody knows who owns what.",
    "This is a cross-functional misalignment event. Ownership is unclear."
   ],
@@ -7640,9 +7640,9 @@
   "category": "polite",
   "input": "thanks so much for jumping on that call last minute",
   "ideal": [
-   "Thanks so much for jumping on that call last minute.",
+   "Thank you so much for jumping on that call last minute.",
    "Thank you for joining that call on short notice.",
-   "Thank you for joining that call on short notice."
+   "From a thirty-thousand-foot view: Huge thanks for joining that call on short notice."
   ],
   "source": "normal-05.txt"
  },
@@ -7652,7 +7652,7 @@
   "category": "polite",
   "input": "great job on the presentation today!",
   "ideal": [
-   "Great job on the presentation today!",
+   "Great work on the presentation today!",
    "Great job on today's presentation!",
    "Outstanding work on today's presentation!"
   ],
@@ -7666,7 +7666,7 @@
   "ideal": [
    "I really appreciate you covering for me yesterday.",
    "Thank you for covering for me yesterday.",
-   "Thank you for covering for me yesterday."
+   "Putting on my visionary hat: Huge thanks for covering for me yesterday. Let's keep the momentum going."
   ],
   "source": "normal-05.txt"
  },
@@ -7676,8 +7676,8 @@
   "category": "polite",
   "input": "welcome to the team Aisha!",
   "ideal": [
-   "Welcome to the team, Aisha!",
-   "Welcome to the team, Aisha!",
+   "Welcome aboard, Aisha!",
+   "Welcome to the squad, Aisha!",
    "Welcome to the team, Aisha!"
   ],
   "source": "normal-05.txt"
@@ -7688,8 +7688,8 @@
   "category": "polite",
   "input": "congrats on the promotion, well deserved",
   "ideal": [
-   "Congrats on the promotion. Well deserved.",
    "Congratulations on the promotion. Well deserved.",
+   "Huge congratulations on the promotion! Well deserved.",
    "Congratulations on the promotion. Very well deserved."
   ],
   "source": "normal-05.txt"
@@ -7702,7 +7702,7 @@
   "ideal": [
    "Happy Friday, everyone.",
    "Happy Friday, everyone.",
-   "Happy Friday, everyone."
+   "Quick strategic download: Happy Friday, everyone. Let's keep the momentum going."
   ],
   "source": "normal-05.txt"
  },
@@ -7712,7 +7712,7 @@
   "category": "polite",
   "input": "sorry for the slow reply, it's been a week",
   "ideal": [
-   "Sorry for the slow reply. It's been a busy week.",
+   "Apologies for the slow reply. It's been a tied up week.",
    "Apologies for the delayed reply. It's been a busy week.",
    "Apologies for the delayed response. It's been a high-volume week."
   ],
@@ -7726,7 +7726,7 @@
   "ideal": [
    "Thank you for your patience while we sort this out.",
    "Thank you for your patience while we work through this.",
-   "Thank you for your patience while we work through this."
+   "For full visibility: Huge thanks for your patience while we work through this."
   ],
   "source": "normal-05.txt"
  },
@@ -7749,7 +7749,7 @@
   "input": "hope you're feeling better",
   "ideal": [
    "Hope you're feeling better.",
-   "I hope you're feeling better.",
+   "Heads-up: I hope you're feeling better.",
    "I hope you're feeling better."
   ],
   "source": "normal-05.txt"
@@ -7760,8 +7760,8 @@
   "category": "polite",
   "input": "good luck on your last day, we'll miss you",
   "ideal": [
-   "Good luck on your last day. We'll miss you.",
    "Best of luck on your last day. We'll miss you.",
+   "Quick heads-up: Best of luck on your last day. We'll miss you.",
    "Best of luck on your last day. You'll be missed."
   ],
   "source": "normal-05.txt"
@@ -7772,7 +7772,7 @@
   "category": "polite",
   "input": "thanks everyone, great quarter",
   "ideal": [
-   "Thanks, everyone. Great quarter.",
+   "Thank you, everyone. Great quarter.",
    "Thank you, everyone. It was a great quarter.",
    "Thank you, everyone. A strong quarter."
   ],
@@ -7784,7 +7784,7 @@
   "category": "polite",
   "input": "happy to help anytime",
   "ideal": [
-   "Happy to help anytime.",
+   "I'm happy to help anytime.",
    "Always happy to help.",
    "Always happy to support."
   ],
@@ -7798,7 +7798,7 @@
   "ideal": [
    "That spreadsheet really saved me.",
    "Your spreadsheet was a huge help.",
-   "Your spreadsheet was a huge help."
+   "Thinking out loud as a servant leader: Your single source of truth was a huge help. Let's keep the momentum going."
   ],
   "source": "normal-05.txt"
  },
@@ -7808,8 +7808,8 @@
   "category": "polite",
   "input": "nice catch on that bug",
   "ideal": [
-   "Nice catch on that bug.",
-   "Great catch on that bug.",
+   "Good catch on that issue.",
+   "Great catch on that defect.",
    "Great catch on that bug."
   ],
   "source": "normal-05.txt"
@@ -7820,7 +7820,7 @@
   "category": "typos-slang-emoji",
   "input": "cant find teh file u sent",
   "ideal": [
-   "I can't find the file you sent.",
+   "Unfortunately, I'm unable to find the file you sent.",
    "I can't find the file you sent. Could you resend it?",
    "I'm unable to locate the file you sent. Could you resend it?"
   ],
@@ -7832,7 +7832,7 @@
   "category": "typos-slang-emoji",
   "input": "gonna be l8 sry",
   "ideal": [
-   "I'm going to be late, sorry.",
+   "Apologies, I'm running a bit behind.",
    "Apologies, I'm going to be late.",
    "Apologies, I'll be running behind."
   ],
@@ -7844,7 +7844,7 @@
   "category": "typos-slang-emoji",
   "input": "thx for the help today ur the best 🙏",
   "ideal": [
-   "Thanks for the help today. You're the best 🙏",
+   "Thank you for the assist today. You're the best.",
    "Thank you for your help today. Really appreciate it 🙏",
    "Thank you for your support today. Truly appreciated 🙏"
   ],
@@ -7894,7 +7894,7 @@
   "ideal": [
    "The deadline is tomorrow and I'm a bit stressed 😅",
    "The deadline is tomorrow, and I'm feeling the pressure 😅",
-   "The deadline is tomorrow, and I'm feeling the pressure 😅"
+   "For full visibility: The hard stop is tomorrow, and I'm feeling the pressure."
   ],
   "source": "normal-06.txt"
  },
@@ -7904,9 +7904,9 @@
   "category": "typos-slang-emoji",
   "input": "can u hop on a quick call rn",
   "ideal": [
-   "Can you hop on a quick call now?",
+   "Could you hop on a quick call now?",
    "Could you join a quick call now?",
-   "Could you join a quick call now?"
+   "Speaking as a steward of our north star: Do you have the bandwidth to join a quick call now?"
   ],
   "source": "normal-06.txt"
  },
@@ -7940,8 +7940,8 @@
   "category": "typos-slang-emoji",
   "input": "we're cooked if this doesn't ship by friday",
   "ideal": [
-   "We're in trouble if this doesn't ship by Friday.",
-   "We're in real trouble if this doesn't ship by Friday.",
+   "I wanted to let you know that we're in trouble if this doesn't ship by Friday.",
+   "Quick heads-up: we're in real trouble if this doesn't ship by Friday.",
    "We face significant risk if this doesn't ship by Friday."
   ],
   "source": "normal-06.txt"
@@ -7976,9 +7976,9 @@
   "category": "typos-slang-emoji",
   "input": "ok so the api is borked again",
   "ideal": [
-   "Okay, so the API is broken again.",
+   "Sounds good, so the API is down again.",
    "Okay, the API is down again.",
-   "Okay, the API is down again."
+   "Speaking as a steward of our north star: That's a green light from me, the API is down yet again. Let's lean in."
   ],
   "source": "normal-06.txt"
  },
@@ -7990,7 +7990,7 @@
   "ideal": [
    "I received the contract and will review it tonight.",
    "I've received the contract and will review it tonight.",
-   "I've received the contract and will review it tonight."
+   "Big picture: I've received the contract and will review it tonight."
   ],
   "source": "normal-06.txt"
  },
@@ -8000,7 +8000,7 @@
   "category": "typos-slang-emoji",
   "input": "the vibes in that meeting were off",
   "ideal": [
-   "The mood in that meeting felt off.",
+   "The mood in that catch-up felt off.",
    "The energy in that meeting felt off.",
    "The energy in that meeting felt misaligned."
   ],
@@ -8036,9 +8036,9 @@
   "category": "typos-slang-emoji",
   "input": "this ticket has been open since march smh",
   "ideal": [
-   "This ticket has been open since March.",
+   "I wanted to let you know that this ticket has been open since March.",
    "This ticket has been open since March, which is frustrating.",
-   "This ticket has been open since March, which is concerning."
+   "Thinking out loud as a servant leader: This ticket has been open since March, which is concerning. Let's lean in."
   ],
   "source": "normal-06.txt"
  },
@@ -8048,7 +8048,7 @@
   "category": "typos-slang-emoji",
   "input": "fr this is the best sprint we've had",
   "ideal": [
-   "Honestly, this is the best sprint we've had.",
+   "Frankly, this is the best sprint we've had.",
    "Honestly, this has been our best sprint.",
    "Candidly, this has been our strongest sprint."
   ],
@@ -8060,7 +8060,7 @@
   "category": "typos-slang-emoji",
   "input": "lmaooo the CEO replied all",
   "ideal": [
-   "The CEO replied all.",
+   "I wanted to let you know that the CEO replied all.",
    "Funny enough, the CEO replied all.",
    "Noting that the CEO replied all."
   ],
@@ -8084,7 +8084,7 @@
   "category": "typos-slang-emoji",
   "input": "who moved my stapler again 😤",
   "ideal": [
-   "Who moved my stapler again? 😤",
+   "Could you let me know who moved my stapler again?",
    "Has anyone seen my stapler? It's been moved again 😤",
    "Has anyone seen my stapler? It's been relocated again 😤"
   ],
@@ -8120,7 +8120,7 @@
   "category": "typos-slang-emoji",
   "input": "srry wrong chat",
   "ideal": [
-   "Sorry, wrong chat.",
+   "Apologies, wrong chat.",
    "Sorry, that was meant for a different chat.",
    "Apologies, that was meant for a different channel."
   ],
@@ -8132,7 +8132,7 @@
   "category": "typos-slang-emoji",
   "input": "finna grab lunch, want anything",
   "ideal": [
-   "I'm going to grab lunch. Want anything?",
+   "I'm going to get lunch. Want anything?",
    "I'm heading out to grab lunch. Would you like anything?",
    "I'm heading out for lunch. Would you like anything?"
   ],
@@ -8144,7 +8144,7 @@
   "category": "typos-slang-emoji",
   "input": "this bug is driving me insane",
   "ideal": [
-   "This bug is driving me crazy.",
+   "This issue is really frustrating me.",
    "This bug is really frustrating.",
    "This bug is a significant pain point."
   ],
@@ -8156,7 +8156,7 @@
   "category": "typos-slang-emoji",
   "input": "yall the snacks are back!!! 🎉",
   "ideal": [
-   "The snacks are back! 🎉",
+   "I wanted to let you know that the snacks are back!",
    "Good news, the snacks are back! 🎉",
    "Great news, everyone, the snacks are back! 🎉"
   ],
@@ -8168,7 +8168,7 @@
   "category": "typos-slang-emoji",
   "input": "ya I can take that ticket",
   "ideal": [
-   "Yes, I can take that ticket.",
+   "Sounds good, I can take that ticket.",
    "Yes, I can pick up that ticket.",
    "Yes, I can take ownership of that ticket."
   ],
@@ -8180,7 +8180,7 @@
   "category": "typos-slang-emoji",
   "input": "hes been afk all day",
   "ideal": [
-   "He's been away all day.",
+   "I wanted to let you know that He's been away all day.",
    "He's been away from his desk all day.",
    "He's been offline all day."
   ],
@@ -8218,7 +8218,7 @@
   "ideal": [
    "FYI, the meeting has moved to 3.",
    "FYI, the meeting has been moved to 3.",
-   "FYI, the meeting has been moved to 3."
+   "Speaking as a steward of our north star: FYI, the sync has been moved to 3."
   ],
   "source": "normal-06.txt"
  },
@@ -8228,8 +8228,8 @@
   "category": "typos-slang-emoji",
   "input": "do u have a sec",
   "ideal": [
-   "Do you have a second?",
-   "Do you have a moment?",
+   "Do you happen to have a second?",
+   "Quick question: do you have a moment?",
    "Do you have a moment?"
   ],
   "source": "normal-06.txt"
@@ -8240,8 +8240,8 @@
   "category": "list",
   "input": "For tomorrow:\n- finish the slides\n- email Lena about the venue\n- book the room for 10am",
   "ideal": [
-   "For tomorrow:\n- finish the slides\n- email Lena about the venue\n- book the room for 10am",
-   "For tomorrow:\n- finalize the slides\n- email Lena about the venue\n- book the room for 10am",
+   "Here's what's on for tomorrow:\n- Finish the slides\n- Email Lena about the venue\n- Book the room for 10am",
+   "Action items for tomorrow:\n- Finalize the slides\n- Email Lena about the venue\n- Book the space for 10am",
    "Priorities for tomorrow:\n- finalize the slide deck\n- reach out to Lena about the venue\n- secure the room for 10am"
   ],
   "source": "normal-06.txt"
@@ -8252,7 +8252,7 @@
   "category": "list",
   "input": "things that are broken:\n- login\n- search\n- the export button",
   "ideal": [
-   "Things that are broken:\n- login\n- search\n- the export button",
+   "Here's what's broken:\n- Login\n- Search\n- The export button",
    "Current issues:\n- login\n- search\n- the export button",
    "Current open issues:\n- login\n- search\n- the export button"
   ],
@@ -8264,8 +8264,8 @@
   "category": "list",
   "input": "before we launch:\n1. fix the payment bug\n2. update the FAQ\n3. tell support",
   "ideal": [
-   "Before we launch:\n1. Fix the payment bug\n2. Update the FAQ\n3. Tell Support",
-   "Before we launch:\n1. Fix the payment bug\n2. Update the FAQ\n3. Brief Support",
+   "Here's what's on before we launch:\n1. Fix the payment issue\n2. Refresh the FAQ\n3. Tell Support",
+   "Action items before we launch:\n1. Fix the payment defect\n2. Refresh the FAQ\n3. Brief Support",
    "Pre-launch action items:\n1. Remediate the payment bug\n2. Update the FAQ\n3. Brief Support"
   ],
   "source": "normal-06.txt"
@@ -8288,8 +8288,8 @@
   "category": "list",
   "input": "what I need from you:\n- the budget numbers\n- the headcount plan\n- an answer on the vendor",
   "ideal": [
-   "What I need from you:\n- the budget numbers\n- the headcount plan\n- an answer on the vendor",
-   "What I need from you:\n- the budget numbers\n- the headcount plan\n- a decision on the vendor",
+   "What I need from you:\n- The budget figures\n- The headcount plan\n- An answer on the supplier",
+   "What I need from you:\n- The budget figures\n- The headcount plan\n- A decision on the supplier",
    "Asks from my side:\n- the budget numbers\n- the headcount plan\n- a decision on the vendor"
   ],
   "source": "normal-06.txt"
@@ -8300,8 +8300,8 @@
   "category": "list",
   "input": "agenda: 1) Q3 numbers 2) hiring 3) the office move",
   "ideal": [
-   "Agenda: 1) Q3 numbers 2) hiring 3) the office move",
-   "Agenda: 1) Q3 numbers 2) hiring 3) the office move",
+   "Here's the agenda: 1) Q3 figures 2) hiring 3) the office move.",
+   "Agenda items: 1) Q3 metrics 2) hiring 3) the office move.",
    "Agenda: 1) Q3 performance 2) hiring 3) the office move"
   ],
   "source": "normal-06.txt"
@@ -8324,7 +8324,7 @@
   "category": "list",
   "input": "Done:\n- API docs\n- unit tests\nNot done:\n- the dashboard",
   "ideal": [
-   "Done:\n- API docs\n- unit tests\nNot done:\n- the dashboard",
+   "Completed:\n- API docs\n- Unit tests\nNot done:\n- The dashboard",
    "Completed:\n- API docs\n- unit tests\nStill open:\n- the dashboard",
    "Completed:\n- API docs\n- unit tests\nOutstanding:\n- the dashboard"
   ],
@@ -8336,7 +8336,7 @@
   "category": "list",
   "input": "reasons we should not use this vendor:\n- they missed every deadline\n- they cost 2x more\n- their support is awful",
   "ideal": [
-   "Reasons we shouldn't use this vendor:\n- they missed every deadline\n- they cost 2x more\n- their support is poor",
+   "Reasons we shouldn't use this supplier:\n- They missed every deadline\n- They cost 2x more\n- Their support is poor",
    "Concerns about this vendor:\n- they missed every deadline\n- they cost 2x more\n- their support is poor",
    "Risks with this vendor:\n- they missed every deadline\n- they cost 2x more\n- their support is underperforming"
   ],
@@ -8348,9 +8348,9 @@
   "category": "list",
   "input": "TODO: call Ben, fix the typo on page 3, send the contract to Rosa",
   "ideal": [
-   "To do: call Ben, fix the typo on page 3, send the contract to Rosa.",
-   "To do: call Ben, fix the typo on page 3 and send the contract to Rosa.",
-   "Action items: call Ben, fix the typo on page 3 and send the contract to Rosa."
+   "Still to do: call Ben, fix the typo on page 3, send the contract to Rosa.",
+   "Action items: call Ben, address the typo on page 3 and send the contract to Rosa.",
+   "Action items: call Ben, remediate the typo on page 3 and circulate the contract to Rosa."
   ],
   "source": "normal-06.txt"
  },
@@ -8360,7 +8360,7 @@
   "category": "deadline-blocker",
   "input": "we're not going to make the Friday deadline",
   "ideal": [
-   "We're not going to make the Friday deadline.",
+   "Unfortunately, we're not going to make the Friday deadline.",
    "We won't be able to hit the Friday deadline.",
    "We won't be able to deliver by the Friday deadline."
   ],
@@ -8372,8 +8372,8 @@
   "category": "deadline-blocker",
   "input": "I need two more days",
   "ideal": [
-   "I need two more days.",
-   "I'll need two more days.",
+   "I wanted to let you know that I need two more days.",
+   "Heads-up: I'll need two more days.",
    "I'll need two more days to deliver."
   ],
   "source": "normal-07.txt"
@@ -8384,8 +8384,8 @@
   "category": "deadline-blocker",
   "input": "can we push the launch to next month?",
   "ideal": [
-   "Can we push the launch to next month?",
    "Could we move the launch to next month?",
+   "Could we move the go-live to next month?",
    "Could we realign the launch to next month?"
   ],
   "source": "normal-07.txt"
@@ -8396,7 +8396,7 @@
   "category": "deadline-blocker",
   "input": "this is blocked on legal, nothing I can do",
   "ideal": [
-   "This is blocked on Legal, and there's nothing I can do.",
+   "I wanted to let you know that this is blocked on Legal, and there's nothing I can do.",
    "This is blocked on Legal, and it's out of my hands.",
    "This is blocked on Legal, and it's outside my control."
   ],
@@ -8432,7 +8432,7 @@
   "category": "deadline-blocker",
   "input": "it'll be done when it's done",
   "ideal": [
-   "It'll be done when it's done.",
+   "I wanted to let you know that It'll be done when it's done.",
    "It'll be done as soon as it's ready.",
    "It will be delivered when it's ready."
   ],
@@ -8445,7 +8445,7 @@
   "input": "I can have it by Wednesday, not before",
   "ideal": [
    "I can have it by Wednesday, not before.",
-   "I can have it ready by Wednesday, but not before.",
+   "Heads-up: I can have it ready by Wednesday, but not before.",
    "I can deliver it by Wednesday, but not earlier."
   ],
   "source": "normal-07.txt"
@@ -8468,8 +8468,8 @@
   "category": "deadline-blocker",
   "input": "we need a decision today or we lose the slot",
   "ideal": [
-   "We need a decision today or we lose the slot.",
-   "We need a decision today, or we'll lose the slot.",
+   "I think we'll need a decision today or we lose the slot.",
+   "Flagging that we'll need a decision today, or we'll lose the slot.",
    "We need a decision today, or we'll lose the slot."
   ],
   "source": "normal-07.txt"
@@ -8480,8 +8480,8 @@
   "category": "deadline-blocker",
   "input": "the release is on hold until the security fix lands",
   "ideal": [
-   "The release is on hold until the security fix lands.",
-   "The release is paused until the security fix lands.",
+   "I wanted to let you know that the release is on hold until the security fix lands.",
+   "Quick heads-up: the release is paused until the security fix lands.",
    "The release is paused pending the security fix."
   ],
   "source": "normal-07.txt"
@@ -8492,7 +8492,7 @@
   "category": "deadline-blocker",
   "input": "I can do fast or cheap, pick one",
   "ideal": [
-   "I can do it fast or cheap. Pick one.",
+   "I can do it fast or affordable. I'd suggest we pick one.",
    "I can do this fast or cheap, but not both.",
    "We can optimize for speed or cost, but not both."
   ],
@@ -8504,8 +8504,8 @@
   "category": "deadline-blocker",
   "input": "the report will be a day late",
   "ideal": [
-   "The report will be a day late.",
-   "The report will be a day behind.",
+   "It looks like the report will be a day late.",
+   "Flagging that the report will be a day behind.",
    "The report will be delivered a day late."
   ],
   "source": "normal-07.txt"
@@ -8516,7 +8516,7 @@
   "category": "deadline-blocker",
   "input": "we're waiting on the client to send data, been 2 weeks",
   "ideal": [
-   "We're waiting on the client to send data. It's been 2 weeks.",
+   "I wanted to let you know that we're waiting on the client to send data. It's been 2 weeks.",
    "We've been waiting on the client's data for 2 weeks.",
    "We've been pending the client's data for 2 weeks."
   ],
@@ -8528,7 +8528,7 @@
   "category": "deadline-blocker",
   "input": "nobody told me this was due today",
   "ideal": [
-   "Nobody told me this was due today.",
+   "I wanted to let you know that nobody told me this was due today.",
    "I wasn't told this was due today.",
    "I didn't have visibility that this was due today."
   ],
@@ -8540,7 +8540,7 @@
   "category": "feedback",
   "input": "your slides had too much text",
   "ideal": [
-   "Your slides had too much text.",
+   "I wanted to let you know that your slides had too much text.",
    "Your slides were a bit text-heavy.",
    "Your slides were text-heavy."
   ],
@@ -8552,7 +8552,7 @@
   "category": "feedback",
   "input": "you keep interrupting people in meetings",
   "ideal": [
-   "You keep interrupting people in meetings.",
+   "You keep interrupting folks in catch-ups.",
    "I've noticed you often interrupt people in meetings.",
    "I've noticed a pattern of interrupting others in meetings."
   ],
@@ -8564,7 +8564,7 @@
   "category": "feedback",
   "input": "the report was good but way too long",
   "ideal": [
-   "The report was good, but much too long.",
+   "I think the report was good, but much too long.",
    "The report was strong, but it ran long.",
    "The report was strong, but there's an opportunity to tighten it."
   ],
@@ -8576,7 +8576,7 @@
   "category": "feedback",
   "input": "you need to respond faster to customers",
   "ideal": [
-   "You need to respond faster to customers.",
+   "It would help if you could respond faster to customers.",
    "Please respond to customers more quickly.",
    "Please improve response times with customers."
   ],
@@ -8589,7 +8589,7 @@
   "input": "great work, but please test before pushing",
   "ideal": [
    "Great work, but please test before pushing.",
-   "Great work. Please test before pushing.",
+   "Great work. Quick ask: could you please test before pushing?",
    "Great work. Please make sure to test before pushing."
   ],
   "source": "normal-07.txt"
@@ -8612,7 +8612,7 @@
   "category": "feedback",
   "input": "you were rude to the vendor yesterday",
   "ideal": [
-   "You were rude to the vendor yesterday.",
+   "You were rude to the supplier yesterday.",
    "You came across as rude to the vendor yesterday.",
    "Your tone with the vendor yesterday came across as harsh."
   ],
@@ -8624,7 +8624,7 @@
   "category": "feedback",
   "input": "I loved how you handled that angry customer",
   "ideal": [
-   "I loved how you handled that angry customer.",
+   "I loved how you handled that upset customer.",
    "You handled that upset customer really well.",
    "You handled that escalated customer exceptionally well."
   ],
@@ -8636,7 +8636,7 @@
   "category": "feedback",
   "input": "stop showing up late to standup",
   "ideal": [
-   "Please stop showing up late to standup.",
+   "Could you please stop showing up late to standup?",
    "Please be on time for standup.",
    "Please make sure to join standup on time."
   ],
@@ -8672,7 +8672,7 @@
   "category": "feedback",
   "input": "this proposal needs a lot more work",
   "ideal": [
-   "This proposal needs a lot more work.",
+   "I wanted to let you know that this proposal needs a lot more work.",
    "This proposal needs significant work.",
    "This proposal needs significant iteration."
   ],
@@ -8684,7 +8684,7 @@
   "category": "feedback",
   "input": "please stop taking credit for my work",
   "ideal": [
-   "Please stop taking credit for my work.",
+   "Could you please stop taking credit for my work?",
    "Please make sure my work is credited to me.",
    "Please ensure my contributions are attributed to me."
   ],
@@ -8708,8 +8708,8 @@
   "category": "feedback",
   "input": "the email you sent the client had 3 typos",
   "ideal": [
-   "The email you sent the client had 3 typos.",
-   "The email you sent the client had 3 typos.",
+   "I wanted to let you know that the email you sent the client had 3 typos.",
+   "Quick heads-up: the email you sent the client had 3 typos.",
    "The email you sent the client had 3 typos."
   ],
   "source": "normal-07.txt"
@@ -8720,7 +8720,7 @@
   "category": "customer",
   "input": "sorry, that's not something we support",
   "ideal": [
-   "Sorry, that's not something we support.",
+   "Apologies, that's not something we support.",
    "Unfortunately, that isn't something we support.",
    "Unfortunately, that isn't something we currently support."
   ],
@@ -8732,8 +8732,8 @@
   "category": "customer",
   "input": "your order shipped today and should arrive Thursday",
   "ideal": [
-   "Your order shipped today and should arrive Thursday.",
-   "Your order shipped today and should arrive Thursday.",
+   "I wanted to let you know that your order shipped today and should arrive Thursday.",
+   "Quick heads-up: your order shipped today and should arrive Thursday.",
    "Your order shipped today and is expected to arrive Thursday."
   ],
   "source": "normal-07.txt"
@@ -8744,7 +8744,7 @@
   "category": "customer",
   "input": "we can't refund you after 30 days",
   "ideal": [
-   "We can't refund you after 30 days.",
+   "Unfortunately, we cannot refund you after 30 days.",
    "We're unable to offer a refund after 30 days.",
    "We're unable to process refunds after 30 days."
   ],
@@ -8756,7 +8756,7 @@
   "category": "customer",
   "input": "the outage was our fault, we're sorry",
   "ideal": [
-   "The outage was our fault, and we're sorry.",
+   "Apologies, the outage was our fault, and we're.",
    "The outage was our fault, and we apologize.",
    "The outage was on us, and we sincerely apologize."
   ],
@@ -8768,8 +8768,8 @@
   "category": "customer",
   "input": "we fixed the bug you reported",
   "ideal": [
-   "We fixed the bug you reported.",
-   "We've fixed the bug you reported.",
+   "We repaired the bug you reported.",
+   "Flagging that we've repaired the defect you reported.",
    "We've remediated the bug you reported."
   ],
   "source": "normal-07.txt"
@@ -8780,7 +8780,7 @@
   "category": "customer",
   "input": "we're raising prices by 10% in January",
   "ideal": [
-   "We're raising prices by 10% in January.",
+   "We'll be raising prices by 10% in January.",
    "Our prices will increase by 10% in January.",
    "Our pricing will increase by 10% in January."
   ],
@@ -8805,7 +8805,7 @@
   "input": "you were charged twice, I've refunded the second one",
   "ideal": [
    "You were charged twice, and I've refunded the second charge.",
-   "You were charged twice, and I've refunded the duplicate charge.",
+   "Quick heads-up: you were charged twice, and I've refunded the duplicate charge.",
    "You were charged twice, and the duplicate charge has been refunded."
   ],
   "source": "normal-07.txt"
@@ -8817,7 +8817,7 @@
   "input": "we don't have a date for that feature yet",
   "ideal": [
    "We don't have a date for that feature yet.",
-   "We don't have a release date for that feature yet.",
+   "Quick heads-up: we don't have a release date for that feature yet.",
    "We don't have a committed date for that feature yet."
   ],
   "source": "normal-07.txt"
@@ -8828,8 +8828,8 @@
   "category": "customer",
   "input": "your trial ends tomorrow",
   "ideal": [
-   "Your trial ends tomorrow.",
-   "Your trial ends tomorrow.",
+   "I wanted to let you know that your trial ends tomorrow.",
+   "Quick heads-up: your trial ends tomorrow.",
    "Your trial period ends tomorrow."
   ],
   "source": "normal-07.txt"
@@ -8840,9 +8840,9 @@
   "category": "customer",
   "input": "this is a known issue, we're working on it",
   "ideal": [
-   "This is a known issue, and we're working on it.",
+   "It looks like this is a known issue, and we're working on it.",
    "This is a known issue, and we're working on a fix.",
-   "This is a known issue, and we're actively working on a fix."
+   "Leaning into radical transparency: This is a known pain point, and we're actively spearheading a remediation."
   ],
   "source": "normal-07.txt"
  },
@@ -8852,7 +8852,7 @@
   "category": "customer",
   "input": "no, we can't do a custom build for free",
   "ideal": [
-   "No, we can't do a custom build for free.",
+   "No, we cannot do a custom build for free.",
    "Unfortunately, we can't offer a custom build at no cost.",
    "Unfortunately, we're unable to offer a custom build at no cost."
   ],
@@ -8864,7 +8864,7 @@
   "category": "customer",
   "input": "please stop calling our CEO directly",
   "ideal": [
-   "Please stop calling our CEO directly.",
+   "Could you please stop calling our CEO directly?",
    "Please don't contact our CEO directly.",
    "Please route requests through your account team rather than our CEO."
   ],
@@ -8876,7 +8876,7 @@
   "category": "customer",
   "input": "we lost your ticket, so sorry, can you resend",
   "ideal": [
-   "We lost your ticket. So sorry. Can you resend it?",
+   "Unfortunately, we lost your ticket. Very sorry. Could you resend it?",
    "We lost your ticket, and we're very sorry. Could you resend it?",
    "We misplaced your ticket, and we sincerely apologize. Could you resend it?"
   ],
@@ -8888,8 +8888,8 @@
   "category": "customer",
   "input": "thanks for being a customer for 5 years!",
   "ideal": [
-   "Thanks for being a customer for 5 years!",
-   "Thank you for being a customer for 5 years!",
+   "Thank you for being a customer for 5 years.",
+   "Really appreciate you being a client for 5 years.",
    "Thank you for 5 years as a valued customer!"
   ],
   "source": "normal-07.txt"
@@ -8912,7 +8912,7 @@
   "category": "run-on",
   "input": "the vendor said monday then tuesday then they stopped answering and now it's thursday and we still don't have the parts",
   "ideal": [
-   "The vendor said Monday, then Tuesday, then stopped answering. It's now Thursday and we still don't have the parts.",
+   "I wanted to let you know that the supplier said Monday, then Tuesday, then stopped answering. It's now Thursday and we still don't have the parts.",
    "The vendor promised Monday, then Tuesday, then went quiet. It's Thursday and we still don't have the parts.",
    "The vendor committed to Monday, then Tuesday, then went unresponsive. It's Thursday and the parts still haven't arrived."
   ],
@@ -8936,7 +8936,7 @@
   "category": "run-on",
   "input": "I told them it would break and they didn't listen and it broke",
   "ideal": [
-   "I told them it would break. They didn't listen, and it broke.",
+   "I wanted to let you know that I told them it would break. They didn't listen, and it broke.",
    "I flagged that it would break. The warning wasn't acted on, and it broke.",
    "I flagged the risk that it would break. It wasn't actioned, and it broke."
   ],
@@ -8948,8 +8948,8 @@
   "category": "run-on",
   "input": "we had a great call with Northwind they want a demo next week and they asked about pricing for 200 seats",
   "ideal": [
-   "We had a great call with Northwind. They want a demo next week and asked about pricing for 200 seats.",
-   "We had a great call with Northwind. They'd like a demo next week and asked about pricing for 200 seats.",
+   "I wanted to let you know that we had a great call with Northwind. They want a demo next week and asked about pricing for 200 seats.",
+   "Quick heads-up: we had a great call with Northwind. They'd like a demo next week and asked about pricing for 200 seats.",
    "We had a strong call with Northwind. They've requested a demo next week and asked about pricing for 200 seats."
   ],
   "source": "normal-08.txt"
@@ -8960,7 +8960,7 @@
   "category": "run-on",
   "input": "can you look at the doc and tell me if it makes sense because I've read it so many times I can't tell anymore",
   "ideal": [
-   "Can you look at the doc and tell me if it makes sense? I've read it so many times I can't tell anymore.",
+   "Could you look at the doc and tell me if it makes sense? I've read it so many times I'm unable to tell anymore.",
    "Could you review the doc and let me know if it makes sense? I've read it so many times I can't tell anymore.",
    "Could you review the doc and confirm it lands? I've read it so many times I've lost perspective."
   ],
@@ -8972,7 +8972,7 @@
   "category": "rant",
   "input": "I'm going to be honest. This project has been a disaster from day one. The scope changed four times, we lost two engineers, and leadership still expects the original date. I can't keep working 60 hour weeks.",
   "ideal": [
-   "I'll be honest. This project has gone badly from day one. The scope changed four times, we lost two engineers, and leadership still expects the original date. I can't keep working 60-hour weeks.",
+   "I'll be honest. This project has gone badly from day one. The scope changed four times, we lost two engineers, and leadership still expects the original date. I'm unable to keep working 60-hour weeks.",
    "I want to be candid. This project has struggled from day one. The scope changed four times, we lost two engineers, and leadership still expects the original date. I'm not able to sustain 60-hour weeks.",
    "I want to be fully transparent. This initiative has faced headwinds from day one. Scope shifted four times, we lost two engineers, and leadership still expects the original date. 60-hour weeks are not sustainable for me."
   ],
@@ -9044,7 +9044,7 @@
   "category": "rant",
   "input": "Can we talk about how the \"optional\" training is mandatory, scheduled during our busiest week, and three hours long? Because nobody asked us.",
   "ideal": [
-   "Can we talk about the \"optional\" training? It's mandatory, scheduled in our busiest week and three hours long, and nobody asked us.",
+   "Could we discuss the \"optional\" training? It's mandatory, scheduled in our busiest week and three hours long, and nobody asked us.",
    "Could we discuss the \"optional\" training? It's effectively mandatory, falls in our busiest week, and runs three hours, and we weren't consulted.",
    "Could we discuss the \"optional\" training? It's effectively mandatory, lands in our peak week, runs three hours, and the team wasn't consulted."
   ],
@@ -9068,8 +9068,8 @@
   "category": "numbers-names-dates",
   "input": "Marcus needs the Q3 forecast by Oct 15",
   "ideal": [
-   "Marcus needs the Q3 forecast by Oct 15.",
-   "Marcus needs the Q3 forecast by Oct 15.",
+   "I wanted to let you know that Marcus needs the Q3 forecast by Oct 15.",
+   "Quick heads-up: Marcus needs the Q3 forecast by Oct 15.",
    "Marcus needs the Q3 forecast by Oct 15."
   ],
   "source": "normal-08.txt"
@@ -9092,8 +9092,8 @@
   "category": "numbers-names-dates",
   "input": "Sofia and Wei are out until the 9th",
   "ideal": [
-   "Sofia and Wei are out until the 9th.",
-   "Sofia and Wei are out of office until the 9th.",
+   "I wanted to let you know that Sofia and Wei are out until the 9th.",
+   "Flagging that Sofia and Wei are out of office until the 9th.",
    "Sofia and Wei are out of office until the 9th."
   ],
   "source": "normal-08.txt"
@@ -9104,8 +9104,8 @@
   "category": "numbers-names-dates",
   "input": "conversion dropped from 4.2% to 3.1% after the redesign",
   "ideal": [
-   "Conversion dropped from 4.2% to 3.1% after the redesign.",
-   "Conversion fell from 4.2% to 3.1% after the redesign.",
+   "I wanted to let you know that conversion dropped from 4.2% to 3.1% after the redesign.",
+   "Quick heads-up: conversion fell from 4.2% to 3.1% after the redesign.",
    "Conversion declined from 4.2% to 3.1% post-redesign."
   ],
   "source": "normal-08.txt"
@@ -9116,8 +9116,8 @@
   "category": "numbers-names-dates",
   "input": "the board meeting moved from the 12th to the 19th",
   "ideal": [
-   "The board meeting moved from the 12th to the 19th.",
-   "The board meeting has moved from the 12th to the 19th.",
+   "The board catch-up moved from the 12th to the 19th.",
+   "Quick heads-up: the board catch-up has moved from the 12th to the 19th.",
    "The board meeting has been moved from the 12th to the 19th."
   ],
   "source": "normal-08.txt"
@@ -9128,8 +9128,8 @@
   "category": "numbers-names-dates",
   "input": "Ana closed the $250k Contoso deal!!",
   "ideal": [
-   "Ana closed the $250k Contoso deal!",
-   "Ana closed the $250k Contoso deal!",
+   "I wanted to let you know that Ana closed the $250k Contoso deal!",
+   "Quick heads-up: Ana closed the $250k Contoso deal!",
    "Ana closed the $250k Contoso deal, a major win!"
   ],
   "source": "normal-08.txt"
@@ -9140,8 +9140,8 @@
   "category": "numbers-names-dates",
   "input": "we have 3 open roles and 140 applicants",
   "ideal": [
-   "We have 3 open roles and 140 applicants.",
-   "We have 3 open roles and 140 applicants.",
+   "I wanted to let you know that we have 3 open roles and 140 applicants.",
+   "Quick heads-up: we have 3 open roles and 140 applicants.",
    "We have 3 open roles and 140 applicants in the pipeline."
   ],
   "source": "normal-08.txt"
@@ -9152,9 +9152,9 @@
   "category": "numbers-names-dates",
   "input": "the 9:30 with Dr. Patel is cancelled",
   "ideal": [
-   "The 9:30 with Dr. Patel is cancelled.",
+   "I wanted to let you know that the 9:30 with Dr. Patel is cancelled.",
    "The 9:30 with Dr. Patel has been cancelled.",
-   "The 9:30 with Dr. Patel has been cancelled."
+   "For full visibility: The 9:30 with Dr. Patel has been cancelled. Let's move the needle."
   ],
   "source": "normal-08.txt"
  },
@@ -9164,9 +9164,9 @@
   "category": "numbers-names-dates",
   "input": "uptime was 99.2% last month, SLA is 99.9",
   "ideal": [
-   "Uptime was 99.2% last month, and the SLA is 99.9.",
+   "I wanted to let you know that Uptime was 99.2% last month, and the SLA is 99.9.",
    "Uptime was 99.2% last month, below the 99.9 SLA.",
-   "Uptime was 99.2% last month, below the 99.9 SLA."
+   "For full visibility: Uptime was 99.2% last month, below the 99.9 SLA."
   ],
   "source": "normal-08.txt"
  },
@@ -9176,8 +9176,8 @@
   "category": "numbers-names-dates",
   "input": "Jamal starts Monday, can someone set up his laptop",
   "ideal": [
-   "Jamal starts Monday. Can someone set up his laptop?",
    "Jamal starts Monday. Could someone set up his laptop?",
+   "Quick heads-up: Jamal starts Monday. Could someone set up his laptop?",
    "Jamal starts Monday. Could someone set up his laptop?"
   ],
   "source": "normal-08.txt"
@@ -9188,8 +9188,8 @@
   "category": "numbers-names-dates",
   "input": "the 2025 budget is 15% smaller",
   "ideal": [
-   "The 2025 budget is 15% smaller.",
-   "The 2025 budget is 15% smaller.",
+   "I wanted to let you know that the 2025 budget is 15% smaller.",
+   "Quick heads-up: the 2025 budget is 15% smaller.",
    "The 2025 budget is 15% smaller."
   ],
   "source": "normal-08.txt"
@@ -9200,8 +9200,8 @@
   "category": "numbers-names-dates",
   "input": "ticket #4821 is still open after 3 weeks",
   "ideal": [
-   "Ticket #4821 is still open after 3 weeks.",
-   "Ticket #4821 is still open after 3 weeks.",
+   "I wanted to let you know that ticket #4821 is still open after 3 weeks.",
+   "Quick heads-up: ticket #4821 is still open after 3 weeks.",
    "Ticket #4821 is still unresolved after 3 weeks."
   ],
   "source": "normal-08.txt"
@@ -9212,8 +9212,8 @@
   "category": "numbers-names-dates",
   "input": "Lisa from Finance said we can spend up to $5k",
   "ideal": [
-   "Lisa from Finance said we can spend up to $5k.",
-   "Lisa from Finance confirmed we can spend up to $5k.",
+   "I wanted to let you know that Lisa from Finance said we can spend up to $5k.",
+   "Quick heads-up: Lisa from Finance confirmed we can spend up to $5k.",
    "Lisa from Finance confirmed a spend ceiling of $5k."
   ],
   "source": "normal-08.txt"
@@ -9224,8 +9224,8 @@
   "category": "numbers-names-dates",
   "input": "we need 6 more engineers to hit the March date",
   "ideal": [
-   "We need 6 more engineers to hit the March date.",
-   "We'll need 6 more engineers to hit the March date.",
+   "I think we'll need 6 more engineers to hit the March date.",
+   "Quick heads-up: we'll need 6 more engineers to hit the March date.",
    "We'll need 6 additional engineers to hit the March date."
   ],
   "source": "normal-08.txt"
@@ -9238,7 +9238,7 @@
   "ideal": [
    "Call with the Tokyo office at 7am PST Thursday.",
    "There's a call with the Tokyo office at 7am PST on Thursday.",
-   "There's a sync with the Tokyo office at 7am PST on Thursday."
+   "For full visibility: There's a sync with the Tokyo office at 7am PST on Thursday."
   ],
   "source": "normal-08.txt"
  },
@@ -9248,8 +9248,8 @@
   "category": "numbers-names-dates",
   "input": "we're at 87% of quota with 2 weeks left",
   "ideal": [
-   "We're at 87% of quota with 2 weeks left.",
-   "We're at 87% of quota with 2 weeks left.",
+   "I wanted to let you know that we're at 87% of quota with 2 weeks left.",
+   "Quick heads-up: we're at 87% of quota with 2 weeks left.",
    "We're at 87% of quota with 2 weeks remaining."
   ],
   "source": "normal-08.txt"
@@ -9260,9 +9260,9 @@
   "category": "numbers-names-dates",
   "input": "Chris said no to the budget increase",
   "ideal": [
-   "Chris said no to the budget increase.",
+   "I wanted to let you know that Chris said no to the budget increase.",
    "Chris declined the budget increase.",
-   "Chris declined the budget increase."
+   "For full visibility: Chris declined the budget increase."
   ],
   "source": "normal-08.txt"
  },
@@ -9272,8 +9272,8 @@
   "category": "numbers-names-dates",
   "input": "the server bill is $3,200 a month and we use maybe 10% of it",
   "ideal": [
-   "The server bill is $3,200 a month, and we use about 10% of it.",
-   "The server bill is $3,200 a month, and we use roughly 10% of it.",
+   "I wanted to let you know that the server bill is $3,200 a month, and we use about 10% of it.",
+   "Quick heads-up: the server bill is $3,200 a month, and we leverage roughly 10% of it.",
    "The server bill is $3,200 a month, with roughly 10% utilization."
   ],
   "source": "normal-08.txt"
@@ -9296,8 +9296,8 @@
   "category": "numbers-names-dates",
   "input": "the conference is May 6-8 in Chicago, 4 of us are going",
   "ideal": [
-   "The conference is May 6-8 in Chicago, and 4 of us are going.",
-   "The conference is May 6-8 in Chicago, and 4 of us are attending.",
+   "I wanted to let you know that the conference is May 6-8 in Chicago, and 4 of us are going.",
+   "Quick heads-up: the conference is May 6-8 in Chicago, and 4 of us are attending.",
    "The conference is May 6-8 in Chicago, and 4 of us are attending."
   ],
   "source": "normal-08.txt"
@@ -9308,8 +9308,8 @@
   "category": "numbers-names-dates",
   "input": "we got 47 complaints about the update in 2 days",
   "ideal": [
-   "We got 47 complaints about the update in 2 days.",
-   "We received 47 complaints about the update in 2 days.",
+   "I wanted to let you know that we got 47 complaints about the refresh in 2 days.",
+   "Quick heads-up: we received 47 complaints about the refresh in 2 days.",
    "We received 47 complaints about the update in 2 days."
   ],
   "source": "normal-08.txt"
@@ -9320,8 +9320,8 @@
   "category": "numbers-names-dates",
   "input": "Omar's demo is at 11, not 10",
   "ideal": [
-   "Omar's demo is at 11, not 10.",
-   "Omar's demo is at 11, not 10.",
+   "I wanted to let you know that Omar's demo is at 11, not 10.",
+   "Quick heads-up: Omar's demo is at 11, not 10.",
    "Omar's demo is at 11, not 10."
   ],
   "source": "normal-08.txt"
@@ -9332,7 +9332,7 @@
   "category": "numbers-names-dates",
   "input": "refund for order 55123 went through",
   "ideal": [
-   "The refund for order 55123 went through.",
+   "I wanted to let you know that the refund for order 55123 went through.",
    "The refund for order 55123 has gone through.",
    "The refund for order 55123 has been processed."
   ],
@@ -9344,8 +9344,8 @@
   "category": "numbers-names-dates",
   "input": "Elena wants to cut the team from 8 to 5",
   "ideal": [
-   "Elena wants to cut the team from 8 to 5.",
-   "Elena wants to reduce the team from 8 to 5.",
+   "I wanted to let you know that Elena wants to cut the team from 8 to 5.",
+   "Quick heads-up: Elena would like to reduce the squad from 8 to 5.",
    "Elena wants to reduce the team from 8 to 5."
   ],
   "source": "normal-08.txt"
@@ -9357,7 +9357,7 @@
   "input": "the move to the new office is Dec 1, pack your desks by Nov 28",
   "ideal": [
    "The move to the new office is Dec 1. Please pack your desks by Nov 28.",
-   "The move to the new office is Dec 1. Please pack your desks by Nov 28.",
+   "Quick heads-up: the move to the new office is Dec 1. Please pack your desks by Nov 28.",
    "The move to the new office is Dec 1. Please pack your desks by Nov 28."
   ],
   "source": "normal-08.txt"
@@ -9368,7 +9368,7 @@
   "category": "scheduling",
   "input": "can we do 30 min instead of an hour",
   "ideal": [
-   "Can we do 30 minutes instead of an hour?",
+   "Could we do 30 minutes instead of an hour?",
    "Could we make it 30 minutes instead of an hour?",
    "Could we condense this to 30 minutes instead of an hour?"
   ],
@@ -9380,8 +9380,8 @@
   "category": "scheduling",
   "input": "does tuesday at 2 work for you",
   "ideal": [
-   "Does Tuesday at 2 work for you?",
-   "Would Tuesday at 2 work for you?",
+   "Just to check, does Tuesday at 2 work for you?",
+   "Quick question: would Tuesday at 2 work for you?",
    "Would Tuesday at 2 work for you?"
   ],
   "source": "normal-09.txt"
@@ -9404,8 +9404,8 @@
   "category": "scheduling",
   "input": "let's move the retro to after lunch",
   "ideal": [
-   "Let's move the retro to after lunch.",
-   "Let's move the retro to after lunch.",
+   "I'd suggest we move the retro to after lunch.",
+   "My recommendation would be to move the retro to after lunch.",
    "Let's shift the retro to after lunch."
   ],
   "source": "normal-09.txt"
@@ -9416,7 +9416,7 @@
   "category": "scheduling",
   "input": "I'm free all afternoon if you want to talk",
   "ideal": [
-   "I'm free all afternoon if you want to talk.",
+   "I'm available all afternoon if you want to talk.",
    "I'm available all afternoon if you'd like to talk.",
    "I'm available all afternoon if you'd like to connect."
   ],
@@ -9453,7 +9453,7 @@
   "input": "I only have 15 minutes",
   "ideal": [
    "I only have 15 minutes.",
-   "I only have 15 minutes available.",
+   "Heads-up: I only have 15 minutes available.",
    "I only have a 15-minute window."
   ],
   "source": "normal-09.txt"
@@ -9464,8 +9464,8 @@
   "category": "scheduling",
   "input": "who's running the meeting today",
   "ideal": [
-   "Who's running the meeting today?",
-   "Who's leading the meeting today?",
+   "Could you let me know who's running the catch-up today?",
+   "Quick question: who's leading the sync today?",
    "Who's facilitating today's meeting?"
   ],
   "source": "normal-09.txt"
@@ -9476,8 +9476,8 @@
   "category": "scheduling",
   "input": "let's do this over slack instead",
   "ideal": [
-   "Let's do this over Slack instead.",
-   "Let's handle this over Slack instead.",
+   "I'd suggest we do this over Slack instead.",
+   "My recommendation would be to handle this over Slack instead.",
    "Let's take this async over Slack instead."
   ],
   "source": "normal-09.txt"
@@ -9524,9 +9524,9 @@
   "category": "hr-people",
   "input": "my coworker keeps making comments about my accent and it's not ok",
   "ideal": [
-   "My coworker keeps making comments about my accent, and it's not okay.",
+   "I wanted to let you know that my colleague keeps making comments about my accent, and it's not okay.",
    "A coworker keeps commenting on my accent, and it's not acceptable.",
-   "A coworker keeps commenting on my accent, and it's not acceptable."
+   "Quick strategic download: A valued stakeholder keeps commenting on my accent, and it's not acceptable."
   ],
   "source": "normal-09.txt"
  },
@@ -9548,7 +9548,7 @@
   "category": "hr-people",
   "input": "I got another offer, can we talk",
   "ideal": [
-   "I got another offer. Can we talk?",
+   "I got another offer. Could we talk?",
    "I've received another offer. Could we talk?",
    "I've received an external offer. Could we connect?"
   ],
@@ -9560,9 +9560,9 @@
   "category": "hr-people",
   "input": "I'm resigning, my last day is the 20th",
   "ideal": [
-   "I'm resigning, and my last day is the 20th.",
+   "I'll be resigning, and my last day is the 20th.",
    "I'm resigning, and my last day will be the 20th.",
-   "I'm resigning, and my last day will be the 20th."
+   "Quick strategic download: I'll be resigning, and my last day will be the 20th. Onward and upward."
   ],
   "source": "normal-09.txt"
  },
@@ -9596,7 +9596,7 @@
   "category": "hr-people",
   "input": "the interview candidate was great, let's hire her",
   "ideal": [
-   "The interview candidate was great. Let's hire her.",
+   "The interview candidate was great. I'd suggest we hire her.",
    "The candidate was excellent, and I recommend we hire her.",
    "The candidate was outstanding, and I recommend we extend an offer."
   ],
@@ -9620,9 +9620,9 @@
   "category": "money",
   "input": "the expense report got rejected again",
   "ideal": [
-   "My expense report got rejected again.",
+   "I wanted to let you know that my expense report got rejected again.",
    "My expense report was rejected again.",
-   "My expense report was rejected again."
+   "Big picture: My expense report was rejected yet again."
   ],
   "source": "normal-09.txt"
  },
@@ -9632,9 +9632,9 @@
   "category": "money",
   "input": "we can't afford a new CRM this year",
   "ideal": [
-   "We can't afford a new CRM this year.",
+   "Unfortunately, we cannot afford a new CRM this year.",
    "We don't have budget for a new CRM this year.",
-   "We don't have budget for a new CRM this year."
+   "For full visibility: We don't have budget for a new CRM this year. Onward and upward."
   ],
   "source": "normal-09.txt"
  },
@@ -9644,9 +9644,9 @@
   "category": "money",
   "input": "who's paying for the team dinner",
   "ideal": [
-   "Who's paying for the team dinner?",
+   "Could you let me know who's paying for the team dinner?",
    "Who's covering the team dinner?",
-   "Who's covering the team dinner?"
+   "In the spirit of radical candor: Who's covering the pod dinner? Let's keep the momentum going."
   ],
   "source": "normal-09.txt"
  },
@@ -9656,8 +9656,8 @@
   "category": "money",
   "input": "my reimbursement is 2 months late",
   "ideal": [
-   "My reimbursement is 2 months late.",
-   "My reimbursement is 2 months overdue.",
+   "It looks like my reimbursement is 2 months overdue.",
+   "Flagging that my reimbursement is 2 months overdue.",
    "My reimbursement is 2 months overdue."
   ],
   "source": "normal-09.txt"
@@ -9668,7 +9668,7 @@
   "category": "money",
   "input": "that software is $900 a seat, way too expensive",
   "ideal": [
-   "That software is $900 a seat, which is too expensive.",
+   "That software is $900 a seat, which is too pricey.",
    "That software is $900 a seat, which is too expensive for us.",
    "That software is $900 a seat, which is outside our budget."
   ],
@@ -9680,9 +9680,9 @@
   "category": "money",
   "input": "can I expense my home internet",
   "ideal": [
-   "Can I expense my home internet?",
+   "Could I expense my home internet?",
    "Am I able to expense my home internet?",
-   "Am I able to expense my home internet?"
+   "Big picture: Am I able to expense my home connectivity layer?"
   ],
   "source": "normal-09.txt"
  },
@@ -9692,8 +9692,8 @@
   "category": "money",
   "input": "we're saving $8k a month by dropping the old vendor",
   "ideal": [
-   "We're saving $8k a month by dropping the old vendor.",
-   "We're saving $8k a month by dropping the old vendor.",
+   "I wanted to let you know that we're saving $8k a month by dropping the old supplier.",
+   "Quick heads-up: we're saving $8k a month by dropping the old partner.",
    "We're unlocking $8k a month in savings by exiting the old vendor."
   ],
   "source": "normal-09.txt"
@@ -9716,8 +9716,8 @@
   "category": "remote-office",
   "input": "the office AC is broken again, it's 85 degrees",
   "ideal": [
-   "The office AC is broken again. It's 85 degrees.",
-   "The office AC is broken again, and it's 85 degrees.",
+   "It looks like the office AC is down again. It's 85 degrees.",
+   "Flagging that the office AC is in a degraded state once again, and it's 85 degrees.",
    "The office AC is down again, and it's 85 degrees."
   ],
   "source": "normal-09.txt"
@@ -9728,7 +9728,7 @@
   "category": "remote-office",
   "input": "I'm not coming in 5 days a week",
   "ideal": [
-   "I'm not coming in 5 days a week.",
+   "I won't be coming in 5 days a week.",
    "I won't be able to come in 5 days a week.",
    "I won't be able to commit to 5 days a week in the office."
   ],
@@ -9740,7 +9740,7 @@
   "category": "remote-office",
   "input": "can we stop booking the big room for 2 people",
   "ideal": [
-   "Can we stop booking the big room for 2 people?",
+   "Could we stop booking the big room for 2 folks?",
    "Could we avoid booking the large room for 2 people?",
    "Could we avoid booking the large room for 2-person meetings?"
   ],
@@ -9753,7 +9753,7 @@
   "input": "someone stole my lunch from the fridge",
   "ideal": [
    "Someone took my lunch from the fridge.",
-   "Someone took my lunch from the fridge.",
+   "Quick heads-up: someone took my lunch from the fridge.",
    "Someone took my lunch from the fridge."
   ],
   "source": "normal-09.txt"
@@ -9764,8 +9764,8 @@
   "category": "remote-office",
   "input": "the parking garage is full again",
   "ideal": [
-   "The parking garage is full again.",
-   "The parking garage is full again.",
+   "I wanted to let you know that the parking garage is full again.",
+   "Quick heads-up: the parking garage is full once again.",
    "The parking garage is at capacity again."
   ],
   "source": "normal-09.txt"
@@ -9776,7 +9776,7 @@
   "category": "remote-office",
   "input": "my camera is off because I'm eating",
   "ideal": [
-   "My camera is off because I'm eating.",
+   "I wanted to let you know that my camera is off because I'm eating.",
    "I have my camera off because I'm eating.",
    "My camera is off while I eat."
   ],
@@ -9788,8 +9788,8 @@
   "category": "remote-office",
   "input": "is anyone actually in the office today",
   "ideal": [
-   "Is anyone in the office today?",
-   "Is anyone in the office today?",
+   "Just to check, is anyone in the office today?",
+   "Quick question: is anyone in the office today?",
    "Is anyone on site today?"
   ],
   "source": "normal-09.txt"
@@ -9800,8 +9800,8 @@
   "category": "it-tech",
   "input": "my password expired and I'm locked out",
   "ideal": [
-   "My password expired and I'm locked out.",
-   "My password expired, and I'm locked out.",
+   "It looks like my password expired and I'm locked out.",
+   "Flagging that my password expired, and I'm locked out.",
    "My password expired, and I'm locked out."
   ],
   "source": "normal-09.txt"
@@ -9812,7 +9812,7 @@
   "category": "it-tech",
   "input": "the shared drive is out of space",
   "ideal": [
-   "The shared drive is out of space.",
+   "It looks like the shared drive is out of space.",
    "The shared drive is full.",
    "The shared drive is at capacity."
   ],
@@ -9836,8 +9836,8 @@
   "category": "it-tech",
   "input": "Zoom keeps crashing on my mac",
   "ideal": [
-   "Zoom keeps crashing on my Mac.",
-   "Zoom keeps crashing on my Mac.",
+   "It looks like zoom keeps crashing on my Mac.",
+   "Flagging that zoom keeps crashing on my Mac.",
    "Zoom keeps crashing on my Mac."
   ],
   "source": "normal-09.txt"
@@ -9848,7 +9848,7 @@
   "category": "it-tech",
   "input": "can we get a real password manager",
   "ideal": [
-   "Can we get a proper password manager?",
+   "Could we get a proper password manager?",
    "Could we get a proper password manager?",
    "Could we invest in an enterprise password manager?"
   ],
@@ -9873,7 +9873,7 @@
   "input": "prod is down",
   "ideal": [
    "Production is down.",
-   "Production is down.",
+   "Flagging that production is down.",
    "Production is down."
   ],
   "source": "normal-09.txt"
@@ -9885,7 +9885,7 @@
   "input": "who has the AWS root password",
   "ideal": [
    "Who has the AWS root password?",
-   "Who has the AWS root password?",
+   "Quick question: who has the AWS root password?",
    "Who has access to the AWS root password?"
   ],
   "source": "normal-09.txt"
@@ -9896,8 +9896,8 @@
   "category": "it-tech",
   "input": "the website is super slow on mobile",
   "ideal": [
-   "The website is very slow on mobile.",
-   "The website is really slow on mobile.",
+   "I wanted to let you know that the website is very slow on mobile.",
+   "My two cents: the website is truly slow on mobile.",
    "The website has significant latency on mobile."
   ],
   "source": "normal-09.txt"
@@ -9908,8 +9908,8 @@
   "category": "it-tech",
   "input": "I accidentally emailed the whole company",
   "ideal": [
-   "I accidentally emailed the whole company.",
-   "I accidentally emailed the entire company.",
+   "I wanted to let you know that I accidentally emailed the whole company.",
+   "Heads-up: I accidentally emailed the entire organization.",
    "I accidentally emailed the entire company."
   ],
   "source": "normal-09.txt"
@@ -9920,7 +9920,7 @@
   "category": "customer-sales",
   "input": "the customer wants a discount",
   "ideal": [
-   "The customer wants a discount.",
+   "I wanted to let you know that the customer wants a discount.",
    "The customer is asking for a discount.",
    "The customer is requesting a discount."
   ],
@@ -9932,7 +9932,7 @@
   "category": "customer-sales",
   "input": "they signed for 2 years!",
   "ideal": [
-   "They signed for 2 years!",
+   "I wanted to let you know that they signed for 2 years!",
    "They signed a 2-year contract!",
    "They signed a 2-year contract, a big win!"
   ],
@@ -9944,9 +9944,9 @@
   "category": "customer-sales",
   "input": "the prospect went with a competitor",
   "ideal": [
-   "The prospect went with a competitor.",
+   "I wanted to let you know that the prospect went with a competitor.",
    "The prospect chose a competitor.",
-   "The prospect chose a competitor."
+   "For full visibility: The prospect chose a competitor. Let's move the needle."
   ],
   "source": "normal-09.txt"
  },
@@ -9956,7 +9956,7 @@
   "category": "customer-sales",
   "input": "they want to cancel unless we fix the sync issue",
   "ideal": [
-   "They want to cancel unless we fix the sync issue.",
+   "I wanted to let you know that they want to cancel unless we fix the sync issue.",
    "They'll cancel unless we fix the sync issue.",
    "They intend to cancel unless we resolve the sync issue."
   ],
@@ -9968,8 +9968,8 @@
   "category": "customer-sales",
   "input": "the client asked for a call with someone senior",
   "ideal": [
-   "The client asked for a call with someone senior.",
-   "The client has asked for a call with someone senior.",
+   "I wanted to let you know that the client asked for a call with someone senior.",
+   "Quick heads-up: the client has asked for a call with someone senior.",
    "The client has requested a call with senior leadership."
   ],
   "source": "normal-09.txt"
@@ -9992,8 +9992,8 @@
   "category": "customer-sales",
   "input": "our biggest client is unhappy",
   "ideal": [
-   "Our biggest client is unhappy.",
-   "Our biggest client is unhappy.",
+   "I wanted to let you know that our biggest client is unhappy.",
+   "Quick heads-up: our biggest client is unhappy.",
    "Our largest client is dissatisfied."
   ],
   "source": "normal-09.txt"
@@ -10004,9 +10004,9 @@
   "category": "customer-sales",
   "input": "pipeline looks thin for next quarter",
   "ideal": [
-   "The pipeline looks thin for next quarter.",
+   "I wanted to let you know that the pipeline looks thin for next quarter.",
    "The pipeline looks light for next quarter.",
-   "The pipeline looks light for next quarter."
+   "Quick strategic download: The pipeline looks light for next quarter. Let's move the needle."
   ],
   "source": "normal-09.txt"
  },
@@ -10016,9 +10016,9 @@
   "category": "apology",
   "input": "sorry I missed your call",
   "ideal": [
-   "Sorry I missed your call.",
+   "Apologies, I missed your call.",
    "Apologies for missing your call.",
-   "Apologies for missing your call."
+   "Putting on my visionary hat: Apologies for missing your call."
   ],
   "source": "normal-10.txt"
  },
@@ -10040,7 +10040,7 @@
   "category": "apology",
   "input": "sorry for snapping at you in the meeting",
   "ideal": [
-   "Sorry for snapping at you in the meeting.",
+   "Apologies for snapping at you in the catch-up.",
    "I'm sorry for being short with you in the meeting.",
    "I apologize for being short with you in the meeting."
   ],
@@ -10052,7 +10052,7 @@
   "category": "apology",
   "input": "I completely forgot about your request, doing it now",
   "ideal": [
-   "I completely forgot about your request. Doing it now.",
+   "I wanted to let you know that I completely forgot about your request. Doing it now.",
    "I'm sorry, your request slipped my mind. I'm doing it now.",
    "Apologies, your request slipped through the cracks. I'm actioning it now."
   ],
@@ -10064,7 +10064,7 @@
   "category": "apology",
   "input": "sorry this took so long",
   "ideal": [
-   "Sorry this took so long.",
+   "Apologies, this took so long.",
    "Apologies for the delay on this.",
    "Apologies for the extended timeline on this."
   ],
@@ -10088,9 +10088,9 @@
   "category": "announcement",
   "input": "we're moving standup to 9:15 starting Monday",
   "ideal": [
-   "We're moving standup to 9:15 starting Monday.",
+   "We'll be moving standup to 9:15 starting Monday.",
    "Starting Monday, standup will move to 9:15.",
-   "Starting Monday, standup will move to 9:15."
+   "In the spirit of radical candor: Starting Monday, standup will move to 9:15."
   ],
   "source": "normal-10.txt"
  },
@@ -10100,9 +10100,9 @@
   "category": "announcement",
   "input": "the office is closed on the 4th",
   "ideal": [
-   "The office is closed on the 4th.",
+   "I wanted to let you know that the office is closed on the 4th.",
    "The office will be closed on the 4th.",
-   "The office will be closed on the 4th."
+   "Putting on my visionary hat: The workplace will be closed on the 4th."
   ],
   "source": "normal-10.txt"
  },
@@ -10112,7 +10112,7 @@
   "category": "announcement",
   "input": "new rule: no laptops in the planning meeting",
   "ideal": [
-   "New rule: no laptops in the planning meeting.",
+   "New rule: no laptops in the planning catch-up.",
    "New guideline: please no laptops in the planning meeting.",
    "New norm: no laptops in the planning meeting."
   ],
@@ -10124,7 +10124,7 @@
   "category": "announcement",
   "input": "Mei is the new team lead starting today",
   "ideal": [
-   "Mei is the new team lead starting today.",
+   "I wanted to let you know that Mei is the new team lead starting today.",
    "Mei is our new team lead as of today.",
    "Mei steps into the team lead role as of today."
   ],
@@ -10136,7 +10136,7 @@
   "category": "announcement",
   "input": "we're switching from Trello to Asana next month",
   "ideal": [
-   "We're switching from Trello to Asana next month.",
+   "We'll be switching from Trello to Asana next month.",
    "We'll be moving from Trello to Asana next month.",
    "We'll be migrating from Trello to Asana next month."
   ],
@@ -10149,7 +10149,7 @@
   "input": "holiday party is Dec 12, plus ones welcome",
   "ideal": [
    "The holiday party is Dec 12, and plus-ones are welcome.",
-   "The holiday party is on Dec 12, and plus-ones are welcome.",
+   "Quick heads-up: the holiday party is on Dec 12, and plus-ones are welcome.",
    "The holiday party is on Dec 12, and plus-ones are welcome."
   ],
   "source": "normal-10.txt"
@@ -10160,8 +10160,8 @@
   "category": "announcement",
   "input": "please submit timesheets by 5 on Friday",
   "ideal": [
-   "Please submit timesheets by 5 on Friday.",
-   "Please submit your timesheets by 5 on Friday.",
+   "Could you please submit timesheets by 5 on Friday?",
+   "Quick ask: could you please submit your timesheets by 5 on Friday?",
    "Please submit your timesheets by 5 on Friday."
   ],
   "source": "normal-10.txt"
@@ -10184,8 +10184,8 @@
   "category": "coordination",
   "input": "can you loop in Carlos",
   "ideal": [
-   "Can you loop in Carlos?",
    "Could you loop in Carlos?",
+   "Would you be able to loop in Carlos?",
    "Could you loop in Carlos?"
   ],
   "source": "normal-10.txt"
@@ -10196,8 +10196,8 @@
   "category": "coordination",
   "input": "who's taking notes",
   "ideal": [
-   "Who's taking notes?",
-   "Who's taking notes?",
+   "Could you let me know who's taking notes?",
+   "Quick question: who's taking notes?",
    "Who's capturing notes?"
   ],
   "source": "normal-10.txt"
@@ -10208,8 +10208,8 @@
   "category": "coordination",
   "input": "let's split the work 50/50",
   "ideal": [
-   "Let's split the work 50/50.",
-   "Let's divide the work 50/50.",
+   "I'd suggest we split the tasks 50/50.",
+   "My recommendation would be to divide the deliverables 50/50.",
    "Let's divide the work 50/50."
   ],
   "source": "normal-10.txt"
@@ -10220,7 +10220,7 @@
   "category": "coordination",
   "input": "ping me when it's deployed",
   "ideal": [
-   "Ping me when it's deployed.",
+   "Could you ping me when it's deployed?",
    "Please let me know when it's deployed.",
    "Please let me know once it's deployed."
   ],
@@ -10244,8 +10244,8 @@
   "category": "coordination",
   "input": "hand it off to Yuki when you're done",
   "ideal": [
-   "Hand it off to Yuki when you're done.",
-   "Please hand it off to Yuki when you're done.",
+   "Could you hand it off to Yuki when you're done?",
+   "Quick ask: could you please hand it off to Yuki when you're finished?",
    "Please hand it off to Yuki once you're done."
   ],
   "source": "normal-10.txt"
@@ -10257,7 +10257,7 @@
   "input": "let's sync tomorrow morning",
   "ideal": [
    "Let's talk tomorrow morning.",
-   "Let's sync tomorrow morning.",
+   "My recommendation would be to sync tomorrow morning.",
    "Let's sync tomorrow morning."
   ],
   "source": "normal-10.txt"
@@ -10282,7 +10282,7 @@
   "ideal": [
    "Shout-out to the support team for handling the outage.",
    "A big thank you to the support team for handling the outage.",
-   "A big thank you to the support team for managing the outage."
+   "In the spirit of radical candor: A big thank you to the support pod for managing the outage."
   ],
   "source": "normal-10.txt"
  },
@@ -10292,8 +10292,8 @@
   "category": "praise",
   "input": "this is the cleanest code I've seen all year",
   "ideal": [
-   "This is the cleanest code I've seen all year.",
-   "This is the cleanest code I've seen all year.",
+   "I wanted to let you know that this is the cleanest code I've seen all year.",
+   "Quick heads-up: this is the cleanest code I've seen all year.",
    "This is the cleanest code I've seen all year."
   ],
   "source": "normal-10.txt"
@@ -10304,8 +10304,8 @@
   "category": "praise",
   "input": "you're a lifesaver",
   "ideal": [
-   "You're a lifesaver.",
    "You're a lifesaver, thank you.",
+   "Kudos: you really saved the day, thank you.",
    "You're a lifesaver, thank you."
   ],
   "source": "normal-10.txt"
@@ -10316,9 +10316,9 @@
   "category": "praise",
   "input": "the new onboarding doc is really good",
   "ideal": [
-   "The new onboarding doc is really good.",
+   "I wanted to let you know that the new onboarding doc is really good.",
    "The new onboarding doc is excellent.",
-   "The new onboarding doc is excellent."
+   "For full visibility: The new onboarding working doc is excellent. Onward and upward."
   ],
   "source": "normal-10.txt"
  },
@@ -10328,7 +10328,7 @@
   "category": "vent-multi",
   "input": "I asked three times. Nobody answered. Now it's my fault?",
   "ideal": [
-   "I asked three times and nobody answered. Now it's my fault?",
+   "I wanted to let you know that I asked three times and nobody answered. Now it's my fault?",
    "I asked three times and didn't get a response. Now it's my fault?",
    "I raised this three times without a response. Now it's my fault?"
   ],
@@ -10352,8 +10352,8 @@
   "category": "vent-multi",
   "input": "I'm not mad. I'm just disappointed. Again.",
   "ideal": [
-   "I'm not angry. I'm just disappointed. Again.",
-   "I'm not upset. I'm just disappointed, again.",
+   "I'm not upset. I'm just disappointed. Again.",
+   "I'm not upset. I'm just disappointed, once again.",
    "I'm not upset. I'm just disappointed, again."
   ],
   "source": "normal-10.txt"
@@ -10376,7 +10376,7 @@
   "category": "vent-multi",
   "input": "We said no to the feature. Sales sold it anyway. Now engineering has to build it in a week.",
   "ideal": [
-   "We said no to the feature, but Sales sold it anyway. Now engineering has to build it in a week.",
+   "I wanted to let you know that we said no to the feature, but Sales sold it anyway. Now engineering has to build it in a week.",
    "We declined the feature, but Sales sold it anyway. Now engineering has a week to build it.",
    "We declined the feature, but Sales committed it anyway. Engineering now has a week to deliver it."
   ],
@@ -10388,7 +10388,7 @@
   "category": "vent-multi",
   "input": "The new process was supposed to save time. It added two steps. Great.",
   "ideal": [
-   "The new process was supposed to save time, but it added two steps.",
+   "I wanted to let you know that the new workflow was supposed to save time, but it added two steps.",
    "The new process was meant to save time, but it added two steps.",
    "The new process was meant to drive efficiency, but it added two steps."
   ],
@@ -10400,7 +10400,7 @@
   "category": "vent-multi",
   "input": "My calendar is a crime scene. Back to back from 8 to 6.",
   "ideal": [
-   "My calendar is a mess. I'm back to back from 8 to 6.",
+   "I wanted to let you know that my calendar is a mess. I'm back to back from 8 to 6.",
    "My calendar is packed. I'm back to back from 8 to 6.",
    "My calendar is fully booked, back to back from 8 to 6."
   ],
@@ -10413,7 +10413,7 @@
   "input": "The intern found the bug in 10 minutes. We spent 3 days on it.",
   "ideal": [
    "The intern found the bug in 10 minutes. We spent 3 days on it.",
-   "The intern found the bug in 10 minutes, after we spent 3 days on it.",
+   "Quick heads-up: the intern found the defect in 10 minutes, after we spent 3 days on it.",
    "The intern found the bug in 10 minutes, after we spent 3 days on it."
   ],
   "source": "normal-10.txt"
@@ -10424,8 +10424,8 @@
   "category": "misc-work",
   "input": "I'm working on it",
   "ideal": [
-   "I'm working on it.",
-   "I'm working on it.",
+   "I wanted to let you know that I'm working on it.",
+   "Heads-up: I'm driving it.",
    "I'm actively working on it."
   ],
   "source": "normal-10.txt"
@@ -10436,8 +10436,8 @@
   "category": "misc-work",
   "input": "i think we should hire a contractor for this",
   "ideal": [
-   "I think we should hire a contractor for this.",
-   "I think we should bring in a contractor for this.",
+   "I believe we should hire a contractor for this.",
+   "My read is that we should bring in a contractor for this.",
    "I recommend we bring in a contractor for this."
   ],
   "source": "normal-10.txt"
@@ -10448,8 +10448,8 @@
   "category": "misc-work",
   "input": "does anyone have a template for this",
   "ideal": [
-   "Does anyone have a template for this?",
-   "Does anyone have a template for this?",
+   "Does anyone happen to have a template for this?",
+   "Quick question: does anyone have a template for this?",
    "Does anyone have a template for this?"
   ],
   "source": "normal-10.txt"
@@ -10460,7 +10460,7 @@
   "category": "misc-work",
   "input": "let's not overthink it",
   "ideal": [
-   "Let's not overthink it.",
+   "I'd suggest we not overthink it.",
    "Let's not overthink this.",
    "Let's not overengineer this."
   ],
@@ -10472,7 +10472,7 @@
   "category": "misc-work",
   "input": "we need to talk about the budget",
   "ideal": [
-   "We need to talk about the budget.",
+   "I think we'll need to talk about the budget.",
    "We need to discuss the budget.",
    "We need to align on the budget."
   ],
@@ -10485,7 +10485,7 @@
   "input": "I'll look into it tomorrow",
   "ideal": [
    "I'll look into it tomorrow.",
-   "I'll look into it tomorrow.",
+   "Heads-up: I'll dig into it tomorrow.",
    "I'll investigate tomorrow."
   ],
   "source": "normal-10.txt"
@@ -10508,7 +10508,7 @@
   "category": "misc-work",
   "input": "can we keep this between us",
   "ideal": [
-   "Can we keep this between us?",
+   "Could we keep this between us?",
    "Could we keep this between us?",
    "Could we keep this confidential?"
   ],
@@ -10520,7 +10520,7 @@
   "category": "misc-work",
   "input": "I need a break",
   "ideal": [
-   "I need a break.",
+   "I could use a break.",
    "I need to take a break.",
    "I need to take a short break."
   ],
@@ -10532,8 +10532,8 @@
   "category": "misc-work",
   "input": "it works on my machine",
   "ideal": [
-   "It works on my machine.",
-   "It works on my machine.",
+   "I wanted to let you know that it works on my machine.",
+   "Quick heads-up: it works on my machine.",
    "It works in my local environment."
   ],
   "source": "normal-10.txt"
@@ -10545,7 +10545,7 @@
   "input": "let's go with Priya's idea",
   "ideal": [
    "Let's go with Priya's idea.",
-   "Let's go with Priya's idea.",
+   "Quick heads-up: Let's go with Priya's proposal.",
    "Let's move forward with Priya's idea."
   ],
   "source": "normal-10.txt"
@@ -10556,7 +10556,7 @@
   "category": "misc-work",
   "input": "I have no idea what this acronym means",
   "ideal": [
-   "I have no idea what this acronym means.",
+   "I wanted to let you know that I have no idea what this acronym means.",
    "I'm not sure what this acronym means.",
    "I'm not familiar with this acronym."
   ],
@@ -10568,8 +10568,8 @@
   "category": "misc-work",
   "input": "we need to document this before Tom leaves",
   "ideal": [
-   "We need to document this before Tom leaves.",
-   "We need to document this before Tom leaves.",
+   "I think we'll need to document this before Tom leaves.",
+   "Heads-up: we'll need to document this before Tom leaves.",
    "We need to document this before Tom's departure."
   ],
   "source": "normal-10.txt"
@@ -10580,8 +10580,8 @@
   "category": "misc-work",
   "input": "the customer is always right, unfortunately",
   "ideal": [
-   "The customer is always right, unfortunately.",
-   "The customer is always right, unfortunately.",
+   "I wanted to let you know that the customer is always right, unfortunately.",
+   "Quick heads-up: the client is always right, unfortunately.",
    "The customer is always right, unfortunately."
   ],
   "source": "normal-10.txt"
@@ -10592,8 +10592,8 @@
   "category": "misc-work",
   "input": "we should celebrate this",
   "ideal": [
-   "We should celebrate this.",
-   "We should celebrate this.",
+   "I think we should celebrate this.",
+   "My recommendation would be to celebrate this.",
    "We should celebrate this win."
   ],
   "source": "normal-10.txt"
@@ -10604,7 +10604,7 @@
   "category": "misc-work",
   "input": "I don't understand the new expense policy",
   "ideal": [
-   "I don't understand the new expense policy.",
+   "I'm not sure I understand the new expense policy.",
    "I'm unclear on the new expense policy.",
    "I'd like more clarity on the new expense policy."
   ],
@@ -10616,7 +10616,7 @@
   "category": "misc-work",
   "input": "can I steal you for 5 minutes",
   "ideal": [
-   "Can I borrow you for 5 minutes?",
+   "Could I borrow you for 5 minutes?",
    "Could I borrow you for 5 minutes?",
    "Could I grab 5 minutes of your time?"
   ],
@@ -10640,8 +10640,8 @@
   "category": "misc-work",
   "input": "this could have been a slack message",
   "ideal": [
-   "This could have been a Slack message.",
-   "This could have been a Slack message.",
+   "I wanted to let you know that this could have been a Slack message.",
+   "Quick heads-up: this could have been a Slack message.",
    "This could have been handled with a Slack message."
   ],
   "source": "normal-10.txt"
@@ -10653,7 +10653,7 @@
   "input": "I'm learning Python on the side",
   "ideal": [
    "I'm learning Python on the side.",
-   "I'm learning Python on the side.",
+   "Heads-up: I'm learning Python on the side.",
    "I'm upskilling in Python on the side."
   ],
   "source": "normal-10.txt"
@@ -10702,7 +10702,7 @@
   "ideal": [
    "Please stop stalling and send the contract.",
    "Please send the contract without further delay.",
-   "Please send the contract without further delay."
+   "Thinking out loud as a servant leader: Could you please circulate the contract without further delay? Let's lean in."
   ],
   "source": "normal-11.txt"
  },
@@ -10774,7 +10774,7 @@
   "ideal": [
    "I left my badge at home.",
    "Unfortunately, I left my badge at home.",
-   "Unfortunately, I left my badge at home."
+   "Speaking as a steward of our north star: Unfortunately, I left my badge at home."
   ],
   "source": "normal-11.txt"
  },
@@ -10822,7 +10822,7 @@
   "ideal": [
    "We did nothing on the roadmap this quarter.",
    "We made no progress on the roadmap this quarter.",
-   "We made no progress on the roadmap this quarter."
+   "Speaking as a steward of our north star: We made no progress on the roadmap this quarter."
   ],
   "source": "normal-11.txt"
  },
@@ -10832,7 +10832,7 @@
   "category": "crude",
   "input": "let's not screw this up, the client is watching",
   "ideal": [
-   "Let's not mess this up. The client is watching.",
+   "I'd suggest we not mess this up. The client is watching.",
    "Let's not drop the ball on this. The client is watching.",
    "Let's execute flawlessly here. The client is watching."
   ],
@@ -10869,7 +10869,7 @@
   "input": "that pricing page is crap, nobody can find the button",
   "ideal": [
    "That pricing page isn't great. Nobody can find the button.",
-   "That pricing page needs work. Nobody can find the button.",
+   "Quick heads-up: that pricing page needs work. Nobody can find the button.",
    "That pricing page is underperforming. Nobody can find the button."
   ],
   "source": "normal-11.txt"
@@ -10966,7 +10966,7 @@
   "ideal": [
    "The migration went badly at 2am.",
    "The migration failed at 2am.",
-   "The migration failed at 2am."
+   "Quick strategic download: The migration failed at 2am."
   ],
   "source": "normal-11.txt"
  },
@@ -11024,8 +11024,8 @@
   "category": "sarcasm",
   "input": "oh fantastic, another tool to learn",
   "ideal": [
-   "Oh fantastic, another tool to learn.",
-   "Oh, wonderful, another tool to learn.",
+   "Wonderful, another tool to learn.",
+   "Love that for us: another tool to learn.",
    "How exciting, another tool to learn."
   ],
   "source": "normal-11.txt"
@@ -11036,8 +11036,8 @@
   "category": "sarcasm",
   "input": "great, so we're just ignoring the bug then",
   "ideal": [
-   "Great, so we're just ignoring the bug, then.",
-   "Okay, so we're just ignoring the bug, then.",
+   "Nice, so we're just ignoring the issue, then.",
+   "Sounds good, so we're just ignoring the defect, then.",
    "Understood, so we're deprioritizing the bug, then."
   ],
   "source": "normal-11.txt"
@@ -11060,7 +11060,7 @@
   "category": "sarcasm",
   "input": "sure, let's add another approval step, that'll speed things up",
   "ideal": [
-   "Sure, let's add another approval step. That'll speed things up.",
+   "Of course, let's add another approval step. That'll speed things up.",
    "Sure, another approval step will definitely speed things up.",
    "Sure, another approval layer will definitely accelerate things."
   ],
@@ -11084,7 +11084,7 @@
   "category": "sarcasm",
   "input": "yes, I'd love to redo the whole deck tonight",
   "ideal": [
-   "Yes, I'd love to redo the whole deck tonight.",
+   "Sounds good, I'd love to redo the whole deck tonight.",
    "Of course, I'd love to redo the whole deck tonight.",
    "Of course, I'd love to rebuild the entire deck tonight."
   ],
@@ -11108,8 +11108,8 @@
   "category": "sarcasm",
   "input": "how wonderful, mandatory fun on a saturday",
   "ideal": [
-   "How wonderful, mandatory fun on a Saturday.",
-   "How wonderful, mandatory fun on a Saturday.",
+   "Wonderful, mandatory fun on a Saturday.",
+   "Love that for us: mandatory fun on a Saturday.",
    "How wonderful, mandatory fun on a Saturday."
   ],
   "source": "normal-11.txt"
@@ -11132,7 +11132,7 @@
   "category": "decline",
   "input": "no I can't lend you my login",
   "ideal": [
-   "No, I can't lend you my login.",
+   "No, I'm unable to lend you my login.",
    "No, I can't share my login.",
    "No, I'm not able to share my credentials."
   ],
@@ -11144,8 +11144,8 @@
   "category": "decline",
   "input": "I'm passing on the mentorship program this year",
   "ideal": [
-   "I'm passing on the mentorship program this year.",
    "I'll be passing on the mentorship program this year.",
+   "Heads-up: I'll be passing on the mentorship program this year.",
    "I'll be opting out of the mentorship program this year."
   ],
   "source": "normal-11.txt"
@@ -11156,7 +11156,7 @@
   "category": "decline",
   "input": "we're not taking new clients until March",
   "ideal": [
-   "We're not taking new clients until March.",
+   "Unfortunately, we're not taking new clients until March.",
    "We aren't taking on new clients until March.",
    "We aren't onboarding new clients until March."
   ],
@@ -11168,7 +11168,7 @@
   "category": "decline",
   "input": "can't help, I've never used Salesforce",
   "ideal": [
-   "I can't help. I've never used Salesforce.",
+   "I'm unable to help. I've never used Salesforce.",
    "I'm not able to help, as I've never used Salesforce.",
    "I'm not the right person, as I've never used Salesforce."
   ],
@@ -11180,7 +11180,7 @@
   "category": "question",
   "input": "who decided we're doing this in-house",
   "ideal": [
-   "Who decided we're doing this in-house?",
+   "Could you let me know who decided we're doing this in-house?",
    "Who made the decision to do this in-house?",
    "Who made the call to build this in-house?"
   ],
@@ -11193,7 +11193,7 @@
   "input": "is this a fire or can it wait till Monday",
   "ideal": [
    "Is this urgent, or can it wait until Monday?",
-   "Is this urgent, or can it wait until Monday?",
+   "Quick question: is this urgent, or can it wait until Monday?",
    "Is this urgent, or can it wait until Monday?"
   ],
   "source": "normal-11.txt"
@@ -11204,8 +11204,8 @@
   "category": "question",
   "input": "what's the password for the conference room TV",
   "ideal": [
-   "What's the password for the conference room TV?",
-   "What's the password for the conference room TV?",
+   "Could you let me know what the password for the conference room TV is?",
+   "Quick question: what's the password for the conference room TV?",
    "What's the password for the conference room TV?"
   ],
   "source": "normal-11.txt"
@@ -11216,7 +11216,7 @@
   "category": "question",
   "input": "why are we paying for 3 different chat apps",
   "ideal": [
-   "Why are we paying for 3 different chat apps?",
+   "Could you help me understand why we are paying for 3 different chat apps?",
    "Could you help me understand why we pay for 3 chat apps?",
    "Could we revisit why we're paying for 3 chat apps?"
   ],
@@ -11228,7 +11228,7 @@
   "category": "question",
   "input": "can anyone explain the new org chart to me",
   "ideal": [
-   "Can anyone explain the new org chart to me?",
+   "Could anyone explain the new org chart to me?",
    "Could someone walk me through the new org chart?",
    "Could someone walk me through the new org structure?"
   ],
@@ -11240,7 +11240,7 @@
   "category": "question",
   "input": "did we ever hear back from the auditors",
   "ideal": [
-   "Did we ever hear back from the auditors?",
+   "Just to check, did we ever hear back from the auditors?",
    "Have we heard back from the auditors?",
    "Have we received a response from the auditors?"
   ],
@@ -11264,8 +11264,8 @@
   "category": "question",
   "input": "is it just me or is this survey super long",
   "ideal": [
-   "Is it just me, or is this survey very long?",
-   "Is it just me, or is this survey quite long?",
+   "Just to check, is it just me, or is this survey very long?",
+   "Quick question: is it just me, or is this survey quite long?",
    "Is it just me, or is this survey quite long?"
   ],
   "source": "normal-11.txt"
@@ -11276,7 +11276,7 @@
   "category": "request",
   "input": "can someone please explain why my access got revoked",
   "ideal": [
-   "Can someone please explain why my access was revoked?",
+   "Could someone please explain why my access was revoked?",
    "Could someone explain why my access was revoked?",
    "Could someone clarify why my access was revoked?"
   ],
@@ -11300,8 +11300,8 @@
   "category": "request",
   "input": "pls approve my PTO, it's been pending 2 weeks",
   "ideal": [
-   "Please approve my PTO. It's been pending for 2 weeks.",
-   "Could you approve my PTO? It's been pending for 2 weeks.",
+   "Could you please approve my PTO? It's been pending for 2 weeks.",
+   "Would you be able to approve my PTO? It's been pending for 2 weeks.",
    "Could you approve my PTO request? It's been pending for 2 weeks."
   ],
   "source": "normal-12.txt"
@@ -11324,8 +11324,8 @@
   "category": "request",
   "input": "need a volunteer for the hiring panel Thursday",
   "ideal": [
-   "I need a volunteer for the hiring panel on Thursday.",
-   "We need a volunteer for the hiring panel on Thursday.",
+   "Could I get a volunteer for the hiring panel on Thursday?",
+   "Flagging that we'll need a volunteer for the hiring panel on Thursday.",
    "We're looking for a volunteer for Thursday's hiring panel."
   ],
   "source": "normal-12.txt"
@@ -11336,8 +11336,8 @@
   "category": "request",
   "input": "can someone with a car pick up the banners",
   "ideal": [
-   "Can someone with a car pick up the banners?",
    "Could someone with a car pick up the banners?",
+   "Quick question: could someone with a commute vehicle pick up the banners?",
    "Could someone with a car pick up the banners?"
   ],
   "source": "normal-12.txt"
@@ -11360,8 +11360,8 @@
   "category": "request",
   "input": "I need a quiet room for an interview at 1",
   "ideal": [
-   "I need a quiet room for an interview at 1.",
-   "I need a quiet room for an interview at 1.",
+   "Could I get a quiet room for an interview at 1?",
+   "Quick ask: could I get a quiet room for an interview at 1?",
    "I need a quiet room for an interview at 1."
   ],
   "source": "normal-12.txt"
@@ -11372,8 +11372,8 @@
   "category": "pushback",
   "input": "I'm not comfortable with this going to the client yet",
   "ideal": [
-   "I'm not comfortable sending this to the client yet.",
-   "I'm not comfortable with this going to the client yet.",
+   "I'm not comfortable forwarding this to the client yet.",
+   "Heads-up: I'm not comfortable with this going to the client yet.",
    "I'm not comfortable with this going to the client at this stage."
   ],
   "source": "normal-12.txt"
@@ -11384,9 +11384,9 @@
   "category": "pushback",
   "input": "we can't promise that date",
   "ideal": [
-   "We can't promise that date.",
+   "Unfortunately, we cannot promise that date.",
    "We're not in a position to commit to that date.",
-   "We're not in a position to commit to that date."
+   "From a thirty-thousand-foot view: We're not in a position to commit to that date."
   ],
   "source": "normal-12.txt"
  },
@@ -11396,7 +11396,7 @@
   "category": "pushback",
   "input": "this isn't a priority for my team right now",
   "ideal": [
-   "This isn't a priority for my team right now.",
+   "I wanted to let you know that this isn't a priority for my team at the moment.",
    "This isn't a priority for my team at the moment.",
    "This isn't on my team's priority list at the moment."
   ],
@@ -11408,7 +11408,7 @@
   "category": "pushback",
   "input": "I think we're solving the wrong problem",
   "ideal": [
-   "I think we're solving the wrong problem.",
+   "I think we're solving the wrong issue.",
    "I'm concerned we may be solving the wrong problem.",
    "I'm concerned we're solving for the wrong problem."
   ],
@@ -11420,7 +11420,7 @@
   "category": "pushback",
   "input": "let's not reply to that email yet",
   "ideal": [
-   "Let's not reply to that email yet.",
+   "I'd suggest we not reply to that email yet.",
    "Let's hold off on replying to that email.",
    "Let's hold off on responding to that email."
   ],
@@ -11432,7 +11432,7 @@
   "category": "pushback",
   "input": "that's not my job",
   "ideal": [
-   "That's not my job.",
+   "I don't think that's my job.",
    "That falls outside my role.",
    "That sits outside my remit."
   ],
@@ -11444,7 +11444,7 @@
   "category": "pushback",
   "input": "I don't agree with firing the contractor",
   "ideal": [
-   "I don't agree with firing the contractor.",
+   "I'm not sure I agree with firing the contractor.",
    "I don't agree with letting the contractor go.",
    "I don't support exiting the contractor."
   ],
@@ -11468,7 +11468,7 @@
   "category": "vent",
   "input": "our tools don't talk to each other and I copy paste all day",
   "ideal": [
-   "Our tools don't talk to each other, so I copy and paste all day.",
+   "I wanted to let you know that our tools don't talk to each other, so I copy and paste all day.",
    "Our tools aren't integrated, so I spend all day copying and pasting.",
    "Our tools aren't integrated, so I spend all day on manual copy-paste."
   ],
@@ -11517,7 +11517,7 @@
   "input": "ty for the coffee ☕",
   "ideal": [
    "Thanks for the coffee ☕",
-   "Thank you for the coffee ☕",
+   "Really appreciate the coffee.",
    "Thank you for the coffee ☕"
   ],
   "source": "normal-12.txt"
@@ -11529,7 +11529,7 @@
   "input": "the deploy is yeeted lol",
   "ideal": [
    "The deploy is out.",
-   "The deploy is out.",
+   "Quick heads-up: the deploy is out.",
    "The deployment is live."
   ],
   "source": "normal-12.txt"
@@ -11552,9 +11552,9 @@
   "category": "typos-slang-emoji",
   "input": "wat does this error mean",
   "ideal": [
-   "What does this error mean?",
+   "Could you let me know what this error means?",
    "Does anyone know what this error means?",
-   "Does anyone know what this error means?"
+   "Putting on my visionary hat: Does anyone know what this error means? Let's lean in."
   ],
   "source": "normal-12.txt"
  },
@@ -11576,8 +11576,8 @@
   "category": "typos-slang-emoji",
   "input": "kk ill send it after lunch",
   "ideal": [
-   "Okay, I'll send it after lunch.",
-   "Okay, I'll send it after lunch.",
+   "Sounds good, I'll send it after lunch.",
+   "I'm aligned, I'll send it over after lunch.",
    "Understood, I'll send it after lunch."
   ],
   "source": "normal-12.txt"
@@ -11589,7 +11589,7 @@
   "input": "thats a hard no from me dawg",
   "ideal": [
    "That's a hard no from me.",
-   "That's a firm no from me.",
+   "Quick heads-up: that's a firm no from me.",
    "That's a firm no from my side."
   ],
   "source": "normal-12.txt"
@@ -11600,7 +11600,7 @@
   "category": "typos-slang-emoji",
   "input": "so hyped for the launch 🚀🚀",
   "ideal": [
-   "So excited for the launch 🚀🚀",
+   "I'm so excited for the launch.",
    "Really excited for the launch 🚀🚀",
    "Very excited for the launch 🚀🚀"
   ],
@@ -11614,7 +11614,7 @@
   "ideal": [
    "Ugh, Mondays, right?",
    "Mondays, right?",
-   "Mondays, right?"
+   "Quick strategic download: Mondays, right?"
   ],
   "source": "normal-12.txt"
  },
@@ -11636,8 +11636,8 @@
   "category": "list",
   "input": "Q4 goals:\n- hit $2M ARR\n- hire 2 SDRs\n- launch the partner program",
   "ideal": [
-   "Q4 goals:\n- hit $2M ARR\n- hire 2 SDRs\n- launch the partner program",
-   "Q4 goals:\n- reach $2M ARR\n- hire 2 SDRs\n- launch the partner program",
+   "Here are the Q4 goals:\n- Hit $2M ARR\n- Hire 2 SDRs\n- Launch the partner program",
+   "Q4 goals at a glance:\n- Reach $2M ARR\n- Hire 2 SDRs\n- Launch the partner program",
    "Q4 objectives:\n- reach $2M ARR\n- hire 2 SDRs\n- launch the partner program"
   ],
   "source": "normal-12.txt"
@@ -11649,7 +11649,7 @@
   "input": "blockers:\n- no test data\n- waiting on legal\n- Ravi is out sick",
   "ideal": [
    "Blockers:\n- no test data\n- waiting on Legal\n- Ravi is out sick",
-   "Blockers:\n- no test data\n- waiting on Legal\n- Ravi is out sick",
+   "Blockers to flag:\n- No test data\n- Waiting on Legal\n- Ravi is out sick",
    "Current blockers:\n- no test data\n- pending Legal\n- Ravi is out sick"
   ],
   "source": "normal-12.txt"
@@ -11660,7 +11660,7 @@
   "category": "list",
   "input": "options:\na) delay launch\nb) cut features\nc) add people",
   "ideal": [
-   "Options:\na) delay the launch\nb) cut features\nc) add people",
+   "Here are the options:\na) Delay the launch\nb) Cut features\nc) Add folks",
    "Options:\na) delay the launch\nb) reduce scope\nc) add people",
    "Options:\na) delay the launch\nb) reduce scope\nc) add resourcing"
   ],
@@ -11672,8 +11672,8 @@
   "category": "list",
   "input": "wins this week: closed Acme, fixed checkout, hired Zoe",
   "ideal": [
-   "Wins this week: closed Acme, fixed checkout, hired Zoe.",
-   "Wins this week: we closed Acme, fixed checkout and hired Zoe.",
+   "Wins this week: closed Acme, repaired checkout, hired Zoe.",
+   "Wins this week: we closed Acme, addressed checkout and hired Zoe.",
    "Wins this week: closed Acme, remediated checkout and hired Zoe."
   ],
   "source": "normal-12.txt"
@@ -11684,7 +11684,7 @@
   "category": "run-on",
   "input": "the meeting got moved again and nobody updated the invite so half of us showed up to an empty room and the other half were on zoom",
   "ideal": [
-   "The meeting was moved again and nobody updated the invite, so half of us showed up to an empty room and the other half were on Zoom.",
+   "I wanted to let you know that the catch-up was moved again and nobody updated the invite, so half of us showed up to an empty room and the other half were on Zoom.",
    "The meeting moved again without an updated invite, so half of us went to an empty room while the rest were on Zoom.",
    "The meeting moved again without an updated invite, so half the team went to an empty room while the rest joined on Zoom."
   ],
@@ -11708,9 +11708,9 @@
   "category": "one-liner",
   "input": "noted",
   "ideal": [
-   "Noted.",
    "Noted, thanks.",
-   "Noted. Thank you."
+   "Noted, thank you.",
+   "Quick strategic download: Noted. Thank you. Onward and upward."
   ],
   "source": "normal-12.txt"
  },
@@ -11722,7 +11722,7 @@
   "ideal": [
    "All good.",
    "All good on my end.",
-   "All good on my end."
+   "Leaning into radical transparency: All good on my end."
   ],
   "source": "normal-12.txt"
  },
@@ -11733,7 +11733,7 @@
   "input": "on my list",
   "ideal": [
    "It's on my list.",
-   "It's on my list.",
+   "Quick heads-up: it's on my list.",
    "It's on my roadmap."
   ],
   "source": "normal-12.txt"
@@ -11744,7 +11744,7 @@
   "category": "one-liner",
   "input": "in a meeting, will reply after",
   "ideal": [
-   "I'm in a meeting and will reply after.",
+   "I'm in a catch-up and will reply after.",
    "I'm in a meeting and will reply afterward.",
    "I'm in a meeting and will respond afterward."
   ],
@@ -11770,7 +11770,7 @@
   "ideal": [
    "I can't talk right now. I'm driving.",
    "I can't talk at the moment, as I'm driving.",
-   "I can't talk at the moment, as I'm driving."
+   "In the spirit of radical candor: I don't have the capacity to talk at the moment, as I'm driving."
   ],
   "source": "normal-12.txt"
  },
@@ -11780,8 +11780,8 @@
   "category": "one-liner",
   "input": "sounds like a plan",
   "ideal": [
-   "Sounds like a plan.",
-   "Sounds like a plan.",
+   "That sounds like a good plan.",
+   "Sounds like a plan, and I'm aligned.",
    "Sounds like a solid plan."
   ],
   "source": "normal-12.txt"
@@ -11794,7 +11794,7 @@
   "ideal": [
    "Same time next week?",
    "Same time next week?",
-   "Same time next week?"
+   "Leaning into radical transparency: Same time next week? Let's keep the momentum going."
   ],
   "source": "normal-12.txt"
  },
@@ -11804,7 +11804,7 @@
   "category": "polite",
   "input": "thanks for your help with the move",
   "ideal": [
-   "Thanks for your help with the move.",
+   "Thank you for your assistance with the move.",
    "Thank you for your help with the move.",
    "Thank you for your support with the move."
   ],
@@ -11817,7 +11817,7 @@
   "input": "you did a really thoughtful job on this",
   "ideal": [
    "You did a really thoughtful job on this.",
-   "You did a really thoughtful job on this.",
+   "Kudos: you did a truly thoughtful job on this.",
    "You did an exceptionally thoughtful job on this."
   ],
   "source": "normal-12.txt"
@@ -11830,7 +11830,7 @@
   "ideal": [
    "Let me know if I can help with anything.",
    "Let me know if there's anything I can help with.",
-   "Let me know if there's anything I can support with."
+   "Thinking out loud as a servant leader: Keep me in the loop if there's anything I can support with."
   ],
   "source": "normal-12.txt"
  },
@@ -11864,8 +11864,8 @@
   "category": "status",
   "input": "we finally fixed the memory leak",
   "ideal": [
-   "We finally fixed the memory leak.",
-   "We've finally fixed the memory leak.",
+   "We finally repaired the memory leak.",
+   "Flagging that we've finally addressed the memory leak.",
    "We've finally remediated the memory leak."
   ],
   "source": "normal-12.txt"
@@ -11876,7 +11876,7 @@
   "category": "status",
   "input": "the survey got 62% response rate",
   "ideal": [
-   "The survey got a 62% response rate.",
+   "I wanted to let you know that the survey got a 62% response rate.",
    "The survey had a 62% response rate.",
    "The survey achieved a 62% response rate."
   ],
@@ -11888,7 +11888,7 @@
   "category": "status",
   "input": "we're about 70% done with the audit prep",
   "ideal": [
-   "We're about 70% done with the audit prep.",
+   "I wanted to let you know that we're about 70% done with the audit prep.",
    "We're about 70% through the audit prep.",
    "We're about 70% through audit preparation."
   ],
@@ -11900,7 +11900,7 @@
   "category": "status",
   "input": "the hiring freeze means no backfill for Jen",
   "ideal": [
-   "The hiring freeze means no backfill for Jen.",
+   "I wanted to let you know that the hiring freeze means no backfill for Jen.",
    "Because of the hiring freeze, we can't backfill Jen.",
    "Due to the hiring freeze, we can't backfill Jen."
   ],
@@ -11912,7 +11912,7 @@
   "category": "status",
   "input": "the client approved the designs, moving to build",
   "ideal": [
-   "The client approved the designs, so we're moving to build.",
+   "I wanted to let you know that the client approved the designs, so we're moving to build.",
    "The client approved the designs, and we're moving into build.",
    "The client approved the designs, and we're moving into the build phase."
   ],
@@ -11924,8 +11924,8 @@
   "category": "status",
   "input": "we migrated 2 of 5 services so far",
   "ideal": [
-   "We've migrated 2 of 5 services so far.",
-   "We've migrated 2 of 5 services so far.",
+   "I wanted to let you know that we've migrated 2 of 5 services so far.",
+   "Quick heads-up: we've migrated 2 of 5 services so far.",
    "We've migrated 2 of 5 services to date."
   ],
   "source": "normal-12.txt"
@@ -11936,7 +11936,7 @@
   "category": "status",
   "input": "customer churn went up 3 points this quarter",
   "ideal": [
-   "Customer churn went up 3 points this quarter.",
+   "I wanted to let you know that customer churn went up 3 points this quarter.",
    "Customer churn rose 3 points this quarter.",
    "Customer churn increased 3 points this quarter."
   ],
@@ -11960,7 +11960,7 @@
   "category": "deadline-blocker",
   "input": "the launch is next Tuesday no matter what",
   "ideal": [
-   "The launch is next Tuesday, no matter what.",
+   "I wanted to let you know that the launch is next Tuesday, no matter what.",
    "The launch is next Tuesday regardless.",
    "The launch is locked for next Tuesday."
   ],
@@ -11972,8 +11972,8 @@
   "category": "deadline-blocker",
   "input": "we can't start until the budget is approved",
   "ideal": [
-   "We can't start until the budget is approved.",
-   "We can't start until the budget is approved.",
+   "Unfortunately, we cannot start until the budget is approved.",
+   "Flagging that we're unable to start until the budget is approved.",
    "We can't kick off until the budget is approved."
   ],
   "source": "normal-12.txt"
@@ -11984,7 +11984,7 @@
   "category": "deadline-blocker",
   "input": "the designer quit so the mockups are late",
   "ideal": [
-   "The designer quit, so the mockups are late.",
+   "It looks like the designer left, so the mockups are late.",
    "The designer left, so the mockups are delayed.",
    "The designer departed, so the mockups are delayed."
   ],
@@ -11996,8 +11996,8 @@
   "category": "misc-work",
   "input": "the new intern is asking great questions",
   "ideal": [
-   "The new intern is asking great questions.",
-   "The new intern is asking excellent questions.",
+   "I wanted to let you know that the new intern is asking great questions.",
+   "Quick heads-up: the new intern is asking excellent questions.",
    "The new intern is asking very insightful questions."
   ],
   "source": "normal-13.txt"
@@ -12020,7 +12020,7 @@
   "category": "misc-work",
   "input": "let's ask the customers instead of guessing",
   "ideal": [
-   "Let's ask the customers instead of guessing.",
+   "I'd suggest we ask the customers instead of guessing.",
    "Let's ask customers rather than guessing.",
    "Let's validate with customers rather than guessing."
   ],
@@ -12032,8 +12032,8 @@
   "category": "misc-work",
   "input": "I took the wrong train and I'm in the wrong city",
   "ideal": [
-   "I took the wrong train and I'm in the wrong city.",
-   "I took the wrong train and ended up in the wrong city.",
+   "I wanted to let you know that I took the wrong train and I'm in the wrong city.",
+   "Heads-up: I took the wrong train and ended up in the wrong city.",
    "I took the wrong train and ended up in the wrong city."
   ],
   "source": "normal-13.txt"
@@ -12044,8 +12044,8 @@
   "category": "misc-work",
   "input": "we have too many dashboards",
   "ideal": [
-   "We have too many dashboards.",
-   "We have too many dashboards.",
+   "I wanted to let you know that we have too many dashboards.",
+   "Quick heads-up: we have too many dashboards.",
    "We have too many dashboards to be effective."
   ],
   "source": "normal-13.txt"
@@ -12058,7 +12058,7 @@
   "ideal": [
    "I'd like to shadow the sales team for a day.",
    "I'd like to shadow the sales team for a day.",
-   "I'd like to shadow the sales team for a day."
+   "For full visibility: I'd like to shadow the sales squad for a day."
   ],
   "source": "normal-13.txt"
  },
@@ -12068,8 +12068,8 @@
   "category": "misc-work",
   "input": "we need fewer meetings and more decisions",
   "ideal": [
-   "We need fewer meetings and more decisions.",
-   "We need fewer meetings and more decisions.",
+   "I think we'll need fewer catch-ups and more decisions.",
+   "Flagging that we'll need fewer syncs and more decisions.",
    "We need fewer meetings and more decision-making."
   ],
   "source": "normal-13.txt"
@@ -12080,7 +12080,7 @@
   "category": "misc-work",
   "input": "the coffee machine is broken, this is an emergency",
   "ideal": [
-   "The coffee machine is broken. This is an emergency.",
+   "It looks like the coffee machine is broken. This is an emergency.",
    "The coffee machine is broken. This is urgent.",
    "The coffee machine is down. This is a priority-one issue."
   ],
@@ -12093,7 +12093,7 @@
   "input": "I don't think we need a consultant for this",
   "ideal": [
    "I don't think we need a consultant for this.",
-   "I don't think we need a consultant for this.",
+   "Heads-up: I don't believe we require a consultant for this.",
    "I don't see a need for a consultant here."
   ],
   "source": "normal-13.txt"
@@ -12104,8 +12104,8 @@
   "category": "misc-work",
   "input": "the reorg slides leaked on reddit",
   "ideal": [
-   "The reorg slides leaked on Reddit.",
-   "The reorg slides leaked on Reddit.",
+   "It looks like the reorg slides leaked on Reddit.",
+   "Flagging that the reorg slides leaked on Reddit.",
    "The reorg slides leaked on Reddit."
   ],
   "source": "normal-13.txt"
@@ -12118,7 +12118,7 @@
   "ideal": [
    "I explained it, wrote it down and made a video, and they still asked.",
    "I explained it, documented it and recorded a video, and the question still came up.",
-   "I explained it, documented it and recorded a video, and the question still came up."
+   "From a thirty-thousand-foot view: I explained it, documented it and recorded a video, and the question still came up."
   ],
   "source": "normal-13.txt"
  },
@@ -12130,7 +12130,7 @@
   "ideal": [
    "New manager, new priorities, same deadline. Not fun.",
    "New manager and new priorities, but the same deadline. That's tough.",
-   "New manager and new priorities, but the same deadline. That's challenging."
+   "Big picture: New manager and new priorities, but the same hard stop. That's challenging. Onward and upward."
   ],
   "source": "normal-13.txt"
  },
@@ -12140,7 +12140,7 @@
   "category": "vent-multi",
   "input": "I got paged 6 times last night. None of them were real.",
   "ideal": [
-   "I got paged 6 times last night, and none of them were real issues.",
+   "I wanted to let you know that I got paged 6 times last night, and none of them were real issues.",
    "I was paged 6 times last night, and none were real issues.",
    "I was paged 6 times last night, and none were actionable."
   ],
@@ -12164,8 +12164,8 @@
   "category": "crude",
   "input": "this damn spreadsheet won't save",
   "ideal": [
-   "This spreadsheet won't save.",
-   "This spreadsheet won't save.",
+   "This spreadsheet will not save.",
+   "Quick heads-up: this spreadsheet will not save.",
    "This spreadsheet won't save."
   ],
   "source": "normal-13.txt"
@@ -12224,8 +12224,8 @@
   "category": "question",
   "input": "are we allowed to use ChatGPT for client work",
   "ideal": [
-   "Are we allowed to use ChatGPT for client work?",
-   "Are we permitted to use ChatGPT for client work?",
+   "Just to check, are we allowed to use ChatGPT for client work?",
+   "Quick question: are we permitted to leverage ChatGPT for client work?",
    "Are we permitted to use ChatGPT for client work?"
   ],
   "source": "normal-13.txt"
@@ -12237,7 +12237,7 @@
   "input": "who's on call this weekend",
   "ideal": [
    "Who's on call this weekend?",
-   "Who's on call this weekend?",
+   "Quick question: who's on call this weekend?",
    "Who's on call this weekend?"
   ],
   "source": "normal-13.txt"
@@ -12248,8 +12248,8 @@
   "category": "question",
   "input": "how do I book a meeting room",
   "ideal": [
-   "How do I book a meeting room?",
-   "How do I book a meeting room?",
+   "Could you let me know how to book a meeting room?",
+   "Quick question: how do I book a meeting room?",
    "How do I book a meeting room?"
   ],
   "source": "normal-13.txt"
@@ -12260,7 +12260,7 @@
   "category": "question",
   "input": "when do we find out about promotions",
   "ideal": [
-   "When do we find out about promotions?",
+   "Could you let me know when we find out about promotions?",
    "When will we hear about promotions?",
    "When will promotion decisions be shared?"
   ],
@@ -12272,7 +12272,7 @@
   "category": "customer",
   "input": "we can't share another customer's data with you",
   "ideal": [
-   "We can't share another customer's data with you.",
+   "Unfortunately, we cannot share another customer's data with you.",
    "We're not able to share another customer's data.",
    "We're unable to share another customer's data."
   ],
@@ -12284,7 +12284,7 @@
   "category": "customer",
   "input": "your account was suspended for non-payment",
   "ideal": [
-   "Your account was suspended for non-payment.",
+   "I wanted to let you know that your account was suspended for non-payment.",
    "Your account has been suspended for non-payment.",
    "Your account has been suspended due to non-payment."
   ],
@@ -12296,8 +12296,8 @@
   "category": "customer",
   "input": "we'll have a fix out by Friday",
   "ideal": [
-   "We'll have a fix out by Friday.",
-   "We'll have a fix out by Friday.",
+   "I wanted to let you know that we'll have a fix out by Friday.",
+   "Quick heads-up: we'll have a fix out by Friday.",
    "We'll have a fix deployed by Friday."
   ],
   "source": "normal-13.txt"
@@ -12308,8 +12308,8 @@
   "category": "customer",
   "input": "I escalated your ticket to engineering",
   "ideal": [
-   "I escalated your ticket to engineering.",
-   "I've escalated your ticket to engineering.",
+   "I wanted to let you know that I escalated your ticket to engineering.",
+   "Heads-up: I've escalated your ticket to engineering.",
    "I've escalated your ticket to the engineering team."
   ],
   "source": "normal-13.txt"
@@ -12320,8 +12320,8 @@
   "category": "sarcasm",
   "input": "oh good, more \"alignment\"",
   "ideal": [
-   "Oh good, more \"alignment.\"",
-   "Oh good, more \"alignment.\"",
+   "Wonderful, more \"alignment.\".",
+   "Love that for us: more \"alignment.\".",
    "Oh good, more \"alignment.\""
   ],
   "source": "normal-13.txt"
@@ -12332,8 +12332,8 @@
   "category": "sarcasm",
   "input": "amazing how the budget appears when the CEO wants something",
   "ideal": [
-   "Amazing how the budget appears when the CEO wants something.",
-   "Interesting how budget appears when the CEO wants something.",
+   "Really good how the budget appears when the CEO wants something.",
+   "Quick heads-up: interesting how budget appears when the CEO wants something.",
    "Interesting how budget materializes when the CEO wants something."
   ],
   "source": "normal-13.txt"
@@ -12345,7 +12345,7 @@
   "input": "wow, a whole 1% raise, I'll try not to spend it all at once",
   "ideal": [
    "Wow, a 1% raise. I'll try not to spend it all at once.",
-   "A 1% raise. I'll try not to spend it all at once.",
+   "Quick heads-up: a 1% raise. I'll try not to spend it all at once.",
    "A 1% raise. I'll try not to spend it all at once."
   ],
   "source": "normal-13.txt"
@@ -12356,9 +12356,9 @@
   "category": "hr-people",
   "input": "can I bring my dog to the office",
   "ideal": [
-   "Can I bring my dog to the office?",
+   "Could I bring my dog to the office?",
    "Am I allowed to bring my dog to the office?",
-   "Am I permitted to bring my dog to the office?"
+   "In the spirit of radical candor: Am I permitted to bring my dog to the office? Let's move the needle."
   ],
   "source": "normal-13.txt"
  },
@@ -12370,7 +12370,7 @@
   "ideal": [
    "I need to report something that happened at the offsite.",
    "I need to report an incident from the offsite.",
-   "I need to report an incident from the offsite."
+   "Thinking out loud as a servant leader: I'll need to report an incident from the offsite. Let's keep the momentum going."
   ],
   "source": "normal-13.txt"
  },
@@ -12380,9 +12380,9 @@
   "category": "hr-people",
   "input": "my manager wants me to work weekends without overtime",
   "ideal": [
-   "My manager wants me to work weekends without overtime pay.",
+   "I wanted to let you know that my manager wants me to work weekends without overtime pay.",
    "My manager is asking me to work weekends without overtime pay.",
-   "My manager is asking me to work weekends without overtime compensation."
+   "Putting on my visionary hat: My people leader is asking me to work weekends without overtime compensation."
   ],
   "source": "normal-13.txt"
  }

@@ -1,16 +1,16 @@
 # cat=decline
 i can't make the meeting, i'm swamped
-I can't make the meeting. I'm swamped.
+Unfortunately, I'm unable to make the catch-up. I'm buried.
 I won't be able to make the meeting. My plate is full right now.
 I won't be able to join the meeting, as my bandwidth is fully committed right now.
 
 I won't make the 3pm meeting with Dana. Can we move it to Friday?
-I can't make the 3pm meeting with Dana. Could we move it to Friday?
+Unfortunately, I'm unable to make the 3pm catch-up with Dana. Could we move it to Friday?
 I won't be able to make the 3pm meeting with Dana. Could we move it to Friday?
 I won't be able to join the 3pm sync with Dana. Could we realign it to Friday?
 
 can't do lunch tmrw, sorry
-I can't do lunch tomorrow, sorry.
+Apologies, I'm unable to do lunch tomorrow.
 I'm not able to make lunch tomorrow, apologies.
 Unfortunately I won't be able to make lunch tomorrow. Apologies.
 
@@ -20,7 +20,7 @@ I'm not able to take the weekend on-call shift again.
 I won't be taking on the weekend on-call rotation again.
 
 I can't take on another project right now
-I can't take on another project right now.
+Unfortunately, I'm unable to take on another project at the moment.
 I don't have the bandwidth to take on another project right now.
 I don't have the bandwidth to absorb another initiative at this time.
 
@@ -40,17 +40,17 @@ I won't be joining the 8am. That time doesn't work for me.
 I won't be joining the 8am. That slot is outside my working hours.
 
 Can't review your PR today, maybe tomorrow
-I can't review your PR today. Maybe tomorrow.
+Unfortunately, I'm unable to review your PR today. Possibly tomorrow.
 I won't get to your PR review today. Tomorrow is more likely.
 I won't have capacity to review your PR today. Tomorrow is more realistic.
 
 I'm not going to the offsite
-I'm not going to the offsite.
+I won't be going to the offsite.
 I won't be attending the offsite.
-I won't be attending the offsite.
+For full visibility: I will not be attending the offsite. Onward and upward.
 
 we can't do that price
-We can't do that price.
+Unfortunately, we cannot do that price.
 We're not able to meet that price.
 We're unable to support that price point.
 
@@ -65,12 +65,12 @@ Please leave me off that channel.
 Please don't add me to that channel.
 
 I'm not covering for Mike again
-I'm not covering for Mike again.
+I won't be covering for Mike again.
 I'm not able to cover for Mike again.
 I won't be able to backfill for Mike again.
 
 no more meetings this week please
-No more meetings this week, please.
+No more catch-ups this week, please.
 Please don't schedule any more meetings for me this week.
 Please hold off on any further meetings for me this week.
 
@@ -86,23 +86,23 @@ I'm out sick today and won't be in.
 I'm out sick today and will be offline.
 
 stuck in traffic, start without me
-I'm stuck in traffic. Please start without me.
+I'm stuck in traffic. Could you please start without me?
 I'm stuck in traffic, so please go ahead and start without me.
 I'm delayed in traffic. Please kick things off without me.
 
 my kid is sick so I'm working from home
-My kid is sick, so I'm working from home.
+I wanted to let you know that my kid is sick, so I'm working from home.
 My child is sick, so I'll be working from home today.
 My child is unwell, so I'll be working remotely today.
 
 i'm taking friday off
-I'm taking Friday off.
+I'll be taking Friday off.
 I'll be out of office on Friday.
-I'll be out of office on Friday.
+Putting on my visionary hat: I'll be out of office on Friday.
 
 I'll be out the week of the 14th, back on the 21st
-I'll be out the week of the 14th, back on the 21st.
-I'll be out of office the week of the 14th and back on the 21st.
+I'll be out the week of the 14th, and I'll be back on the 21st.
+Heads-up: I'll be out of office the week of the 14th and back on the 21st.
 I'll be out of office the week of the 14th and back online on the 21st.
 
 dentist at 2, back by 3:30
@@ -111,7 +111,7 @@ I'll be out for a dentist appointment at 2, back by 3:30.
 I'll be offline for an appointment at 2 and back by 3:30.
 
 overslept, sorry, logging on now
-I overslept, sorry. Logging on now.
+Apologies, I overslept. Logging on now.
 Apologies, I overslept. I'm logging on now.
 Apologies, I had a late start. Logging on now.
 
@@ -121,8 +121,8 @@ I'm not feeling well, so I'll be logging off early.
 I'm under the weather, so I'll be logging off early.
 
 my flight got cancelled so I won't be in Denver tmrw
-My flight got cancelled, so I won't be in Denver tomorrow.
-My flight was cancelled, so I won't be in Denver tomorrow.
+My flight got cancelled, so I will not be in Denver tomorrow.
+Quick heads-up: my flight was cancelled, so I will not be in Denver tomorrow.
 My flight was cancelled, so I won't be on site in Denver tomorrow.
 
 power's out at my place, on my phone for now
@@ -131,18 +131,18 @@ The power is out at my home, so I'm working from my phone for now.
 I'm experiencing a power outage at home, so I'm on mobile for now.
 
 taking a mental health day
-I'm taking a mental health day.
+I'll be taking a mental health day.
 I'm taking a personal day today.
 I'm taking a wellness day today.
 
 can someone cover my 1:1s while I'm out
-Can someone cover my 1:1s while I'm out?
+Could someone cover my 1:1s while I'm out?
 Could someone cover my 1:1s while I'm out of office?
-Could someone backfill my 1:1s while I'm out of office?
+Speaking as a steward of our north star: Could someone backfill my 1:1s while I'm out of office? Onward and upward.
 
 I need to leave at 4 for my kid's recital
 I need to leave at 4 for my kid's recital.
-I'll need to leave at 4 for my child's recital.
+Heads-up: I'll need to leave at 4 for my child's recital.
 I'll need to log off at 4 for a family commitment, my child's recital.
 
 out sick, call me only if it's on fire
@@ -151,14 +151,14 @@ I'm out sick today. Please only call if something is urgent.
 I'm out sick today. Please only reach out for urgent escalations.
 
 running late, the train is stuck
-I'm running late. The train is stuck.
+I'm running a bit behind. The train is stuck.
 I'm running behind because the train is stuck.
 I'm running behind due to a transit delay.
 
 won't make standup, at the doctor
-I won't make standup. I'm at the doctor.
+Unfortunately, I will not make standup. I'm at the doctor.
 I won't be at standup. I'm at a doctor's appointment.
-I won't be at standup. I'm at a medical appointment.
+For full visibility: I will not be at standup. I'm at a medical appointment.
 
 my laptop died, borrowing my partner's
 My laptop died, so I'm borrowing my partner's.
@@ -166,38 +166,38 @@ My laptop stopped working, so I'm using my partner's for now.
 My laptop is down, so I'm operating from a backup device for now.
 
 back from PTO, what did I miss
-I'm back from PTO. What did I miss?
+I'm back from PTO. Could you let me know what I missed?
 I'm back from PTO. Could someone catch me up on what I missed?
 I'm back from PTO. Could someone bring me up to speed?
 
 I'm going to be offline Monday for jury duty
 I'll be offline Monday for jury duty.
 I'll be out of office Monday for jury duty.
-I'll be out of office Monday for jury duty.
+Putting on my visionary hat: I'll be out of office Monday for jury duty. Onward and upward.
 
 # cat=request
 can you send me the deck
-Can you send me the deck?
+Could you send me the deck?
 Could you send me the deck when you get a chance?
 Could you share the deck with me when you have a moment?
 
 I need the numbers by Thursday
-I need the numbers by Thursday.
+Could I get the figures by Thursday?
 Could you get me the numbers by Thursday?
 I'll need the numbers by Thursday.
 
 pls review my doc before 5
-Please review my doc before 5.
+Could you please review my doc before 5?
 Could you review my doc before 5?
-Could you review my doc before 5?
+From a thirty-thousand-foot view: Do you have the bandwidth to review my working doc before 5?
 
 can someone fix the printer, it's been broken for a week
-Can someone fix the printer? It's been broken for a week.
-Could someone fix the printer? It's been broken for a week.
+Could someone fix the printer? It's been down for a week.
+Quick question: could someone address the printer? It's been down for a week.
 Could someone remediate the printer? It's been down for a week.
 
 stop cc'ing me on everything
-Please stop cc'ing me on everything.
+Could you please stop cc'ing me on everything?
 Please only cc me when I'm needed.
 Please limit cc's to items that need my input.
 
@@ -207,48 +207,48 @@ I'd like to discuss my compensation.
 I'd like to open a conversation about my compensation.
 
 can we get more people on this, we're drowning
-Can we get more people on this? We're overloaded.
+Could we get more people on this? We're overloaded.
 Could we add more people to this? The team is overloaded.
 Could we add resourcing here? The team is significantly over capacity.
 
 please don't schedule meetings over lunch
-Please don't schedule meetings over lunch.
+Please don't schedule catch-ups over lunch.
 Please avoid scheduling meetings over lunch.
 Please avoid booking meetings over the lunch hour.
 
 I need admin access to Jira
-I need admin access to Jira.
+I wanted to let you know that I need admin access to Jira.
 Could I get admin access to Jira?
-Could I get admin access to Jira?
+Leaning into radical transparency: Could I get admin access to Jira?
 
 can you give me a heads up next time
-Can you give me a heads up next time?
 Could you give me a heads up next time?
+Would you be able to give me a heads up next time?
 Going forward, could you give me advance notice?
 
 I need you to answer my emails
-I need you to answer my emails.
+Could you answer my emails?
 I need you to reply to my emails.
 I need timely responses to my emails.
 
 could you take notes today, I'm presenting
 Could you take notes today? I'm presenting.
-Could you take notes today? I'm presenting.
+Would you be able to take notes today? I'm presenting.
 Could you capture notes today? I'm presenting.
 
 can I get Friday afternoon off
-Can I take Friday afternoon off?
+Could I take Friday afternoon off?
 Would it be possible to take Friday afternoon off?
-Would it be possible to take Friday afternoon off?
+Quick strategic download: Would it be possible to take Friday afternoon off?
 
 somebody please restock the coffee
 Can someone please restock the coffee?
 Could someone please restock the coffee?
-Could someone please restock the coffee?
+Big picture: Could someone please restock the coffee?
 
 send me the invoice and I'll pay it today
 Send me the invoice and I'll pay it today.
-Please send me the invoice and I'll pay it today.
+Quick heads-up: Please send me the invoice and I'll pay it today.
 Please send over the invoice and I'll process payment today.
 
 can you not reply all to the whole company
@@ -257,21 +257,21 @@ Please avoid replying all to the whole company.
 Please avoid replying all to the entire company distribution.
 
 I need a second monitor
-I need a second monitor.
 Could I get a second monitor?
 Could I get a second monitor?
+For full visibility: Could I get a second monitor?
 
 can you check if the client paid yet
-Can you check if the client has paid yet?
+Could you check if the client has paid yet?
 Could you check whether the client has paid yet?
 Could you confirm whether the client has paid yet?
 
 please put your updates in the doc not in slack
-Please put your updates in the doc, not in Slack.
+Could you please put your updates in the doc, not in Slack?
 Please add your updates to the doc rather than Slack.
 Please capture your updates in the doc rather than in Slack.
 
 need someone to sign off on this by noon
-I need someone to sign off on this by noon.
-I need sign-off on this by noon.
+Could someone sign off on this by noon?
+Quick ask: could I get sign-off on this by noon?
 I need sign-off on this by noon.

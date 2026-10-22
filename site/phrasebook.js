@@ -81,8 +81,8 @@ goals = goals = objectives = north star metrics
 issue = issue = issue = pain point
 issues = issues = issues = pain points
 made a mistake = made an error = made an error = had an unplanned learning moment
-a mistake = a slip = an error = a learning opportunity
-mistake = slip = error = learning opportunity
+a mistake = a mistake = an error = a learning opportunity
+mistake = mistake = error = learning opportunity
 mistakes = slips = misses = learning opportunities
 bug = issue = defect = defect
 bugs = issues = defects = defects
@@ -533,6 +533,8 @@ i swear to god = honestly, = honestly, = in all candor,
 ship this = ship this = release this = release this
 showing up late = showing up late = arriving late = arriving after the start time
 show up late = show up late = arrive late = arrive after the start time
+is driving me crazy = is really frustrating me = is creating real friction for me = is a significant source of friction for me
+driving me crazy = really frustrating me = creating real friction for me = a significant source of friction for me
 is driving me insane = is driving me crazy = is really frustrating me = is creating real friction for me
 is killing me = is wearing me down = is really wearing on me = is taking a real toll on me
 !is insane = is too much = is excessive = is not a scalable process

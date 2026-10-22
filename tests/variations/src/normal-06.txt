@@ -1,16 +1,16 @@
 # cat=typos-slang-emoji
 cant find teh file u sent
-I can't find the file you sent.
+Unfortunately, I'm unable to find the file you sent.
 I can't find the file you sent. Could you resend it?
 I'm unable to locate the file you sent. Could you resend it?
 
 gonna be l8 sry
-I'm going to be late, sorry.
+Apologies, I'm running a bit behind.
 Apologies, I'm going to be late.
 Apologies, I'll be running behind.
 
 thx for the help today ur the best 🙏
-Thanks for the help today. You're the best 🙏
+Thank you for the assist today. You're the best.
 Thank you for your help today. Really appreciate it 🙏
 Thank you for your support today. Truly appreciated 🙏
 
@@ -32,12 +32,12 @@ Candidly, I have questions about the new pricing.
 deadline's tmrw and im lowkey panicking 😅
 The deadline is tomorrow and I'm a bit stressed 😅
 The deadline is tomorrow, and I'm feeling the pressure 😅
-The deadline is tomorrow, and I'm feeling the pressure 😅
+For full visibility: The hard stop is tomorrow, and I'm feeling the pressure.
 
 can u hop on a quick call rn
-Can you hop on a quick call now?
+Could you hop on a quick call now?
 Could you join a quick call now?
-Could you join a quick call now?
+Speaking as a steward of our north star: Do you have the bandwidth to join a quick call now?
 
 pushed to prod, fingers crossed 🤞
 I pushed it to production. Fingers crossed 🤞
@@ -50,8 +50,8 @@ The client has stopped responding.
 The client has gone unresponsive.
 
 we're cooked if this doesn't ship by friday
-We're in trouble if this doesn't ship by Friday.
-We're in real trouble if this doesn't ship by Friday.
+I wanted to let you know that we're in trouble if this doesn't ship by Friday.
+Quick heads-up: we're in real trouble if this doesn't ship by Friday.
 We face significant risk if this doesn't ship by Friday.
 
 his presentation slapped tbh
@@ -65,17 +65,17 @@ Honestly, I'm not sure who owns this.
 Candidly, ownership here is unclear to me.
 
 ok so the api is borked again
-Okay, so the API is broken again.
+Sounds good, so the API is down again.
 Okay, the API is down again.
-Okay, the API is down again.
+Speaking as a steward of our north star: That's a green light from me, the API is down yet again. Let's lean in.
 
 recieved the contract, will reveiw tonite
 I received the contract and will review it tonight.
 I've received the contract and will review it tonight.
-I've received the contract and will review it tonight.
+Big picture: I've received the contract and will review it tonight.
 
 the vibes in that meeting were off
-The mood in that meeting felt off.
+The mood in that catch-up felt off.
 The energy in that meeting felt off.
 The energy in that meeting felt misaligned.
 
@@ -90,17 +90,17 @@ I'm running on empty.
 I'm at cognitive capacity.
 
 this ticket has been open since march smh
-This ticket has been open since March.
+I wanted to let you know that this ticket has been open since March.
 This ticket has been open since March, which is frustrating.
-This ticket has been open since March, which is concerning.
+Thinking out loud as a servant leader: This ticket has been open since March, which is concerning. Let's lean in.
 
 fr this is the best sprint we've had
-Honestly, this is the best sprint we've had.
+Frankly, this is the best sprint we've had.
 Honestly, this has been our best sprint.
 Candidly, this has been our strongest sprint.
 
 lmaooo the CEO replied all
-The CEO replied all.
+I wanted to let you know that the CEO replied all.
 Funny enough, the CEO replied all.
 Noting that the CEO replied all.
 
@@ -110,7 +110,7 @@ I'm running out of steam on this project 💀
 I'm reaching the end of my bandwidth on this project 💀
 
 who moved my stapler again 😤
-Who moved my stapler again? 😤
+Could you let me know who moved my stapler again?
 Has anyone seen my stapler? It's been moved again 😤
 Has anyone seen my stapler? It's been relocated again 😤
 
@@ -125,32 +125,32 @@ Does anyone have the guest Wi-Fi password?
 Does anyone have the guest Wi-Fi password?
 
 srry wrong chat
-Sorry, wrong chat.
+Apologies, wrong chat.
 Sorry, that was meant for a different chat.
 Apologies, that was meant for a different channel.
 
 finna grab lunch, want anything
-I'm going to grab lunch. Want anything?
+I'm going to get lunch. Want anything?
 I'm heading out to grab lunch. Would you like anything?
 I'm heading out for lunch. Would you like anything?
 
 this bug is driving me insane
-This bug is driving me crazy.
+This issue is really frustrating me.
 This bug is really frustrating.
 This bug is a significant pain point.
 
 yall the snacks are back!!! 🎉
-The snacks are back! 🎉
+I wanted to let you know that the snacks are back!
 Good news, the snacks are back! 🎉
 Great news, everyone, the snacks are back! 🎉
 
 ya I can take that ticket
-Yes, I can take that ticket.
+Sounds good, I can take that ticket.
 Yes, I can pick up that ticket.
 Yes, I can take ownership of that ticket.
 
 hes been afk all day
-He's been away all day.
+I wanted to let you know that He's been away all day.
 He's been away from his desk all day.
 He's been offline all day.
 
@@ -167,27 +167,27 @@ Candidly, I think the previous logo was stronger.
 meeting's moved to 3 fyi
 FYI, the meeting has moved to 3.
 FYI, the meeting has been moved to 3.
-FYI, the meeting has been moved to 3.
+Speaking as a steward of our north star: FYI, the sync has been moved to 3.
 
 do u have a sec
-Do you have a second?
-Do you have a moment?
+Do you happen to have a second?
+Quick question: do you have a moment?
 Do you have a moment?
 
 # cat=list
 For tomorrow:\n- finish the slides\n- email Lena about the venue\n- book the room for 10am
-For tomorrow:\n- finish the slides\n- email Lena about the venue\n- book the room for 10am
-For tomorrow:\n- finalize the slides\n- email Lena about the venue\n- book the room for 10am
+Here's what's on for tomorrow:\n- Finish the slides\n- Email Lena about the venue\n- Book the room for 10am
+Action items for tomorrow:\n- Finalize the slides\n- Email Lena about the venue\n- Book the space for 10am
 Priorities for tomorrow:\n- finalize the slide deck\n- reach out to Lena about the venue\n- secure the room for 10am
 
 things that are broken:\n- login\n- search\n- the export button
-Things that are broken:\n- login\n- search\n- the export button
+Here's what's broken:\n- Login\n- Search\n- The export button
 Current issues:\n- login\n- search\n- the export button
 Current open issues:\n- login\n- search\n- the export button
 
 before we launch:\n1. fix the payment bug\n2. update the FAQ\n3. tell support
-Before we launch:\n1. Fix the payment bug\n2. Update the FAQ\n3. Tell Support
-Before we launch:\n1. Fix the payment bug\n2. Update the FAQ\n3. Brief Support
+Here's what's on before we launch:\n1. Fix the payment issue\n2. Refresh the FAQ\n3. Tell Support
+Action items before we launch:\n1. Fix the payment defect\n2. Refresh the FAQ\n3. Brief Support
 Pre-launch action items:\n1. Remediate the payment bug\n2. Update the FAQ\n3. Brief Support
 
 my week:\n- 14 meetings\n- 2 deadlines\n- 0 time to do actual work
@@ -196,13 +196,13 @@ My week:\n- 14 meetings\n- 2 deadlines\n- no time left for focused work
 My week at a glance:\n- 14 meetings\n- 2 deadlines\n- zero capacity for focused work
 
 what I need from you:\n- the budget numbers\n- the headcount plan\n- an answer on the vendor
-What I need from you:\n- the budget numbers\n- the headcount plan\n- an answer on the vendor
-What I need from you:\n- the budget numbers\n- the headcount plan\n- a decision on the vendor
+What I need from you:\n- The budget figures\n- The headcount plan\n- An answer on the supplier
+What I need from you:\n- The budget figures\n- The headcount plan\n- A decision on the supplier
 Asks from my side:\n- the budget numbers\n- the headcount plan\n- a decision on the vendor
 
 agenda: 1) Q3 numbers 2) hiring 3) the office move
-Agenda: 1) Q3 numbers 2) hiring 3) the office move
-Agenda: 1) Q3 numbers 2) hiring 3) the office move
+Here's the agenda: 1) Q3 figures 2) hiring 3) the office move.
+Agenda items: 1) Q3 metrics 2) hiring 3) the office move.
 Agenda: 1) Q3 performance 2) hiring 3) the office move
 
 grocery list for the offsite: coffee, bagels, more coffee
@@ -211,16 +211,16 @@ Supplies for the offsite: coffee, bagels and more coffee.
 Offsite supplies: coffee, bagels and more coffee.
 
 Done:\n- API docs\n- unit tests\nNot done:\n- the dashboard
-Done:\n- API docs\n- unit tests\nNot done:\n- the dashboard
+Completed:\n- API docs\n- Unit tests\nNot done:\n- The dashboard
 Completed:\n- API docs\n- unit tests\nStill open:\n- the dashboard
 Completed:\n- API docs\n- unit tests\nOutstanding:\n- the dashboard
 
 reasons we should not use this vendor:\n- they missed every deadline\n- they cost 2x more\n- their support is awful
-Reasons we shouldn't use this vendor:\n- they missed every deadline\n- they cost 2x more\n- their support is poor
+Reasons we shouldn't use this supplier:\n- They missed every deadline\n- They cost 2x more\n- Their support is poor
 Concerns about this vendor:\n- they missed every deadline\n- they cost 2x more\n- their support is poor
 Risks with this vendor:\n- they missed every deadline\n- they cost 2x more\n- their support is underperforming
 
 TODO: call Ben, fix the typo on page 3, send the contract to Rosa
-To do: call Ben, fix the typo on page 3, send the contract to Rosa.
-To do: call Ben, fix the typo on page 3 and send the contract to Rosa.
-Action items: call Ben, fix the typo on page 3 and send the contract to Rosa.
+Still to do: call Ben, fix the typo on page 3, send the contract to Rosa.
+Action items: call Ben, address the typo on page 3 and send the contract to Rosa.
+Action items: call Ben, remediate the typo on page 3 and circulate the contract to Rosa.

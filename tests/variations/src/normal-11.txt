@@ -17,7 +17,7 @@ To confirm, they moved the deadline up?
 stop dicking around and send the contract
 Please stop stalling and send the contract.
 Please send the contract without further delay.
-Please send the contract without further delay.
+Thinking out loud as a servant leader: Could you please circulate the contract without further delay? Let's lean in.
 
 I'm sick of this crap
 I'm tired of this.
@@ -47,7 +47,7 @@ It's a challenging situation, but we'll navigate it.
 god damn it, I left my badge at home
 I left my badge at home.
 Unfortunately, I left my badge at home.
-Unfortunately, I left my badge at home.
+Speaking as a steward of our north star: Unfortunately, I left my badge at home.
 
 the hell is wrong with this API
 What's wrong with this API?
@@ -67,10 +67,10 @@ He's very focused on managing up to the director.
 we did fuck all on the roadmap this quarter
 We did nothing on the roadmap this quarter.
 We made no progress on the roadmap this quarter.
-We made no progress on the roadmap this quarter.
+Speaking as a steward of our north star: We made no progress on the roadmap this quarter.
 
 let's not screw this up, the client is watching
-Let's not mess this up. The client is watching.
+I'd suggest we not mess this up. The client is watching.
 Let's not drop the ball on this. The client is watching.
 Let's execute flawlessly here. The client is watching.
 
@@ -86,7 +86,7 @@ I'm running on empty.
 
 that pricing page is crap, nobody can find the button
 That pricing page isn't great. Nobody can find the button.
-That pricing page needs work. Nobody can find the button.
+Quick heads-up: that pricing page needs work. Nobody can find the button.
 That pricing page is underperforming. Nobody can find the button.
 
 the auditors are up our ass about the receipts
@@ -127,7 +127,7 @@ This is a suboptimal situation.
 the migration went to shit at 2am
 The migration went badly at 2am.
 The migration failed at 2am.
-The migration failed at 2am.
+Quick strategic download: The migration failed at 2am.
 
 stop bitching and fix it
 Please stop complaining and fix it.
@@ -151,13 +151,13 @@ The reorg is a highly turbulent situation.
 
 # cat=sarcasm
 oh fantastic, another tool to learn
-Oh fantastic, another tool to learn.
-Oh, wonderful, another tool to learn.
+Wonderful, another tool to learn.
+Love that for us: another tool to learn.
 How exciting, another tool to learn.
 
 great, so we're just ignoring the bug then
-Great, so we're just ignoring the bug, then.
-Okay, so we're just ignoring the bug, then.
+Nice, so we're just ignoring the issue, then.
+Sounds good, so we're just ignoring the defect, then.
 Understood, so we're deprioritizing the bug, then.
 
 wow thanks for telling me at 4:55 on a friday
@@ -166,7 +166,7 @@ Thanks for letting me know at 4:55 on a Friday.
 Thank you for flagging this at 4:55 on a Friday.
 
 sure, let's add another approval step, that'll speed things up
-Sure, let's add another approval step. That'll speed things up.
+Of course, let's add another approval step. That'll speed things up.
 Sure, another approval step will definitely speed things up.
 Sure, another approval layer will definitely accelerate things.
 
@@ -176,7 +176,7 @@ Oh look, the "temporary" fix from 2019 broke.
 Oh look, the "temporary" fix from 2019 failed.
 
 yes, I'd love to redo the whole deck tonight
-Yes, I'd love to redo the whole deck tonight.
+Sounds good, I'd love to redo the whole deck tonight.
 Of course, I'd love to redo the whole deck tonight.
 Of course, I'd love to rebuild the entire deck tonight.
 
@@ -186,8 +186,8 @@ Ah, the classic "quick favor" that takes all week.
 Ah, the classic "quick favor" that consumes the whole week.
 
 how wonderful, mandatory fun on a saturday
-How wonderful, mandatory fun on a Saturday.
-How wonderful, mandatory fun on a Saturday.
+Wonderful, mandatory fun on a Saturday.
+Love that for us: mandatory fun on a Saturday.
 How wonderful, mandatory fun on a Saturday.
 
 # cat=decline
@@ -197,53 +197,53 @@ I'd prefer not to lead the project, as I'm stretched thin.
 I'd prefer not to lead the initiative, as I'm already at capacity.
 
 no I can't lend you my login
-No, I can't lend you my login.
+No, I'm unable to lend you my login.
 No, I can't share my login.
 No, I'm not able to share my credentials.
 
 I'm passing on the mentorship program this year
-I'm passing on the mentorship program this year.
 I'll be passing on the mentorship program this year.
+Heads-up: I'll be passing on the mentorship program this year.
 I'll be opting out of the mentorship program this year.
 
 we're not taking new clients until March
-We're not taking new clients until March.
+Unfortunately, we're not taking new clients until March.
 We aren't taking on new clients until March.
 We aren't onboarding new clients until March.
 
 can't help, I've never used Salesforce
-I can't help. I've never used Salesforce.
+I'm unable to help. I've never used Salesforce.
 I'm not able to help, as I've never used Salesforce.
 I'm not the right person, as I've never used Salesforce.
 
 # cat=question
 who decided we're doing this in-house
-Who decided we're doing this in-house?
+Could you let me know who decided we're doing this in-house?
 Who made the decision to do this in-house?
 Who made the call to build this in-house?
 
 is this a fire or can it wait till Monday
 Is this urgent, or can it wait until Monday?
-Is this urgent, or can it wait until Monday?
+Quick question: is this urgent, or can it wait until Monday?
 Is this urgent, or can it wait until Monday?
 
 what's the password for the conference room TV
-What's the password for the conference room TV?
-What's the password for the conference room TV?
+Could you let me know what the password for the conference room TV is?
+Quick question: what's the password for the conference room TV?
 What's the password for the conference room TV?
 
 why are we paying for 3 different chat apps
-Why are we paying for 3 different chat apps?
+Could you help me understand why we are paying for 3 different chat apps?
 Could you help me understand why we pay for 3 chat apps?
 Could we revisit why we're paying for 3 chat apps?
 
 can anyone explain the new org chart to me
-Can anyone explain the new org chart to me?
+Could anyone explain the new org chart to me?
 Could someone walk me through the new org chart?
 Could someone walk me through the new org structure?
 
 did we ever hear back from the auditors
-Did we ever hear back from the auditors?
+Just to check, did we ever hear back from the auditors?
 Have we heard back from the auditors?
 Have we received a response from the auditors?
 
@@ -253,6 +253,6 @@ Who's leading this?
 Who's the owner of this?
 
 is it just me or is this survey super long
-Is it just me, or is this survey very long?
-Is it just me, or is this survey quite long?
+Just to check, is it just me, or is this survey very long?
+Quick question: is it just me, or is this survey quite long?
 Is it just me, or is this survey quite long?

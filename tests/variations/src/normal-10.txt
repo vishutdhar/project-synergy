@@ -1,8 +1,8 @@
 # cat=apology
 sorry I missed your call
-Sorry I missed your call.
+Apologies, I missed your call.
 Apologies for missing your call.
-Apologies for missing your call.
+Putting on my visionary hat: Apologies for missing your call.
 
 my bad, I sent the wrong file
 My mistake, I sent the wrong file.
@@ -10,17 +10,17 @@ Sorry, I sent the wrong file.
 Apologies, I sent the wrong file.
 
 sorry for snapping at you in the meeting
-Sorry for snapping at you in the meeting.
+Apologies for snapping at you in the catch-up.
 I'm sorry for being short with you in the meeting.
 I apologize for being short with you in the meeting.
 
 I completely forgot about your request, doing it now
-I completely forgot about your request. Doing it now.
+I wanted to let you know that I completely forgot about your request. Doing it now.
 I'm sorry, your request slipped my mind. I'm doing it now.
 Apologies, your request slipped through the cracks. I'm actioning it now.
 
 sorry this took so long
-Sorry this took so long.
+Apologies, this took so long.
 Apologies for the delay on this.
 Apologies for the extended timeline on this.
 
@@ -31,38 +31,38 @@ Apologies, I had the schedule wrong. The call is actually at 3.
 
 # cat=announcement
 we're moving standup to 9:15 starting Monday
-We're moving standup to 9:15 starting Monday.
+We'll be moving standup to 9:15 starting Monday.
 Starting Monday, standup will move to 9:15.
-Starting Monday, standup will move to 9:15.
+In the spirit of radical candor: Starting Monday, standup will move to 9:15.
 
 the office is closed on the 4th
-The office is closed on the 4th.
+I wanted to let you know that the office is closed on the 4th.
 The office will be closed on the 4th.
-The office will be closed on the 4th.
+Putting on my visionary hat: The workplace will be closed on the 4th.
 
 new rule: no laptops in the planning meeting
-New rule: no laptops in the planning meeting.
+New rule: no laptops in the planning catch-up.
 New guideline: please no laptops in the planning meeting.
 New norm: no laptops in the planning meeting.
 
 Mei is the new team lead starting today
-Mei is the new team lead starting today.
+I wanted to let you know that Mei is the new team lead starting today.
 Mei is our new team lead as of today.
 Mei steps into the team lead role as of today.
 
 we're switching from Trello to Asana next month
-We're switching from Trello to Asana next month.
+We'll be switching from Trello to Asana next month.
 We'll be moving from Trello to Asana next month.
 We'll be migrating from Trello to Asana next month.
 
 holiday party is Dec 12, plus ones welcome
 The holiday party is Dec 12, and plus-ones are welcome.
-The holiday party is on Dec 12, and plus-ones are welcome.
+Quick heads-up: the holiday party is on Dec 12, and plus-ones are welcome.
 The holiday party is on Dec 12, and plus-ones are welcome.
 
 please submit timesheets by 5 on Friday
-Please submit timesheets by 5 on Friday.
-Please submit your timesheets by 5 on Friday.
+Could you please submit timesheets by 5 on Friday?
+Quick ask: could you please submit your timesheets by 5 on Friday?
 Please submit your timesheets by 5 on Friday.
 
 # cat=coordination
@@ -72,22 +72,22 @@ I'll handle the frontend, and you can take the API.
 I'll own the frontend, and you can own the API.
 
 can you loop in Carlos
-Can you loop in Carlos?
 Could you loop in Carlos?
+Would you be able to loop in Carlos?
 Could you loop in Carlos?
 
 who's taking notes
-Who's taking notes?
-Who's taking notes?
+Could you let me know who's taking notes?
+Quick question: who's taking notes?
 Who's capturing notes?
 
 let's split the work 50/50
-Let's split the work 50/50.
-Let's divide the work 50/50.
+I'd suggest we split the tasks 50/50.
+My recommendation would be to divide the deliverables 50/50.
 Let's divide the work 50/50.
 
 ping me when it's deployed
-Ping me when it's deployed.
+Could you ping me when it's deployed?
 Please let me know when it's deployed.
 Please let me know once it's deployed.
 
@@ -97,13 +97,13 @@ I'll draft it, and you can edit.
 I'll draft it, and you can refine it.
 
 hand it off to Yuki when you're done
-Hand it off to Yuki when you're done.
-Please hand it off to Yuki when you're done.
+Could you hand it off to Yuki when you're done?
+Quick ask: could you please hand it off to Yuki when you're finished?
 Please hand it off to Yuki once you're done.
 
 let's sync tomorrow morning
 Let's talk tomorrow morning.
-Let's sync tomorrow morning.
+My recommendation would be to sync tomorrow morning.
 Let's sync tomorrow morning.
 
 # cat=praise
@@ -115,26 +115,26 @@ Diego delivered outstanding results on the launch.
 shoutout to the support team for handling the outage
 Shout-out to the support team for handling the outage.
 A big thank you to the support team for handling the outage.
-A big thank you to the support team for managing the outage.
+In the spirit of radical candor: A big thank you to the support pod for managing the outage.
 
 this is the cleanest code I've seen all year
-This is the cleanest code I've seen all year.
-This is the cleanest code I've seen all year.
+I wanted to let you know that this is the cleanest code I've seen all year.
+Quick heads-up: this is the cleanest code I've seen all year.
 This is the cleanest code I've seen all year.
 
 you're a lifesaver
-You're a lifesaver.
 You're a lifesaver, thank you.
+Kudos: you really saved the day, thank you.
 You're a lifesaver, thank you.
 
 the new onboarding doc is really good
-The new onboarding doc is really good.
+I wanted to let you know that the new onboarding doc is really good.
 The new onboarding doc is excellent.
-The new onboarding doc is excellent.
+For full visibility: The new onboarding working doc is excellent. Onward and upward.
 
 # cat=vent-multi
 I asked three times. Nobody answered. Now it's my fault?
-I asked three times and nobody answered. Now it's my fault?
+I wanted to let you know that I asked three times and nobody answered. Now it's my fault?
 I asked three times and didn't get a response. Now it's my fault?
 I raised this three times without a response. Now it's my fault?
 
@@ -144,8 +144,8 @@ The meeting started 15 minutes late, ran 30 minutes over, and ended with another
 The meeting started 15 minutes late, ran 30 minutes over, and resulted in another meeting.
 
 I'm not mad. I'm just disappointed. Again.
-I'm not angry. I'm just disappointed. Again.
-I'm not upset. I'm just disappointed, again.
+I'm not upset. I'm just disappointed. Again.
+I'm not upset. I'm just disappointed, once again.
 I'm not upset. I'm just disappointed, again.
 
 They want innovation. They also want zero risk. Pick one.
@@ -154,54 +154,54 @@ They want innovation but also zero risk. Those are in tension.
 They want innovation and zero risk. Those goals are in tension.
 
 We said no to the feature. Sales sold it anyway. Now engineering has to build it in a week.
-We said no to the feature, but Sales sold it anyway. Now engineering has to build it in a week.
+I wanted to let you know that we said no to the feature, but Sales sold it anyway. Now engineering has to build it in a week.
 We declined the feature, but Sales sold it anyway. Now engineering has a week to build it.
 We declined the feature, but Sales committed it anyway. Engineering now has a week to deliver it.
 
 The new process was supposed to save time. It added two steps. Great.
-The new process was supposed to save time, but it added two steps.
+I wanted to let you know that the new workflow was supposed to save time, but it added two steps.
 The new process was meant to save time, but it added two steps.
 The new process was meant to drive efficiency, but it added two steps.
 
 My calendar is a crime scene. Back to back from 8 to 6.
-My calendar is a mess. I'm back to back from 8 to 6.
+I wanted to let you know that my calendar is a mess. I'm back to back from 8 to 6.
 My calendar is packed. I'm back to back from 8 to 6.
 My calendar is fully booked, back to back from 8 to 6.
 
 The intern found the bug in 10 minutes. We spent 3 days on it.
 The intern found the bug in 10 minutes. We spent 3 days on it.
-The intern found the bug in 10 minutes, after we spent 3 days on it.
+Quick heads-up: the intern found the defect in 10 minutes, after we spent 3 days on it.
 The intern found the bug in 10 minutes, after we spent 3 days on it.
 
 # cat=misc-work
 I'm working on it
-I'm working on it.
-I'm working on it.
+I wanted to let you know that I'm working on it.
+Heads-up: I'm driving it.
 I'm actively working on it.
 
 i think we should hire a contractor for this
-I think we should hire a contractor for this.
-I think we should bring in a contractor for this.
+I believe we should hire a contractor for this.
+My read is that we should bring in a contractor for this.
 I recommend we bring in a contractor for this.
 
 does anyone have a template for this
-Does anyone have a template for this?
-Does anyone have a template for this?
+Does anyone happen to have a template for this?
+Quick question: does anyone have a template for this?
 Does anyone have a template for this?
 
 let's not overthink it
-Let's not overthink it.
+I'd suggest we not overthink it.
 Let's not overthink this.
 Let's not overengineer this.
 
 we need to talk about the budget
-We need to talk about the budget.
+I think we'll need to talk about the budget.
 We need to discuss the budget.
 We need to align on the budget.
 
 I'll look into it tomorrow
 I'll look into it tomorrow.
-I'll look into it tomorrow.
+Heads-up: I'll dig into it tomorrow.
 I'll investigate tomorrow.
 
 that's above my pay grade
@@ -210,52 +210,52 @@ That decision is above my level.
 That decision sits above my level.
 
 can we keep this between us
-Can we keep this between us?
+Could we keep this between us?
 Could we keep this between us?
 Could we keep this confidential?
 
 I need a break
-I need a break.
+I could use a break.
 I need to take a break.
 I need to take a short break.
 
 it works on my machine
-It works on my machine.
-It works on my machine.
+I wanted to let you know that it works on my machine.
+Quick heads-up: it works on my machine.
 It works in my local environment.
 
 let's go with Priya's idea
 Let's go with Priya's idea.
-Let's go with Priya's idea.
+Quick heads-up: Let's go with Priya's proposal.
 Let's move forward with Priya's idea.
 
 I have no idea what this acronym means
-I have no idea what this acronym means.
+I wanted to let you know that I have no idea what this acronym means.
 I'm not sure what this acronym means.
 I'm not familiar with this acronym.
 
 we need to document this before Tom leaves
-We need to document this before Tom leaves.
-We need to document this before Tom leaves.
+I think we'll need to document this before Tom leaves.
+Heads-up: we'll need to document this before Tom leaves.
 We need to document this before Tom's departure.
 
 the customer is always right, unfortunately
-The customer is always right, unfortunately.
-The customer is always right, unfortunately.
+I wanted to let you know that the customer is always right, unfortunately.
+Quick heads-up: the client is always right, unfortunately.
 The customer is always right, unfortunately.
 
 we should celebrate this
-We should celebrate this.
-We should celebrate this.
+I think we should celebrate this.
+My recommendation would be to celebrate this.
 We should celebrate this win.
 
 I don't understand the new expense policy
-I don't understand the new expense policy.
+I'm not sure I understand the new expense policy.
 I'm unclear on the new expense policy.
 I'd like more clarity on the new expense policy.
 
 can I steal you for 5 minutes
-Can I borrow you for 5 minutes?
+Could I borrow you for 5 minutes?
 Could I borrow you for 5 minutes?
 Could I grab 5 minutes of your time?
 
@@ -265,11 +265,11 @@ Does anyone know what broke the build?
 Does anyone know what caused the build failure?
 
 this could have been a slack message
-This could have been a Slack message.
-This could have been a Slack message.
+I wanted to let you know that this could have been a Slack message.
+Quick heads-up: this could have been a Slack message.
 This could have been handled with a Slack message.
 
 I'm learning Python on the side
 I'm learning Python on the side.
-I'm learning Python on the side.
+Heads-up: I'm learning Python on the side.
 I'm upskilling in Python on the side.

@@ -1,31 +1,31 @@
 # cat=question
 what's the status on the Acme renewal?
-What's the status of the Acme renewal?
+Could you let me know what the status of the Acme renewal is?
 Could you share where the Acme renewal stands?
 Could you give me a status update on the Acme renewal?
 
 why is this taking so long
-Why is this taking so long?
-Can you help me understand why this is taking so long?
+Could you help me understand why this is taking so long?
+Would you be able to lend me some bandwidth to get why this is taking so long?
 Can you help me understand what's driving the timeline here?
 
 who approved this?
-Who approved this?
+Could you let me know who approved this?
 Could you tell me who approved this?
 Could you clarify who signed off on this?
 
 is the 2pm still happening
-Is the 2pm still happening?
-Is the 2pm still on?
+Just to check, is the 2pm still happening?
+Quick question: is the 2pm still on?
 Can we confirm the 2pm is still on?
 
 did anyone actually read my email
-Did anyone read my email?
+Just to check, did anyone read my email?
 Has anyone had a chance to read my email?
 Has anyone had a chance to review my email?
 
 where are we on hiring the designer
-Where are we on hiring the designer?
+Could you let me know where we are on hiring the designer?
 What's the latest on hiring the designer?
 What's the latest on the designer hire?
 
@@ -40,28 +40,28 @@ Can someone clarify what "synergize" means here?
 Could someone define what "synergize" means in this context?
 
 how many tickets are still open
-How many tickets are still open?
-How many tickets are still open?
+Could you let me know how many tickets are still open?
+Quick question: how many tickets are still open?
 What's the current count of open tickets?
 
 when is the deadline again
-When is the deadline again?
+Could you let me know when the deadline again is?
 Could you remind me of the deadline?
-Could you remind me of the deadline?
+For full visibility: Do you have the bandwidth to gently escalate me of the hard stop? Onward and upward.
 
 can I work remote next week?
-Can I work remotely next week?
+Could I work remotely next week?
 Would it be possible to work remotely next week?
 Would it be possible for me to work remotely next week?
 
 do we really need another meeting about this
-Do we really need another meeting about this?
+Just to check, do we really need another catch-up about this?
 Do we need another meeting about this, or could we handle it async?
 Is another meeting the best use of time here, or could we handle it async?
 
 what's the budget for Q3
-What's the budget for Q3?
-What's the budget for Q3?
+Could you let me know what the budget for Q3 is?
+Quick question: what's the budget for Q3?
 What's the budget envelope for Q3?
 
 why did Priya get moved off the project
@@ -70,22 +70,22 @@ Could you help me understand why Priya was moved off the project?
 Could you share the rationale for moving Priya off the project?
 
 is anyone else's VPN broken or just me
-Is anyone else's VPN broken, or is it just me?
+Just to check, is anyone else's VPN broken, or is it just me?
 Is anyone else having VPN issues, or is it just me?
 Is anyone else experiencing VPN issues, or is it isolated to me?
 
 wait are we launching tomorrow??
-Wait, are we launching tomorrow?
-Sorry, are we launching tomorrow?
+Just to check, are we launching tomorrow?
+Quick heads-up, and apologies: are we launching tomorrow?
 Just to confirm, are we launching tomorrow?
 
 how did we lose the Globex account
-How did we lose the Globex account?
+Could you help me understand how we lost the Globex account?
 What happened with the Globex account?
 Could we get a readout on how we lost the Globex account?
 
 who's going to own this after Sam leaves?
-Who's going to own this after Sam leaves?
+Could you let me know who's going to own this after Sam leaves?
 Who will own this after Sam leaves?
 Who will take ownership of this after Sam's departure?
 
@@ -95,22 +95,22 @@ Could we pick one tool and stick with it?
 Could we consolidate on a single tool and commit to it?
 
 what are we actually trying to solve here
-What are we trying to solve here?
+Could you let me know what we are trying to solve here?
 Can we clarify the problem we're trying to solve?
 Can we align on the core problem we're solving?
 
 has legal looked at this yet
-Has Legal looked at this yet?
+Just to check, has Legal looked at this yet?
 Has Legal reviewed this yet?
 Has Legal had a chance to review this?
 
 why am I on this thread
-Why am I on this thread?
+Could you help me understand why I'm on this thread?
 Could you let me know why I'm on this thread?
 Could you clarify what's needed from me on this thread?
 
 how much is this going to cost us
-How much is this going to cost us?
+Could you let me know how much this is going to cost us?
 What's the expected cost of this?
 What's the anticipated cost impact here?
 
@@ -120,29 +120,29 @@ Has the client signed yet?
 Can you confirm whether the client has signed?
 
 are we still doing the Tuesday sync or is that dead
-Are we still doing the Tuesday sync, or is it cancelled?
+Just to check, are we still doing the Tuesday sync, or is it cancelled?
 Is the Tuesday sync still happening, or has it been cancelled?
 Is the Tuesday sync still on, or has it been retired?
 
 # cat=status
 finished the report, sent it to Kim
-I finished the report and sent it to Kim.
+I completed the report and sent it to Kim.
 The report is done and I've sent it to Kim.
 The report is complete and has been shared with Kim.
 
 the build is broken again
-The build is broken again.
-The build is failing again.
+It looks like the build is down again.
+Flagging that the build is failing again.
 The build is failing again.
 
 fixed the login bug, deploying at 4
-I fixed the login bug and I'm deploying at 4.
+I repaired the login issue and I'm deploying at 4.
 The login bug is fixed, and I'm deploying at 4.
 The login bug is remediated, with deployment scheduled for 4.
 
 we closed 3 deals this week!!
-We closed 3 deals this week!
-We closed 3 deals this week!
+I wanted to let you know that we closed 3 deals this week!
+Quick heads-up: we closed 3 deals this week!
 We closed 3 deals this week, a strong result!
 
 server's down, looking into it
@@ -152,7 +152,7 @@ The server is down, and I'm actively investigating.
 
 still waiting on Finance for the PO
 I'm still waiting on Finance for the PO.
-I'm still waiting on Finance for the PO.
+Heads-up: I'm still waiting on Finance for the PO.
 We're still blocked on Finance for the PO.
 
 we're behind by about 2 weeks
@@ -166,7 +166,7 @@ The demo went well, and the client loved it.
 The demo landed well, and the client loved it.
 
 halfway done with the migration
-I'm halfway done with the migration.
+I wanted to let you know that I'm halfway done with the migration.
 The migration is about halfway done.
 The migration is approximately 50% complete.
 
@@ -181,18 +181,18 @@ I sent the proposal to Initech on Monday and haven't had a reply yet.
 The proposal went to Initech on Monday, and we're awaiting a response.
 
 the app crashed for like 400 users this morning
-The app crashed for about 400 users this morning.
-The app crashed for about 400 users this morning.
+It looks like the app crashed for about 400 users this morning.
+Flagging that the app crashed for about 400 users this morning.
 This morning's crash impacted roughly 400 users.
 
 QA found 12 bugs, 2 are blockers
-QA found 12 bugs, and 2 are blockers.
+It looks like QA found 12 issues, and 2 are blockers.
 QA found 12 bugs, 2 of which are blockers.
 QA surfaced 12 bugs, 2 of which are blockers.
 
 we hit 10k signups yesterday
-We hit 10k signups yesterday.
-We reached 10k signups yesterday.
+I wanted to let you know that we hit 10k signups yesterday.
+Quick heads-up: we reached 10k signups yesterday.
 We crossed the 10k signup milestone yesterday.
 
 nothing new on my end
@@ -201,37 +201,37 @@ No updates from my side.
 No new updates from my side.
 
 i'm blocked until design sends the mockups
-I'm blocked until Design sends the mockups.
-I'm blocked until Design sends over the mockups.
+I wanted to let you know that I'm blocked until Design sends the mockups.
+Heads-up: I'm blocked until Design sends over the mockups.
 I'm blocked pending the mockups from Design.
 
 the vendor missed the deadline again
-The vendor missed the deadline again.
-The vendor missed the deadline again.
+Unfortunately, the supplier missed the deadline again.
+Quick heads-up: the partner missed the due date once again.
 The vendor missed the deadline again.
 
 we're over budget by $40k
-We're over budget by $40k.
+Unfortunately, we're over budget by $40k.
 We're $40k over budget.
 We're running $40k over budget.
 
 onboarding for the new hires is done
-Onboarding for the new hires is done.
-Onboarding for the new hires is complete.
+I wanted to let you know that onboarding for the new hires is done.
+Quick heads-up: onboarding for the new hires is complete.
 Onboarding for the new hires is complete.
 
 I pushed the fix but haven't tested it
-I pushed the fix, but I haven't tested it yet.
+I wanted to let you know that I pushed the fix, but I haven't tested it yet.
 I've pushed the fix, but it hasn't been tested yet.
 I've pushed the fix, but testing is still outstanding.
 
 we lost the Hooli deal
-We lost the Hooli deal.
-We lost the Hooli deal.
+Unfortunately, we lost the Hooli deal.
+Quick heads-up: we lost the Hooli deal.
 We did not win the Hooli deal.
 
 support queue is at 300 tickets and climbing
-The support queue is at 300 tickets and climbing.
+I wanted to let you know that the support queue is at 300 tickets and climbing.
 The support queue is at 300 tickets and growing.
 The support queue is at 300 tickets and trending up.
 
@@ -243,7 +243,7 @@ The dashboard data is inaccurate, so please don't rely on it for decisions.
 contract's signed, kickoff is Nov 3
 The contract is signed, and kickoff is Nov 3.
 The contract is signed, and kickoff is set for Nov 3.
-The contract is executed, and kickoff is set for Nov 3.
+Thinking out loud as a servant leader: The contract is executed, and kickoff is set for Nov 3. Let's keep the momentum going.
 
 tests pass locally but fail in CI, no idea why
 Tests pass locally but fail in CI, and I don't know why yet.
@@ -251,8 +251,8 @@ The tests pass locally but fail in CI, and the cause isn't clear yet.
 Tests pass locally but fail in CI, and the root cause is still unknown.
 
 we're on track for the 15th
-We're on track for the 15th.
-We're on track for the 15th.
+I wanted to let you know that we're on track for the 15th.
+Quick heads-up: we're on track for the 15th.
 We're on track to deliver on the 15th.
 
 shipped v2.1 last night, no fires so far

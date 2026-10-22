@@ -1,6 +1,6 @@
 # cat=one-liner
 no
-No.
+No, I'm not able to do that.
 No, I'm not able to do that.
 I'm going to have to decline on this one.
 
@@ -10,7 +10,7 @@ Understood, that works for me.
 Understood. Fully aligned on that.
 
 sounds good
-Sounds good.
+That sounds good to me.
 Sounds good to me.
 Sounds good. I'm fully aligned.
 
@@ -20,22 +20,22 @@ Okay, noted.
 Noted. Aligned.
 
 on it
-On it.
 I'm on it.
+Heads-up: I'm on it.
 I'm on it and will drive this forward.
 
 yep
-Yes.
+Yes, that works for me.
 Yes, confirmed.
 Confirmed. Fully aligned.
 
 nope
-No.
+No, I'm not able to do that.
 No, that won't work.
 That's a no from me at this time.
 
 ty!
-Thank you!
+Thank you so much.
 Thanks so much!
 Thank you. Deeply appreciated!
 
@@ -50,7 +50,7 @@ I don't know yet.
 I don't have visibility into that yet.
 
 will do
-Will do.
+Will do, thanks.
 Will do, I'll take care of it.
 Will do. I'll own this.
 
@@ -65,7 +65,7 @@ On my way now.
 On my way now. Joining shortly.
 
 fine
-Fine.
+Okay.
 That works.
 That works for me.
 
@@ -75,13 +75,13 @@ I'm flexible, whatever works best for you.
 I'm flexible on this. Whatever works best for the team.
 
 can't today
-I can't today.
+Unfortunately, I'm unable to today.
 I'm not able to today.
 I don't have the bandwidth for this today.
 
 done
-Done.
 This is done.
+Quick heads-up: this is completed.
 This is complete and closed out.
 
 ok but why
@@ -95,17 +95,17 @@ Can you tell me who this is?
 Could you share who this is?
 
 lmk
-Let me know.
+Please let me know.
 Let me know when you can.
 Please keep me posted.
 
 no worries
-No worries.
+No worries at all.
 No worries at all.
 No worries at all. All good.
 
 agreed
-Agreed.
+I agree.
 Agreed, I'm on the same page.
 Agreed. Fully aligned.
 
@@ -125,12 +125,12 @@ Sorry, can you clarify?
 Sorry, could you clarify what you mean?
 
 lgtm
-Looks good to me.
-Looks good to me, approved.
+This looks good to me.
+Quick heads-up: Looks good to me, approved.
 Looks good to me. Approved from my side.
 
 ship it
-Ship it.
+Could you ship it?
 Let's ship it.
 Let's ship it and get it in front of users.
 
@@ -155,12 +155,12 @@ Sounds good.
 Sounds great.
 
 sorry!!
-Sorry!
+Apologies!
 Sorry about that!
 Apologies for that!
 
 thx
-Thanks.
+Thank you so much.
 Thanks a lot.
 Thank you, much appreciated.
 
@@ -170,13 +170,13 @@ Yes, please, that would be great.
 Yes, please. That would be very helpful.
 
 not yet
-Not yet.
+Not just yet.
 Not yet, still working on it.
 Not yet. It's still in progress.
 
 got it 👍
-Got it 👍
-Got it, thanks 👍
+Got it, thanks.
+Understood, thanks.
 Got it. Noted 👍
 
 bet
@@ -195,12 +195,12 @@ No thanks, I'm all set.
 I'm all set, thanks.
 
 on a call
-I'm on a call.
+I'm on a call at the moment.
 I'm on a call right now.
 I'm on a call at the moment.
 
 call me
-Call me.
+Could you call me?
 Can you give me a call?
 Could you give me a call when you have a moment?
 
@@ -220,17 +220,17 @@ No, that's not happening.
 That's not something I can support.
 
 nice!!
-Nice!
+Nice work.
 Great work!
 Excellent work!
 
 👀
 👀
 I'm looking into it 👀
-I'm looking into it 👀
+Thinking out loud as a servant leader: I'm looking into it.
 
 so true
-So true.
+That's very true.
 Very true.
 That's spot on.
 
@@ -242,7 +242,7 @@ That's a fair point, well taken.
 im out
 I'm heading out.
 I'm signing off for the day.
-I'm signing off for the day.
+Quick strategic download: I'm signing off for the day. Let's move the needle.
 
 what time
 What time?
@@ -255,12 +255,12 @@ That's too bad.
 That's an unfortunate outcome.
 
 pls
-Please.
+Please, if you can.
 Please, if you can.
 Please, if you're able to.
 
 maybe
-Maybe.
+Possibly.
 Maybe, I'm not sure yet.
 Possibly. I'll need to assess.
 
@@ -275,7 +275,7 @@ No thanks, I'll pass.
 Thank you, but I'll pass.
 
 sure thing
-Sure thing.
+Of course.
 Sure, happy to.
 Absolutely, happy to support.
 
@@ -285,6 +285,6 @@ I could use some help.
 I could use some support here.
 
 yikes
-Yikes.
 That's concerning.
+Quick heads-up: that's concerning.
 That's a concerning development.
