@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Project Synergy: Corporate Speak Translator</title>
   <meta name="description" content="Paste a CEO memo to see what it really means, or turn plain words into corporate speak. Free, private, and it runs in your browser.">
-  <meta name="theme-color" content="#14213d">
+  <meta name="theme-color" content="#f5f6fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -29,104 +30,99 @@
 <body>
   <a class="skip" href="#input">Skip to the text box</a>
   <header class="site-header">
-    <div class="wrap">
+    <div class="wrap header-row">
       <a class="brand" href="/" aria-label="Project Synergy home">
-        <img src="/favicon.svg" alt="" width="36" height="36">
-        <span>
-          <span class="brand-name">Project Synergy</span>
-          <span class="brand-sub">Corporate Speak Translator</span>
-        </span>
+        <img src="/favicon.svg" alt="" width="32" height="32">
+        <span class="brand-name">Project Synergy</span>
       </a>
+      <p class="brand-sub">Corporate speak translator</p>
     </div>
   </header>
 
   <main class="wrap" id="main">
-    <h1 class="sr-only">Project Synergy: Corporate Speak Translator</h1>
-    <p class="lede" id="lede">Type what you mean. Get it back in fluent corporate.</p>
+    <h1 class="title" id="lede">Type what you mean. Get it back in fluent corporate.</h1>
 
-    <form class="card" id="form" novalidate>
-      <fieldset class="direction">
-        <legend class="sr-only">Direction</legend>
-        <input type="radio" name="direction" id="dir-corporate" value="toCorporate" checked>
-        <label for="dir-corporate">Normal to corporate</label>
-        <input type="radio" name="direction" id="dir-normal" value="toNormal">
-        <label for="dir-normal">Corporate to normal</label>
-      </fieldset>
+    <form class="translator" id="form" novalidate data-direction="toCorporate">
+      <div class="langbar" role="group" aria-label="Direction">
+        <span class="lang" id="src-lang">Normal</span>
+        <button type="button" class="swap-btn" id="swap" aria-describedby="dir-status" title="Swap direction">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M7 3 3 7l4 4V8h11V6H7V3Zm10 10v3H6v2h11v3l4-4-4-4Z"/></svg>
+          <span class="sr-only" id="swap-label">Swap direction</span>
+        </button>
+        <span class="lang" id="dst-lang">Corporate</span>
+      </div>
+      <p class="sr-only" id="dir-status" aria-live="polite">Now: Normal to corporate.</p>
 
-      <div class="field">
-        <div class="field-head">
-          <label for="input" id="input-label">What you really mean</label>
-          <div class="field-tools">
-            <button type="button" class="link-btn" id="example">Try an example</button>
-            <button type="button" class="link-btn" id="clear">Clear</button>
+      <div class="controls">
+        <fieldset class="chips" id="levels">
+          <legend id="level-label">How corporate</legend>
+          <div class="chip-row">
+            <input type="radio" name="level" id="level-1" value="1"><label for="level-1" id="tick-1">Mild</label>
+            <input type="radio" name="level" id="level-2" value="2" checked><label for="level-2" id="tick-2">Middle Manager</label>
+            <input type="radio" name="level" id="level-3" value="3"><label for="level-3" id="tick-3">Full C-Suite</label>
           </div>
-        </div>
-        <div class="input-wrap">
-          <textarea id="input" name="input" rows="9" spellcheck="true" aria-describedby="count cap-note"
-            placeholder="Type or dictate something blunt, like: I can't make the meeting, I'm swamped."></textarea>
-          <button type="button" class="mic" id="mic" hidden aria-pressed="false" aria-label="Start dictation" title="Dictate">
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>
-          </button>
-        </div>
-        <div class="field-foot">
-          <span id="count" class="muted">0 characters</span>
-          <span id="mic-note" class="muted" hidden>Dictation uses your browser's speech service, which may process audio on Google or Apple servers.</span>
-        </div>
-        <p id="cap-note" class="note" hidden></p>
+        </fieldset>
+
+        <details class="settings" id="settings">
+          <summary><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L14.9 3h-4l-.4 2.7a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.4 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1l.4 2.7h4l.4-2.7c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5-2.1-1.6ZM12.9 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg> Settings <span class="engine-badge" id="engine-badge">Instant</span></summary>
+          <fieldset class="engine">
+            <legend>Engine</legend>
+            <label class="choice"><input type="radio" name="engine" value="instant" checked> <span><strong>Instant</strong> <span class="muted">Phrasebook. Works everywhere, nothing to download.</span></span></label>
+            <label class="choice"><input type="radio" name="engine" value="ai"> <span><strong>AI</strong> <span class="muted" id="ai-desc">A small open model that runs in your browser. One-time download.</span></span></label>
+          </fieldset>
+          <div id="ai-status" class="ai-status" hidden>
+            <progress id="ai-progress" max="100" value="0" aria-label="Model download progress"></progress>
+            <span id="ai-status-text" role="status"></span>
+          </div>
+        </details>
       </div>
 
-      <div class="field">
-        <div class="field-head">
-          <label for="level" id="level-label">How corporate</label>
-          <output for="level" id="level-name" class="level-name">Middle Manager</output>
-        </div>
-        <input type="range" id="level" name="level" min="1" max="3" step="1" value="2" list="level-ticks" aria-describedby="level-name">
-        <datalist id="level-ticks"><option value="1"></option><option value="2"></option><option value="3"></option></datalist>
-        <div class="ticks" aria-hidden="true"><span id="tick-1">Mild</span><span id="tick-2">Middle Manager</span><span id="tick-3">Full C-Suite</span></div>
-      </div>
+      <div class="panes">
+        <section class="pane input-pane" aria-labelledby="input-label">
+          <div class="pane-head">
+            <label for="input" id="input-label">What you really mean</label>
+            <div class="pane-tools">
+              <button type="button" class="text-btn" id="example">Try an example</button>
+              <button type="button" class="text-btn" id="clear">Clear</button>
+            </div>
+          </div>
+          <div class="input-wrap">
+            <textarea id="input" name="input" rows="6" spellcheck="true" aria-describedby="count cap-note"
+              placeholder="Type or dictate something blunt, like: I can't make the meeting, I'm swamped."></textarea>
+            <button type="button" class="mic" id="mic" hidden aria-pressed="false" aria-label="Start dictation" title="Dictate">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>
+            </button>
+          </div>
+          <p id="cap-note" class="note" hidden></p>
+          <div class="pane-foot">
+            <span id="count" class="muted small">0 characters</span>
+            <span class="kbd-hint muted small">Ctrl or Cmd + Enter</span>
+            <button type="submit" class="btn primary" id="run">Corporatize</button>
+          </div>
+          <p id="mic-note" class="note" hidden>Dictation uses your browser's speech service, which may process audio on Google or Apple servers.</p>
+        </section>
 
-      <fieldset class="field engine">
-        <legend>Engine</legend>
-        <div class="engine-options">
-          <label class="choice"><input type="radio" name="engine" value="instant" checked> <span><strong>Instant</strong> <span class="muted">Phrasebook. Works everywhere, no download.</span></span></label>
-          <label class="choice"><input type="radio" name="engine" value="ai"> <span><strong>AI</strong> <span class="muted" id="ai-desc">Small open model that runs in your browser. One-time download.</span></span></label>
-        </div>
-        <div id="ai-status" class="ai-status" hidden>
-          <progress id="ai-progress" max="100" value="0" aria-label="Model download progress"></progress>
-          <span id="ai-status-text" role="status"></span>
-        </div>
-      </fieldset>
-
-      <div class="actions">
-        <button type="submit" class="btn primary" id="run">Corporatize</button>
-        <button type="button" class="btn" id="reroll" disabled>Reroll</button>
-        <span class="kbd-hint muted">Ctrl or Cmd + Enter also works.</span>
+        <section class="pane result-pane" id="result" aria-labelledby="result-title">
+          <div class="pane-head">
+            <h2 id="result-title">In corporate</h2>
+            <span class="engine-used muted small" id="engine-used" hidden></span>
+          </div>
+          <p class="empty" id="empty">Your rewrite shows up here.</p>
+          <div id="output" aria-live="polite"></div>
+          <p id="result-note" class="note" hidden></p>
+          <div class="result-tools" id="result-tools" hidden>
+            <button type="button" class="btn" id="copy"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></svg><span id="copy-text">Copy</span></button>
+            <button type="button" class="btn" id="reroll" disabled>Reroll</button>
+            <a class="btn x" id="share" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer">Share to X</a>
+          </div>
+        </section>
       </div>
     </form>
-
-    <div class="swap-row" id="swap-row" hidden>
-      <button type="button" class="btn swap" id="swap" aria-label="Swap and translate back: flips the direction and uses the result as the new input">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M7 3 3 7l4 4V8h11V6H7V3Zm10 10v3H6v2h11v3l4-4-4-4Z"/></svg>
-        <span>Swap and translate back</span>
-      </button>
-    </div>
-
-    <section class="card result" id="result" aria-labelledby="result-title" hidden>
-      <div class="result-head">
-        <h2 id="result-title">Result</h2>
-        <div class="result-tools">
-          <button type="button" class="btn small" id="copy">Copy</button>
-          <a class="btn small x" id="share" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer">Share to X</a>
-        </div>
-      </div>
-      <div id="output" aria-live="polite"></div>
-      <p id="result-note" class="note" hidden></p>
-    </section>
 
     <section class="about">
       <h2>How it works</h2>
       <p>Everything runs on your device. Instant mode uses a built-in phrasebook and pattern rules. AI mode downloads a small open model (Qwen2.5 0.5B Instruct, Apache 2.0) from Hugging Face once, keeps it in your browser cache, and runs it locally. There are no accounts and no tracking, and your text is never sent to a server. The one exception is the mic: dictation uses your browser's speech service, which may send audio to Google or Apple.</p>
-      <p>Corporate to normal gives you a one-line summary of what the memo really means, then goes through it sentence by sentence. It's a joke tool, so read the original before you quit.</p>
+      <p>Corporate to normal names the bad news first, like layoffs, a hiring freeze, a PIP or a non-answer. Then it goes through the memo sentence by sentence. Normal to corporate keeps every no, question, number, name, date and list, and it won't add meetings or promises you didn't make. It's a joke tool, so read the original before you quit.</p>
     </section>
   </main>
 

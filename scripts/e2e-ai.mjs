@@ -22,6 +22,7 @@ page.on("workercreated", (w) => say(`worker created: ${w.url().slice(0, 80)}`));
 
 await page.goto(BASE, { waitUntil: "networkidle0" });
 say(`backend guess: ${await page.evaluate(() => document.querySelector("#ai-desc").textContent)}`);
+await page.click("#settings summary");
 await page.click("input[name=engine][value=ai]");
 const dialogShown = await page.waitForSelector("dialog#consent[open]", { timeout: 5000 }).then(() => true, () => false);
 say(`consent dialog shown: ${dialogShown}${dialogShown ? `, size: ${await page.$eval("#consent-size", (e) => e.textContent)}, tech: ${await page.$eval("#consent-tech", (e) => e.textContent)}` : " (model already cached)"}`);
@@ -49,7 +50,8 @@ await page.screenshot({ path: shots + "ai-ready.png" });
 const ready = /ready/.test(await page.$eval("#ai-status-text", (e) => e.textContent));
 const outputs = {};
 if (ready) {
-  await page.click("label[for=dir-normal]");
+  await page.click("#clear");
+  await page.click("#swap");
   for (const [i, name] of [[0, "layoff"], [2, "record-year"]]) {
     await page.evaluate(async (i) => {
       const { MEMOS } = await import("/samples.js");
@@ -70,7 +72,8 @@ if (ready) {
     say(`${name}: ${out.seconds}s, summary: ${out.summary}, note: ${out.note}`);
     await page.screenshot({ path: shots + `ai-decode-${name}.png`, fullPage: true });
   }
-  await page.click("label[for=dir-corporate]");
+  await page.click("#clear");
+  await page.click("#swap");
   await page.$eval("#input", (el) => { el.value = "I can't make the meeting, I'm swamped. This plan is bad."; el.dispatchEvent(new Event("input")); });
   const t2 = Date.now();
   await page.click("#run");

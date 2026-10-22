@@ -16,6 +16,7 @@ page.on("pageerror", (e) => console.log(`pageerror: ${e}`));
 page.on("console", (m) => m.type() === "error" && console.log(`console: ${m.text()}`));
 await page.goto(BASE, { waitUntil: "networkidle0" });
 console.log(`backend: ${await page.$eval("#ai-desc", (e) => e.textContent)}`);
+await page.click("#settings summary");
 await page.click("input[name=engine][value=ai]");
 if (await page.waitForSelector("dialog#consent[open]", { timeout: 5000 }).then(() => true, () => false)) {
   console.log(`consent: ${await page.$eval("#consent-tech", (e) => e.textContent)}`);
@@ -26,7 +27,8 @@ const status = await page.$eval("#ai-status-text", (e) => e.textContent);
 console.log(`status: ${status}`);
 if (!/ready/.test(status)) process.exit(1);
 
-const setLevel = (v) => page.$eval("#level", (el, v) => { el.value = String(v); el.dispatchEvent(new Event("input")); }, v);
+const setLevel = (v) => page.$eval(`#level-${v}`, (el) => { el.checked = true; });
+const levelName = () => page.$eval("input[name=level]:checked + label", (e) => e.textContent);
 const runOnce = async (text) => {
   await page.$eval("#input", (el, v) => { el.value = v; el.dispatchEvent(new Event("input")); }, text);
   const t0 = Date.now();
@@ -45,20 +47,21 @@ const runOnce = async (text) => {
 const corporateInputs = [
   "This idea is dumb and we have no time. I need help, honestly.",
   "i can't make the meeting, i'm swamped",
+  "I won't make the 3pm meeting with Dana. Can we move it to Friday?",
 ];
-await page.click("label[for=dir-corporate]");
 for (const text of corporateInputs) {
   console.log(`\n### Normal to corporate: ${text}`);
   for (const level of [1, 2, 3]) {
     await setLevel(level);
     const r = await runOnce(text);
     const out = await page.$eval("#output", (e) => e.textContent);
-    console.log(`${await page.$eval("#level-name", (e) => e.textContent)} (${r.secs}s): ${out}${r.note ? `  [note: ${r.note}]` : ""}`);
+    console.log(`${await levelName()} (${r.secs}s, ${await page.$eval("#engine-used", (e) => e.textContent)}): ${out}${r.note ? `  [note: ${r.note}]` : ""}`);
   }
 }
 
 const memo = "We are making the difficult decision to right-size our organization to better align resources with our strategic priorities. This will allow us to unlock synergies and drive sustainable growth.";
-await page.click("label[for=dir-normal]");
+await page.click("#clear");
+await page.click("#swap");
 console.log(`\n### Corporate to normal: ${memo}`);
 for (const level of [1, 2, 3]) {
   await setLevel(level);
@@ -67,7 +70,7 @@ for (const level of [1, 2, 3]) {
     summary: document.querySelector(".summary")?.textContent,
     lines: [...document.querySelectorAll("ol.decode li p")].map((p) => p.textContent),
   }));
-  console.log(`${await page.$eval("#level-name", (e) => e.textContent)} (${r.secs}s): ${out.summary}`);
+  console.log(`${await levelName()} (${r.secs}s) [${await page.$eval(".signal-label", (e) => e.textContent)}]: ${out.summary}`);
   out.lines.forEach((l) => console.log(`   Means: ${l}`));
   if (r.note) console.log(`   [note: ${r.note}]`);
 }

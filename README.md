@@ -20,17 +20,20 @@ The site is plain HTML, CSS and ES modules in `site/`. There is no build step.
 | `site/ai-prompts.js` | AI prompts and output parsing, shared by the browser worker and the Node prompt tests |
 | `site/ai-worker.js` | Web Worker that runs the model with Transformers.js |
 | `site/ai-guard.js` | Generation settings and checks on AI replies (loops, copied examples, cut-off text) |
+| `site/meaning.js` | Meaning check for Normal to corporate: compares input and output for no's, questions, numbers, names, dates, lists and added meetings |
 | `site/config.js` | App link used in Share to X posts, and the soft character cap |
 | `site/samples.js` | Fictional example memos and messages (no real company or person) |
 | `site/_headers` | Cloudflare Pages headers: CSP, security headers, cache rules |
 
-The page opens on Normal to corporate. The other tab is Corporate to normal. After a result, the Swap and translate back button flips the direction and puts the result in the text box, so you can go there and back.
+The page opens on Normal to Corporate. The header works like a translator app: the source on the left, the target on the right, and a swap button between them. Pressing swap after a result flips the direction, moves the result into the text box and runs it again, so you can go there and back. Without a result it only flips the direction. The input and result sit side by side on wide screens and stack on phones, with the run button on the first screen. Level chips sit above the panes, and the engine choice (Instant or AI) is under Settings.
+
+Design tokens (colors, type scale, the 44px tap size) are at the top of `site/styles.css`. `tests/contrast.test.js` checks every text and border pair against WCAG AA in light and dark mode.
 
 ### Instant mode (default)
 
-Corporate to normal splits the text into sentences, skips greetings and signatures, and checks each sentence against theme rules (layoffs, return to office, no raises, record year, reorg, cost cuts, hiring freeze, AI, performance pressure, leadership exits, benefit cuts, mergers). Each sentence gets a blunt translation from the theme it matches, a stock line if it is filler, or a phrase-by-phrase swap. The summary combines the top themes, with special cases such as "Record profits. No raises." Words like right-size, reduction in force, eliminate roles or headcount mean layoffs on their own. Softer phrases (restructuring, streamline, align resources, difficult decision, synergies) only count as layoffs when two or more show up in the same memo, and only then do words like "synergies" decode as job cuts. Bluntness has three levels: Polite, Honest and Blunt.
+Corporate to normal splits the text into sentences, skips greetings and signatures, and checks each sentence against signal rules. The strongest signal becomes the headline at the top of the result, and the summary leads with it. Signals: you're being laid off, layoffs, PIP, shutdown or sunset, outsourcing, rejection or no-go, stack ranking, no raises, return to office, budget freeze, hiring freeze, LinkedIn "new chapter" posts, delay or slip, reorg, cost cuts, benefit cuts, mergers, leadership exits, AI push, pressure to perform and non-answers. A memo with none of them says so ("No bad news found", or "All fluff" when it is mostly thank-yous). "New chapter" only counts when the writer talks about themselves, so a CEO's "next chapter" is not a LinkedIn post. Each sentence gets a blunt translation from the signal it matches, a stock line if it is filler, or a phrase-by-phrase swap. Some pairs read as one line, such as "No raises, even after a record year." Words like right-size, reduction in force, eliminate roles or lower headcount mean layoffs on their own. Softer phrases (restructuring, streamline, align resources, difficult decision, synergies) only count as layoffs when two or more show up in the same memo, and only then do words like "synergies" decode as job cuts. Bluntness has three levels: Polite, Honest and Blunt.
 
-Normal to corporate swaps words and phrases from a phrasebook of about 440 entries, each with options per level (common casual words always swap, even at Mild), then adds openers, closers and (at Full C-Suite) random asides. These set a tone only: they never add meetings, plans, deadlines or promises that weren't in the input, and Mild adds no opener. Key words don't repeat, so you won't get "capacity" twice in one message. Output is deterministic for a given text, level and seed. Reroll changes the seed. The engine fixes a/an after swaps, keeps ALL CAPS, capitalizes every sentence start and standalone "i" (but not URLs, emails, code or words like iPhone) and normalizes curly quotes and dashes.
+Normal to corporate swaps words and phrases from a phrasebook of about 440 entries, each with options per level (common casual words always swap, even at Mild), then adds openers, closers and (at Full C-Suite) random asides. These set a tone only: they never add meetings, plans, deadlines or promises that weren't in the input, and Mild adds no opener. Key words don't repeat, so you won't get "capacity" twice in one message. Every rewritten sentence goes through `site/meaning.js`: it must keep every no (so "won't" never turns into "would rather not"), every question mark, number, name and date, and it may not add a date, a name or a meeting the input didn't have. Swaps never touch numbers, dates or names in the first place. If a sentence fails after a few tries, it stays as written. Lists keep one item per line, and openers and closers go on their own line around a list. The whole message is checked again at the end. AI replies get the same check, and the page shows the Instant version with a short note when one fails. Output is deterministic for a given text, level and seed. Reroll changes the seed. The engine fixes a/an after swaps, keeps ALL CAPS, capitalizes every sentence start and standalone "i" (but not URLs, emails, code or words like iPhone) and normalizes curly quotes and dashes.
 
 Input over 20,000 characters is trimmed at a sentence boundary, and the page says so.
 
@@ -69,12 +72,14 @@ Open http://localhost:8787.
 ## Tests
 
 ```sh
-npm test                          # unit tests for the engine, share text and UI copy rules (node --test)
+npm test                          # unit tests, the golden corpus with property tests, and the contrast check (node --test)
 node scripts/e2e.mjs              # Instant mode end to end in headless Chrome, writes screenshots to preview/
 node scripts/e2e-ai.mjs           # AI mode in headless Chrome (downloads the model into .chrome-profile/)
 node scripts/e2e-ai-matrix.mjs    # AI mode at every level in both directions, prints each output
 node scripts/prompt-test.mjs 2 q4f16   # runs the AI prompts on the four sample memos in Node, writes preview/prompt-test-*.md
 ```
+
+`tests/golden.js` holds 74 realistic inputs (43 memos and posts with their expected signal, 31 plain messages with the strings they must keep) across both directions and all three levels. `tests/golden.test.js` runs each one, then checks 300 random messages at every level for lost no's, questions, numbers, names, dates and list lines. `node scripts/shots.mjs` saves desktop and mobile screenshots.
 
 The end-to-end scripts expect Chrome at `/usr/bin/google-chrome` and the preview server on port 8787.
 

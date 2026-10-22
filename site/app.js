@@ -1,4 +1,5 @@
-import { toCorporate, toNormal, formatDecode, applySoftCap, LEVELS } from "./engine.js";
+import { toCorporateDetailed, toNormal, formatDecode, applySoftCap, LEVELS } from "./engine.js";
+import { checkMeaning, describeProblems } from "./meaning.js";
 import { xIntentUrl } from "./share.js";
 import { CONFIG } from "./config.js";
 import { MEMOS, PLAIN } from "./samples.js";
@@ -7,9 +8,11 @@ import { MODEL_ID } from "./ai-prompts.js";
 const $ = (id) => document.getElementById(id);
 const els = {
   form: $("form"), input: $("input"), inputLabel: $("input-label"), lede: $("lede"), count: $("count"), capNote: $("cap-note"),
-  level: $("level"), levelLabel: $("level-label"), levelName: $("level-name"), ticks: [1, 2, 3].map((i) => $(`tick-${i}`)),
+  levelLabel: $("level-label"), ticks: [1, 2, 3].map((i) => $(`tick-${i}`)), srcLang: $("src-lang"), dstLang: $("dst-lang"), dirStatus: $("dir-status"),
   run: $("run"), reroll: $("reroll"), example: $("example"), clear: $("clear"), mic: $("mic"), micNote: $("mic-note"),
-  result: $("result"), swap: $("swap"), swapRow: $("swap-row"), output: $("output"), resultNote: $("result-note"), copy: $("copy"), share: $("share"),
+  result: $("result"), resultTitle: $("result-title"), empty: $("empty"), resultTools: $("result-tools"), engineUsed: $("engine-used"),
+  swap: $("swap"), output: $("output"), resultNote: $("result-note"), copy: $("copy"), copyText: $("copy-text"), share: $("share"),
+  settings: $("settings"), engineBadge: $("engine-badge"),
   aiStatus: $("ai-status"), aiProgress: $("ai-progress"), aiStatusText: $("ai-status-text"), aiDesc: $("ai-desc"),
   consent: $("consent"), consentSize: $("consent-size"), consentTech: $("consent-tech"),
 };
@@ -19,20 +22,27 @@ const state = {
   seed: 1,
   last: null, // { direction, text, level, plain (copy text), shareText }
   exampleIndex: { toNormal: 0, toCorporate: 0 },
+  linesOpen: true,
   ai: { status: "off", worker: null, backend: null, pending: new Map(), nextId: 1 },
 };
 
 const COPY = {
   toNormal: {
-    lede: "Paste a memo or a LinkedIn post and see what it really says.",
+    lede: "Paste a memo or a LinkedIn post. See the bad news first.",
+    src: "Corporate", dst: "Normal",
     label: "Corporate text",
+    resultTitle: "What it really means",
+    empty: "The bad news, if there is any, shows up here.",
     placeholder: "Paste a CEO memo, a LinkedIn post or an all-hands email.",
     run: "Decode",
     levelLabel: "Bluntness",
   },
   toCorporate: {
     lede: "Type what you mean. Get it back in fluent corporate.",
+    src: "Normal", dst: "Corporate",
     label: "What you really mean",
+    resultTitle: "In corporate",
+    empty: "Your rewrite shows up here.",
     placeholder: "Type or dictate something blunt, like: I can't make the meeting, I'm swamped.",
     run: "Corporatize",
     levelLabel: "How corporate",
@@ -44,23 +54,23 @@ const COPY = {
 function setDirection(dir) {
   state.direction = dir;
   const c = COPY[dir];
+  els.form.dataset.direction = dir;
   els.lede.textContent = c.lede;
+  els.srcLang.textContent = c.src;
+  els.dstLang.textContent = c.dst;
+  els.dirStatus.textContent = `Now: ${c.src} to ${c.dst.toLowerCase()}.`;
+  els.swap.setAttribute("aria-label", `Swap direction. Now ${c.src} to ${c.dst.toLowerCase()}.`);
   els.inputLabel.textContent = c.label;
+  els.resultTitle.textContent = c.resultTitle;
+  els.empty.textContent = c.empty;
   els.input.placeholder = c.placeholder;
   els.run.textContent = c.run;
   els.levelLabel.textContent = c.levelLabel;
   LEVELS[dir].forEach((name, i) => (els.ticks[i].textContent = name));
-  updateLevel();
   els.reroll.disabled = true;
 }
 
-function updateLevel() {
-  const lvl = Number(els.level.value);
-  const name = LEVELS[state.direction][lvl - 1];
-  els.levelName.textContent = name;
-  els.level.setAttribute("aria-valuetext", name);
-  els.ticks.forEach((t, i) => t.classList.toggle("on", i === lvl - 1));
-}
+const getLevel = () => Number(els.form.elements.level.value || 2);
 
 function updateCount() {
   const n = els.input.value.length;
@@ -75,14 +85,42 @@ function updateCount() {
 
 // ---------- rendering ----------
 
+function renderSignal(signal) {
+  const box = document.createElement("p");
+  box.className = "signal";
+  box.dataset.tone = signal?.tone ?? "none";
+  const kicker = document.createElement("span");
+  kicker.className = "signal-kicker";
+  kicker.textContent = signal?.tone === "good" ? "Signal" : signal?.tone === "none" ? "Signal" : "Bad news";
+  const strong = document.createElement("strong");
+  strong.className = "signal-label";
+  strong.textContent = signal?.label ?? "Reading...";
+  box.append(kicker, " ", strong);
+  if (signal?.also?.length) {
+    const also = document.createElement("span");
+    also.className = "also";
+    also.textContent = `Also: ${signal.also.join(", ")}`;
+    box.append(" ", also);
+  }
+  return box;
+}
+
 function renderDecode(result, { pendingFrom = null } = {}) {
   els.output.replaceChildren();
+  els.output.append(renderSignal(result.signal));
   const p = document.createElement("p");
   p.className = "summary";
-  const strong = document.createElement("strong");
-  strong.textContent = "What they really mean:";
-  p.append(strong, " ", result.summary || "Reading the memo...");
+  const kicker = document.createElement("span");
+  kicker.className = "summary-kicker";
+  kicker.textContent = "What they really mean:";
+  p.append(kicker, " ", result.summary || "Reading the memo...");
   els.output.append(p);
+  const details = document.createElement("details");
+  details.className = "lines";
+  details.open = state.linesOpen;
+  details.addEventListener("toggle", () => (state.linesOpen = details.open));
+  const sum = document.createElement("summary");
+  sum.textContent = `Line by line (${result.lines.length})`;
   const ol = document.createElement("ol");
   ol.className = "decode";
   result.lines.forEach((line, i) => {
@@ -99,7 +137,13 @@ function renderDecode(result, { pendingFrom = null } = {}) {
     li.append(q, m);
     ol.append(li);
   });
-  els.output.append(ol);
+  details.append(sum, ol);
+  if (result.lines.length) els.output.append(details);
+  showOutput();
+}
+
+function showOutput() {
+  els.empty.hidden = true;
 }
 
 function renderCorporate(text) {
@@ -107,13 +151,16 @@ function renderCorporate(text) {
   p.className = "corporate-out";
   p.textContent = text;
   els.output.replaceChildren(p);
+  showOutput();
 }
 
 // swapText is what the swap button moves into the input: the corporate rewrite, or the plain decode lines.
-function setResult({ direction, copyText, shareText, swapText = copyText, note = "" }) {
+function setResult({ direction, copyText, shareText, swapText = copyText, note = "", engine = "Instant" }) {
   state.last = { direction, copyText, shareText, swapText };
   els.result.hidden = false;
-  els.swapRow.hidden = false;
+  els.resultTools.hidden = false;
+  els.engineUsed.hidden = false;
+  els.engineUsed.textContent = engine;
   els.share.href = xIntentUrl(shareText, CONFIG.appUrl);
   els.resultNote.hidden = !note;
   els.resultNote.textContent = note;
@@ -122,16 +169,19 @@ function setResult({ direction, copyText, shareText, swapText = copyText, note =
 
 const plainOf = (decoded) => decoded.lines.map((l) => l.plain).join(" ");
 
-// Flip the direction and feed the result back in, for a round trip.
+// Flip the direction. If there is a result, it becomes the new input and runs the other way.
 function swapDirection() {
-  if (!state.last?.swapText) return;
-  const text = state.last.swapText;
+  const text = state.last?.swapText;
   const next = state.direction === "toNormal" ? "toCorporate" : "toNormal";
-  els.form.elements.direction.value = next;
   setDirection(next);
-  els.input.value = text;
-  updateCount();
-  run();
+  els.swap.classList.toggle("spin");
+  if (text) {
+    els.input.value = text;
+    updateCount();
+    run();
+  } else {
+    hideResult();
+  }
 }
 
 // ---------- run ----------
@@ -147,7 +197,7 @@ async function run({ reroll = false } = {}) {
   if (reroll) state.seed += 1;
   else state.seed = 1;
   const { text, truncated } = applySoftCap(raw, CONFIG.softCap);
-  const level = Number(els.level.value);
+  const level = getLevel();
   const capNote = truncated ? `Only the first ${CONFIG.softCap.toLocaleString()} characters were translated.` : "";
   const useAI = getEngine() === "ai" && state.ai.status === "ready";
 
@@ -160,20 +210,27 @@ async function run({ reroll = false } = {}) {
     }
     await runAIDecode(text, level, instant, capNote, reroll);
   } else {
-    const out = toCorporate(text, { level, seed: state.seed });
+    const instant = toCorporateDetailed(text, { level, seed: state.seed });
+    const out = instant.text;
+    const instantNote = instant.fallback === "plain" ? "Kept close to your wording so the meaning stays the same." : "";
     if (!useAI) {
       renderCorporate(out);
-      setResult({ direction: "toCorporate", copyText: out, shareText: out, note: capNote });
+      setResult({ direction: "toCorporate", copyText: out, shareText: out, note: [instantNote, capNote].filter(Boolean).join(" ") });
       return;
     }
     renderCorporate("Rewriting with AI...");
-    els.result.hidden = false;
     setBusy(true);
     try {
       const res = await askWorker({ type: "toCorporate", text, level, seed: state.seed });
-      const final = res.text || out;
+      // The AI reply has to keep the meaning too. If it drops a no, a question, a number, a name or a list, Instant wins.
+      const check = res.text ? checkMeaning(text, res.text) : null;
+      const useIt = Boolean(res.text) && check.ok;
+      const final = useIt ? res.text : out;
+      const why = !res.text
+        ? res.rejected ? "The AI reply didn't make sense, so this is the Instant version." : "The AI came back empty, so this is the Instant version."
+        : !check.ok ? `The AI reply ${describeProblems(check) || "changed the meaning"}, so this is the Instant version.` : "";
       renderCorporate(final);
-      setResult({ direction: "toCorporate", copyText: final, shareText: final, note: [res.text ? "" : res.rejected ? "The AI reply didn't make sense, so this is the Instant version." : "The AI came back empty, so this is the Instant version.", capNote].filter(Boolean).join(" ") });
+      setResult({ direction: "toCorporate", copyText: final, shareText: final, engine: useIt ? "AI" : "Instant", note: [why, capNote].filter(Boolean).join(" ") });
     } catch (err) {
       renderCorporate(out);
       setResult({ direction: "toCorporate", copyText: out, shareText: out, note: `AI mode hit an error, so this is the Instant version. (${err.message})` });
@@ -185,9 +242,8 @@ async function run({ reroll = false } = {}) {
 
 async function runAIDecode(text, level, instant, capNote, reroll) {
   // Show the sentences right away and fill in AI lines as they arrive.
-  const view = { summary: "", lines: instant.lines.map((l) => ({ original: l.original, plain: l.plain })) };
+  const view = { summary: "", signal: instant.signal, lines: instant.lines.map((l) => ({ original: l.original, plain: l.plain })) };
   renderDecode(view, { pendingFrom: 0 });
-  els.result.hidden = false;
   setBusy(true);
   try {
     const res = await askWorker(
@@ -202,13 +258,13 @@ async function runAIDecode(text, level, instant, capNote, reroll) {
     const lines = res.lines.map((l, i) => ({ original: l.original, plain: l.plain || instant.lines[i]?.plain || "" }));
     lines.push(...instant.lines.slice(lines.length));
     const summary = res.summaryOk && res.summary ? res.summary : instant.summary;
-    const final = { summary, lines };
+    const final = { summary, lines, signal: instant.signal };
     renderDecode(final);
     const notes = [];
     if (!res.summaryOk) notes.push("The AI summary missed the main point, so the summary is from Instant mode.");
     if (res.skipped > 0) notes.push(`AI decoded the first ${res.lines.length} sentences. The rest use Instant mode.`);
     if (capNote) notes.push(capNote);
-    setResult({ direction: "toNormal", copyText: formatDecode(final), shareText: `What they really mean: ${summary}`, swapText: plainOf(final), note: notes.join(" ") });
+    setResult({ direction: "toNormal", copyText: formatDecode(final), shareText: `What they really mean: ${summary}`, swapText: plainOf(final), note: notes.join(" "), engine: "AI" });
   } catch (err) {
     renderDecode(instant);
     setResult({ direction: "toNormal", copyText: formatDecode(instant), shareText: `What they really mean: ${instant.summary}`, swapText: plainOf(instant), note: `AI mode hit an error, so this is the Instant version. (${err.message})` });
@@ -227,6 +283,11 @@ function setBusy(busy) {
 
 function getEngine() {
   return els.form.elements.engine.value;
+}
+
+function setEngine(value) {
+  els.form.elements.engine.value = value;
+  els.engineBadge.textContent = value === "ai" ? "AI" : "Instant";
 }
 
 async function detectBackend() {
@@ -261,6 +322,7 @@ async function isModelCached(backend) {
 
 function showAIStatus(text, progress = null) {
   els.aiStatus.hidden = false;
+  els.settings.open = true;
   els.aiStatusText.textContent = text;
   if (progress === null) els.aiProgress.hidden = true;
   else {
@@ -280,7 +342,7 @@ async function enableAI() {
     els.consent.showModal();
     const answer = await new Promise((resolve) => els.consent.addEventListener("close", () => resolve(els.consent.returnValue), { once: true }));
     if (answer !== "ok") {
-      els.form.elements.engine.value = "instant";
+      setEngine("instant");
       showAIStatus("AI mode is off. Nothing was downloaded.");
       return;
     }
@@ -324,7 +386,7 @@ function failAI(message) {
   state.ai.worker = null;
   for (const p of state.ai.pending.values()) p.reject(new Error(message));
   state.ai.pending.clear();
-  els.form.elements.engine.value = "instant";
+  setEngine("instant");
   showAIStatus(`AI mode couldn't start, so Instant mode is on. (${message})`);
 }
 
@@ -402,15 +464,26 @@ async function copyResult() {
     document.execCommand("copy");
     ta.remove();
   }
-  els.copy.textContent = "Copied";
-  setTimeout(() => (els.copy.textContent = "Copy"), 1600);
+  els.copyText.textContent = "Copied";
+  setTimeout(() => (els.copyText.textContent = "Copy"), 1600);
 }
 
 // ---------- wire up ----------
 
-els.form.addEventListener("submit", (e) => {
+// On phones the result sits under the input, so bring it into view after a run.
+function revealResult() {
+  if (window.matchMedia("(min-width: 861px)").matches) return;
+  const top = els.result.getBoundingClientRect().top;
+  if (top > window.innerHeight * 0.6) {
+    const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    els.result.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
+  }
+}
+
+els.form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  run();
+  await run();
+  if (state.last) revealResult();
 });
 els.reroll.addEventListener("click", () => run({ reroll: true }));
 els.input.addEventListener("input", updateCount);
@@ -420,17 +493,14 @@ els.input.addEventListener("keydown", (e) => {
     run();
   }
 });
-els.level.addEventListener("input", updateLevel);
-els.level.addEventListener("change", () => state.last && getEngine() === "instant" && run());
-for (const radio of els.form.elements.direction) {
-  radio.addEventListener("change", () => {
-    setDirection(radio.value);
-    hideResult();
-  });
+for (const radio of els.form.elements.level) {
+  radio.addEventListener("change", () => state.last && getEngine() === "instant" && run());
 }
 for (const radio of els.form.elements.engine) {
   radio.addEventListener("change", () => {
-    if (radio.checked && radio.value === "ai") enableAI();
+    if (!radio.checked) return;
+    setEngine(radio.value);
+    if (radio.value === "ai") enableAI();
   });
 }
 els.example.addEventListener("click", () => {
@@ -451,16 +521,20 @@ els.copy.addEventListener("click", copyResult);
 els.swap.addEventListener("click", swapDirection);
 
 function hideResult() {
-  els.result.hidden = true;
-  els.swapRow.hidden = true;
+  els.output.replaceChildren();
+  els.empty.hidden = false;
+  els.resultTools.hidden = true;
+  els.engineUsed.hidden = true;
+  els.resultNote.hidden = true;
   state.last = null;
 }
 
-// Browsers can restore old form state on reload, so set the tab and the state together.
-els.form.elements.direction.value = "toCorporate";
+// Browsers can restore old form state on reload, so reset the direction, level and engine together.
+els.form.elements.level.value = "2";
+setEngine("instant");
 setDirection("toCorporate");
 updateCount();
 setupMic();
 detectBackend().then((b) => {
-  els.aiDesc.textContent = `Small open model that runs in your browser. One-time download, about ${b.size}.`;
+  els.aiDesc.textContent = `A small open model that runs in your browser. One-time download of about ${b.size}.`;
 });
