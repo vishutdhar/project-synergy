@@ -66,3 +66,19 @@ test("a blunt no from Legal decodes as a blunt no", () => {
   // A softened no is still read as the polite kind.
   assert.match(toNormal("Unfortunately, legal said no at this time, but we can revisit next quarter", { level: 1 }).summary, /kindly/);
 });
+
+test("hand-read #3 fixes: no swaps that shift meaning, habits framed as observations", () => {
+  assert.doesNotMatch(corp("I'm not covering for Mike again", 2), /once again/);
+  assert.doesNotMatch(corp("stuck in traffic, start without me", 2), /commute/);
+  assert.doesNotMatch(corp("can someone with a car pick up the banners", 2), /commute vehicle/);
+  assert.doesNotMatch(corp("screw it, let's just go with option B", 1), /choice B/);
+  assert.doesNotMatch(corp("the data is wrong in the dashboard, don't use it", 2), /don't leverage/);
+  assert.match(corp("the data is wrong in the dashboard, don't use it", 1), /\. Please don't use it\.$/);
+  assert.equal(corp("you keep interrupting people in meetings", 1), "I've noticed you keep interrupting people in catch-ups.");
+  assert.doesNotMatch(corp("can't help, I've never used Salesforce", 2), /capacity/);
+  assert.doesNotMatch(corp("I think you're wrong about the pricing", 2), /My read is that I/);
+  assert.doesNotMatch(corp("I'm going to be honest. This project has been a disaster.", 1), /let you know that I'm going to be honest/);
+  assert.equal(corp("Diego crushed it on the launch", 1), "Diego did a fantastic job on the launch.");
+  assert.doesNotMatch(corp("meeting's moved to 3 fyi", 2), /fyi|FYI/);
+  assert.doesNotMatch(corp("fuck, I deleted the prod database", 2), /frustrating/);
+});

@@ -37,6 +37,22 @@ my bad = my mistake = I own that = that's a learning I'm taking forward
 !^i quit = I'm moving on = I'm transitioning to my next chapter = I'm exploring opportunities outside the org
 i'm leaving = I'm heading out = I'm transitioning out = I'm sunsetting my presence
 out sick = out sick = out sick = offline for health reasons
+!so done with = really fed up with = at my limit with = fully at capacity on
+!crushed it = did a fantastic job = knocked it out of the park = delivered outsized impact
+!shoutout to = a big thank-you to = huge kudos to = a massive shoutout to
+!shout-out to = a big thank-you to = huge kudos to = a massive shoutout to
+!my laptop died = my laptop stopped working = my laptop is out of commission = my hardware endpoint is offline
+!are ugly = aren't working for me = aren't landing for me = are off-brand
+!is a joke and a rushed one = is rushed and isn't working = is under-baked and isn't landing = is an MVP-grade experience with room to grow
+!is a joke and an under-baked one = is rushed and isn't working = is under-baked and isn't landing = is an MVP-grade experience with room to grow
+!i'm going to be honest = I'll be candid = I'll be fully transparent = in the spirit of radical candor, I'll be transparent
+!no, i'm not doing = no, I won't be doing = no, I won't be taking on = no, I'm not resourced to take on
+!a joke and a half-assed one = rushed and not working = under-baked and not landing = an MVP-grade experience with significant room to grow
+!is a joke = isn't working = isn't landing = has significant room to grow
+!is ugly = isn't working for me = isn't landing for me = is off-brand
+!^you keep = I've noticed you keep = I've noticed a pattern where you keep = I've observed a recurring pattern where you keep
+!new rule: = new policy: = new team norm: = new operating principle:
+!talk, driving = talk right now because I'm driving = talk at the moment because I'm driving = engage on comms while in transit
 ^i'm out = I'm signing off = I'm stepping back = I'm exiting this workstream
 !i'm going to be late = I'm running a bit behind = I'm running behind schedule = I'm operating on a dynamic timeline
 !i'll be late = I'll be running a bit behind = I'll be running behind schedule = I'll be operating on a dynamic timeline
@@ -76,7 +92,7 @@ later = later = a bit later = in a later phase
 soon = shortly = in the near term = in the coming cycles
 this week = this week = this sprint = within the current execution window
 eventually = in time = down the road = at some point on the long-term roadmap
-again = again = once again = yet again
+again = again = again = yet again
 !happen again = happen again = recur = recur in any future iteration
 !it won't = it will not = it is not going to = it categorically will not
 !this won't = this will not = this is not going to = this categorically will not
@@ -97,7 +113,7 @@ bug = issue = defect = defect
 bugs = issues = defects = defects
 a simple fix = a simple fix = a straightforward fix = a low-lift remediation
 a quick fix = a quick fix = a fast fix = a rapid remediation
-!fixed = repaired = addressed = remediated
+!fixed = fixed = addressed = remediated
 terrible = pretty rough = deeply suboptimal = a significant value leak
 awful = rough = suboptimal = a value-destroying event
 !sucks = isn't great = is suboptimal = underindexes on value
@@ -158,6 +174,7 @@ kind of = somewhat = partially = directionally
 sort of = somewhat = loosely = directionally
 lots of = plenty of = a significant amount of = a robust volume of
 a little = a bit = slightly = incrementally
+!don't use = don't use = don't rely on = don't leverage
 use = use = leverage = leverage
 using = using = leveraging = leveraging
 done with = done with = finished with = wrapped up with
@@ -184,7 +201,7 @@ send me = send me = please send me = kindly send over
 send you = send you = send over = circulate
 share this = share this = share this = socialize this
 share the = share the = share the = socialize the
-learn = learn = upskill = upskill
+learn = learn = get up to speed on = upskill on
 learned = learned = took away = captured key learnings
 improve = improve = optimize = transform
 improved = improved = optimized = transformed
@@ -245,7 +262,7 @@ we need = we need = we require = we require
 you need to = you should = you'll want to = you're empowered to
 can you = could you = would you be able to = do you have the bandwidth to
 could you = could you = would you be able to = do you have the bandwidth to
-!>i can't = I'm unable to = I don't have the capacity to = I'm not resourced to
+!>i can't = I'm unable to = I won't be able to = I'm not resourced to
 can't afford = cannot afford = can't afford = cannot afford
 !>can't = cannot = cannot = won't be able to
 ^i won't = I won't = I'm not going to commit to that = I'm declining to operationalize that
@@ -320,8 +337,8 @@ book the room = book the room = book the space = book the collaboration zone
 conference room = conference room = conference room = conference room
 kitchen = kitchen = break room = nourishment hub
 bathroom = bathroom = restroom = wellness break facility
-car = car = commute vehicle = mobility asset
-traffic = traffic = commute delays = mobility headwinds
+car = car = car = mobility asset
+traffic = traffic = traffic = mobility headwinds
 weather = weather = conditions = environmental headwinds
 rain = rain = bad weather = environmental headwinds
 mess = mess = disorganized situation = unstructured ecosystem
@@ -433,7 +450,7 @@ credit for my work = credit for my work = credit for my work = credit for my con
 !running late = running behind = slightly delayed = operating on a dynamic timeline
 !pointless = not very useful = low value = value-negative
 !>grab = get = pick up = secure
-!option = choice = path = strategic pathway
+!option = option = option = strategic pathway
 !vendor = supplier = partner = strategic partner
 !way too = far too = much too = far too
 !works for me = works for me, thanks = aligns with my priorities = is fully aligned with my priorities

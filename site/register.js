@@ -212,6 +212,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       const r = lowerFirst(rest.trim());
       const restEnd = end && end !== "!" ? end : ".";
       if (lvl === 1) return done(`${M("Apologies,")} ${r}${restEnd}`, "apology");
+      if (lvl === 2 && !had && lead && /^(?:this|that|it)\b/i.test(r)) return done(`${M("Sincere apologies that")} ${r}${restEnd}`, "apology");
       if (lvl === 2 && !had) return done(`${useLabel("Quick heads-up, and apologies:")} ${r}${restEnd}`, "apology+label");
       if (lvl === 2) return done(`${M("Apologies:")} ${r}${restEnd}`, "apology");
       return done(`${M("Apologies for the disruption.")} ${capWord(r)}${restEnd}`, "apology");
@@ -344,7 +345,9 @@ function restructureAt(marked, lvl, ctx = {}) {
 
   if (clean && !isQ && words <= 24) {
     const it = body.match(/^I think (?!so\b|not\b)(.+)$/i);
-    if (it && lvl === 2) return done(`${M("My read is that")} ${it[1]}.`, "hedge-opinion");
+    const yw = it && it[1].match(/^you(?:'re| are) wrong about (.+)$/i);
+    if (yw && lvl === 2) return done(`${M("My two cents: I see")} ${yw[1]} a little differently.`, "hedge-opinion");
+    if (it && lvl === 2 && !/^I\b/.test(it[1])) return done(`${M("My read is that")} ${it[1]}.`, "hedge-opinion");
     const gj = body.match(/^(?:great|nice|good|awesome|amazing) (?:job|work) (on|with) (.+)$/i);
     if (gj) return done(`${M(["Great work", "Huge kudos", "Massive value-add"][lvl - 1])} ${gj[1]} ${gj[2]}${end === "!" ? "!" : "."}`, "praise");
   }
@@ -591,7 +594,7 @@ function restructureAt(marked, lvl, ctx = {}) {
     }
     if (problem && subjectOk && !/^(?:it looks like|looks like|fyi|heads up|flagging)\b/i.test(body)) {
       if (lvl === 1 && ctx.first && !/^(?:we|they)\b/i.test(body) && !hasNeg) return done(`${M("It looks like")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "hedge-problem");
-      if (lvl === 1 && ctx.forceMild && ctx.first) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "frame");
+      if (lvl === 1 && ctx.forceMild && ctx.first && !/\bbe honest\b/i.test(body)) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "frame");
       if (lvl === 2 && !had) return done(`${useLabel(/^that\b/i.test(body) ? "Quick flag:" : "Flagging that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "label");
       return none;
     }
@@ -601,6 +604,16 @@ function restructureAt(marked, lvl, ctx = {}) {
   {
     const v = markedBody.match(/^(everyone|all|team|folks|y'all),\s+(.+)$/i);
     if (v && clean && ctx.first && lvl === 2 && !had && !/\?$/.test(plain)) return done(`${useLabel(`Quick heads-up, ${v[1].toLowerCase()}:`)} ${lowerFirst(v[2])}${end === "!" ? "!" : "."}`, "label");
+  }
+
+  // Feedback about a habit gets an observation frame, not a bare accusation.
+  {
+    const fk = body.match(/^you keep (.+)$/i);
+    if (fk && clean && !isQ && ctx.first) {
+      const rest = marked.trim().replace(/^you keep\s+/i, "").replace(/[.!]+$/, "");
+      if (lvl === 1) return done(`${M("I've noticed you keep")} ${rest}.`, "feedback");
+      if (lvl === 2) return done(`${M("Some candid feedback: I've noticed you keep")} ${rest}.`, "feedback");
+    }
   }
 
   // Praise gets a kudos label at Middle Manager, never a heads-up.
@@ -615,7 +628,7 @@ function restructureAt(marked, lvl, ctx = {}) {
   if (update) {
     const personal = /^(?:I|I'm|I've|I'll|I'd|my)\b/.test(body);
     if (lvl === 2 && !had) return done(`${useLabel(/^I hope\b/.test(body) ? "Warm wishes:" : personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
-    if (lvl === 1 && ctx.forceMild && (ctx.count ?? 1) <= 2 && (subjectOk || iStatement) && !/^that\b/i.test(body)) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "frame");
+    if (lvl === 1 && ctx.forceMild && (ctx.count ?? 1) <= 2 && (subjectOk || iStatement) && !/^that\b/i.test(body) && !/\bbe honest\b/i.test(body)) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "frame");
   }
   return none;
 }
@@ -644,7 +657,8 @@ const ONE_LINERS = {
   "on my list": ["It's on my list.", "It's on my radar.", "It's in my backlog and on my radar."],
   "sounds like a plan": ["That sounds like a good plan.", "Sounds like a plan, and I'm aligned.", "That's a strategic plan I can fully get behind."],
   "looks good to me": ["This looks good to me.", "This looks good from my side.", "This has my full sign-off from a strategic standpoint."],
-  "got it": ["Got it, thanks.", "Understood.", "Understood, fully aligned."],
+  "can't talk driving": ["I can't talk right now, I'm driving.", "Heads-up: I'm driving, so I'm unable to talk at the moment.", "I'm in transit and offline from comms at the moment."],
+  "got it": ["Got it, thanks.", "Got it, noted on my end.", "Understood, fully aligned."],
   "thanks": ["Thank you so much.", "Thanks, much appreciated.", "Deeply appreciate the partnership."],
   "thank you": ["Thank you so much.", "Thanks, much appreciated.", "Deeply appreciate the partnership."],
   "who's this": ["Could you let me know who this is?", "Quick question: who is this?", "Could you clarify who this stakeholder is?"],
@@ -699,7 +713,7 @@ function genericHeader(h) {
   if (!h || h.split(/\s+/).length > 4 || /[,.!?]/.test(h)) return null;
   const low = h.replace(/^\w/, (c) => (/^[A-Z][a-z]/.test(h) ? c.toLowerCase() : c));
   if (/^my\b/i.test(h)) return [`Here's ${low}`, `${h.replace(/^my/i, "My")} at a glance`, `Strategic overview of ${low}`];
-  if (/^(?:for|by|before|after)\b/i.test(h)) return [`Here's what's on ${low}`, `Action items ${low}`, `Key deliverables ${low}`];
+  if (/^(?:for|by|before|after)\b/i.test(h)) return [`Here's the checklist ${low}`, `Action items ${low}`, `Key deliverables ${low}`];
   const plural = /s$/i.test(h.split(/\s+/).pop());
   return [`Here ${plural ? "are" : "is"} the ${low}`, `${h[0].toUpperCase()}${h.slice(1)} at a glance`, `Strategic overview of the ${low}`];
 }

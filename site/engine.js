@@ -106,6 +106,9 @@ export function normalizeCasual(text) {
   t = t.replace(/^(\s*)(?:y'?all|you all)(?=\s+(?:the|we|i|it|this|that|there|guess|check|look|our)\b)/gim, "$1everyone,");
   t = t.replace(/\bdon'?t @ me,? but\b/gi, "unpopular opinion, but");
   t = t.replace(/\blma+o+\b|\blo+l+\b/gi, "");
+  t = t.replace(/^(\s*)(?:ok|okay),?\s+so,?\s+(?=[a-z])/gim, "$1");
+  t = t.replace(/^(\s*)([^\n?]+?),?\s+fyi\s*[.!]*\s*$/gim, "$1$2.");
+  t = t.replace(/,\s+(?:please\s+)?(don't|do not)\s+(?=[a-z])/gi, ". Please $1 ");
   t = t.replace(/^(\s*)(no|yes|yeah|ok|okay|sure|nope)\s+(?=(?:I|I'm|I'll|we|we're|you|it|it's|that's|that)\b)/gim, "$1$2, ");
   t = t.replace(/^(\s*)(honestly|frankly|basically|seriously|anyway|actually)\s+(?=[a-z])/gim, "$1$2, ");
   t = t.replace(/\b(\w+) (to be honest|tbh),?\s*$/gim, (m, w, p) => (w === "honest" ? m : `${w}, ${p}`));
@@ -267,7 +270,7 @@ function swapPhrases(text, matcher, level, rng, swapChance, used = null, protect
   while ((m = re.exec(text))) {
     const start = m.index;
     // After "don't" or "did not", a swap that starts with a helper verb would read "don't would like".
-    const negAux = /\b(?:don't|doesn't|didn't|dont|do not|does not|did not)\s*$/i.test(text.slice(0, start));
+    const negAux = /\b(?:don't|doesn't|didn't|dont|do not|does not|did not)\s*$/i.test(text.slice(0, start).replace(/[\u0000\u0001]/g, ""));
     let found = null;
     for (const cand of [m[0], ...matcher.shorterAt(text, start, m[0].length)]) {
       const candEnd = start + cand.length;
@@ -279,6 +282,8 @@ function swapPhrases(text, matcher, level, rng, swapChance, used = null, protect
       if (!entry) continue;
       if (negAux && entry.tiers.flat().some((o) => /^(?:would|will|am|is|are|have|has|can|could)\b/i.test(o))) continue;
       if (protect.some(([a, b]) => start < b && candEnd > a)) continue;
+      // "don't leverage it" reads oddly in a plain warning; keep "use" after a negation below C-Suite.
+      if (negAux && level < 3 && /^use$/i.test(cand)) continue;
       found = { entry, end: candEnd, match: cand };
       break;
     }

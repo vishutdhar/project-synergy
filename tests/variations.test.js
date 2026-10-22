@@ -83,7 +83,7 @@ test("interjections and tags get their comma", () => {
   assert.equal(corp("btw the deploy is done", 1), "By the way, the deploy is done.");
   assert.equal(corp("wow thanks for telling me at 4:55 on a friday", 1), "Wow, thanks for telling me at 4:55 on a Friday.");
   assert.equal(corp("ok but why", 1), "Okay, but could you help me understand why?");
-  assert.equal(corp("ok so the api is borked again", 1), "Ok, so the api is down again.");
+  assert.equal(corp("ok so the api is borked again", 1), "It looks like the api is down again.");
   assert.match(corp("sure, I'll just work 3 jobs, no problem", 3), /operationalize that\. I'll just work 3 jobs/);
 });
 

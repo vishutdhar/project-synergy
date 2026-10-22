@@ -180,9 +180,9 @@ const PHRASES = `
 !get the fuck out = please leave = please step out = I'd appreciate some space
 !for fuck's sake = , please = , please = , please
 !fuck my life = this is rough = I'm having a hard day = my personal KPIs are trending down
-!{oh|aw|ah} {fuck|shit|crap|hell} = oh no = that's frustrating = that's a suboptimal outcome
+!{oh|aw|ah} {fuck|shit|crap|hell} = oh no = unfortunately = that's a suboptimal outcome
 !holy {fuck|shit|crap|hell} = wow, = wow, big news: = this is a paradigm shift:
-!^{fuck|shit|crap|damn|damn it|hell|bugger|bollocks|fuck me|fucking hell|bloody hell|shit shit shit} = oh no = that's frustrating = that's a suboptimal outcome
+!^{fuck|shit|crap|damn|damn it|hell|bugger|bollocks|fuck me|fucking hell|bloody hell|shit shit shit} = oh no = unfortunately = that's a suboptimal outcome
 !{i|we|you|they} {don't|do not|didn't|did not} give a {fuck|shit|damn|crap|rat's ass|toss} about = $1 $2 care about = $1 $2 see a priority in = $1 $2 see strategic value in
 !{he|she|it} {doesn't|does not|didn't|did not} give a {fuck|shit|damn|crap|rat's ass|toss} about = $1 $2 care about = $1 $2 see a priority in = $1 $2 see strategic value in
 !{i|we|you|they} {don't|do not|didn't|did not} give a {fuck|shit|damn|crap|rat's ass|toss} = $1 $2 care = $1 $2 see this as a priority = $1 $2 see this as a strategic priority
@@ -232,7 +232,7 @@ const PHRASES = `
 !{is|was} a piece of {shit|crap} = $1 in bad shape = $1 low quality = $1 a value-negative asset
 !{a|this|that} piece of {shit|crap} = $1 mess = $1 low-quality deliverable = $1 value-negative asset
 !piece of {shit|crap} = mess = low-quality deliverable = value-negative asset
-!{shitty|crappy|sucky} = bad = low-quality = suboptimal
+!{shitty|crappy|sucky} = bad = rough = suboptimal
 !{shittier|crappier} = worse = lower-quality = more suboptimal
 !{feel|felt|feeling|feels} like {shit|crap} = $1 terrible = $1 unwell = $1 like I'm at reduced capacity
 !{look|looks|looked|looking} like {shit|crap} = $1 bad = $1 rough = $1 far from launch-ready
@@ -242,7 +242,7 @@ const PHRASES = `
 !{is|are|was|were} crap = $1 not great = $1 low quality = $1 underperforming
 !{this|that} crap = $1 = $1 = $1
 !crap = junk = junk = junk
-!damn it = oh no = that's frustrating = that's a suboptimal outcome
+!damn it = oh no = unfortunately = that's a suboptimal outcome
 !can go to hell = has really frustrated me = has really frustrated me = has created significant friction for me
 !can shove = can keep = can keep = are welcome to keep
 !go to hell = please leave me alone = I need some space = let's pause this relationship
@@ -325,6 +325,7 @@ const PHRASES = `
 !{ass-kisser|ass kisser|kiss-ass|brown-noser|suck-up} = flatterer = flatterer = aggressive upward manager
 !{kick|kicking|kicked|kicks} ass = {do|doing|did|does} great = {deliver|delivering|delivered|delivers} strong results = {drive|driving|drove|drives} best-in-class outcomes
 !badass = impressive = high-impact = best-in-class
+!is a joke and a half-assed one = is rushed and isn't working = is under-baked and isn't landing = is an MVP-grade experience with room to grow
 !half-assed = rushed = incomplete = MVP-grade
 !cover {my|your|our|his|her|their} {ass|asses|butt} = protect {myself|yourself|ourselves|himself|herself|themselves} = document {my|your|our|his|her|their} position = build a robust paper trail
 !{work|working|worked|works|bust|busting|busted|busts} {my|our|your|his|her|their} {ass|asses|butt} off = {work|working|worked|works|work|working|worked|works} really hard = {work|working|worked|works|work|working|worked|works} very hard = {operate|operating|operated|operates|operate|operating|operated|operates} at maximum output
