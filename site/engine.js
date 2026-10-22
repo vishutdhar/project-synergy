@@ -5,7 +5,7 @@ import {
   LAYOFF_HINTS, LAYOFF_CONTEXT_SWAPS, SIGNALS,
 } from "./phrasebook.js";
 import { checkMeaning, setAllowedCaps, isShouting } from "./meaning.js";
-import { CRUDE_SWAPS, canonicalizeCrude, neutralizeSlurs, hasCrude, scrubCrude } from "./profanity.js";
+import { CRUDE_SWAPS, canonicalizeCrude, hasCrude, cleanCrude } from "./profanity.js";
 
 export const SOFT_CAP = 20000;
 export const LEVELS = {
@@ -87,11 +87,20 @@ function buildMatcher(entries) {
   const lookup = (m) => byKey.get(m.toLowerCase().replace(/\s+/g, " ")) ?? byKey.get(apostropheIndex.get(m.toLowerCase().replace(/\s+/g, " ").replace(/'/g, "")));
   const apostropheIndex = new Map(keys.map((k) => [k.replace(/'/g, ""), k]));
   // Shorter keys that also match at the same spot, longest first. Used when the longest match can't be swapped.
-  let sticky = null;
+  // Keys grouped by first word, so only keys that could start here are tried.
+  let byFirst = null;
   const shorterAt = (text, start, len) => {
-    sticky ??= keys.map((k) => new RegExp(`(?<![\\w'-])(?:${escapeRe(k).replace(/'/g, "'?").replace(/ /g, "\\s+")})(?![\\w'-])`, "iy"));
+    if (!byFirst) {
+      byFirst = new Map();
+      for (const k of keys) {
+        const first = k.split(" ")[0].replace(/'/g, "");
+        const re = new RegExp(`(?<![\\w'-])(?:${escapeRe(k).replace(/'/g, "'?").replace(/ /g, "\\s+")})(?![\\w'-])`, "iy");
+        byFirst.set(first, [...(byFirst.get(first) ?? []), re]);
+      }
+    }
+    const word = text.slice(start).match(/^[\w'-]+/)?.[0].toLowerCase().replace(/'/g, "") ?? "";
     const out = new Set();
-    for (const r of sticky) {
+    for (const r of byFirst.get(word) ?? []) {
       r.lastIndex = start;
       const hit = r.exec(text);
       if (hit && hit[0].length < len) out.add(hit[0]);
@@ -103,18 +112,20 @@ function buildMatcher(entries) {
 
 export const corporateEntries = parseSwaps(CORPORATE_SWAPS);
 // Crude phrases come first, so "is shit" beats any plain swap for "is".
-export const crudeEntries = parseSwaps(CRUDE_SWAPS);
+export const crudeEntries = parseSwaps(CRUDE_SWAPS).map((e) => ({ ...e, crude: true }));
 export const decodeEntries = parseSwaps(DECODE_SWAPS);
-const corporateMatcher = buildMatcher([...crudeEntries, ...corporateEntries]);
+const plainMatcher = buildMatcher(corporateEntries);
+// Sentences with no crude word skip the big crude matcher. A few crude idioms are spelled with clean words.
+const mayBeCrude = (text) => hasCrude(text) || /\b(?:squat|knackered|dumpster fire|brown-noser|kiss(?:ing|ed|es)? up)\b/i.test(text);
 const crudeMatcher = buildMatcher(crudeEntries);
 
 // The input with swearing already swapped for plain, mild wording. AI mode rewrites this
 // version, so the model never sees "fuck off" and can't copy it into the reply.
 export function softenCrude(input) {
-  const clean = neutralizeSlurs(canonicalizeCrude(normalizeInput(input))).replace(/[ \t]{2,}/g, " ").trim();
-  if (!hasCrude(clean)) return clean;
+  const clean = canonicalizeCrude(normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
+  if (!mayBeCrude(clean)) return clean;
   let { text } = swapPhrases(clean, crudeMatcher, 1, () => 0, 1);
-  if (hasCrude(text)) text = scrubCrude(text);
+  if (hasCrude(text)) text = cleanCrude(text).text;
   text = text.replace(/[\u0000\u0001]/g, "").replace(/[ \t]{2,}/g, " ").trim();
   return /^[A-Z]/.test(clean) ? capFirst(text) : text;
 }
@@ -183,7 +194,8 @@ function swapPhrases(text, matcher, level, rng, swapChance, used = null, protect
       if (used && repeatsKeyWord(choice, used)) {
         // Same tier first, then milder tiers, then stronger ones.
         const others = [entry.tiers[tierIdx], entry.tiers[level - 1], ...entry.tiers.slice(0, level - 1).reverse(), ...entry.tiers.slice(level)].flat();
-        choice = others.find((c) => !repeatsKeyWord(c, used)) ?? m[0];
+        // A crude phrase is never kept as is, even if every option repeats a word.
+        choice = others.find((c) => !repeatsKeyWord(c, used)) ?? (entry.crude ? choice : m[0]);
       }
       if (choice.toLowerCase() !== m[0].toLowerCase()) {
         changed++;
@@ -360,11 +372,19 @@ export function splitUnits(text) {
 
 // Rewrite one sentence. Tries a few random draws and keeps the first one that passes the meaning check.
 // If none pass, the sentence stays as the user wrote it.
-function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true } = {}) {
+function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true, dropped = [] } = {}) {
   const protect = protectedSpans(sentence);
   for (let attempt = 0; attempt < 4; attempt++) {
     const trial = new Set(used);
-    const { text } = swapPhrases(sentence, corporateMatcher, lvl, rng, SWAP_CHANCE[lvl], trial, protect);
+    // Crude phrases go first, in their own pass, so a plain swap like "I feel like" can't grab
+    // the start of "I feel like shit". Their rewrites are then protected from the plain pass.
+    let base = sentence;
+    let prot = protect;
+    if (mayBeCrude(sentence)) {
+      base = swapPhrases(sentence, crudeMatcher, lvl, rng, 1, trial, protect).text;
+      prot = [...protectedSpans(base), ...[...base.matchAll(/\u0000[^\u0001]*\u0001/g)].map((m) => [m.index, m.index + m[0].length])];
+    }
+    const { text } = swapPhrases(base, plainMatcher, lvl, rng, SWAP_CHANCE[lvl], trial, prot);
     let t = capFirst(tidy(text));
     if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t)) t += ".";
     if (checkMeaning(sentence, t).ok && !hasCrude(t)) {
@@ -372,23 +392,27 @@ function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true } = {}) {
       return t;
     }
   }
-  // Nothing passed. Keep the user's words, minus anything crude.
-  let t = capFirst(tidy(scrubCrude(sentence)));
+  // Nothing passed. Keep the user's words. Swearing that is only emphasis goes. If a crude word is
+  // still left there is no safe rewrite, so the sentence is left out and reported, never garbled.
+  const safe = cleanCrude(sentence);
+  if (safe.dropped.length) dropped.push(...safe.dropped);
+  if (!safe.text) return "";
+  let t = capFirst(tidy(safe.text));
   if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t)) t += ".";
   return t;
 }
 
-function corporateOnce(clean, lvl, rng, { extras = true } = {}) {
+function corporateOnce(clean, lvl, rng, { extras = true, dropped = [] } = {}) {
   // Key words already in the input, plus every one we add, so nothing important repeats.
-  const used = new Set(keyWords(clean.replace(corporateMatcher.re, " ")));
+  const used = new Set(keyWords(clean.replace(crudeMatcher.re, " ").replace(plainMatcher.re, " ")));
   const units = splitUnits(clean);
   const parts = units.map((u) => {
     if (u.kind === "item") {
       // List items keep their marker and their own line. No added period, no asides.
-      const body = splitSentences(u.text).map((s) => rewriteSentence(s, lvl, rng, used, { addPeriod: false })).join(" ");
+      const body = splitSentences(u.text).map((s) => rewriteSentence(s, lvl, rng, used, { addPeriod: false, dropped })).filter(Boolean).join(" ");
       return u.sep + u.mark + body;
     }
-    const sentences = splitSentences(u.text).map((s) => rewriteSentence(s, lvl, rng, used));
+    const sentences = splitSentences(u.text).map((s) => rewriteSentence(s, lvl, rng, used, { dropped })).filter(Boolean);
     // C-suite: sprinkle an aside between sentences.
     if (extras && lvl === 3 && sentences.length > 1) {
       for (let i = sentences.length - 1; i > 0; i--) {
@@ -433,20 +457,29 @@ function corporateOnce(clean, lvl, rng, { extras = true } = {}) {
  */
 export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
   const lvl = clampLevel(level);
-  // Censored spellings become plain ones (f*ck, wtf) so the crude swaps can catch them. Slurs become "person".
-  const clean = neutralizeSlurs(canonicalizeCrude(normalizeInput(input))).replace(/[ \t]{2,}/g, " ").trim();
-  if (!clean) return { text: "", check: { ok: true, lost: [], added: [] }, fallback: "" };
+  // Censored spellings become plain ones (f*ck, wtf) so the crude rewrites can catch them. Slurs never get through.
+  const clean = canonicalizeCrude(normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
+  const empty = { text: "", check: { ok: true, lost: [], added: [] }, fallback: "", unsafe: [] };
+  if (!clean) return empty;
+  // A sentence with no safe rewrite is left out, so the meaning check skips it too.
+  const without = (dropped) => dropped.reduce((t, d) => t.replace(d, " "), clean);
   for (let k = 0; k < 6; k++) {
     const rng = mulberry32(hashString(clean) ^ Math.imul((seed + k * 7919) >>> 0, 2654435761) ^ (lvl * 97));
-    const text = corporateOnce(clean, lvl, rng);
-    const check = checkMeaning(clean, text);
-    if (check.ok && !hasCrude(text)) return { text, check, fallback: k ? "reseed" : "" };
+    const dropped = [];
+    const text = corporateOnce(clean, lvl, rng, { dropped });
+    const check = checkMeaning(without(dropped), text);
+    if (check.ok && !hasCrude(text)) return { text, check, fallback: k ? "reseed" : "", unsafe: [...new Set(dropped)] };
   }
   const rng = mulberry32(hashString(clean) ^ Math.imul(seed >>> 0, 2654435761) ^ (lvl * 97));
-  let text = corporateOnce(clean, lvl, rng, { extras: false });
+  const dropped = [];
+  let text = corporateOnce(clean, lvl, rng, { extras: false, dropped });
   // Hard gate: corporate output is never crude, whatever else happened.
-  if (hasCrude(text)) text = polishCase(tidy(scrubCrude(text)));
-  return { text, check: checkMeaning(clean, text), fallback: "plain" };
+  if (hasCrude(text)) {
+    const safe = cleanCrude(text);
+    dropped.push(...safe.dropped);
+    text = polishCase(tidy(safe.text));
+  }
+  return { text, check: checkMeaning(without(dropped), text), fallback: "plain", unsafe: [...new Set(dropped)] };
 }
 
 export function toCorporate(input, opts = {}) {

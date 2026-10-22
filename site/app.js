@@ -1,6 +1,7 @@
 import { toCorporateDetailed, toNormal, formatDecode, applySoftCap, LEVELS } from "./engine.js";
 import { checkMeaning, describeProblems } from "./meaning.js";
-import { hasCrude, scrubCrude } from "./profanity.js";
+import { hasCrude, cleanCrude, lostIdioms } from "./profanity.js";
+import { faithfulToCrude, needsFaithCheck } from "./faithful.js";
 import { xIntentUrl } from "./share.js";
 import { CONFIG } from "./config.js";
 import { MEMOS, PLAIN } from "./samples.js";
@@ -149,7 +150,7 @@ function showOutput() {
 
 function renderCorporate(text) {
   // Last line of defense: corporate output never shows crude wording, from any engine.
-  if (hasCrude(text)) text = scrubCrude(text);
+  if (hasCrude(text)) text = cleanCrude(text).text;
   const p = document.createElement("p");
   p.className = "corporate-out";
   p.textContent = text;
@@ -217,7 +218,10 @@ async function run({ reroll = false } = {}) {
   } else {
     const instant = toCorporateDetailed(text, { level, seed: state.seed });
     const out = instant.text;
-    const instantNote = instant.fallback === "plain" ? "Kept close to your wording so the meaning stays the same." : "";
+    const unsafeNote = !instant.unsafe?.length ? ""
+      : !out ? "There's no work-safe way to say this as written. Try rewording it."
+      : `I left out ${instant.unsafe.length === 1 ? "a sentence" : `${instant.unsafe.length} sentences`} that had no work-safe rewrite. Try rewording ${instant.unsafe.length === 1 ? "it" : "them"}.`;
+    const instantNote = [instant.fallback === "plain" && !instant.unsafe?.length ? "Kept close to your wording so the meaning stays the same." : "", unsafeNote].filter(Boolean).join(" ");
     if (!useAI) {
       renderCorporate(out);
       setResult({ direction: "toCorporate", copyText: out, shareText: out, note: [instantNote, capNote].filter(Boolean).join(" ") });
@@ -230,14 +234,18 @@ async function run({ reroll = false } = {}) {
       // The AI reply has to keep the meaning and be safe to say at work. If it fails either check, Instant wins.
       const crude = Boolean(res.text) && hasCrude(res.text);
       const check = res.text ? checkMeaning(text, res.text) : null;
-      const useIt = Boolean(res.text) && !crude && check.ok;
+      // Idioms have to keep their meaning too: "fuck all was done" must still say nothing got done.
+      const lostIdiom = Boolean(res.text) && (lostIdioms(text, res.text).length > 0 || (needsFaithCheck(text) && !faithfulToCrude(text, res.text, { level }).ok));
+      const useIt = Boolean(res.text) && !crude && check.ok && !lostIdiom && !instant.unsafe?.length;
       const final = useIt ? res.text : out;
       const why = !res.text
         ? res.rejected ? "AI mode ran, but its reply didn't make sense, so this is the Instant version." : "AI mode ran, but its reply came back empty, so this is the Instant version."
         : crude ? "AI mode ran, but its reply had wording you can't use at work, so this is the Instant version."
-        : !check.ok ? `AI mode ran, but its reply ${describeProblems(check) || "changed the meaning"}, so this is the Instant version.` : "";
+        : !check.ok ? `AI mode ran, but its reply ${describeProblems(check) || "changed the meaning"}, so this is the Instant version.`
+        : lostIdiom ? "AI mode ran, but its reply changed what you meant, so this is the Instant version."
+        : instant.unsafe?.length ? "AI mode ran, but part of your message has no work-safe rewrite, so this is the Instant version." : "";
       renderCorporate(final);
-      setResult({ direction: "toCorporate", copyText: final, shareText: final, engine: useIt ? "AI" : "Instant (AI fallback)", note: [why, capNote].filter(Boolean).join(" ") });
+      setResult({ direction: "toCorporate", copyText: final, shareText: final, engine: useIt ? "AI" : "Instant (AI fallback)", note: [why, useIt ? "" : unsafeNote, capNote].filter(Boolean).join(" ") });
     } catch (err) {
       renderCorporate(out);
       setResult({ direction: "toCorporate", copyText: out, shareText: out, engine: "Instant (AI fallback)", note: `AI mode hit an error, so this is the Instant version. (${err.message})` });

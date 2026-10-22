@@ -19,13 +19,17 @@ i'm bored = I'm looking for a new challenge = I'm seeking more strategic stretch
 my bad = my mistake = I own that = that's a learning I'm taking forward
 !^i quit = I'm moving on = I'm transitioning to my next chapter = I'm exploring opportunities outside the org
 i'm leaving = I'm heading out = I'm transitioning out = I'm sunsetting my presence
-i'm out = I'm signing off = I'm stepping back = I'm exiting this workstream
+out sick = out sick = out sick = offline for health reasons
+^i'm out = I'm signing off = I'm stepping back = I'm exiting this workstream
 i'm late = I'm running behind = I'm slightly off schedule = I'm operating on a dynamic timeline
-i forgot = it slipped through = it fell through the cracks = it was deprioritized by my memory infrastructure
+i forgot to = I forgot to = I neglected to = I inadvertently failed to
+^i forgot = it slipped my mind = it fell through the cracks = it was deprioritized by my memory infrastructure
+i forgot = I forgot = I lost track of = I deprioritized, by accident,
 ^i messed up = I made a mistake = I dropped the ball = I generated an unplanned learning moment
 ^i screwed up = I made an error = I dropped the ball = I created a growth opportunity for everyone
 i need help = I could use some support = I need some extra hands on deck = I'm seeking cross-functional resourcing
 i agree = I'm on board = I'm aligned = I'm fully aligned and bought in
+i disagree with = I disagree with = I'd like to push back a bit on = I'd like to offer a different strategic lens on
 i disagree = I see it differently = I'd like to push back a bit = I'd like to offer a different strategic lens
 that's wrong = that's not quite right = that's not aligned with the data = that runs counter to our north star
 you're wrong = I see it a little differently = I'm not sure we're aligned = let's realign on the source of truth
@@ -49,7 +53,7 @@ probably = likely = likely = directionally
 never = never = never ever = at no point in this or any fiscal year
 right now = right away = as a top priority = immediately, with urgency
 !asap = soon = at your earliest convenience = with maximum urgency
-later = a bit later = in a future sprint = in a later phase
+later = later = a bit later = in a later phase
 soon = shortly = in the near term = in the coming cycles
 next week = next week = early next sprint = in the next planning horizon
 this week = this week = this sprint = within the current execution window
@@ -67,14 +71,18 @@ goals = goals = objectives = north star metrics
 !problems = issues = challenges = growth opportunities
 issue = concern = pain point = opportunity area
 issues = concerns = pain points = opportunity areas
-mistake = slip = miss = learning opportunity
+made a mistake = made a mistake = made an error = had an unplanned learning moment
+a mistake = a slip = an error = a learning opportunity
+mistake = slip = error = learning opportunity
 mistakes = slips = misses = learning opportunities
 failure = setback = miss = non-success outcome
 failed = fell short = missed the mark = generated valuable learnings
 fail = fall short = miss the mark = underdeliver against expectations
 bug = issue = defect = unplanned feature
 bugs = issues = defects = unplanned features
-!fix = repair = address = remediate
+a simple fix = a simple fix = a straightforward fix = a low-lift remediation
+a quick fix = a quick fix = a fast fix = a rapid remediation
+!>fix = repair = address = remediate
 !fixed = repaired = addressed = remediated
 broken = not working = in a degraded state = experiencing suboptimal uptime
 !stupid = not ideal = not best practice = not best-in-class
@@ -84,7 +92,11 @@ terrible = pretty rough = deeply suboptimal = a significant value leak
 awful = rough = suboptimal = a value-destroying event
 !sucks = isn't great = is suboptimal = underindexes on value
 crap = not great = low quality = low-value output
+good morning = good morning = good morning = good morning
+good afternoon = good afternoon = good afternoon = good afternoon
 good = good = solid = best-in-class
+oh great = oh great = oh, wonderful = how exciting
+!^great = nice = excellent = world-class
 !great = really good = strong = world-class
 !awesome = great = excellent = a total game changer
 amazing = really good = outstanding = transformational
@@ -109,7 +121,7 @@ team = team = squad = cross-functional pod
 teams = teams = squads = cross-functional pods
 coworker = colleague = teammate = valued stakeholder
 coworkers = colleagues = teammates = valued stakeholders
-people = folks = stakeholders = human capital
+people = folks = stakeholders = team members
 everyone = everyone = all hands = the entire ecosystem
 customer = customer = client = end user
 customers = customers = clients = end users
@@ -119,6 +131,8 @@ working = working = executing = driving outcomes
 worked = worked = executed = delivered value
 working on = working on = driving = spearheading
 job title = title = role = brand identity
+check email = check email = check my inbox = triage my inbox
+check my email = check my email = check my inbox = triage my inbox
 !email = message = note = ping
 !emails = messages = notes = touchpoints
 !meeting = catch-up = sync = alignment session
@@ -136,7 +150,8 @@ i guess = I suppose = I'd assume = my working hypothesis is
 honestly = frankly = transparently = in the spirit of radical candor
 basically = essentially = at a high level = from a thirty-thousand-foot view
 anyway = anyway = moving forward = pivoting
-actually = in fact = to clarify = for full transparency
+^actually = in fact = to clarify = for full transparency
+actually = actually = genuinely = genuinely
 obviously = clearly = as we all know = as the data clearly shows
 seriously = really = truly = with full intentionality
 really = really = genuinely = deeply
@@ -158,13 +173,14 @@ finished = finished = wrapped up = closed out
 start = start = kick off = launch
 started = started = kicked off = launched
 starting = starting = kicking off = launching
-stop = stop = pause = sunset
+stop = stop = stop = put a pause on
 stopped = stopped = paused = sunsetted
 !quit = stop = step away from = sunset
 change = change = shift = pivot
 changed = changed = shifted = pivoted
-changes = changes = shifts = transformations
-check = check = review = audit
+changes = changes = updates = iterations
+double check = double-check = double-check = validate
+>check = check = review = audit
 check in = check in = touch base = sync up
 checking = checking = reviewing = auditing
 look at = look at = review = take a deep dive into
@@ -172,8 +188,8 @@ looked at = looked at = reviewed = did a deep dive on
 look into = look into = dig into = investigate holistically
 ask = ask = request = ask
 asked = asked = requested = escalated
-tell = tell = inform = socialize this with
-told = told = informed = socialized this with
+tell = tell = tell = be sure to tell
+told = told = informed = briefed
 tell me = let me know = keep me posted = keep me in the loop
 let me know = let me know = keep me posted = keep me in the loop
 send = send = send over = circulate
@@ -187,6 +203,8 @@ improve = improve = optimize = transform
 improved = improved = optimized = transformed
 fire = let go = part ways with = rightsize
 !fired = let go = parted ways with = rightsized
+was cut = was cut = was reduced = was streamlined
+were cut = were cut = were reduced = were streamlined
 cut = cut = reduce = streamline
 cuts = cuts = reductions = efficiencies
 copy = copy = replicate = leverage existing IP
@@ -203,7 +221,19 @@ slow = slow = behind schedule = on a deliberate timeline
 fast = fast = quick = high-velocity
 quick = quick = rapid = agile
 quickly = quickly = rapidly = at velocity
-!late = running behind = delayed = on a dynamic timeline
+minutes late = minutes late = minutes behind = minutes behind schedule
+the late = the late = the delayed = the timeline-challenged
+is late = is late = is running behind = is on a dynamic timeline
+are late = are late = are running behind = are on a dynamic timeline
+be late = be late = be running behind = be on a dynamic timeline
+stay late = stay late = stay late = stay after hours
+stayed late = stayed late = stayed late = stayed after hours
+staying late = staying late = staying late = staying after hours
+work late = work late = work late = work after hours
+worked late = worked late = worked late = worked after hours
+working late = working late = working late = working after hours
+a late = a late = a delayed = a timeline-challenged
+!late = behind = running behind = behind schedule
 early = early = ahead of schedule = proactively
 !busy = tied up = at capacity = fully leveraged
 thanks = thanks = thank you = I appreciate your partnership
@@ -215,7 +245,7 @@ please = please = kindly = at your earliest convenience, please
 ^hey = hi = hi team = hi all
 ^bye = bye = talk soon = let's reconnect soon
 !lunch = lunch break = team lunch = midday recharge
-coffee = coffee = coffee chat = caffeinated alignment session
+grab coffee = get coffee = grab a coffee chat = schedule a caffeinated alignment session
 vacation = time off = PTO = strategic recharge
 weekend = weekend = weekend = offline window
 sick = sick = out sick = operating at reduced capacity
@@ -237,7 +267,8 @@ internet = internet = network = connectivity layer
 spreadsheet = spreadsheet = tracker = single source of truth
 list = list = tracker = prioritized backlog
 to-do list = to-do list = backlog = prioritized backlog
-notes = notes = takeaways = key learnings
+the notes = the notes = the takeaways = the key learnings
+my notes = my notes = my takeaways = my key learnings
 !question = query = open item = parking lot item
 questions = questions = open items = parking lot items
 reason = reason = rationale = strategic rationale
@@ -250,6 +281,7 @@ you need to = you should = you'll want to = you're empowered to
 can you = could you = would you be able to = do you have the bandwidth to
 could you = could you = would you be able to = do you have the bandwidth to
 !>i can't = I'm unable to = I don't have the capacity to = I'm not resourced to
+can't afford = cannot afford = can't afford = cannot afford
 !>can't = cannot = won't be able to = won't have the bandwidth to
 ^i won't = I won't = I'm not going to commit to that = I'm declining to operationalize that
 not my job = not my area = outside my scope = outside my core competency
@@ -273,7 +305,17 @@ mad = upset = frustrated = misaligned
 sad = down = low = experiencing a dip in morale
 happy = happy = excited = deeply energized
 excited = excited = energized = deeply energized
-scared = worried = concerned = risk-aware
+i'm scared = I'm worried = I'm concerned = I'm apprehensive
+we're scared = we're worried = we're concerned = we're apprehensive
+they're scared = they're worried = they're concerned = they're apprehensive
+he's scared = he's worried = he's concerned = he's apprehensive
+she's scared = she's worried = she's concerned = she's apprehensive
+am scared = am worried = am concerned = am apprehensive
+is scared = is worried = is concerned = is apprehensive
+are scared = are worried = are concerned = are apprehensive
+was scared = was worried = was concerned = was apprehensive
+were scared = were worried = were concerned = were apprehensive
+scared of = worried about = concerned about = risk-aware about
 worried = concerned = cautious = risk-aware
 confused = unclear = seeking clarity = seeking alignment
 !hate = dislike = have concerns about = have strategic reservations about
@@ -292,7 +334,7 @@ wrote = wrote = drafted = authored
 plan for = plan for = prepare for = future-proof for
 deadline = deadline = due date = hard stop
 deadlines = deadlines = due dates = hard stops
-schedule = schedule = timeline = roadmap
+behind schedule = behind schedule = behind timeline = behind our roadmap
 priority = priority = top priority = mission-critical priority
 important = important = a priority = mission-critical
 urgent = urgent = time-sensitive = a P0
@@ -360,6 +402,7 @@ dealing with = handling = managing = actioning
 on the same page = on the same page = aligned = fully aligned
 big deal = big deal = significant = needle-moving
 worth it = worth it = a good investment = high ROI
+a total waste of time = a total waste of time = a real waste of time = a value-negative use of bandwidth
 waste of time = waste of time = poor use of time = value-negative use of bandwidth
 for real = really = genuinely = with full intentionality
 too much = too much = a lot = over capacity
@@ -387,7 +430,7 @@ too much = too much = a lot = over capacity
 !^help me = give me a hand = lend me some bandwidth = partner with me on this
 !>help me = give me a hand and = lend me some bandwidth to = partner with me to
 !help me with = give me a hand with = lend me some bandwidth on = partner with me on
-!help with = assist with = support on = partner on
+!help with = assist with = support with = partner on
 !help you = give you a hand = support you = empower you
 !help us = give us a hand = support us = partner with us
 !need help = need a hand = need support = need cross-functional resourcing
@@ -419,7 +462,7 @@ too much = too much = a lot = over capacity
 !push back = disagree = offer some pushback = introduce strategic friction
 !running late = running behind = slightly delayed = operating on a dynamic timeline
 !pointless = not very useful = low value = value-negative
-!grab = get = pick up = secure
+!>grab = get = pick up = secure
 !option = choice = path = strategic pathway
 !vendor = supplier = partner = strategic partner
 !way too = far too = significantly too = exponentially too
@@ -427,7 +470,10 @@ too much = too much = a lot = over capacity
 !that plan = that approach = that roadmap = that strategic roadmap
 !this plan = this approach = this roadmap = this strategic roadmap
 !our plan = our approach = our roadmap = our strategic roadmap
-!new = fresh = updated = next-generation
+new hire = new hire = new team member = incoming talent
+disagree with = disagree with = push back a bit on = offer a different strategic lens on
+new = new = new = next-generation
+love that for us = love that for us = love that for us = love that for us
 !process = workflow = workflow = operating model
 !nobody = no one = zero stakeholders = zero stakeholders across the org
 !last week = recently = last sprint = in the prior planning cycle
@@ -443,7 +489,8 @@ too much = too much = a lot = over capacity
 !>i need a = I could use a = I'd like a = I have a critical need for a
 !doc = document = writeup = strategic narrative
 !explain = walk through = unpack = socialize
-!update = refresh = refresh = action updates to
+quick update = quick update = quick refresh = rapid status download
+!>update = refresh = refresh = action updates to
 !likes = enjoys = is bought into = is aligned with
 !i need a raise = I could use a pay bump = I'd like a compensation adjustment = I'm seeking a total rewards recalibration
 !won't be able to = won't manage to = won't have the bandwidth to = won't be resourced to

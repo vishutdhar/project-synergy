@@ -120,6 +120,16 @@ await check("swearing never reaches the corporate version, at any level", async 
     assert.doesNotMatch(out, /fuck|to off\b/i, `L${lvl}: ${out}`);
     assert.match(out, /today/i, `L${lvl}: ${out}`);
   }
+  // "fuck all" means nothing. It once came out as "Mess all was completed".
+  await page.click("#clear");
+  await page.type("#input", "fuck all was done in that meeting");
+  for (const lvl of [1, 2, 3]) {
+    await setLevel(page, lvl);
+    await page.click("#run");
+    const out = await text(page, ".corporate-out");
+    assert.doesNotMatch(out, /fuck|mess all/i, `L${lvl}: ${out}`);
+    assert.match(out, /\bnothing\b/i, `L${lvl}: ${out}`);
+  }
 });
 
 await check("lists keep one item per line", async () => {

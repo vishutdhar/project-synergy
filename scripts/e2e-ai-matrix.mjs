@@ -1,7 +1,7 @@
 // AI mode at every level in both directions, in headless Chrome. Prints each output.
 // Usage: BASE_URL=... node scripts/e2e-ai-matrix.mjs [--webgpu]
 import puppeteer from "puppeteer-core";
-import { findCrude } from "../site/profanity.js";
+import { findCrude, lostIdioms } from "../site/profanity.js";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:8787/";
 const webgpu = process.argv.includes("--webgpu");
@@ -51,6 +51,7 @@ const corporateInputs = [
   "I won't make the 3pm meeting with Dana. Can we move it to Friday?",
   // Vishut's bug report. Every level has to come out safe for work.
   "the plan is to fuck off all day today",
+  "fuck all was done in that meeting",
 ];
 const problems = [];
 for (const text of corporateInputs) {
@@ -62,6 +63,8 @@ for (const text of corporateInputs) {
     console.log(`${await levelName()} (${r.secs}s, ${await page.$eval("#engine-used", (e) => e.textContent)}): ${out}${r.note ? `  [note: ${r.note}]` : ""}`);
     const crude = findCrude(out).map((h) => h.word);
     if (crude.length) problems.push(`L${level} "${text}" shows crude words: ${crude.join(", ")}`);
+    const lost = lostIdioms(text, out);
+    if (lost.length) problems.push(`L${level} "${text}" lost the meaning of: ${lost.join(", ")}`);
   }
 }
 

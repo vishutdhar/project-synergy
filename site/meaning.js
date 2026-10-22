@@ -1,4 +1,4 @@
-import { canonicalizeCrude, neutralizeSlurs, hasCrude } from "./profanity.js";
+import { canonicalizeCrude, hasCrude } from "./profanity.js";
 
 // Meaning checks for Normal to corporate. Compares the input with a rewrite and lists what got lost
 // or made up. Pure functions, used by the Instant engine, the AI path and the tests.
@@ -9,9 +9,11 @@ const NEGATOR = /\b(?:not|no|nope|nah|never|nobody|nothing|none|nowhere|neither|
 const NEG_IDIOMS = [
   /\bno (?:problem|worries|rush|biggie|clue|idea)\b/gi, /\b(?:don't|do not) (?:care|mind|have (?:time|the time|the bandwidth))\b/gi,
   /\bcan't wait\b/gi, /\bnot bad\b/gi, /\bnot my (?:job|problem)\b/gi, /\bnothing (?:much|new)\b/gi, /\bno one (?:knows|cares)\b/gi,
-  /\b(?:i )?have no idea\b/gi, /\bno shit\b/gi, /\bdon't give a (?:fuck|shit|damn|crap)\b/gi, /\bdon't know\b/gi, /\bdoesn't matter\b/gi, /\bno big deal\b/gi,
+  /\b(?:i )?have no idea\b/gi, /\bno shit\b/gi, /\b(?:zero|no) (?:fucks|shits) given\b/gi, /\bdon't give a (?:fuck|shit|damn|crap)\b/gi, /\bdon't know\b/gi, /\bdoesn't matter\b/gi, /\bno big deal\b/gi,
 ];
 // Soft versions of a no. A rewrite may not add these, because they turn a refusal into a maybe.
+// Words that stretch how long or how often something happens. "all day today" is not "indefinitely".
+const SCOPE = /\b(?:indefinitely|forever|permanently|for good|from now on|every day|everyday|all week|all month|always)\b/gi;
 const HEDGE = /\b(?:would rather not|'d rather not|prefer not|might not|may not|probably not|maybe not|hopefully not|not likely|unlikely|not right now|not at this time|not in the near term|for now|for the time being)\b/gi;
 const QUESTION = /\?/g;
 // Numbers, money, percentages and clock times. Compared as digit strings.
@@ -92,7 +94,7 @@ export function checkMeaning(input, output, { checkNames = true } = {}) {
   const added = [];
   // Swearing is not meaning. Compare against the input with crude spellings made plain and slurs removed,
   // so dropping "fuck" or a slur never counts as a loss.
-  const inp = neutralizeSlurs(canonicalizeCrude(String(input ?? "")));
+  const inp = canonicalizeCrude(String(input ?? ""));
   const out = String(output ?? "");
   if (negations(out) < negations(inp)) lost.push("negation");
   if (count(out, HEDGE) > count(inp, HEDGE) && negations(inp) > 0) added.push("hedge");
@@ -104,6 +106,7 @@ export function checkMeaning(input, output, { checkNames = true } = {}) {
   if (inDates.some((d) => !outDates.includes(d))) lost.push("dates");
   if (outDates.some((d) => !inDates.includes(d))) added.push("date");
   if (count(out, MEETING) > 0 && count(inp, MEETING) === 0) added.push("meeting");
+  if (count(out, SCOPE) > count(inp, SCOPE)) added.push("scope");
   if (listLines(out) !== listLines(inp)) lost.push("list");
   if (checkNames) {
     const inNames = names(inp);
@@ -126,6 +129,7 @@ export function describeProblems({ lost = [], added = [] }) {
   if (lost.includes("names")) parts.push("dropped a name");
   if (added.includes("name")) parts.push("added a name");
   if (added.includes("meeting")) parts.push("added a meeting");
+  if (added.includes("scope")) parts.push("changed the time frame");
   if (lost.includes("list")) parts.push("broke the list");
   return parts.join(" and ");
 }
