@@ -71,7 +71,7 @@ await check("share link is an x.com intent with the summary and app link, under 
   assert.ok(href.startsWith("https://x.com/intent/post?text="));
   const body = decodeURIComponent(href.split("text=")[1]);
   assert.match(body, /^What they really mean: /);
-  assert.match(body, /https:\/\/synergy\.freedom-terminal\.com$/);
+  assert.match(body, /https:\/\/project-synergy\.pages\.dev$/);
   assert.ok(body.replace(/https:\S+/, "x".repeat(23)).length <= 280);
 });
 

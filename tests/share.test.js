@@ -10,7 +10,7 @@ test("short text is left alone and gets the link", () => {
 
 test("long text is cut on a word boundary with three periods and fits 280", () => {
   const long = "synergy ".repeat(100);
-  const out = truncateForX(long, "https://synergy.freedom-terminal.com");
+  const out = truncateForX(long, "https://project-synergy.pages.dev");
   assert.ok(weighted(out) <= X_LIMIT, `weighted length ${weighted(out)}`);
   assert.match(out, /\.\.\.\nhttps/);
   assert.ok(!out.includes("\u2026"));

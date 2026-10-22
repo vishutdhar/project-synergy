@@ -2,6 +2,8 @@
 
 Corporate Speak Translator, a free Freedom Terminal web app.
 
+Live at https://project-synergy.pages.dev.
+
 Paste a CEO memo or a LinkedIn post and get a one-line "What they really mean:" summary plus a sentence-by-sentence plain-English decode. It also works the other way: type or dictate something blunt and get it back in corporate speak at three levels (Mild, Middle Manager, Full C-Suite).
 
 It costs nothing to run. There is no server, no API key, no account and no analytics. Text stays in the browser. The only network requests are the site's own static files and, after the user agrees, the AI model files from Hugging Face plus Transformers.js and the ONNX Runtime WebAssembly files from jsDelivr.
@@ -82,9 +84,7 @@ With Wrangler, from this folder:
 npx wrangler pages deploy site --project-name project-synergy
 ```
 
-Then add the custom domain (for example `synergy.freedom-terminal.com`) in the Pages project. freedom-terminal.com DNS is on Vercel, so that needs a CNAME record pointing the subdomain at `<project>.pages.dev`.
-
-Before deploying to a different address, update `appUrl` in `site/config.js` and the canonical and `og:` URLs in `site/index.html`.
+The live site is https://project-synergy.pages.dev, with no custom domain. If the address changes, update `appUrl` in `site/config.js` and the canonical, `og:` and `twitter:` URLs in `site/index.html`.
 
 `site/_headers` sets a Content Security Policy that allows only the site itself, Hugging Face (`huggingface.co`, `*.huggingface.co`, `*.hf.co`) and `cdn.jsdelivr.net`, plus `wasm-unsafe-eval` and `blob:` for ONNX Runtime. It also sets `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: credentialless`, which lets Chrome and Firefox run the WebAssembly model with multiple threads. Every file is under Cloudflare's 25 MiB limit.
 
