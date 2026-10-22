@@ -212,7 +212,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       const r = lowerFirst(rest.trim());
       const restEnd = end && end !== "!" ? end : ".";
       if (lvl === 1) return done(`${M("Apologies,")} ${r}${restEnd}`, "apology");
-      if (lvl === 2 && !had && lead && /^(?:this|that|it)\b/i.test(r)) return done(`${M("Sincere apologies that")} ${r}${restEnd}`, "apology");
+      if (lvl === 2 && !had && lead && /^(?:this|it) (?!is\b|was\b)/i.test(r)) return done(`${M("Sincere apologies that")} ${r}${restEnd}`, "apology");
       if (lvl === 2 && !had) return done(`${useLabel("Quick heads-up, and apologies:")} ${r}${restEnd}`, "apology+label");
       if (lvl === 2) return done(`${M("Apologies:")} ${r}${restEnd}`, "apology");
       return done(`${M("Apologies for the disruption.")} ${capWord(r)}${restEnd}`, "apology");
