@@ -194,6 +194,19 @@ await d.page.click("#example");
 await d.page.waitForSelector("#result:not([hidden]) .summary");
 await d.page.screenshot({ path: shots + "desktop-dark.png", fullPage: true });
 
+// ---------- AI worker loads under the CSP (no model download) ----------
+await check("AI worker script and Transformers.js load under the CSP", async () => {
+  const p = await browser.newPage();
+  await p.goto(BASE, { waitUntil: "networkidle0" });
+  const result = await p.evaluate(() => new Promise((resolve) => {
+    const w = new Worker("/ai-worker.js", { type: "module" });
+    w.onerror = () => resolve("worker error");
+    setTimeout(() => { w.terminate(); resolve("ok"); }, 6000);
+  }));
+  await p.close();
+  assert.equal(result, "ok");
+});
+
 await browser.close();
 console.log(results.join("\n"));
 const failed = results.filter((r) => r.startsWith("FAIL")).length;
