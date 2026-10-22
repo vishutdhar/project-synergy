@@ -130,12 +130,13 @@ function fixFragment(marked) {
   t = t.replace(/^(\s*)running (?=\d|a bit|behind|late)/i, "$1I'm running ");
   t = t.replace(/^(\s*)(dentist|doctor|doctor's|vet|physio|therapy|eye doctor)(?: appointment)? at\b/i, (_m, sp, w) => `${sp}I have a ${w.toLowerCase()} appointment at`);
   t = t.replace(/^(\s*)happy to\b/i, "$1I'm happy to");
+  t = t.replace(/^(\s*)so (hyped|excited|pumped|stoked|ready|proud|glad|happy) (for|about|to)\b/i, (_m, sp, w, p) => `${sp}I'm so ${/hyped|pumped|stoked/i.test(w) ? "excited" : w.toLowerCase()} ${p.toLowerCase()}`);
   t = t.replace(/^(\s*)ran out of (?=(?:the )?(?:budget|money|funding|time|headcount|credits|seats|licenses|space|stock|runway)\b)/i, "$1We've run out of ");
   t = t.replace(/^(\s*)(still waiting|halfway (?:done|through)|almost done|nearly done|done with|back from|waiting on|waiting for|working on|stuck on|blocked on)\b/i, (_m, sp, w) => `${sp}I'm ${w.toLowerCase()}`);
   t = t.replace(/^(\s*)(received|recieved|shipped|finished|sent|pushed|merged|fixed|booked|submitted|filed|escalated|updated|reviewed|deployed|signed)\b(?=\s+(?:the|a|an|my|your|v?\d|it|them|this|that|our)\b)/i, (_m, sp, w) => `${sp}I ${w.toLowerCase().replace("recieved", "received")}`);
   t = t.replace(/^(\s*)(deadline|server|build|contract|demo|launch|printer|wifi|meeting|client|budget|deploy|release|site|app|database|report)('s|\s+is|\s+was)\b/i, (_m, sp, n, v) => `${sp}The ${n.toLowerCase()}${v}`);
   // Clause fragments after a comma: ", looking into it" -> ", and I'm looking into it".
-  t = t.replace(/,\s+(looking into|working on|checking|chasing|digging into|fixing|investigating|on it\b|handling|panicking|borrowing|using|going to|gonna|logging|working from)/i, (_m, w) => `, and I'm ${w.toLowerCase()}`);
+  t = t.replace(/,\s+(doing it|doing that|looking into|working on|checking|chasing|digging into|fixing|investigating|on it\b|handling|panicking|borrowing|using|going to|gonna|logging|working from)/i, (_m, w) => `, and I'm ${w.toLowerCase()}`);
   t = t.replace(/,\s+will (\w+)/i, ", and I'll $1");
   t = t.replace(/,\s+(sent|shipped|pushed|merged|filed|emailed|forwarded|told|cc'd|uploaded|posted|shared)\b/i, (_m, w) => ` and ${w.toLowerCase()}`);
   t = t.replace(/(^|[.!?]\s+)still (broken|down|not working|failing|open|pending|stuck|blocked|missing|wrong|slow|happening)\b/gi, (_m, p, w) => `${p}${p ? "It's" : "It's"} still ${w.toLowerCase()}`);
@@ -202,7 +203,7 @@ function restructureAt(marked, lvl, ctx = {}) {
     const tail = body.match(/^(.+?),?\s+(?:sorry|sry|soz|apologies)$/i);
     const lead = body.match(/^(?:sorry|sry|soz),?\s+(?!about\b|for\b|to\b|but\b|if\b|guys\b|all\b|everyone\b|team\b)(.{6,})$/i);
     const rest = clean ? tail?.[1] ?? lead?.[1] : null;
-    if (rest && !/\?$/.test(rest)) {
+    if (rest && !/\?$/.test(rest) && !/^(?:we're|I'm|we are|I am|so|really|very|truly|we|I)$/i.test(rest.trim())) {
       const r = lowerFirst(rest.trim());
       const restEnd = end && end !== "!" ? end : ".";
       if (lvl === 1) return done(`${M("Apologies,")} ${r}${restEnd}`, "apology");
@@ -218,7 +219,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       const what = m[2];
       if (lvl === 1) return done(`${M(`Thank you${(m[1] ?? "").toLowerCase()} for`)} ${what}.`, "gratitude");
       const obj = /^[a-z]+ing\b/i.test(what) ? `you ${what}` : what;
-      if (lvl === 2) return done(`${M("Really appreciate")} ${obj}.`, "gratitude");
+      if (lvl === 2) return done(`${M("Really appreciate")} ${obj.replace(/\breally\b/i, "truly")}.`, "gratitude");
       return done(`${M("Huge thanks for")} ${what}.`, "gratitude");
     }
     if ((m = body.match(/^(?:really |truly )?appreciate (.+)$/i))) {
@@ -399,7 +400,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       }
       if ((REQ_RE.test(body) || REQ_ME.test(body)) && !/^let me know\b/i.test(body)) {
         const r = lowerFirst(markedBody, { force: true });
-        const urgent = /\b(?:asap|now|immediately|right away|urgent\w*|today|tonight)\b/i.test(body);
+        const urgent = /\b(?:asap|now|immediately|right away|urgent\w*|today|tonight|eod|eow|cob|by \w+|deadline|tomorrow)\b/i.test(body);
         if (ctx.later) {
           if (lvl === 1) return done(`${M("Please")} ${r}.`, "polite-request");
           if (lvl === 2) return done(`${M(/^(?:send|share|submit|update|review|fill|pack|complete|finish|file|book|sign|approve|clean)\b/i.test(body) ? "Please make sure to" : "Please")} ${r}.`, "polite-request");
@@ -547,7 +548,7 @@ function restructureAt(marked, lvl, ctx = {}) {
   const hasNeg = /\b(?:not|no|never|n't|nothing|nobody|none)\b|n't\b/i.test(body);
   const opinion = OPINION_ADJ.test(body) && !/\b(?:think|feel|believe|guess|seems|looks like|imo|imho)\b/i.test(body);
   const problem = PROBLEM.test(body);
-  const subjectOk = !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body) && !/^[\w']+,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:I|I'm|I've|I'll|I'd|you|you're|if|when|because|so|and|but|or|please|let's|just|oh|wow|ah|ugh|yeah|yes|no|not|cool|great|perfect|nice|thanks|lol|haha)\b/i.test(body) && !REQ_RE.test(body) && /^(?:[^\s]+\s+){0,5}?(?:[\w-]+'(?:s|re|ll|ve|d)|is|are|was|were|has|have|had|will|won't|can't|cannot|isn't|aren't|wasn't|weren't|hasn't|haven't|didn't|doesn't|don't|went|got|fell|rose|grew|broke|came|said|says|sent|keeps|wants|needs|looks|seems|means|[a-z]{3,}ed|[a-z]{3,}s)\b/i.test(body);
+  const subjectOk = !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body) && !/^[\w']+(?: [\w']+)?,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:I|I'm|I've|I'll|I'd|you|you're|if|when|because|so|and|but|or|please|let's|just|oh|wow|ah|ugh|yeah|yes|no|not|cool|great|perfect|nice|thanks|lol|haha)\b/i.test(body) && !REQ_RE.test(body) && /^(?:[^\s]+\s+){0,5}?(?:[\w-]+'(?:s|re|ll|ve|d)|is|are|was|were|has|have|had|will|won't|can't|cannot|isn't|aren't|wasn't|weren't|hasn't|haven't|didn't|doesn't|don't|went|got|fell|rose|grew|broke|came|said|says|sent|keeps|wants|needs|looks|seems|means|[a-z]{3,}ed|[a-z]{3,}s)\b/i.test(body);
   const iStatement = /^(?:I|I've)\s+(?:just\s+|already\s+|accidentally\s+|finally\s+|completely\s+)?(?:[a-z]+ed|sent|got|took|made|ran|went|did|told|left|wrote|built|found|broke|forgot|thought|caught|bought|spent|paid|met|heard|saw|gave|have|had)\b/.test(body) || /^I'm (?:going to be|offline|out|off|in|at|on|working|almost|halfway|blocked|waiting|stuck|free|available|back|heading|leaving|running|wrapping)\b/i.test(body);
   if (words <= 24 && words >= 2 && clean) {
     const negOp = body.match(/^((?:this|that|it|the [\w-]+(?: [\w-]+)?|that [\w-]+|this [\w-]+|our [\w-]+(?: [\w-]+)?)) (is|was|are|were) not (.+)$/i) ?? body.match(/^(that|this|it)('s) not (.+)$/i);
@@ -579,12 +580,19 @@ function restructureAt(marked, lvl, ctx = {}) {
     if (v && clean && ctx.first && lvl === 2 && !had && !/\?$/.test(plain)) return done(`${useLabel(`Quick heads-up, ${v[1].toLowerCase()}:`)} ${lowerFirst(v[2])}${end === "!" ? "!" : "."}`, "label");
   }
 
+  // Praise gets a kudos label at Middle Manager, never a heads-up.
+  const PRAISE = /\b(?:lifesaver|saved|nailed|crushed|killed it|thoughtful|great job|great work|amazing|awesome|rock|rocks|star|legend|the best|well done|kudos|shout-?out|proud of|impressive|brilliant|fantastic|stellar)\b/i;
+  if (PRAISE.test(body) && !isQ && !/\b(?:not|no|never|n't)\b/i.test(body)) {
+    if (lvl === 2 && !had && ctx.first) return done(`${useLabel("Kudos:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "praise");
+    return none;
+  }
+
   // F. Framing for plain updates (Middle Manager always for the first one; Mild only when nothing else changed).
-  const update = ctx.first && words >= 2 && words <= 30 && !/^(?:I think|honestly|frankly|unpopular opinion|imo|I'd|I would|I'm happy|I'm glad|happy to|glad to)\b/i.test(body) && !/^(?:and|but|or|so|because)\b/i.test(body) && !/^[\w']+,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body);
+  const update = ctx.first && words >= 2 && words <= 30 && !REQ_RE.test(body) && !DEC_RE.test(body) && !/\b(?:to be honest|be honest|honestly)\b/i.test(body) && !/^(?:I think|honestly|frankly|unpopular opinion|imo|I'd|I would|I'm happy|I'm glad|happy to|glad to)\b/i.test(body) && !/^(?:and|but|or|so|because)\b/i.test(body) && !/^[\w']+(?: [\w']+)?,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body);
   if (update) {
     const personal = /^(?:I|I'm|I've|I'll|I'd|my)\b/.test(body);
     if (lvl === 2 && !had) return done(`${useLabel(personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
-    if (lvl === 1 && ctx.forceMild && (subjectOk || iStatement) && !/^that\b/i.test(body)) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "frame");
+    if (lvl === 1 && ctx.forceMild && (ctx.count ?? 1) <= 2 && (subjectOk || iStatement) && !/^that\b/i.test(body)) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "frame");
   }
   return none;
 }

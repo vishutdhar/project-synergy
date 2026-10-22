@@ -4,6 +4,7 @@
 // Matching is case insensitive and whole word. Longer phrases win over shorter ones.
 
 export const CORPORATE_SWAPS = `
+!^jesus christ = wow = yikes = what a development
 i don't understand = I'm not sure I understand = I'm not fully clear on = I lack clarity on
 i don't agree with = I'm not sure I agree with = I'm not aligned with = I'm not aligned with the strategic direction of
 i'm free = I'm available = I have availability = I have open bandwidth
@@ -163,7 +164,7 @@ double check = double-check = double-check = validate
 check in = check in = touch base = sync up
 look at = take a look at = review = take a deep dive into
 looked at = looked at = reviewed = reviewed
-look into = take a look into = dig into = investigate holistically
+look into = look into = dig into = investigate holistically
 told = told = informed = advised
 tell me = let me know = let me know = let me know
 let me know = let me know = keep me posted = keep me in the loop
