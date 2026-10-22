@@ -304,12 +304,12 @@ await check("keyboard: Tab reaches the swap button, level chips, settings, text 
   await p.close();
 });
 
-// ---------- Edge and Firefox user agents hide the mic ----------
-await check("mic hidden on Edge user agent", async () => {
+// ---------- Edge has a flaky speech service, so it gets on-device dictation ----------
+await check("mic shown on Edge user agent, using on-device dictation", async () => {
   const p = await browser.newPage();
   await p.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0");
   await p.goto(BASE, { waitUntil: "networkidle0" });
-  assert.equal(await p.$eval("#mic", (el) => el.hidden), true);
+  assert.equal(await p.$eval("#mic", (el) => el.hidden), false);
   await p.close();
 });
 

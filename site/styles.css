@@ -165,6 +165,7 @@ textarea:focus { border-color: var(--accent); }
 .mic[aria-pressed="true"] { background: #c0263f; border-color: #c0263f; color: #fff; animation: pulse 1.4s ease-in-out infinite; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 8px rgb(192 38 63 / 0.18); } }
 @media (prefers-reduced-motion: reduce) { .mic[aria-pressed="true"] { animation: none; } }
+.mic[aria-busy="true"] { opacity: 0.6; cursor: progress; }
 
 .pane-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .pane-foot .btn.primary { margin-left: auto; }

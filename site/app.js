@@ -2,6 +2,7 @@ import { toCorporateDetailed, toNormal, formatDecode, applySoftCap, LEVELS } fro
 import { checkMeaning, describeProblems } from "./meaning.js";
 import { hasCrude, cleanCrude, lostIdioms } from "./profanity.js";
 import { faithfulToCrude, needsFaithCheck } from "./faithful.js";
+import { chooseEngine, detectBrowser, micErrorMessage, toMono16k, appendTranscript, SPEECH_FALLBACK_ERRORS, MAX_SECONDS } from "./dictation.js";
 import { xIntentUrl } from "./share.js";
 import { CONFIG } from "./config.js";
 import { MEMOS, PLAIN } from "./samples.js";
@@ -11,7 +12,7 @@ const $ = (id) => document.getElementById(id);
 const els = {
   form: $("form"), input: $("input"), inputLabel: $("input-label"), lede: $("lede"), count: $("count"), capNote: $("cap-note"),
   levelLabel: $("level-label"), ticks: [1, 2, 3].map((i) => $(`tick-${i}`)), srcLang: $("src-lang"), dstLang: $("dst-lang"), dirStatus: $("dir-status"),
-  run: $("run"), reroll: $("reroll"), example: $("example"), clear: $("clear"), mic: $("mic"), micNote: $("mic-note"),
+  run: $("run"), reroll: $("reroll"), example: $("example"), clear: $("clear"), mic: $("mic"), micNote: $("mic-note"), dictConsent: $("dictation-consent"), dictSize: $("dictation-size"),
   result: $("result"), resultTitle: $("result-title"), empty: $("empty"), resultTools: $("result-tools"), engineUsed: $("engine-used"),
   swap: $("swap"), output: $("output"), resultNote: $("result-note"), copy: $("copy"), copyText: $("copy-text"), share: $("share"),
   settings: $("settings"), engineBadge: $("engine-badge"),
@@ -415,53 +416,180 @@ function askWorker(payload, onLine) {
 
 // ---------- voice ----------
 
+const mic = { engine: null, busy: false, rec: null, recorder: null, stream: null, timer: 0, worker: null, ready: false, nextId: 1, pending: new Map() };
+
+function micState(text, { error = false } = {}) {
+  els.micNote.hidden = !text;
+  els.micNote.textContent = text;
+  els.micNote.classList.toggle("callout", error);
+}
+
+function micPressed(on) {
+  els.mic.setAttribute("aria-pressed", on ? "true" : "false");
+  els.mic.setAttribute("aria-label", on ? "Stop dictation" : "Start dictation");
+}
+
 function setupMic() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const ua = navigator.userAgent;
-  const isEdge = /\bEdg(?:e|A|iOS)?\//.test(ua);
-  const isFirefox = /\b(?:Firefox|FxiOS)\//.test(ua);
-  if (!SR || isEdge || isFirefox) return;
+  const b = detectBrowser();
+  mic.engine = chooseEngine(b);
+  if (!mic.engine) return;
   els.mic.hidden = false;
-  let rec = null;
-  let base = "";
-  const stop = () => {
-    rec?.stop();
-  };
   els.mic.addEventListener("click", () => {
-    if (rec) return stop();
-    rec = new SR();
-    rec.lang = navigator.language || "en-US";
-    rec.interimResults = true;
-    rec.continuous = true;
-    base = els.input.value ? els.input.value.replace(/\s*$/, " ") : "";
-    let finalText = "";
-    rec.onresult = (e) => {
-      let interim = "";
-      for (let i = e.resultIndex; i < e.results.length; i++) {
-        const t = e.results[i][0].transcript;
-        if (e.results[i].isFinal) finalText += t;
-        else interim += t;
-      }
-      els.input.value = (base + finalText + interim).replace(/\s+/g, " ").trimStart();
-      updateCount();
-    };
-    rec.onerror = (e) => {
-      if (e.error === "not-allowed" || e.error === "service-not-allowed") {
-        els.capNote.hidden = false;
-        els.capNote.textContent = "Microphone access was blocked. You can still type.";
-      }
-    };
-    rec.onend = () => {
-      rec = null;
-      els.mic.setAttribute("aria-pressed", "false");
-      els.mic.setAttribute("aria-label", "Start dictation");
-      els.micNote.hidden = true;
-    };
-    rec.start();
-    els.mic.setAttribute("aria-pressed", "true");
-    els.mic.setAttribute("aria-label", "Stop dictation");
-    els.micNote.hidden = false;
+    if (mic.busy) return;
+    if (mic.rec) return mic.rec.stop();
+    if (mic.recorder) return stopRecording();
+    return mic.engine === "speech" ? startSpeech() : startLocal();
   });
+}
+
+function startSpeech() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const rec = new SR();
+  mic.rec = rec;
+  rec.lang = navigator.language || "en-US";
+  rec.interimResults = true;
+  rec.continuous = true;
+  const base = els.input.value ? els.input.value.replace(/\s*$/, " ") : "";
+  let finalText = "";
+  let failed = "";
+  rec.onresult = (e) => {
+    let interim = "";
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) finalText += t;
+      else interim += t;
+    }
+    els.input.value = (base + finalText + interim).replace(/\s+/g, " ").trimStart();
+    updateCount();
+  };
+  rec.onerror = (e) => { failed = e.error || "error"; };
+  rec.onend = () => {
+    mic.rec = null;
+    micPressed(false);
+    if (SPEECH_FALLBACK_ERRORS.has(failed) && detectBrowser().canRecord) {
+      // The browser has the API but no speech service behind it (Brave does this). Switch to on-device.
+      mic.engine = "local";
+      micState("Your browser's speech service isn't available, so dictation will run on your device instead.");
+      startLocal();
+    } else if (failed && failed !== "aborted") {
+      micState(micErrorMessage(failed), { error: true });
+    } else {
+      micState("");
+    }
+  };
+  try {
+    rec.start();
+  } catch (e) {
+    mic.rec = null;
+    micState(micErrorMessage(e), { error: true });
+    return;
+  }
+  micPressed(true);
+  micState("Listening. Click the mic again to stop. Dictation uses your browser's speech service, which may process audio on Google or Apple servers.");
+}
+
+async function askWhisperConsent() {
+  try { if (localStorage.getItem("synergy.whisper") === "ok") return true; } catch {}
+  els.dictConsent.returnValue = "";
+  els.dictConsent.showModal();
+  const answer = await new Promise((resolve) => els.dictConsent.addEventListener("close", () => resolve(els.dictConsent.returnValue), { once: true }));
+  if (answer !== "ok") return false;
+  try { localStorage.setItem("synergy.whisper", "ok"); } catch {}
+  return true;
+}
+
+function whisperWorker() {
+  if (mic.worker) return mic.worker;
+  mic.worker = new Worker(new URL("./whisper-worker.js", import.meta.url), { type: "module" });
+  mic.worker.onmessage = ({ data }) => {
+    if (data.type === "ready") mic.ready = true;
+    else if (data.type === "progress") mic.progress = data.pct;
+    if (data.type === "progress" && mic.transcribing) micState(`Downloading the speech model (${data.pct}%). This only happens once.`);
+    if (data.type === "ready" && mic.transcribing) micState("Transcribing on your device...");
+    const job = mic.pending.get(data.id);
+    if (!job) {
+      if (data.type === "error") { mic.loadError = true; for (const j of mic.pending.values()) j.reject(new Error(data.message)); mic.pending.clear(); }
+      return;
+    }
+    if (data.type === "text") { mic.pending.delete(data.id); job.resolve(data.text); }
+    if (data.type === "error") { mic.pending.delete(data.id); job.reject(new Error(data.message)); }
+  };
+  mic.worker.onerror = () => { for (const j of mic.pending.values()) j.reject(new Error("worker")); mic.pending.clear(); mic.worker = null; };
+  mic.worker.postMessage({ type: "load" });
+  return mic.worker;
+}
+
+function transcribe(audio) {
+  return new Promise((resolve, reject) => {
+    const id = mic.nextId++;
+    mic.pending.set(id, { resolve, reject });
+    whisperWorker().postMessage({ type: "transcribe", id, audio }, [audio.buffer]);
+  });
+}
+
+async function startLocal() {
+  mic.busy = true;
+  try {
+    if (!(await askWhisperConsent())) { micState(""); return; }
+    whisperWorker();
+    let stream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true } });
+    } catch (e) {
+      micState(micErrorMessage(e), { error: true });
+      return;
+    }
+    const chunks = [];
+    const recorder = new MediaRecorder(stream);
+    recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
+    recorder.onstop = () => finishRecording(chunks, recorder.mimeType);
+    mic.stream = stream;
+    mic.recorder = recorder;
+    recorder.start();
+    micPressed(true);
+    micState(`Listening. Click the mic again to stop (up to ${MAX_SECONDS} seconds). Audio stays on your device.`);
+    mic.timer = setTimeout(stopRecording, MAX_SECONDS * 1000);
+  } finally {
+    mic.busy = false;
+  }
+}
+
+function stopRecording() {
+  clearTimeout(mic.timer);
+  if (mic.recorder?.state === "recording") mic.recorder.stop();
+  mic.stream?.getTracks().forEach((t) => t.stop());
+  micPressed(false);
+}
+
+async function finishRecording(chunks, mimeType) {
+  mic.recorder = null;
+  mic.stream = null;
+  mic.busy = true;
+  mic.transcribing = true;
+  els.mic.setAttribute("aria-busy", "true");
+  micState(mic.ready ? "Transcribing on your device..." : `Downloading the speech model${mic.progress ? ` (${mic.progress}%)` : ""}. This only happens once.`);
+  try {
+    const blob = new Blob(chunks, { type: mimeType || "audio/webm" });
+    if (!blob.size) throw Object.assign(new Error("empty"), { name: "empty" });
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new Ctx();
+    let decoded;
+    try { decoded = await ctx.decodeAudioData(await blob.arrayBuffer()); } finally { ctx.close?.(); }
+    const channels = Array.from({ length: decoded.numberOfChannels }, (_, i) => decoded.getChannelData(i));
+    const audio = toMono16k(channels, decoded.sampleRate);
+    let text;
+    try { text = await transcribe(audio); } catch { throw Object.assign(new Error("model"), { name: "model" }); }
+    const before = els.input.value;
+    els.input.value = appendTranscript(before, text);
+    updateCount();
+    micState(els.input.value === before ? micErrorMessage("no-speech") : "", { error: els.input.value === before });
+  } catch (e) {
+    micState(micErrorMessage(e), { error: true });
+  } finally {
+    mic.busy = false;
+    mic.transcribing = false;
+    els.mic.removeAttribute("aria-busy");
+  }
 }
 
 // ---------- copy ----------

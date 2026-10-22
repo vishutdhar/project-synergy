@@ -60,7 +60,7 @@ Generation samples with the model's own settings (temperature 0.7, top_p 0.8, to
 
 ### Voice
 
-The mic button uses the Web Speech API (`SpeechRecognition` or `webkitSpeechRecognition`) in Chrome and Safari. It is hidden when the API is missing and on Firefox and Edge. Browsers usually send dictation audio to their own speech service (Google for Chrome, Apple for Safari), and the page says this next to the mic while it records.
+The mic button uses the Web Speech API (`SpeechRecognition` or `webkitSpeechRecognition`) in Chrome and Safari. Those browsers send dictation audio to their own speech service (Google for Chrome, Apple for Safari), and the page says so next to the mic while it listens. Brave has the same API but no speech service behind it, so `start()` fails right away with a "network" error. Before this fix the page ignored that error and the mic just stopped. Now Brave, Firefox and Edge, and any browser whose speech service fails with "network", record with `getUserMedia` and `MediaRecorder` and transcribe on the device with Whisper base.en (`onnx-community/whisper-base.en`, 8-bit, about 80 MB, Apache 2.0) through Transformers.js in `site/whisper-worker.js`. The first use asks before downloading the model, and the browser caches it. The note under the input shows each state: listening, downloading the model, transcribing, and errors such as a blocked or missing mic. `tests/dictation.test.js` covers the browser choice, error messages and audio resampling, and `node scripts/e2e-dictation.mjs` plays `tests/fixtures/dictation-sample.wav` through Chrome's fake mic to test the Brave path, the "network" fallback, a blocked mic, a missing mic and saying no to the download.
 
 ## Run it locally
 

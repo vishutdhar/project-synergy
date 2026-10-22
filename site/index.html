@@ -99,7 +99,7 @@
             <span class="kbd-hint muted small">Ctrl or Cmd + Enter</span>
             <button type="submit" class="btn primary" id="run">Corporatize</button>
           </div>
-          <p id="mic-note" class="note" hidden>Dictation uses your browser's speech service, which may process audio on Google or Apple servers.</p>
+          <p id="mic-note" class="note" role="status" aria-live="polite" hidden></p>
         </section>
 
         <section class="pane result-pane" id="result" aria-labelledby="result-title">
@@ -121,7 +121,7 @@
 
     <section class="about">
       <h2>How it works</h2>
-      <p>Everything runs on your device. Instant mode uses a built-in phrasebook and pattern rules. AI mode downloads a small open model (Qwen2.5 0.5B Instruct, Apache 2.0) from Hugging Face once, keeps it in your browser cache, and runs it locally. There are no accounts and no tracking, and your text is never sent to a server. The one exception is the mic: dictation uses your browser's speech service, which may send audio to Google or Apple.</p>
+      <p>Everything runs on your device. Instant mode uses a built-in phrasebook and pattern rules. AI mode downloads a small open model (Qwen2.5 0.5B Instruct, Apache 2.0) from Hugging Face once, keeps it in your browser cache, and runs it locally. There are no accounts and no tracking, and your text is never sent to a server. The one exception is the mic. In Chrome and Safari, dictation uses the browser's speech service, which may send audio to Google or Apple. In Brave, Firefox and Edge it records on your device and transcribes with a small open speech model (Whisper base.en, Apache 2.0), so the audio never leaves your device.</p>
       <p>Corporate to normal names the bad news first, like layoffs, a hiring freeze, a PIP or a non-answer. Then it goes through the memo sentence by sentence. Normal to corporate keeps every no, question, number, name, date and list, and it won't add meetings or promises you didn't make. It's a joke tool, so read the original before you quit.</p>
     </section>
   </main>
@@ -137,6 +137,20 @@
       </nav>
     </div>
   </footer>
+
+  <dialog id="dictation-consent" aria-labelledby="dictation-title" aria-describedby="dictation-body">
+    <form method="dialog">
+      <h2 id="dictation-title">Turn on dictation?</h2>
+      <div id="dictation-body">
+        <p>This browser doesn't have a speech service the site can use, so dictation can run on your device instead. It needs a one-time download of a speech model, <strong id="dictation-size">about 80 MB</strong>, from Hugging Face. Your browser keeps it for later visits.</p>
+        <p>Your audio stays on your device. Your browser will ask for mic access next.</p>
+      </div>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn">Not now</button>
+        <button value="ok" class="btn primary" id="dictation-ok">Download</button>
+      </div>
+    </form>
+  </dialog>
 
   <dialog id="consent" aria-labelledby="consent-title" aria-describedby="consent-body">
     <form method="dialog">
