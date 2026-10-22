@@ -18,7 +18,7 @@ const pre = rows.filter((r) => { const save = { ...DRIFT }; DRIFT.missing = 1; D
 const unsafe = (r) => toCorporateDetailed(items[r.id].input, { level: r.level, seed: 1 }).unsafe?.length;
 const cands = pre.filter((r) => !unsafe(r));
 console.log(`read ${rows.length}, pass other gates ${cands.length}, of which bad ${cands.filter((r) => r.bad).length}`);
-for (const m of [0, 0.2, 0.34, 0.5]) for (const nv of [[0, 0, 1], [0, 1, 2], [1, 1, 2], [1, 2, 3], [2, 3, 5]]) {
+for (const m of (process.argv[3] ?? "0,0.2,0.34,0.5").split(",").map(Number)) for (const nv of [[0, 0, 0], [0, 0, 1], [0, 1, 2], [1, 1, 2], [1, 2, 3], [2, 3, 5]]) {
   DRIFT.missing = m; DRIFT.novel = nv;
   const kept = cands.filter((r) => aiCorporateGate(items[r.id].input, r.ai_text, { level: r.level }).ok);
   const good = kept.filter((r) => !r.bad).length;

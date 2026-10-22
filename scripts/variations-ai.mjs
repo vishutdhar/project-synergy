@@ -1,7 +1,7 @@
 // Runs the AI model over the variations dataset in Node on CPU, with the same prompts, sampling settings,
 // output guards and page-side checks as the site. Writes one JSON line per item and level, and resumes.
 // Usage: node scripts/variations-ai.mjs --dir toCorporate|toNormal --out file.jsonl [--model id] [--dtype q4]
-//        [--shard 0/3] [--threads 2] [--fewshot retrieval] [--ids n0001,n0002] [--levels 1,2,3]
+//        [--shard 0/3] [--threads 2] [--fewshot fixed] [--ids n0001,n0002] [--levels 1,2,3]
 import fs from "node:fs";
 import { pipeline, env, random, StoppingCriteria, LogitsProcessor } from "@huggingface/transformers";
 import * as P from "../site/ai-prompts.js";
@@ -10,7 +10,7 @@ import { softenCrude, toCorporateDetailed, toNormal, detectThemes } from "../sit
 import { checkMeaning } from "../site/meaning.js";
 import { hasCrude, addsCrude, lostIdioms } from "../site/profanity.js";
 import { aiCorporateGate } from "../site/faithful.js";
-import { nearestExamples } from "../tests/variations/retrieval.mjs";
+import { examplePool } from "../tests/variations/retrieval.mjs";
 
 const arg = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : d; };
 const dir = arg("dir", "toCorporate");
@@ -19,7 +19,7 @@ const model = arg("model", P.MODEL_ID);
 const dtype = arg("dtype", "q4");
 const [shard, shards] = arg("shard", "0/1").split("/").map(Number);
 const threads = Number(arg("threads", "0"));
-const fewshot = arg("fewshot", "");
+const fewshot = arg("fewshot", "retrieval");
 const levels = arg("levels", "1,2,3").split(",").map(Number);
 const onlyIds = arg("ids", "") ? new Set(arg("ids").split(",")) : null;
 const isQwen3 = /qwen3/i.test(model);
@@ -49,13 +49,10 @@ async function ask(messages, kind, inputText, seed) {
 }
 const firstLineBlock = (t) => P.firstLine(t.replace(/\n{2,}[\s\S]*$/, "").replace(/\n/g, " "));
 
+// Same as the page: the nearest hand-written examples, minus the item itself. --fewshot fixed uses the old fixed examples.
 function corporateMessages(text, level, item) {
-  if (fewshot !== "retrieval") return P.buildCorporateMessages(text, level);
-  const base = P.buildCorporateMessages(text, level);
-  // Keep the system prompt and the crude example. Swap the other examples for the nearest hand-written ones.
-  const shots = nearestExamples(text, { level, k: 4, exclude: item.id });
-  const crudeShot = base.slice(-3, -1);
-  return [base[0], ...shots.flatMap(([q, a]) => [{ role: "user", content: `Rewrite in corporate speak:\n${q}` }, { role: "assistant", content: a }]), ...crudeShot, base.at(-1)];
+  if (fewshot === "fixed") return P.buildCorporateMessages(text, level);
+  return P.buildRetrievalCorporateMessages(text, level, examplePool(), { exclude: item.id });
 }
 
 const stream = fs.createWriteStream(out, { flags: "a" });

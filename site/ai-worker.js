@@ -3,9 +3,10 @@
 import { pipeline, env, random, StoppingCriteria, LogitsProcessor } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.1/dist/transformers.min.js";
 import { detectThemes, softenCrude } from "./engine.js";
 import { addsCrude } from "./profanity.js";
+import { EXAMPLES } from "./examples.js";
 import {
   MODEL_ID, MAX_AI_SENTENCES, sentencesForDecode, buildDecodeMessages, buildSummaryMessages,
-  buildCorporateMessages, firstLine, summaryCoversThemes, CORPORATE_EXAMPLE_ANSWERS,
+  buildRetrievalCorporateMessages, firstLine, summaryCoversThemes, CORPORATE_EXAMPLE_ANSWERS,
 } from "./ai-prompts.js";
 import { guardOutput, echoesExample, contradictsThemes, isMetaReply, generationOptions, repeatSettings, sampleSeed, makeLoopStop, makeRepeatGuard } from "./ai-guard.js";
 
@@ -78,7 +79,7 @@ self.onmessage = async (event) => {
     if (msg.type === "toCorporate") {
       // Swearing is swapped out before the model sees it. The page still checks the reply.
       const input = softenCrude(msg.text);
-      const raw = firstLineBlock(await ask(buildCorporateMessages(input, msg.level), "corporate", input, sampleSeed(msg.text, msg.level, msg.seed)));
+      const raw = firstLineBlock(await ask(buildRetrievalCorporateMessages(input, msg.level, EXAMPLES), "corporate", input, sampleSeed(msg.text, msg.level, msg.seed)));
       // A looping, empty or copied reply comes back empty, and the page shows the Instant version.
       const checked = guardOutput(raw, { examples: CORPORATE_EXAMPLE_ANSWERS, maxWords: 120 });
       self.postMessage({ type: "corporate", id: msg.id, text: checked.text, rejected: !checked.ok });

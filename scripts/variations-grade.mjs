@@ -5,7 +5,7 @@ import fs from "node:fs";
 import { toCorporateDetailed } from "../site/engine.js";
 import { checkMeaning } from "../site/meaning.js";
 import { hasCrude, lostIdioms, findCrude } from "../site/profanity.js";
-import { aiCorporateGate } from "../site/faithful.js";
+import { aiCorporateGate, isFlat } from "../site/faithful.js";
 import { summaryCoversThemes } from "../site/ai-prompts.js";
 import { corporateFlags, overlap, mustKeep } from "../tests/variations/checks.mjs";
 
@@ -65,7 +65,10 @@ function gradeAI(tag, labels, instantRows) {
     if (item.direction === "toCorporate") {
       const ai = r.ai_text ?? "";
       const auto = ai ? corporateFlags(item.input, ai, r.level) : ["empty"];
-      const gate = gateCorporate(item, r.level, ai);
+      // Full C-Suite that reads like the input is not corporate enough. Same rule for every model.
+      if (ai && r.level === 3 && isFlat(item.input, ai)) auto.push("flat-l3");
+      const unsafe = toCorporateDetailed(item.input, { level: r.level, seed: 1 }).unsafe?.length;
+      const gate = unsafe && gateCorporate(item, r.level, ai) === "ok" ? "unsafe" : gateCorporate(item, r.level, ai);
       const rawPass = !auto.length && !hand;
       const fallback = inst[key(r)];
       const shownPass = gate === "ok" ? rawPass : fallback.pass;

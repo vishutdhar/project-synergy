@@ -74,6 +74,18 @@ export const DRIFT = { missing: 0.2, novel: [0, 0, 1] };
 
 // Every check an AI rewrite has to pass before the page shows it. Shared by the page, the Node harness and the grader.
 // Meaning is checked against the input with texting shorthand spelled out, so "tonite" matches "tonight".
+const FLAT_L3 = 0.75;
+function sameWords(a, b) {
+  const wa = new Set(String(a).toLowerCase().match(/[a-z0-9']+/g) ?? []);
+  const wb = new Set(String(b).toLowerCase().match(/[a-z0-9']+/g) ?? []);
+  let inter = 0;
+  for (const w of wa) if (wb.has(w)) inter++;
+  return inter / (wa.size + wb.size - inter || 1);
+}
+
+// True when a reply is close to word for word the input (texting shorthand spelled out).
+export const isFlat = (input, reply) => sameWords(normalizeCasual(normalizeInput(input)) || input, reply) >= FLAT_L3;
+
 export function aiCorporateGate(input, reply, { level = 2 } = {}) {
   if (!reply) return { ok: false, reason: "empty", check: null };
   if (hasCrude(reply)) return { ok: false, reason: "crude", check: null };
@@ -82,5 +94,7 @@ export function aiCorporateGate(input, reply, { level = 2 } = {}) {
   if (!check.ok) return { ok: false, reason: "meaning", check };
   if (lostIdioms(input, reply).length > 0 || (needsFaithCheck(input) && !faithfulToCrude(input, reply, { level }).ok)) return { ok: false, reason: "idiom", check };
   if (!driftCheck(input, reply, { level }).ok) return { ok: false, reason: "drift", check };
+  // Full C-Suite has to sound like it. A reply that is the input with a comma moved loses to Instant.
+  if (level === 3 && isFlat(input, reply)) return { ok: false, reason: "flat", check };
   return { ok: true, reason: "ok", check };
 }

@@ -98,3 +98,22 @@ test("second audit: wait comma and a rude dismissal", () => {
   assert.equal(corp("wait are we launching tomorrow??", 1), "Wait, are we launching tomorrow??");
   for (const level of [1, 2, 3]) assert.doesNotMatch(corp("they can shove their return to office policy", level), /shove/);
 });
+
+test("AI mode retrieval: site/examples.js matches the dataset and builds the prompt", async () => {
+  const fs = await import("node:fs");
+  const { EXAMPLES } = await import("../site/examples.js");
+  const { buildRetrievalCorporateMessages } = await import("../site/ai-prompts.js");
+  const items = JSON.parse(fs.readFileSync(new URL("./variations/items.json", import.meta.url)));
+  const want = items.filter((i) => i.direction === "toCorporate" && !i.input.includes("\n")).map((i) => [i.input, ...i.ideal]);
+  assert.deepEqual(EXAMPLES, want, "run node scripts/build-examples.mjs");
+  const m = buildRetrievalCorporateMessages("can't make the meeting, swamped", 2, EXAMPLES);
+  assert.equal(m[0].role, "system");
+  assert.equal(m.at(-1).content, "Rewrite in corporate speak:\ncan't make the meeting, swamped");
+  assert.equal(m.length, 1 + 2 * 4 + 2 + 1);
+  assert.match(m.at(-4).content, /meeting/i, "closest example sits right before the crude example and the input");
+});
+
+test("AI gate: Full C-Suite that reads like the input falls back to Instant", () => {
+  assert.equal(aiCorporateGate("no more meetings this week please", "No more meetings this week, please!", { level: 3 }).reason, "flat");
+  assert.equal(aiCorporateGate("no more meetings this week please", "No more meetings this week, please.", { level: 1 }).ok, true);
+});

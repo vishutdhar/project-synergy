@@ -229,3 +229,34 @@ export function firstLine(text) {
   if (line && !/[.!?]$/.test(line)) line += ".";
   return line;
 }
+
+// Retrieval few-shot: the hand-written examples closest to the input replace the fixed ones.
+// Similarity is word overlap (Jaccard on lowercased word sets), cheap enough to run in the browser.
+// pool entries are [input, mild, middle, csuite] or { id, input, ideal }.
+const wordSet = (s) => new Set(String(s).toLowerCase().match(/[a-z']+/g) ?? []);
+const poolWords = new WeakMap();
+export function nearestExamples(text, pool, { level = 2, k = 4, exclude = "" } = {}) {
+  const w = wordSet(text);
+  const scored = [];
+  for (const e of pool) {
+    const input = Array.isArray(e) ? e[0] : e.input;
+    if ((!Array.isArray(e) && e.id === exclude) || input.includes("\n")) continue;
+    let ew = poolWords.get(e);
+    if (!ew) { ew = wordSet(input); poolWords.set(e, ew); }
+    let inter = 0;
+    for (const x of w) if (ew.has(x)) inter++;
+    scored.push([inter / (w.size + ew.size - inter || 1), e]);
+  }
+  // Closest example goes last, right before the real input.
+  return scored.sort((a, b) => b[0] - a[0]).slice(0, k).reverse()
+    .map(([, e]) => (Array.isArray(e) ? [e[0], e[level]] : [e.input, e.ideal[level - 1]]));
+}
+
+// The system prompt and the crude-wording example stay. The other fixed examples become the nearest ones.
+export function buildRetrievalCorporateMessages(text, level, pool, { k = 4, exclude = "" } = {}) {
+  const base = buildCorporateMessages(text, level);
+  if (!pool?.length) return base;
+  const wrap = (t) => `Rewrite in corporate speak:\n${t}`;
+  const shots = nearestExamples(text, pool, { level: CORPORATE_SHOTS[level] ? level : 2, k, exclude });
+  return [base[0], ...shots.flatMap(([q, a]) => [{ role: "user", content: wrap(q) }, { role: "assistant", content: a }]), ...base.slice(-3, -1), base.at(-1)];
+}
