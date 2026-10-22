@@ -95,6 +95,8 @@ function table(title, rows, passKey = "pass", { readOnly = false } = {}) {
   }
   const lv = [1, 2, 3].map((l) => { const x = use.filter((r) => r.level === l); return `L${l} ${pct(x.filter((r) => r[passKey]).length, x.length)}`; }).join(", ");
   const lines = [`${title}: ${pct(use.filter((r) => r[passKey]).length, use.length)} of ${use.length} outputs (${lv})`];
+  const dirs = ["toCorporate", "toNormal"].map((d) => { const x = use.filter((r) => byId[r.id].direction === d); return x.length ? `${d === "toCorporate" ? "N>C" : "C>N"} ${x.filter((r) => r[passKey]).length}/${x.length} ${pct(x.filter((r) => r[passKey]).length, x.length)}` : ""; }).filter(Boolean).join(", ");
+  lines.push(`  by direction: ${dirs}`);
   for (const [c, v] of Object.entries(cats).sort()) lines.push(`  ${c.padEnd(32)} ${String(v.p).padStart(4)}/${String(v.n).padEnd(4)} ${pct(v.p, v.n)}`);
   return lines.join("\n");
 }
@@ -150,8 +152,8 @@ const ds = items.map((item) => {
     return {
       level,
       ideal_output: item.ideal[level - 1],
-      instant: { output: ins?.text ?? "", grade: ins?.pass ? "pass" : "fail", hand_read: Boolean(ins?.read), flags: ins?.auto ?? [], note: ins?.hand ?? "" },
-      ai: a ? { model: a.model, output: a.text, grade: a.rawPass ? "pass" : "fail", hand_read: a.read, flags: a.auto, note: a.hand ?? "", gate: a.gate } : null,
+      instant: { output: ins?.text ?? "", grade: !ins?.pass ? "fail" : ins.read ? "pass" : "auto-pass", hand_read: Boolean(ins?.read), flags: ins?.auto ?? [], note: ins?.hand ?? "" },
+      ai: a ? { model: a.model, output: a.text, grade: !a.rawPass ? "fail" : a.read ? "pass" : "auto-pass", hand_read: a.read, flags: a.auto, note: a.hand ?? "", gate: a.gate } : null,
     };
   });
   return { id: item.id, direction: item.direction, category: item.category, expected_signal: item.signal ?? null, input: item.input, must_keep: item.direction === "toCorporate" ? mustKeep(item.input) : [], levels: lv };

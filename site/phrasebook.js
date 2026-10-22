@@ -132,7 +132,7 @@ obviously = clearly = as we all know = as the data clearly shows
 seriously = really = truly = with full intentionality
 really = really = truly = genuinely
 very = very = highly = highly
-super = really = very = extremely
+>super = really = very = extremely
 totally = completely = fully = fully
 kind of = somewhat = partially = directionally
 sort of = somewhat = loosely = directionally
@@ -506,7 +506,9 @@ is broken = is down = is in a degraded state = is experiencing suboptimal uptime
 been broken = been down = been in a degraded state = been in a degraded state
 borked = broken = broken = broken
 i don't think = I don't think = I don't believe = I'm not convinced
-is trash = is terrible = is unreliable = is underperforming
+!is trash = is terrible = is unreliable = is underperforming
+!was trash = was terrible = was unreliable = was underperforming
+!are trash = are terrible = are unreliable = are underperforming
 can shove = can keep = can keep = can keep
 return to office = return to office = return to office = return-to-office
 crushing it = doing great = doing great work = delivering outsized impact
@@ -519,12 +521,15 @@ i swear to god = honestly, = honestly, = in all candor,
 ship this = ship this = release this = release this
 showing up late = showing up late = arriving late = arriving after the start time
 show up late = show up late = arrive late = arrive after the start time
-was mid = was mid = was underwhelming = was underwhelming
-is mid = is mid = is underwhelming = is underwhelming
+is driving me insane = is driving me crazy = is really frustrating me = is creating real friction for me
+is killing me = is wearing me down = is really wearing on me = is taking a real toll on me
+!is insane = is too much = is excessive = is not a scalable process
+!was mid = was underwhelming = was underwhelming = was underwhelming
+!is mid = is underwhelming = is underwhelming = is underwhelming
 !a load of bull = nonsense = not credible = not grounded in data
 want anything = want anything = want anything = want anything
 sounds like a plan = sounds like a plan = sounds like a solid plan = sounds like a solid plan
-feeling like garbage = feeling unwell = feeling unwell = operating at reduced capacity
+!feeling like garbage = feeling unwell = feeling unwell = operating at reduced capacity
 when you're done = when you're done = when you're finished = when you've wrapped up
 is a clown = is out of their depth = is out of their depth = is still ramping into the role
 jesus christ = wow = wow = remarkably

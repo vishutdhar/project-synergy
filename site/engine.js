@@ -110,6 +110,7 @@ export function normalizeCasual(text) {
   t = t.replace(/\b(\w+) (to be honest|tbh),?\s*$/gim, (m, w, p) => (w === "honest" ? m : `${w}, ${p}`));
   t = t.replace(/\b(\w+) (by the way|btw)\s*$/gim, (m, w, p) => (/^(?:the|said|asked)$/i.test(w) ? m : `${w}, ${p}`));
   t = t.replace(/^(\s*)(by the way|btw)\s+(?=[a-z])/gim, "$1$2, ");
+  t = t.replace(/([a-z]) (you're|you are|ur|u r) (the best|a lifesaver|a star|amazing)\b/gi, "$1, you're $3");
   t = t.replace(/^(\s*)(oops|whoops)\s+(?=(?:my bad|sorry|wrong|typo)\b)/gim, "$1$2, ");
   t = t.replace(/^(\s*)(wow|whoa|oh wow|yikes)\s+(?=(?:thanks|thank|that|this|so|what|ok|okay|i|we|you|the|great|nice|cool|just)\b)/gim, "$1$2, ");
   t = t.replace(/\blowkey\b/gi, "quietly").replace(/\bslapped\b/gi, "was great");

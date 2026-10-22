@@ -86,3 +86,10 @@ test("interjections and tags get their comma", () => {
   assert.equal(corp("ok so the api is borked again", 1), "Ok, so the api is down again.");
   assert.match(corp("sure, I'll just work 3 jobs, no problem", 3), /operationalize that\. I'll just work 3 jobs/);
 });
+
+test("slang found in the live check gets swapped at every level", () => {
+  assert.equal(corp("the wifi is trash today", 1), "The wifi is terrible today.");
+  assert.equal(corp("that meeting was mid", 1), "That catch-up was underwhelming.");
+  assert.equal(corp("thx for the help today ur the best 🙏", 1), "Thanks for the assist today, you're the best.");
+  assert.equal(corp("this bug is driving me insane", 2), "This bug is really frustrating me.");
+});
