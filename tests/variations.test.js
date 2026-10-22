@@ -37,7 +37,7 @@ test("questions keep their question mark", () => {
 });
 
 test("lettered lists stay lists", () => {
-  assert.equal(corp("options: a) ship friday b) slip a week", 1), "Options: a) ship Friday b) slip a week.");
+  assert.equal(corp("options: a) ship friday b) slip a week", 1), "Here are the options: a) ship Friday b) slip a week.");
 });
 
 test("crude idioms keep their meaning", () => {
@@ -82,7 +82,7 @@ test("interjections and tags get their comma", () => {
   assert.equal(corp("the new laptop is great btw", 1), "The new laptop is great, by the way.");
   assert.equal(corp("btw the deploy is done", 1), "By the way, the deploy is done.");
   assert.equal(corp("wow thanks for telling me at 4:55 on a friday", 1), "Wow, thanks for telling me at 4:55 on a Friday.");
-  assert.equal(corp("ok but why", 1), "Ok, but why?");
+  assert.equal(corp("ok but why", 1), "Okay, but could you help me understand why?");
   assert.equal(corp("ok so the api is borked again", 1), "Ok, so the api is down again.");
   assert.match(corp("sure, I'll just work 3 jobs, no problem", 3), /operationalize that\. I'll just work 3 jobs/);
 });
@@ -95,7 +95,7 @@ test("slang found in the live check gets swapped at every level", () => {
 });
 
 test("second audit: wait comma and a rude dismissal", () => {
-  assert.equal(corp("wait are we launching tomorrow??", 1), "Wait, are we launching tomorrow??");
+  assert.equal(corp("wait are we launching tomorrow??", 1), "Just to check, are we launching tomorrow?");
   for (const level of [1, 2, 3]) assert.doesNotMatch(corp("they can shove their return to office policy", level), /shove/);
 });
 

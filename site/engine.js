@@ -1,5 +1,5 @@
 // Project Synergy rewrite engine. Pure functions, no network, runs in the browser and in Node.
-import { restructure, tokenSim } from "./register.js";
+import { restructure, tokenSim, polishRegister } from "./register.js";
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
   DECODE_SWAPS, THEMES, NEGATIVE_CUES, FLUFF_PATTERNS, FLUFF_LINES, PLAIN_LINES, SPECIAL_LINES,
@@ -517,7 +517,7 @@ function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true, dropped =
       }
     }
     const { text } = swapPhrases(base, plainMatcher, lvl, rng, SWAP_CHANCE[lvl], trial, prot);
-    let t = capFirst(tidy(text));
+    let t = capFirst(polishRegister(tidy(text)));
     if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t) && /[A-Za-z0-9]/.test(t)) t += ".";
     if (checkMeaning(sentence, t).ok && !hasCrude(t)) {
       for (const k of trial) used.add(k);
@@ -571,6 +571,8 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [], forceMild
     if (/^(?:hi|hey|hello|greetings|hope|dear|good (?:morning|afternoon))\b/i.test(result)) pool = [];
     // Nor one that already opens with a lead-in like "In the spirit of radical candor,".
     if (/^(?:in the spirit of|candidly|frankly|honestly|to be honest|transparently|for (?:full )?visibility|big picture)\b/i.test(result)) pool = [];
+    // Nor one that already starts with a level label ("Strategic agenda:", "What a growth opportunity:").
+    if (/^[A-Z][^.!?:\n]{0,40}:\s/.test(result) && !/^\S+:\s/.test(clean)) pool = [];
     if (pool.length) {
       const opener = pick(rng, pool);
       keyWords(opener).forEach((k) => used.add(k));

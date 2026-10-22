@@ -30,6 +30,7 @@ const REQUEST_VERBS = "send|call|check|fix|review|look|update|tell|ask|add|share
 const DECISION_VERBS = "pick|choose|go|skip|drop|cut|kill|stick|ditch|scrap|pause|postpone|delay|push back|wait|just";
 const REQ_RE = new RegExp(`^(?:just )?(?:${REQUEST_VERBS})\\b`, "i");
 const DEC_RE = new RegExp(`^(?:${DECISION_VERBS})\\b`, "i");
+const REQ_ME = /^(?:skip|drop|count|leave|take|put|keep|add|remove|sign) (?:me|my)\b/i;
 // Opening words that are not instructions even though they look like verbs.
 const NOT_IMPERATIVE = /^(?:thanks|thank|welcome|congrats|cheers|love|hate|hope|wish|need|want|guess|looks?|sounds?|seems?|feels?|works?|makes sense|note to self|keep up the|nice|good|great|hold up|wait,? what|get well|have a good|enjoy|happy|take care|follow-?up|update:|test(?:ing)? (?:the|this)?\s*$|set up is|turns out|run(?:ning)? (?:late|behind)|come on)\b/i;
 
@@ -38,8 +39,8 @@ const AUX = /^(?:is|are|was|were|do|does|did|can|could|will|would|should|has|hav
 // Problem words for "Flagging that" and "It looks like".
 const PROBLEM = /\b(?:broke|broken|down|failing|failed|fails|wrong|bug|bugs|issue|issues|error|errors|crash\w*|outage|blocked|blocker|stuck|missing|lost|late|behind|delayed|overdue|over budget|ran out|out of|slipp\w*|leak\w*|corrupt\w*|not working|doesn't work|isn't working|won't work|can't|cannot|no longer|incorrect|inaccurate|mistake|problem|problems|risk|risky|expired|overrun|underwater|drowning|in trouble|exceeded)\b/i;
 const OPINION_ADJ = /^(?:this|that|it|the [\w-]+(?: [\w-]+)?|our [\w-]+(?: [\w-]+)?|his [\w-]+|her [\w-]+|their [\w-]+)(?:'s| is| was| are| were| feels| seems| looks)\s+(?:so |really |totally |completely |kind of |kinda |pretty |way |super |just |a bit |too )?(?:a |an )?(?:bad|terrible|awful|horrible|useless|pointless|ridiculous|confusing|messy|mess|disaster|joke|waste|unrealistic|impossible|unclear|vague|weak|wrong|off|questionable|overkill|overcomplicated|complicated|too \w+|way too \w+|not (?:great|good|ideal|realistic|clear|enough|ready|worth \w+)|risky|dumb|stupid|silly|insane|crazy|nuts|absurd|meh|mid|underwhelming|great|good|amazing|awesome|fantastic|excellent|solid|brilliant|perfect|nice|cool|smart|clever|ugly|slow|expensive|cheap|hard|easy|tight|aggressive|ambitious|idea|plan|call)\b/i;
-const SARCASM_START = /^(?:oh,? |wow,? |great,? |perfect,? |awesome,? |fantastic,? |wonderful,? |love (?:that|how|it)|cool,? cool|nice,? |sure,? |yeah,? right|amazing,? |thanks a lot|thanks for nothing|how (?:exciting|fun|wonderful|nice)|what a )/i;
-const SOCIAL = /^(?:hi|hey|hello|thanks|thank|ty|thx|welcome|congrats|congratulations|cheers|good (?:morning|afternoon|night|luck)|happy|hope|have a|enjoy|get well|bye|see you|sounds good|ok|okay|sure|yes|yeah|yep|no|nope|got it|noted|lol|haha|great job|nice work|well done|kudos|shoutout|shout-out|welcome back|sorry for the|apologies|my bad|oops)\b/i;
+const SARCASM_START = /^(?:ah,? yes|ah,? the |oh,? look|oh,? good|so glad|can't wait|i can't wait|oh,? |wow,? |great,? |perfect,? |awesome,? |fantastic,? |wonderful,? |love (?:that|how|it)|cool,? cool|nice,? |sure,? (?!thing)|yeah,? right|amazing,? |thanks a lot|thanks for nothing|how (?:exciting|fun|wonderful|nice)|what a )/i;
+const SOCIAL = /^(?:hi|hey|hello|thanks|thank|ty|thx|welcome|congrats|congratulations|cheers|good (?:morning|afternoon|night|luck)|happy|hope|have a|enjoy|get well|bye|see you|sounds good|ok|okay|sure|yes|yeah|yep|no(?! one\b)|nope|got it|noted|lol|haha|great job|nice work|well done|kudos|shoutout|shout-out|welcome back|sorry for the|apologies|my bad|oops)\b/i;
 
 const IRREG_ING = { see: "seeing", be: "being", lie: "lying", die: "dying", tie: "tying", set: "setting", get: "getting", put: "putting", run: "running", stop: "stopping", plan: "planning", ship: "shipping", cut: "cutting", hit: "hitting", begin: "beginning", swap: "swapping", map: "mapping", drop: "dropping", scrap: "scrapping", wrap: "wrapping", chat: "chatting", prep: "prepping", log: "logging", debug: "debugging" };
 export function gerund(v) {
@@ -91,7 +92,7 @@ function restructureOne(marked, lvl, ctx) {
   return fixed !== marked ? { text: fixed, device: "fragment" } : { text: marked, device: "" };
 }
 
-const SPLICE_START = "(?:it's|it is|I'm|I am|we're|we are|they're|that's|I've|I have|there's|he's|she's|my|her|his|our|their|can|could|should|which|what|who|where|when|why|how|is|are|do|does|did|will|would|pack|please|send|call|let me know)";
+const SPLICE_START = "(?:let's|start|go ahead|feel free|ping|text|email|nobody|no one|it's|it is|I'm|I am|we're|we are|they're|that's|I've|I have|there's|he's|she's|my|her|his|our|their|can|could|should|which|what|who|where|when|why|how|is|are|do|does|did|will|would|pack|please|send|call|let me know)";
 export function splitClauses(text) {
   const t = String(text).trim();
   if (/["\n]/.test(t) || t.split(/\s+/).length > 30) return [t];
@@ -99,7 +100,12 @@ export function splitClauses(text) {
   const body = t.slice(0, t.length - end.length);
   const re = new RegExp(`^(.{8,}?),\\s+(${SPLICE_START}\\b.{4,})$`, "i");
   const m = body.match(re);
-  if (!m) return [t];
+  if (!m) {
+    // "why are we building this, nobody asked for it?" -> question, then the statement.
+    const qs = end.includes("?") && body.match(/^((?:why|what|how|who|when|where|is|are|can|could|do|does|did)\b.{6,}?),\s+((?:nobody|no one|it's|we|we're|I|I'm|they|this|that's|that)\b.{4,})$/i);
+    if (qs && !/,/.test(qs[1])) return [`${qs[1]}?`, `${qs[2][0].toUpperCase()}${qs[2].slice(1)}.`];
+    return [t];
+  }
   const first = m[1];
   const second = m[2];
   // Keep "if X, Y", "when X, Y", lists and "X, which ..." relative clauses together.
@@ -109,7 +115,11 @@ export function splitClauses(text) {
   const firstEnd = ".";
   const secondEnd = isQ ? "?" : end || ".";
   // A trailing question mark belongs to the second part only when that part asks something.
-  if (isQ && !/^(?:can|could|should|which|what|who|where|when|why|how|is|are|do|does|did|will|would)\b/i.test(second)) return [t];
+  if (isQ && !/^(?:can|could|should|which|what|who|where|when|why|how|is|are|do|does|did|will|would)\b/i.test(second)) {
+    if (/^(?:why|what|how|who|when|where|is|are|can|could|do|does|did)\b/i.test(first)) return [`${first}?`, `${second[0].toUpperCase()}${second.slice(1)}.`];
+    return [t];
+  }
+  if (isQ && /^(?:why|what|how|who|when|where|is|are|can|could|do|does|did)\b/i.test(first)) return [t];
   return [`${first}${firstEnd}`, `${second[0].toUpperCase()}${second.slice(1)}${secondEnd}`];
 }
 
@@ -118,13 +128,17 @@ function fixFragment(marked) {
   if (strip(marked) !== marked) return marked;
   let t = marked;
   t = t.replace(/^(\s*)running (?=\d|a bit|behind|late)/i, "$1I'm running ");
+  t = t.replace(/^(\s*)(dentist|doctor|doctor's|vet|physio|therapy|eye doctor)(?: appointment)? at\b/i, (_m, sp, w) => `${sp}I have a ${w.toLowerCase()} appointment at`);
+  t = t.replace(/^(\s*)happy to\b/i, "$1I'm happy to");
   t = t.replace(/^(\s*)ran out of (?=(?:the )?(?:budget|money|funding|time|headcount|credits|seats|licenses|space|stock|runway)\b)/i, "$1We've run out of ");
   t = t.replace(/^(\s*)(still waiting|halfway (?:done|through)|almost done|nearly done|done with|back from|waiting on|waiting for|working on|stuck on|blocked on)\b/i, (_m, sp, w) => `${sp}I'm ${w.toLowerCase()}`);
   t = t.replace(/^(\s*)(received|recieved|shipped|finished|sent|pushed|merged|fixed|booked|submitted|filed|escalated|updated|reviewed|deployed|signed)\b(?=\s+(?:the|a|an|my|your|v?\d|it|them|this|that|our)\b)/i, (_m, sp, w) => `${sp}I ${w.toLowerCase().replace("recieved", "received")}`);
   t = t.replace(/^(\s*)(deadline|server|build|contract|demo|launch|printer|wifi|meeting|client|budget|deploy|release|site|app|database|report)('s|\s+is|\s+was)\b/i, (_m, sp, n, v) => `${sp}The ${n.toLowerCase()}${v}`);
   // Clause fragments after a comma: ", looking into it" -> ", and I'm looking into it".
-  t = t.replace(/,\s+(looking into|working on|checking|chasing|digging into|fixing|investigating|on it\b|handling|panicking)/i, (_m, w) => `, and I'm ${w.toLowerCase()}`);
+  t = t.replace(/,\s+(looking into|working on|checking|chasing|digging into|fixing|investigating|on it\b|handling|panicking|borrowing|using|going to|gonna|logging|working from)/i, (_m, w) => `, and I'm ${w.toLowerCase()}`);
   t = t.replace(/,\s+will (\w+)/i, ", and I'll $1");
+  t = t.replace(/,\s+(sent|shipped|pushed|merged|filed|emailed|forwarded|told|cc'd|uploaded|posted|shared)\b/i, (_m, w) => ` and ${w.toLowerCase()}`);
+  t = t.replace(/(^|[.!?]\s+)still (broken|down|not working|failing|open|pending|stuck|blocked|missing|wrong|slow|happening)\b/gi, (_m, p, w) => `${p}${p ? "It's" : "It's"} still ${w.toLowerCase()}`);
   t = t.replace(/,\s+back (by|on|at|in|after|tomorrow|monday|tuesday|wednesday|thursday|friday)\b/i, (_m, w) => `, and I'll be back ${w}`);
   t = t.replace(/,\s+(on my (?:phone|laptop|way)|at the (?:doctor|dentist|airport))\b/i, ", and I'm $1");
   t = t.replace(/,\s+been (\d+|a few|a couple of|several) (days?|weeks?|months?|hours?)\b/i, ", and it's been $1 $2");
@@ -153,6 +167,15 @@ function restructureAt(marked, lvl, ctx = {}) {
   const done = (text, device) => ({ text, device });
   const markedBody = marked.trim().replace(/[.!?]+$/, "");
 
+  // Sarcasm stays sarcasm, in the register of the level: "perfect, the deploy broke on a Friday at 5"
+  // -> "Wonderful, ..." / "Love that for us: ..." / "What a growth opportunity: ...".
+  {
+    const sm = markedBody.match(/^(?:oh,? |ah,? |well,? )?(?:perfect|great|wonderful|fantastic|awesome|good|cool|lovely|excellent|how wonderful|how exciting|how fun|amazing|brilliant)[,!:]\s+(.+)$/i);
+    if (sm && clean && !/^(?:thanks|thank|that works|sounds|see you|I'll|let's|we can|you|nice|great|good)\b/i.test(sm[1]) && /\b(?:broke|broken|another|more|again|mandatory|instead|friday|saturday|sunday|weekend|at \d|never|nobody|no one|fail\w*|down|cancel\w*|reorg|meeting|meetings|overtime|deadline|late|outage|alignment|tool|process|approval|survey|email)\b|"/i.test(sm[1])) {
+      const lead = ["Wonderful,", "Love that for us:", "What a growth opportunity:"][lvl - 1];
+      return done(`${M(lead)} ${lowerFirst(sm[1])}${end || "."}`, "sarcasm");
+    }
+  }
   if (SARCASM_START.test(body)) return none;
 
   // One-liners. A whole message that is one short reply gets a level-appropriate full sentence.
@@ -160,6 +183,11 @@ function restructureAt(marked, lvl, ctx = {}) {
     const key = body.toLowerCase().replace(/[^a-z' ]/g, "").replace(/\s+/g, " ").trim();
     const hit = ONE_LINERS[key];
     if (hit) return done(M(hit[lvl - 1]), "one-liner");
+  }
+  {
+    const ih = body.match(/^([A-Za-z][\w ]{1,20}):\s+(\S.*)$/);
+    const hit = ih && LIST_HEADERS[ih[1].toLowerCase().trim()];
+    if (hit && clean) return done(`${M(hit[lvl - 1])}: ${ih[2]}${end}`, "list-header");
   }
   // List headers: "things that are broken:" -> "Here's what's broken:".
   if (/:$/.test(body) || /:\s*$/.test(plain)) {
@@ -308,6 +336,12 @@ function restructureAt(marked, lvl, ctx = {}) {
     }
   }
 
+  if (clean && !isQ && words <= 24) {
+    const it = body.match(/^I think (?!so\b|not\b)(.+)$/i);
+    if (it && lvl === 2) return done(`${M("My read is that")} ${it[1]}.`, "hedge-opinion");
+    const gj = body.match(/^(?:great|nice|good|awesome|amazing) (?:job|work) (on|with) (.+)$/i);
+    if (gj) return done(`${M(["Great work", "Huge kudos", "Massive value-add"][lvl - 1])} ${gj[1]} ${gj[2]}${end === "!" ? "!" : "."}`, "praise");
+  }
   // B3. Opinions with should, plans as future progressive, regret on negative news.
   if (clean && !isQ && words <= 24) {
     let m;
@@ -328,7 +362,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       if (lvl === 2) return done(`${had ? M(subj) : useLabel(subj === "I'll be" ? "Heads-up:" : "Quick heads-up:") + " " + M(subj.replace(/^We/, "we"))} ${m[2]}${splitSplice(m[3])}.`, "future-progressive");
       return none;
     }
-    if (/^(?:I|we|I'm|we're|we've|I've|it|this|that|the [\w-]+)\b.*\b(?:can't|cannot|won't be able|don't have|not going to make|not able|aren't able|isn't going to|won't make|not taking|not hiring|couldn't|didn't get|haven't (?:heard|received|had|been able)|missed|lost|won't be ready|isn't ready|aren't ready|over budget|behind)\b/i.test(body) && !/^(?:unfortunately|sadly)\b/i.test(body) && ctx.first) {
+    if (/^(?:I|we|I'm|we're|we've|I've|it|this|that|the [\w-]+)\b.*\b(?:can't|cannot|won't be able|don't have|not going to make|not able|aren't able|isn't going to|won't make|not taking|not hiring|couldn't|didn't get|haven't (?:heard|received|had|been able)|missed|lost|won't be ready|isn't ready|aren't ready|over budget|behind)\b/i.test(body) && !/^(?:unfortunately|sadly)\b/i.test(body) && !/\bcan't (?:wait|believe|stop|complain|help|thank)\b|\bcouldn't (?:be happier|ask for|have)\b/i.test(body) && ctx.first) {
       if (lvl === 1) return done(`${M("Unfortunately,")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "regret");
     }
   }
@@ -357,19 +391,19 @@ function restructureAt(marked, lvl, ctx = {}) {
       return none;
     }
     if (!isQ && words <= 20 && !NOT_IMPERATIVE.test(body) && !/,\s*(?:I|we|you|it|they|he|she)\b/i.test(body)) {
-      if (DEC_RE.test(body) && !/^just (?:a|an|the|wanted|checking|fyi|so)\b/i.test(body) && !/^go (?:home|away|team)\b/i.test(body)) {
+      if (DEC_RE.test(body) && !/\b(?:me|my|mine)\b/i.test(body) && !/^just (?:a|an|the|wanted|checking|fyi|so)\b/i.test(body) && !/^go (?:home|away|team)\b/i.test(body)) {
         const r = lowerFirst(markedBody, { force: true });
         if (lvl === 1) return done(`${M("I'd suggest we")} ${r}.`, "suggestion");
         if (lvl === 2) return done(`${M("My recommendation would be to")} ${r}.`, "suggestion");
         return none;
       }
-      if (REQ_RE.test(body) && !/^let me know\b/i.test(body)) {
+      if ((REQ_RE.test(body) || REQ_ME.test(body)) && !/^let me know\b/i.test(body)) {
         const r = lowerFirst(markedBody, { force: true });
         const urgent = /\b(?:asap|now|immediately|right away|urgent\w*|today|tonight)\b/i.test(body);
         if (ctx.later) {
           if (lvl === 1) return done(`${M("Please")} ${r}.`, "polite-request");
-          if (lvl === 2) return done(`${M("Please make sure to")} ${r}.`, "polite-request");
-          return done(`${M("Please prioritize this:")} ${r}.`, "polite-request");
+          if (lvl === 2) return done(`${M(/^(?:send|share|submit|update|review|fill|pack|complete|finish|file|book|sign|approve|clean)\b/i.test(body) ? "Please make sure to" : "Please")} ${r}.`, "polite-request");
+          return done(`${M("Please")} ${r}.`, "polite-request");
         }
         if (lvl === 1) return done(`${M("Could you")} ${r}?`, "indirect-request");
         if (lvl === 2) return done(`${had ? M("Could you") : useLabel(urgent ? "Quick ask:" : "When you get a chance,") + " " + M("could you")} ${r}?`, "indirect-request");
@@ -401,7 +435,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       }
     }
     // De-inversion with a pronoun subject: "why am I on this thread" -> "why I'm on this thread".
-    if ((m = body.match(/^(why|what|where|when|how) (am I|are you|are we|are they|is it|is this|is that|is he|is she|is everyone|is anyone) (.+)$/i))) {
+    if ((m = body.match(/^(why|what|where|when|how) (am I|are you|are we|are they|is it|is this|is that|is he|is she|is everyone|is anyone) (.+)$/i)) && !body.includes(",") && (!/(?:this|that)$/i.test(m[2]) || /^(?:[a-z]+ing|so|still|not|on|in|at|for|a|an|the|happening|broken|done|ready|here|there|about|going|even|really|actually|always|never)\b/i.test(m[3]))) {
       const [subjAux] = [m[2].split(" ")];
       const subj = subjAux[1];
       const aux = subjAux[0].toLowerCase();
@@ -453,7 +487,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       const r = m[2];
       if (lvl === 1) return done(`${M(`Could ${who === "i" ? "I" : who}`)} ${r}?`, "indirect-question");
       if (lvl === 2) {
-        const lead = who === "we" ? "Would it be possible to" : who === "you" ? "Would you be able to" : who === "i" ? "Would it be possible for me to" : `Would ${who} be able to`;
+        const lead = /^not\b/i.test(r) ? (who === "you" ? "Could you please" : `Could ${who === "i" ? "I" : who} please`) : who === "we" ? "Would it be possible to" : who === "you" ? "Would you be able to" : who === "i" ? "Would it be possible for me to" : `Would ${who} be able to`;
         return done(`${M(lead)} ${r}?`, "indirect-question");
       }
       const lead = who === "we" ? "Is there an opportunity to" : who === "you" ? "Do you have the bandwidth to" : null;
@@ -506,14 +540,14 @@ function restructureAt(marked, lvl, ctx = {}) {
   if (isQ) return none;
 
   // Feelings and praise are not updates or problems to flag.
-  const EMOTION = /\b(?:driving me|drives me|frustrat\w*|annoy\w*|killing me|scares? me|stress\w*|exhaust\w*|love|hate|excited|thrilled|proud|happy|glad|sad|upset|worried|nervous|anxious|insane|crazy|great|amazing|awesome|fantastic|excellent|brilliant|by the way|btw)\b/i;
-  if (EMOTION.test(body) && !isQ) return none;
+  const EMOTION = /\b(?:driving me|drives me|frustrat\w*|annoy\w*|killing me|scares? me|stress\w*|exhaust\w*|love|hate|excited|thrilled|proud|happy|glad|sad|upset|worried|nervous|anxious|insane|crazy|great|amazing|awesome|fantastic|excellent|brilliant|by the way|btw|fried|burnt out|burned out|tired|done with this|so done)\b/i;
+  if (!isQ && (/\b(?:by the way|btw)\b/i.test(body) || (EMOTION.test(body) && /\b(?:I|I'm|I've|me|my|you|your|you're)\b/.test(body)))) return none;
 
   // E. Assessments and problem statements.
   const hasNeg = /\b(?:not|no|never|n't|nothing|nobody|none)\b|n't\b/i.test(body);
   const opinion = OPINION_ADJ.test(body) && !/\b(?:think|feel|believe|guess|seems|looks like|imo|imho)\b/i.test(body);
   const problem = PROBLEM.test(body);
-  const subjectOk = !/^[A-Za-z]+ing\b/.test(body) && !/^[\w']+,/.test(body) && !body.includes(":") && !/^(?:I|I'm|I've|I'll|I'd|you|you're|if|when|because|so|and|but|or|please|let's|just|oh|wow|ah|ugh|yeah|yes|no|not|cool|great|perfect|nice|thanks|lol|haha)\b/i.test(body) && !REQ_RE.test(body) && /^(?:[^\s]+\s+){0,5}?(?:[\w-]+'(?:s|re|ll|ve|d)|is|are|was|were|has|have|had|will|won't|can't|cannot|isn't|aren't|wasn't|weren't|hasn't|haven't|didn't|doesn't|don't|went|got|fell|rose|grew|broke|came|said|says|sent|keeps|wants|needs|looks|seems|means|[a-z]{3,}ed|[a-z]{3,}s)\b/i.test(body);
+  const subjectOk = !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body) && !/^[\w']+,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:I|I'm|I've|I'll|I'd|you|you're|if|when|because|so|and|but|or|please|let's|just|oh|wow|ah|ugh|yeah|yes|no|not|cool|great|perfect|nice|thanks|lol|haha)\b/i.test(body) && !REQ_RE.test(body) && /^(?:[^\s]+\s+){0,5}?(?:[\w-]+'(?:s|re|ll|ve|d)|is|are|was|were|has|have|had|will|won't|can't|cannot|isn't|aren't|wasn't|weren't|hasn't|haven't|didn't|doesn't|don't|went|got|fell|rose|grew|broke|came|said|says|sent|keeps|wants|needs|looks|seems|means|[a-z]{3,}ed|[a-z]{3,}s)\b/i.test(body);
   const iStatement = /^(?:I|I've)\s+(?:just\s+|already\s+|accidentally\s+|finally\s+|completely\s+)?(?:[a-z]+ed|sent|got|took|made|ran|went|did|told|left|wrote|built|found|broke|forgot|thought|caught|bought|spent|paid|met|heard|saw|gave|have|had)\b/.test(body) || /^I'm (?:going to be|offline|out|off|in|at|on|working|almost|halfway|blocked|waiting|stuck|free|available|back|heading|leaving|running|wrapping)\b/i.test(body);
   if (words <= 24 && words >= 2 && clean) {
     const negOp = body.match(/^((?:this|that|it|the [\w-]+(?: [\w-]+)?|that [\w-]+|this [\w-]+|our [\w-]+(?: [\w-]+)?)) (is|was|are|were) not (.+)$/i) ?? body.match(/^(that|this|it)('s) not (.+)$/i);
@@ -533,8 +567,8 @@ function restructureAt(marked, lvl, ctx = {}) {
     }
     if (problem && subjectOk && !/^(?:it looks like|looks like|fyi|heads up|flagging)\b/i.test(body)) {
       if (lvl === 1 && ctx.first && !/^(?:we|they)\b/i.test(body) && !hasNeg) return done(`${M("It looks like")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "hedge-problem");
-      if (lvl === 1 && ctx.forceMild && ctx.first) return done(`${M("I wanted to flag that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "frame");
-      if (lvl === 2 && !had) return done(`${useLabel("Flagging that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "label");
+      if (lvl === 1 && ctx.forceMild && ctx.first) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "frame");
+      if (lvl === 2 && !had) return done(`${useLabel(/^that\b/i.test(body) ? "Quick flag:" : "Flagging that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "label");
       return none;
     }
   }
@@ -546,7 +580,7 @@ function restructureAt(marked, lvl, ctx = {}) {
   }
 
   // F. Framing for plain updates (Middle Manager always for the first one; Mild only when nothing else changed).
-  const update = ctx.first && words >= 2 && words <= 30 && !/^(?:I think|honestly|frankly|unpopular opinion|imo|I'd|I would|I'm happy|I'm glad|happy to|glad to)\b/i.test(body) && !/^(?:and|but|or|so|because)\b/i.test(body) && !/^[\w']+,/.test(body) && !body.includes(":") && !/^[a-z]+ing\b/i.test(body);
+  const update = ctx.first && words >= 2 && words <= 30 && !/^(?:I think|honestly|frankly|unpopular opinion|imo|I'd|I would|I'm happy|I'm glad|happy to|glad to)\b/i.test(body) && !/^(?:and|but|or|so|because)\b/i.test(body) && !/^[\w']+,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body);
   if (update) {
     const personal = /^(?:I|I'm|I've|I'll|I'd|my)\b/.test(body);
     if (lvl === 2 && !had) return done(`${useLabel(personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
@@ -586,6 +620,11 @@ const ONE_LINERS = {
   "i'm on my way": ["I'm on my way.", "I'm en route.", "I'm in transit."],
   "on my way": ["I'm on my way.", "I'm en route.", "I'm in transit."],
   "i'm on a call": ["I'm on a call at the moment.", "I'm currently in a call.", "I'm heads-down in a call."],
+  "no worries": ["No worries at all.", "Totally fine on my end.", "Zero concerns from my side."],
+  "yes please": ["Yes, please.", "Yes please, that would be great.", "That's a strong yes, please."],
+  "so true": ["That's very true.", "Couldn't agree more.", "That's a strong strategic truth."],
+  "yikes": ["That's concerning.", "That's a concerning development.", "That's a material headwind."],
+  "ok but why": ["Okay, but could you help me understand why?", "Understood, but quick question: why?", "Aligned, but could you walk me through the why?"],
   "maybe": ["Possibly.", "Potentially.", "That's a possibility worth exploring."],
   "same here": ["Same here.", "Same on my end.", "Strong plus-one from my side."],
   "makes sense": ["That makes sense.", "That makes sense, I'm aligned.", "That tracks with our strategic direction."],
@@ -679,4 +718,12 @@ export function distinctness(input, outs) {
   const s = outs.map(corporateScore);
   if (!(s[0] <= s[1] && s[1] <= s[2] && s[2] > s[0])) probs.push("not-rising");
   return probs;
+}
+
+// Clean-up after the phrasebook pass, for joins the two passes create.
+export function polishRegister(text) {
+  return String(text)
+    .replace(/\b(able to|Could you|could you|Would you|would you) please (please|kindly) /g, "$1 please ")
+    .replace(/\bbe able to (?:please|kindly) /g, "be able to ")
+    .replace(/\bplease kindly\b/gi, (m) => (m[0] === "P" ? "Please" : "please"));
 }

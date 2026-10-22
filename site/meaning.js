@@ -15,7 +15,7 @@ const NEG_IDIOMS = [
 // Words that stretch how long or how often something happens. "all day today" is not "indefinitely".
 const SCOPE = /\b(?:indefinitely|forever|permanently|for good|from now on|every day|everyday|all week|all month|always)\b/gi;
 const HEDGE = /\b(?:would rather not|'d rather not|prefer not|might not|may not|probably not|maybe not|hopefully not|not likely|unlikely|not right now|not at this time|not in the near term|for now|for the time being)\b/gi;
-const QUESTION = /\?/g;
+const QUESTION = /\?+/g;
 // Numbers, money, percentages and clock times. Compared as digit strings.
 const NUMBER = /\d[\d,.:]*/g;
 const MONTHS = "jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?";
