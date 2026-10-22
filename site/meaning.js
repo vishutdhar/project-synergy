@@ -1,3 +1,5 @@
+import { canonicalizeCrude, neutralizeSlurs, hasCrude } from "./profanity.js";
+
 // Meaning checks for Normal to corporate. Compares the input with a rewrite and lists what got lost
 // or made up. Pure functions, used by the Instant engine, the AI path and the tests.
 
@@ -7,7 +9,7 @@ const NEGATOR = /\b(?:not|no|nope|nah|never|nobody|nothing|none|nowhere|neither|
 const NEG_IDIOMS = [
   /\bno (?:problem|worries|rush|biggie|clue|idea)\b/gi, /\b(?:don't|do not) (?:care|mind|have (?:time|the time|the bandwidth))\b/gi,
   /\bcan't wait\b/gi, /\bnot bad\b/gi, /\bnot my (?:job|problem)\b/gi, /\bnothing (?:much|new)\b/gi, /\bno one (?:knows|cares)\b/gi,
-  /\b(?:i )?have no idea\b/gi, /\bdon't know\b/gi, /\bdoesn't matter\b/gi, /\bno big deal\b/gi,
+  /\b(?:i )?have no idea\b/gi, /\bno shit\b/gi, /\bdon't give a (?:fuck|shit|damn|crap)\b/gi, /\bdon't know\b/gi, /\bdoesn't matter\b/gi, /\bno big deal\b/gi,
 ];
 // Soft versions of a no. A rewrite may not add these, because they turn a refusal into a maybe.
 const HEDGE = /\b(?:would rather not|'d rather not|prefer not|might not|may not|probably not|maybe not|hopefully not|not likely|unlikely|not right now|not at this time|not in the near term|for now|for the time being)\b/gi;
@@ -67,7 +69,7 @@ export function names(text) {
     const words = sentence.replace(/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s+/, "").split(/\s+/).filter(Boolean);
     words.forEach((raw, i) => {
       const word = raw.replace(/^["'(\[]+|["')\].,!?;:]+$/g, "").replace(/'s$/, "");
-      if (i === 0 || !/^[A-Z]/.test(word) || NOT_NAMES.has(word) || dateRe.test(word)) return;
+      if (i === 0 || !/^[A-Z]/.test(word) || NOT_NAMES.has(word) || dateRe.test(word) || hasCrude(word)) return;
       out.push(word);
     });
   }
@@ -88,7 +90,9 @@ export function setAllowedCaps(words) {
 export function checkMeaning(input, output, { checkNames = true } = {}) {
   const lost = [];
   const added = [];
-  const inp = String(input ?? "");
+  // Swearing is not meaning. Compare against the input with crude spellings made plain and slurs removed,
+  // so dropping "fuck" or a slur never counts as a loss.
+  const inp = neutralizeSlurs(canonicalizeCrude(String(input ?? "")));
   const out = String(output ?? "");
   if (negations(out) < negations(inp)) lost.push("negation");
   if (count(out, HEDGE) > count(inp, HEDGE) && negations(inp) > 0) added.push("hedge");

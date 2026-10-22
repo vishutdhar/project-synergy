@@ -1,7 +1,8 @@
 // AI mode worker. Loads Qwen2.5 0.5B Instruct with Transformers.js and runs it off the main thread.
 // Pinned Transformers.js build from jsDelivr. It only loads after the user turns on AI mode.
 import { pipeline, env, random, StoppingCriteria, LogitsProcessor } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.1/dist/transformers.min.js";
-import { detectThemes } from "./engine.js";
+import { detectThemes, softenCrude } from "./engine.js";
+import { addsCrude } from "./profanity.js";
 import {
   MODEL_ID, MAX_AI_SENTENCES, sentencesForDecode, buildDecodeMessages, buildSummaryMessages,
   buildCorporateMessages, firstLine, summaryCoversThemes, CORPORATE_EXAMPLE_ANSWERS,
@@ -75,7 +76,9 @@ self.onmessage = async (event) => {
     if (!generator) throw new Error("Model not loaded");
 
     if (msg.type === "toCorporate") {
-      const raw = firstLineBlock(await ask(buildCorporateMessages(msg.text, msg.level), "corporate", msg.text, sampleSeed(msg.text, msg.level, msg.seed)));
+      // Swearing is swapped out before the model sees it. The page still checks the reply.
+      const input = softenCrude(msg.text);
+      const raw = firstLineBlock(await ask(buildCorporateMessages(input, msg.level), "corporate", input, sampleSeed(msg.text, msg.level, msg.seed)));
       // A looping, empty or copied reply comes back empty, and the page shows the Instant version.
       const checked = guardOutput(raw, { examples: CORPORATE_EXAMPLE_ANSWERS, maxWords: 120 });
       self.postMessage({ type: "corporate", id: msg.id, text: checked.text, rejected: !checked.ok });
@@ -91,7 +94,7 @@ self.onmessage = async (event) => {
         let plain = guardOutput(firstLine(await ask(buildDecodeMessages(sentences[i], msg.level, themes), "line", sentences[i], sampleSeed(sentences[i], msg.level, msg.seed, i + 1))), { maxWords: 40 }).text;
         // Empty means the page uses the Instant line for this sentence.
         // Also when it just repeats the original sentence back.
-        if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8)) plain = "";
+        if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8) || addsCrude(sentences[i], plain)) plain = "";
         lines.push({ original: sentences[i], plain });
         self.postMessage({ type: "line", id: msg.id, index: i, total: sentences.length, original: sentences[i], plain });
       }
@@ -100,7 +103,7 @@ self.onmessage = async (event) => {
         firstLine(await ask(buildSummaryMessages(tagged.length ? tagged : lines.map((l) => l.plain), msg.level, msg.themes ?? []), "summary", "", sampleSeed(msg.text, msg.level, msg.seed, -1))),
         { maxWords: 40 },
       ).text;
-      const summaryOk = summaryCoversThemes(summary, msg.themes ?? []) && !contradictsThemes(summary, msg.themes ?? []) && !isMetaReply(summary);
+      const summaryOk = summaryCoversThemes(summary, msg.themes ?? []) && !contradictsThemes(summary, msg.themes ?? []) && !isMetaReply(summary) && !addsCrude(msg.text, summary);
       self.postMessage({ type: "decoded", id: msg.id, summary, summaryOk, lines, skipped: all.length - sentences.length });
     }
   } catch (err) {

@@ -209,6 +209,7 @@ ol.decode p { margin: 0; font-weight: 650; }
 ol.decode p::before { content: "Means: "; color: var(--warn); font-weight: 700; }
 .pending { color: var(--muted); font-style: italic; }
 .note { font-size: var(--fs-sm); color: var(--muted); margin: 0; }
+.note.callout { color: var(--ink); background: var(--warn-soft); border-left: 4px solid var(--warn); padding: 8px 12px; border-radius: 6px; }
 .result-tools { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 6px; }
 
 /* ---------- About and footer ---------- */

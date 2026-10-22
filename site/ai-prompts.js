@@ -156,16 +156,20 @@ export function summaryCoversThemes(summary, themeIds = []) {
 
 // Few-shot pairs. Topics differ from the app's examples so the model can't just copy an answer.
 // Answers keep the facts and add no new plans, meetings or promises.
+// The last pair shows a sweary message turned into wording you could say at work.
 const CORPORATE_SHOTS = {
   1: [["I can't come to lunch, I'm busy.", "I'm a bit tied up, so I can't make lunch."],
       ["The printer is broken again.", "Heads up, the printer is out of order again."],
-      ["I don't like the new logo.", "I have a few concerns about the new logo."]],
+      ["I don't like the new logo.", "I have a few concerns about the new logo."],
+      ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet is a real mess, and I'm not fixing it again."]],
   2: [["I can't come to lunch, I'm busy.", "I don't have the bandwidth for lunch, so I can't make it."],
       ["The printer is broken again.", "Flagging that our print capability is down again."],
-      ["I don't like the new logo.", "I'm not fully aligned on the new logo direction."]],
+      ["I don't like the new logo.", "I'm not fully aligned on the new logo direction."],
+      ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet has some serious quality gaps, and I'm not able to fix it again."]],
   3: [["I can't come to lunch, I'm busy.", "Due to unprecedented demand on my bandwidth, I'm unable to join the nourishment alignment initiative."],
       ["The printer is broken again.", "Our document output infrastructure is once again in a strategic pause."],
-      ["I don't like the new logo.", "I'm not yet bought in on the new brand identity's ability to unlock value at scale."]],
+      ["I don't like the new logo.", "I'm not yet bought in on the new brand identity's ability to unlock value at scale."],
+      ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet is a value-negative asset, and I'm not in a position to own another remediation cycle."]],
 };
 export const CORPORATE_EXAMPLE_ANSWERS = Object.values(CORPORATE_SHOTS).flat().map(([, a]) => a);
 
@@ -180,6 +184,8 @@ export function buildCorporateMessages(text, level = 2) {
         `${CORPORATE_TONE[lvl]} ` +
         "Do not add plans, meetings, promises, people or facts that are not in the message. " +
         "Keep every no and not as a clear no, keep questions as questions, and keep all numbers, names and dates exactly. " +
+        "The reply must be professional and safe for work: no swearing, slurs, insults or crude words, even if the message has them. " +
+        "Turn rude wording into polite workplace wording that keeps the point. " +
         "Reply with only the rewritten message, no quotes and no explanation.",
     },
     ...CORPORATE_SHOTS[lvl].flatMap(([q, a]) => [

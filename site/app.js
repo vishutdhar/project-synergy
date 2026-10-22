@@ -1,5 +1,6 @@
 import { toCorporateDetailed, toNormal, formatDecode, applySoftCap, LEVELS } from "./engine.js";
 import { checkMeaning, describeProblems } from "./meaning.js";
+import { hasCrude, scrubCrude } from "./profanity.js";
 import { xIntentUrl } from "./share.js";
 import { CONFIG } from "./config.js";
 import { MEMOS, PLAIN } from "./samples.js";
@@ -147,6 +148,8 @@ function showOutput() {
 }
 
 function renderCorporate(text) {
+  // Last line of defense: corporate output never shows crude wording, from any engine.
+  if (hasCrude(text)) text = scrubCrude(text);
   const p = document.createElement("p");
   p.className = "corporate-out";
   p.textContent = text;
@@ -164,6 +167,8 @@ function setResult({ direction, copyText, shareText, swapText = copyText, note =
   els.share.href = xIntentUrl(shareText, CONFIG.appUrl);
   els.resultNote.hidden = !note;
   els.resultNote.textContent = note;
+  // A fallback from AI mode gets a visible callout, so nobody mistakes it for an AI answer.
+  els.resultNote.classList.toggle("callout", /fallback/.test(engine));
   els.reroll.disabled = false;
 }
 
@@ -222,18 +227,20 @@ async function run({ reroll = false } = {}) {
     setBusy(true);
     try {
       const res = await askWorker({ type: "toCorporate", text, level, seed: state.seed });
-      // The AI reply has to keep the meaning too. If it drops a no, a question, a number, a name or a list, Instant wins.
+      // The AI reply has to keep the meaning and be safe to say at work. If it fails either check, Instant wins.
+      const crude = Boolean(res.text) && hasCrude(res.text);
       const check = res.text ? checkMeaning(text, res.text) : null;
-      const useIt = Boolean(res.text) && check.ok;
+      const useIt = Boolean(res.text) && !crude && check.ok;
       const final = useIt ? res.text : out;
       const why = !res.text
-        ? res.rejected ? "The AI reply didn't make sense, so this is the Instant version." : "The AI came back empty, so this is the Instant version."
-        : !check.ok ? `The AI reply ${describeProblems(check) || "changed the meaning"}, so this is the Instant version.` : "";
+        ? res.rejected ? "AI mode ran, but its reply didn't make sense, so this is the Instant version." : "AI mode ran, but its reply came back empty, so this is the Instant version."
+        : crude ? "AI mode ran, but its reply had wording you can't use at work, so this is the Instant version."
+        : !check.ok ? `AI mode ran, but its reply ${describeProblems(check) || "changed the meaning"}, so this is the Instant version.` : "";
       renderCorporate(final);
-      setResult({ direction: "toCorporate", copyText: final, shareText: final, engine: useIt ? "AI" : "Instant", note: [why, capNote].filter(Boolean).join(" ") });
+      setResult({ direction: "toCorporate", copyText: final, shareText: final, engine: useIt ? "AI" : "Instant (AI fallback)", note: [why, capNote].filter(Boolean).join(" ") });
     } catch (err) {
       renderCorporate(out);
-      setResult({ direction: "toCorporate", copyText: out, shareText: out, note: `AI mode hit an error, so this is the Instant version. (${err.message})` });
+      setResult({ direction: "toCorporate", copyText: out, shareText: out, engine: "Instant (AI fallback)", note: `AI mode hit an error, so this is the Instant version. (${err.message})` });
     } finally {
       setBusy(false);
     }
@@ -267,7 +274,7 @@ async function runAIDecode(text, level, instant, capNote, reroll) {
     setResult({ direction: "toNormal", copyText: formatDecode(final), shareText: `What they really mean: ${summary}`, swapText: plainOf(final), note: notes.join(" "), engine: "AI" });
   } catch (err) {
     renderDecode(instant);
-    setResult({ direction: "toNormal", copyText: formatDecode(instant), shareText: `What they really mean: ${instant.summary}`, swapText: plainOf(instant), note: `AI mode hit an error, so this is the Instant version. (${err.message})` });
+    setResult({ direction: "toNormal", copyText: formatDecode(instant), shareText: `What they really mean: ${instant.summary}`, swapText: plainOf(instant), engine: "Instant (AI fallback)", note: `AI mode hit an error, so this is the Instant version. (${err.message})` });
   } finally {
     setBusy(false);
   }

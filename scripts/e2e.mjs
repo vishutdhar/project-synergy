@@ -106,7 +106,19 @@ await check("won't stays a firm no, and numbers, names, dates and the question s
     const out = await text(page, ".corporate-out");
     assert.doesNotMatch(out, /rather not/);
     for (const k of ["3pm", "Dana", "Friday", "?"]) assert.ok(out.includes(k), `L${lvl} lost ${k}: ${out}`);
-    assert.match(out, /won't|will not|will definitely not/);
+    assert.match(out, /won't|will not|unable/);
+  }
+});
+
+await check("swearing never reaches the corporate version, at any level", async () => {
+  await page.click("#clear");
+  await page.type("#input", "the plan is to fuck off all day today");
+  for (const lvl of [1, 2, 3]) {
+    await setLevel(page, lvl);
+    await page.click("#run");
+    const out = await text(page, ".corporate-out");
+    assert.doesNotMatch(out, /fuck|to off\b/i, `L${lvl}: ${out}`);
+    assert.match(out, /today/i, `L${lvl}: ${out}`);
   }
 });
 

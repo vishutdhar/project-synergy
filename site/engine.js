@@ -5,6 +5,7 @@ import {
   LAYOFF_HINTS, LAYOFF_CONTEXT_SWAPS, SIGNALS,
 } from "./phrasebook.js";
 import { checkMeaning, setAllowedCaps, isShouting } from "./meaning.js";
+import { CRUDE_SWAPS, canonicalizeCrude, neutralizeSlurs, hasCrude, scrubCrude } from "./profanity.js";
 
 export const SOFT_CAP = 20000;
 export const LEVELS = {
@@ -85,12 +86,38 @@ function buildMatcher(entries) {
   const re = new RegExp(`(?<![\\w'-])(${pattern})(?![\\w'-])`, "gi");
   const lookup = (m) => byKey.get(m.toLowerCase().replace(/\s+/g, " ")) ?? byKey.get(apostropheIndex.get(m.toLowerCase().replace(/\s+/g, " ").replace(/'/g, "")));
   const apostropheIndex = new Map(keys.map((k) => [k.replace(/'/g, ""), k]));
-  return { re, lookup };
+  // Shorter keys that also match at the same spot, longest first. Used when the longest match can't be swapped.
+  let sticky = null;
+  const shorterAt = (text, start, len) => {
+    sticky ??= keys.map((k) => new RegExp(`(?<![\\w'-])(?:${escapeRe(k).replace(/'/g, "'?").replace(/ /g, "\\s+")})(?![\\w'-])`, "iy"));
+    const out = new Set();
+    for (const r of sticky) {
+      r.lastIndex = start;
+      const hit = r.exec(text);
+      if (hit && hit[0].length < len) out.add(hit[0]);
+    }
+    return [...out].sort((a, b) => b.length - a.length);
+  };
+  return { re, lookup, shorterAt };
 }
 
 export const corporateEntries = parseSwaps(CORPORATE_SWAPS);
+// Crude phrases come first, so "is shit" beats any plain swap for "is".
+export const crudeEntries = parseSwaps(CRUDE_SWAPS);
 export const decodeEntries = parseSwaps(DECODE_SWAPS);
-const corporateMatcher = buildMatcher(corporateEntries);
+const corporateMatcher = buildMatcher([...crudeEntries, ...corporateEntries]);
+const crudeMatcher = buildMatcher(crudeEntries);
+
+// The input with swearing already swapped for plain, mild wording. AI mode rewrites this
+// version, so the model never sees "fuck off" and can't copy it into the reply.
+export function softenCrude(input) {
+  const clean = neutralizeSlurs(canonicalizeCrude(normalizeInput(input))).replace(/[ \t]{2,}/g, " ").trim();
+  if (!hasCrude(clean)) return clean;
+  let { text } = swapPhrases(clean, crudeMatcher, 1, () => 0, 1);
+  if (hasCrude(text)) text = scrubCrude(text);
+  text = text.replace(/[\u0000\u0001]/g, "").replace(/[ \t]{2,}/g, " ").trim();
+  return /^[A-Z]/.test(clean) ? capFirst(text) : text;
+}
 const decodeMatcher = buildMatcher(decodeEntries);
 // In a layoff memo, the layoff readings of words like "synergies" come first.
 const layoffDecodeMatcher = buildMatcher([...parseSwaps(LAYOFF_CONTEXT_SWAPS), ...decodeEntries]);
@@ -124,22 +151,29 @@ function swapPhrases(text, matcher, level, rng, swapChance, used = null, protect
   let m;
   while ((m = re.exec(text))) {
     const start = m.index;
-    const end = start + m[0].length;
-    const entry = (matcher.lookup(m[0]) ?? []).find((e) => {
-      if (e.clauseOnly && !isClause(text, start, end)) return false;
-      if (e.beforeWord && !/^\s+[A-Za-z]/.test(text.slice(end))) return false;
-      return true;
-    });
     // After "don't" or "did not", a swap that starts with a helper verb would read "don't would like".
     const negAux = /\b(?:don't|doesn't|didn't|dont|do not|does not|did not)\s*$/i.test(text.slice(0, start));
-    if (entry && negAux && entry.tiers.flat().some((o) => /^(?:would|will|am|is|are|have|has|can|could)\b/i.test(o))) {
+    let found = null;
+    for (const cand of [m[0], ...matcher.shorterAt(text, start, m[0].length)]) {
+      const candEnd = start + cand.length;
+      const entry = (matcher.lookup(cand) ?? []).find((e) => {
+        if (e.clauseOnly && !isClause(text, start, candEnd)) return false;
+        if (e.beforeWord && !/^\s+[A-Za-z]/.test(text.slice(candEnd))) return false;
+        return true;
+      });
+      if (!entry) continue;
+      if (negAux && entry.tiers.flat().some((o) => /^(?:would|will|am|is|are|have|has|can|could)\b/i.test(o))) continue;
+      if (protect.some(([a, b]) => start < b && candEnd > a)) continue;
+      found = { entry, end: candEnd, match: cand };
+      break;
+    }
+    if (!found) {
       re.lastIndex = start + 1;
       continue;
     }
-    if (!entry || protect.some(([a, b]) => start < b && end > a)) {
-      re.lastIndex = start + 1;
-      continue;
-    }
+    const { entry, end } = found;
+    re.lastIndex = end;
+    m = [found.match];
     let replacement = m[0];
     if (entry.always || rng() <= swapChance) {
       // Mostly pick from this level's tier, sometimes from the one below for variety.
@@ -275,7 +309,7 @@ const CLOSER_CHANCE = { 1: 0.4, 2: 0.8, 3: 1 };
 const LIST_MARK = /^(\s*(?:[-*\u2022]|\d{1,2}[.)])\s+)/;
 
 // Capitalized words the phrasebook may add on its own (KPI, OKRs, AI). The meaning check allows them.
-const CAPS_SOURCES = [CORPORATE_SWAPS, ...Object.values(OPENERS).flat(), ...Object.values(CLOSERS).flat(), ...INTERJECTIONS].join(" ");
+const CAPS_SOURCES = [CORPORATE_SWAPS, CRUDE_SWAPS, ...Object.values(OPENERS).flat(), ...Object.values(CLOSERS).flat(), ...INTERJECTIONS].join(" ");
 setAllowedCaps(CAPS_SOURCES.match(/\b[A-Z][\w'&-]*/g) ?? []);
 
 // Spans a swap must not touch: numbers, dates, times and names.
@@ -288,7 +322,7 @@ function protectedSpans(sentence) {
   add(/\b(?:today|tonight|tomorrow|yesterday|(?:this|next|last) (?:week|month|quarter|year)|EOD|EOW|COB|monday|tuesday|wednesday|thursday|friday|saturday|sunday|january|february|march|april|june|july|august|september|october|november|december)\b/gi);
   // Capitalized words after the first word of the sentence, unless the whole thing is shouted.
   if (!isShouting(sentence)) for (const m of sentence.matchAll(/(?<=\S\s+)[A-Z][\w'&-]*/g)) {
-    if (!/^I(?:'m|'ve|'ll|'d)?$/.test(m[0])) spans.push([m.index, m.index + m[0].length]);
+    if (!/^I(?:'m|'ve|'ll|'d)?$/.test(m[0]) && !hasCrude(m[0])) spans.push([m.index, m.index + m[0].length]);
   }
   return spans;
 }
@@ -333,12 +367,13 @@ function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true } = {}) {
     const { text } = swapPhrases(sentence, corporateMatcher, lvl, rng, SWAP_CHANCE[lvl], trial, protect);
     let t = capFirst(tidy(text));
     if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t)) t += ".";
-    if (checkMeaning(sentence, t).ok) {
+    if (checkMeaning(sentence, t).ok && !hasCrude(t)) {
       for (const k of trial) used.add(k);
       return t;
     }
   }
-  let t = capFirst(tidy(sentence));
+  // Nothing passed. Keep the user's words, minus anything crude.
+  let t = capFirst(tidy(scrubCrude(sentence)));
   if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t)) t += ".";
   return t;
 }
@@ -398,16 +433,19 @@ function corporateOnce(clean, lvl, rng, { extras = true } = {}) {
  */
 export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
   const lvl = clampLevel(level);
-  const clean = normalizeInput(input).trim();
+  // Censored spellings become plain ones (f*ck, wtf) so the crude swaps can catch them. Slurs become "person".
+  const clean = neutralizeSlurs(canonicalizeCrude(normalizeInput(input))).replace(/[ \t]{2,}/g, " ").trim();
   if (!clean) return { text: "", check: { ok: true, lost: [], added: [] }, fallback: "" };
   for (let k = 0; k < 6; k++) {
     const rng = mulberry32(hashString(clean) ^ Math.imul((seed + k * 7919) >>> 0, 2654435761) ^ (lvl * 97));
     const text = corporateOnce(clean, lvl, rng);
     const check = checkMeaning(clean, text);
-    if (check.ok) return { text, check, fallback: k ? "reseed" : "" };
+    if (check.ok && !hasCrude(text)) return { text, check, fallback: k ? "reseed" : "" };
   }
   const rng = mulberry32(hashString(clean) ^ Math.imul(seed >>> 0, 2654435761) ^ (lvl * 97));
-  const text = corporateOnce(clean, lvl, rng, { extras: false });
+  let text = corporateOnce(clean, lvl, rng, { extras: false });
+  // Hard gate: corporate output is never crude, whatever else happened.
+  if (hasCrude(text)) text = polishCase(tidy(scrubCrude(text)));
   return { text, check: checkMeaning(clean, text), fallback: "plain" };
 }
 
