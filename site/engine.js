@@ -715,6 +715,18 @@ function echoes(original, swapped) {
   return A.size > 5 && shared / (A.size + B.size - shared || 1) > 0.6;
 }
 
+// "legal said no on using the customer logo": who said no, when nothing in the message softens it.
+const SOFTENERS = /\b(?:unfortunately|regret|appreciate|thank|kindly|at this time|for now|right now|not able|unable|in a position|wish|hope|grateful|sorry|apolog|explore|revisit|future)\w*/i;
+export function bluntNo(text) {
+  const t = String(text);
+  const m = t.match(/\b(legal|finance|hr|security|procurement|compliance|the board|the client|the customer|management|leadership|the ceo|the cfo|my manager|[A-Z][a-z]+)\s+(?:said|says|just said|came back with a|gave (?:us |me )?a (?:hard |flat )?)\s*(?:no|nope|hard no|flat no)\b/i);
+  if (!m || SOFTENERS.test(t) || t.length > 200) return null;
+  const who = /^(?:hr|ceo|cfo)$/i.test(m[1].replace(/^the /i, "")) ? m[1].replace(/\b(hr|ceo|cfo)\b/i, (x) => x.toUpperCase()) : m[1];
+  const Who = /^(?:legal|finance|security|procurement|compliance|management|leadership)$/i.test(who) ? who[0].toUpperCase() + who.slice(1).toLowerCase() : who.replace(/^the /i, "the ");
+  const lead = Who[0].toUpperCase() + Who.slice(1);
+  return [`It's a no from ${Who}.`, `${lead} said no. It's a flat no.`, `${lead} said no. Not a maybe, a no.`];
+}
+
 export function toNormal(input, { level = 2, seed = 1 } = {}) {
   const lvl = clampLevel(level);
   const clean = normalizeInput(input).trim();
@@ -774,7 +786,10 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
   const ranked = [...scores.entries()].sort((a, b) => b[1] - a[1]).map(([id]) => id);
   const fluffShare = total ? fluff / total : 0;
   // A message that is only a phrase like "per my last email, let's take this offline" is summed up by that phrase.
-  const summary = summaryLines.length && summaryLines.length === total ? summaryLines.join(" ") : combineSummary(ranked, lvl, fluffShare);
+  let summary = summaryLines.length && summaryLines.length === total ? summaryLines.join(" ") : combineSummary(ranked, lvl, fluffShare);
+  // A plain "X said no" with nothing soft around it is a blunt no, not a polite one.
+  const blunt = bluntNo(clean);
+  if (blunt && ranked[0] === "rejection") summary = blunt[lvl - 1];
   return { summary, lines, themes: ranked, signal: pickSignal(ranked, fluffShare) };
 }
 
