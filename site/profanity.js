@@ -164,6 +164,7 @@ const PHRASES = `
 !fucking with = messing with = interfering with = disrupting
 !fucked with = messed with = interfered with = disrupted
 !{fuck|screw|dick} around = mess around = waste time = engage in low-value activity
+!stop {bitching|whining|moaning} and = let's move past the complaints and = let's move from concerns to action and = let's pivot from concerns to execution and
 !stop {fucking|screwing|dicking} around and = let's focus and = let's get focused and = let's prioritize execution and
 !{fucking|screwing|dicking} around = messing around = wasting time = engaging in low-value activity
 !{fucked|screwed|dicked} around = messed around = wasted time = engaged in low-value activity

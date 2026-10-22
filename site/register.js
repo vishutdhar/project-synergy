@@ -414,6 +414,13 @@ function restructureAt(marked, lvl, ctx = {}) {
         if (lvl === 2) return done(`${M("My recommendation would be to")} ${r}.`, "suggestion");
         return none;
       }
+      if ((REQ_RE.test(body) || REQ_ME.test(body)) && !/^let me know\b/i.test(body) && /\band (?:I|I'll|we|we'll|then)\b/i.test(body) && !/^stop\b/i.test(body)) {
+        // "send me the invoice and I'll pay it today": a question would swallow the promise, so ask with please.
+        const r = lowerFirst(markedBody, { force: true });
+        if (lvl === 1) return done(`${M("Please")} ${r}.`, "polite-request");
+        if (lvl === 2) return done(`${had ? M("Please") : useLabel("Quick ask:") + " " + M("please")} ${r}.`, "polite-request");
+        return none;
+      }
       if ((REQ_RE.test(body) || REQ_ME.test(body)) && !/^let me know\b/i.test(body) && !/\band (?:I|I'll|we|we'll|then)\b/i.test(body)) {
         const r = lowerFirst(markedBody, { force: true });
         const urgent = /\b(?:asap|now|immediately|right away|urgent\w*|today|tonight|eod|eow|cob|by \w+|deadline|tomorrow)\b/i.test(body);

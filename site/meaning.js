@@ -56,7 +56,7 @@ export function listLines(text) {
 }
 
 // Capitalized words that are not the first word of a sentence: names, teams, products, acronyms.
-const NOT_NAMES = new Set(["I", "I'm", "I've", "I'll", "I'd", "OK"]);
+const NOT_NAMES = new Set(["I", "I'm", "I've", "I'll", "I'd", "OK", "Jesus", "Christ"]);
 // Mostly capital letters means shouting, not names.
 export function isShouting(text) {
   const letters = String(text).replace(/[^A-Za-z]/g, "");

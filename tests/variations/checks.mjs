@@ -22,7 +22,7 @@ export function mustKeep(input) {
   const keep = new Set();
   for (const m of input.matchAll(/\$?\d[\d,.:]*(?:%|k|am|pm)?/gi)) keep.add(m[0].replace(/[.,]$/, ""));
   for (const m of input.matchAll(/\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|january|february|march|april|may|june|july|august|september|october|november|december)\b/gi)) keep.add(m[0].toLowerCase());
-  for (const m of input.matchAll(/(?<=[a-z,;:]\s+)[A-Z][a-z]+(?:'s)?\b/g)) if (!/^(?:I|I'm|I'll|I've|I'd)$/.test(m[0])) keep.add(m[0].replace(/'s$/, ""));
+  for (const m of input.matchAll(/(?<=[a-z,;:]\s+)[A-Z][a-z]+(?:'s)?\b/g)) if (!/^(?:I|I'm|I'll|I've|I'd|Jesus|Christ)$/.test(m[0])) keep.add(m[0].replace(/'s$/, ""));
   if (input.includes("?")) keep.add("?");
   return [...keep];
 }

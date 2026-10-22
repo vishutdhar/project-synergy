@@ -596,6 +596,8 @@ export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
   // Censored spellings become plain ones (f*ck, wtf) so the crude rewrites can catch them. Slurs never get through.
   // Texting shorthand becomes plain words first.
   const clean = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim()
+    // "Jesus Christ" is an exclamation here, not a name to keep.
+    .replace(/\bjesus(?: h\.?)? christ\b/gi, "jesus christ")
     // Run-on "a call with Northwind they want a demo" -> "a call with Northwind. They want a demo".
     .replace(/\b(with|from|to|at|for) ([A-Z][a-z]+) (they|she|he) (?=\w)/g, (_m, p, n, w) => `${p} ${n}. ${w[0].toUpperCase()}${w.slice(1)} `);
   const empty = { text: "", check: { ok: true, lost: [], added: [] }, fallback: "", unsafe: [] };
@@ -640,13 +642,23 @@ function levelFloor(input, clean, text, lvl, seed) {
   const words = text.split(/\s+/).filter(Boolean).length;
   if (words < 3 || /\n/.test(text) || HAS_LABEL.test(text)) return text;
   if (lvl === 1 && words < 4) return text;
-  if (lvl === 1 && tokenSim(clean, text) >= 0.9 && !INTERJECTION.test(text) && !/^[^.!?]*\?/.test(text) && !/\bby the way\b|\bplease\b/i.test(text) && !/^(?:I|I'm|I'll|I've|I'd|Just|Please|Could|Would|Can|Let's|Unfortunately|Apologies|Sorry)\b/.test(text)) {
+  if (lvl === 1 && tokenSim(clean, text) >= 0.9 && !INTERJECTION.test(text) && !/\bby the way\b|\bplease\b/i.test(text) && !/^(?:Just|Please|Could|Would|Can|Unfortunately|Apologies|Sorry)\b/.test(text)) {
+    if (/^(?:Who|What|When|Where|Which|How)\b[^.!?]*\?$/.test(text)) return `Just to check, ${lowerFirst(text, { force: true })}`;
+    if (/^[^.!?]*\?/.test(text)) return text;
+    const lets = text.match(/^Let's (.+)$/);
+    if (lets) return `I'd suggest we ${lets[1]}`;
+    if (/^(?:I|I'm|I've|I'd|I'll)\b/.test(text) && !/\?/.test(text)) return `I wanted to let you know that ${text}`;
     const lf = lowerFirst(text);
     if (/^[a-z]/.test(lf) || /^I\b/.test(lf)) return `Just so you know, ${lf}`;
   }
   if (lvl === 2) {
     const mild = toCorporateDetailed(input, { level: 1, seed }).text;
-    if (tokenSim(mild, text) >= 0.9 || tokenSim(clean, text) >= 0.9) return `For visibility: ${lowerFirst(text)}`;
+    if (tokenSim(mild, text) >= 0.9 || tokenSim(clean, text) >= 0.9) {
+      // Lower the first word when the writer typed it in lower case ("great job" -> "For visibility: great job").
+      const w = (text.match(/^[A-Za-z']+/) ?? [""])[0];
+      const typedLower = w && new RegExp(`(?:^|[^A-Za-z'])${w.toLowerCase()}\\b`).test(String(input));
+      return `For visibility: ${typedLower && !/^I(?:'|$)/.test(w) ? w.toLowerCase() + text.slice(w.length) : lowerFirst(text)}`;
+    }
   }
   return text;
 }

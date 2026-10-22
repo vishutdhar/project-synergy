@@ -4,6 +4,8 @@
 // Matching is case insensitive and whole word. Longer phrases win over shorter ones.
 
 export const CORPORATE_SWAPS = `
+!cool cool cool = sounds good = sounds good, I'm aligned = fully aligned, let's operationalize
+!i can't tell anymore = I can't tell anymore = I can no longer tell = I can no longer assess
 !like actually = seriously = genuinely = in all candor
 !for like = for about = for roughly = for approximately
 !amazing how = it's remarkable how = it's truly remarkable how = it's a masterclass in agility how
@@ -11,7 +13,7 @@ export const CORPORATE_SWAPS = `
 !oh look, = well, look: = interesting development: = a fun development:
 !my brain is fried = I'm mentally drained = I'm running low on bandwidth = my cognitive bandwidth is fully depleted
 !happy friday everyone = happy Friday, everyone = wishing everyone a happy Friday = wishing the whole team a high-impact Friday
-!^jesus christ = wow = yikes = what a development
+!jesus christ = wow = yikes = what a development
 i don't understand = I'm not sure I understand = I'm not fully clear on = I lack clarity on
 i don't agree with = I'm not sure I agree with = I'm not aligned with = I'm not aligned with the strategic direction of
 i'm free = I'm available = I have availability = I have open bandwidth
@@ -405,8 +407,8 @@ won't work = won't work = isn't going to work = isn't going to deliver
 !your help = your assistance = your support = your partnership
 !the help = the assist = the support = the cross-functional partnership
 !for help = for a hand = for support = for cross-functional resourcing
-!sorry for = apologies for = I acknowledge the miss on = I take full ownership of
-!sorry about = apologies for = I acknowledge the miss on = I take full ownership of
+!sorry for = apologies for = my apologies for = I take full ownership of
+!sorry about = apologies for = my apologies for = I take full ownership of
 !so sorry = very sorry = sincere apologies = our sincere apologies
 !^sure = of course = happy to = absolutely, let's operationalize that
 !^nah = no thanks = I'll pass = that's a hard pass from a roadmap standpoint
@@ -553,7 +555,6 @@ sounds like a plan = sounds like a plan = sounds like a solid plan = sounds like
 !feeling like garbage = feeling unwell = feeling unwell = operating at reduced capacity
 when you're done = when you're done = when you're finished = when you've wrapped up
 is a clown = is out of their depth = is out of their depth = is still ramping into the role
-jesus christ = wow = wow = remarkably
 went down = went down = had an outage = experienced an outage
 `;
 
