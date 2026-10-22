@@ -51,8 +51,6 @@ right now = right away = as a top priority = immediately, with urgency
 !asap = soon = at your earliest convenience = with maximum urgency
 later = a bit later = in a future sprint = in a later phase
 soon = shortly = in the near term = in the coming cycles
-tomorrow = tomorrow = tomorrow EOD = tomorrow, close of business
-today = today = today EOD = today, close of business
 next week = next week = early next sprint = in the next planning horizon
 this week = this week = this sprint = within the current execution window
 eventually = in time = down the road = at some point on the long-term roadmap
@@ -455,50 +453,40 @@ too much = too much = a lot = over capacity
 // Openers and closers by level. Openers are full sentences or end with a colon,
 // so the user's first word keeps its original capitalization.
 export const OPENERS = {
+  // Openers and closers set a tone only. They never add facts, plans, meetings or promises,
+  // and Mild gets no opener at all (see OPENER_CHANCE in engine.js).
   1: [
-    "Quick note:", "Just a thought:", "Hope you're well.", "Quick update:", "Small flag:",
-    "Hope your week is going well.", "Hi there.", "Quick question:", "Gentle reminder:",
+    "Quick note:", "Hope you're well.", "Hope your week is going well.", "Hi there.", "Small flag:", "Hi all.",
   ],
   2: [
-    "Circling back on this:", "Per my last email:", "Just looping in here:", "Quick sync on this:",
-    "Wanted to flag something:", "Following up on our last touchpoint:", "Hope this finds you well.",
-    "Not to pile on, but:", "Bubbling this up:", "Putting this on your radar:", "Quick level set:",
-    "Adding some color here:",
+    "Wanted to flag something:", "Hope this finds you well.", "Bubbling this up:", "Putting this on your radar:",
+    "Quick level set:", "Adding some color here:", "Flagging for visibility:", "For awareness:", "Raising this for visibility:",
   ],
   3: [
     "Leaning into radical transparency:", "From a thirty-thousand-foot view:", "Let's level set.",
-    "Quick strategic download:", "At the end of the day, it's about synergy.", "Big picture:",
-    "Let's double-click on this.", "Putting on my visionary hat:", "In the spirit of radical candor:",
-    "As we think about the next fiscal horizon:", "Let's zoom out for a second.",
-    "Speaking as a steward of our north star:", "Calling an audible:",
+    "Quick strategic download:", "Big picture:", "Putting on my visionary hat:", "In the spirit of radical candor:",
+    "Let's zoom out for a second.", "Thinking out loud as a servant leader:", "Speaking as a steward of our north star:", "Calling an audible:",
   ],
 };
 
 export const CLOSERS = {
   1: [
-    "Thanks!", "Let me know your thoughts.", "Happy to chat more.", "Talk soon.", "Thanks in advance.",
-    "Let me know if you have questions.",
+    "Thanks!", "Thanks in advance.", "Let me know your thoughts.", "Let me know if you have questions.", "Appreciate it.", "Cheers.",
   ],
   2: [
-    "Let's take this offline.", "Let's circle back next week.", "Happy to set up a quick sync.",
-    "Let's put a pin in it.", "Looping in the right stakeholders.", "Let's touch base after the standup.",
-    "I'll send a calendar invite.", "Let's park the rest for the next sync.",
-    "Let's make sure we're all rowing in the same direction.", "Thoughts?",
+    "Thoughts?", "Thanks for understanding.", "Open to thoughts.", "Thanks for your patience.",
+    "Let me know if anything's unclear.", "Appreciate you.",
   ],
   3: [
-    "Let's operationalize this at scale.", "This is a north star moment.", "Let's move the needle.",
-    "We'll socialize this with the broader org.", "Let's boil the ocean, but in a lean way.",
-    "Onward and upward, team.", "Let's build the plane while we fly it.", "This is how we win the quarter.",
-    "Let's synergize.", "Let's unlock exponential value.", "Let's take this to the board.",
-    "Moving forward, this is our new paradigm.", "Let's lean in.",
+    "Onward and upward.", "This is a north star moment.", "Let's move the needle.", "Let's lean in.",
+    "Let's synergize.", "Let's be bold.", "This is how we win.", "Let's unlock exponential value.", "Excelsior.", "Stay hungry, team.",
   ],
 };
 
-// C-suite only: short asides dropped between sentences.
+// C-suite only: short asides dropped between sentences. Tone only, no claims.
 export const INTERJECTIONS = [
-  "This is about synergy.", "Let's be bold here.", "The data supports this.", "Think big picture.",
-  "This is very on brand for us.", "This aligns with our core values.", "We are a family here.",
-  "Let's not reinvent the wheel.", "This is table stakes.", "The opportunity here is massive.",
+  "This is about synergy.", "Let's be bold here.", "Think big picture.", "This is very on brand for us.",
+  "We are a family here.", "This is table stakes.", "Let's not reinvent the wheel.",
 ];
 
 // ---------------------------------------------------------------------------
@@ -508,6 +496,28 @@ export const DECODE_SWAPS = `
 rightsizing = reducing staff = layoffs = mass firing
 right-sizing = reducing staff = layoffs = mass firing
 rightsize = reduce staff = lay off people = fire people
+right-size = reduce staff = lay people off = fire people
+right size = reduce staff = lay people off = fire people
+right-size our organization = cut staff = lay people off = fire people
+right-sizing our organization = cutting staff = laying people off = firing people
+workforce optimization = staff cuts = layoffs = firing people
+optimize our workforce = cut staff = lay people off = fire people
+align resources = move money and people around = shift money and jobs = move money away from some of you
+better align resources = move money and people around = shift money and jobs = move money away from some of you
+aligning resources = moving money and people around = shifting money and jobs = moving money away from some of you
+resource allocation = where the money goes = who gets money and people = who gets cut
+strategic priorities = what leadership cares about now = what leadership cares about now = whatever the CEO likes this quarter
+our strategic priorities = what leadership cares about now = what leadership cares about now = whatever the CEO likes this quarter
+core priorities = main goals = what leadership cares about now = whatever the CEO likes this quarter
+making the difficult decision = deciding = choosing = deciding
+made the difficult decision = decided = chose = decided
+made the hard decision = decided = chose = decided
+unlock synergies = save money by combining things = save money by combining teams = cut overlapping jobs
+drive sustainable growth = grow steadily = make more money = make more money
+sustainable growth = steady growth = more profit = more profit
+eliminate positions = cut jobs = lay people off = fire people
+eliminating positions = cutting jobs = laying people off = firing people
+headcount = staff = staff = people
 downsizing = reducing staff = layoffs = mass firing
 reduction in force = staff cuts = layoffs = firing a bunch of people
 workforce reduction = staff cuts = layoffs = firing people
@@ -519,13 +529,11 @@ eliminating roles = cutting jobs = laying people off = firing people
 roles impacted = jobs cut = people laid off = people fired
 impacted employees = people losing their jobs = laid-off people = the people we fired
 impacted colleagues = coworkers losing their jobs = laid-off coworkers = the coworkers we fired
-impacted = affected = laid off = fired
+impacted = affected = affected = hit
 parting ways with = letting go = firing = firing
 part ways with = let go = fire = fire
 transition out = leave = get laid off = get fired
 transitioning out = leaving = being laid off = being fired
-let go = laid off = fired = fired
-separation = exit = layoff = firing
 separation package = severance = severance = the payout so you don't sue
 streamline = simplify = cut = cut
 streamlining = simplifying = cutting = cutting
@@ -538,7 +546,8 @@ cost optimization = cutting costs = cost cutting = cutting costs, starting with 
 optimize costs = cut costs = cut costs = cut costs, including you
 do more with less = work harder with fewer people = work more for the same pay = do the laid-off people's jobs too
 leaner = smaller = smaller = understaffed
-lean = small = understaffed = understaffed
+lean team = small team = understaffed team = understaffed team
+lean organization = smaller company = understaffed company = understaffed company
 restructuring = reorganizing = reorg with cuts = chaos and cuts
 restructure = reorganize = reorg = shake things up and cut
 realignment = reorganization = reorg = reorg
@@ -580,12 +589,12 @@ return-to-office = come back to the office = mandatory office attendance = manda
 hybrid = part office, part home = mostly office = office with extra steps
 flexibility = flexibility = freedom you're about to lose = freedom you're about to lose
 culture = how we work = how we want you to work = vibes we can't measure
-connection = time together = office time = office time
+connection with colleagues = time together = office time = office time
 serendipitous = random = random = imaginary
 spontaneous collaboration = hallway chats = hallway chats = being visible to your boss
-collaboration = working together = meetings = more meetings
-synergy = working together = combining teams = cutting duplicate jobs
-synergies = combined savings = job cuts = job cuts
+collaboration = working together = working together = more meetings
+synergy = working together = working together = buzzwords
+synergies = benefits of combining = cost savings = cost savings
 compensation philosophy = pay policy = pay policy = reasons we won't pay more
 total rewards = pay and benefits = pay and benefits = pay, plus a pizza party
 market-competitive = average = average = below what you'd get elsewhere
@@ -593,7 +602,7 @@ merit cycle = raise cycle = raises = raises, or lack of them
 pause merit increases = skip raises = no raises = no raises for you
 merit increases = raises = raises = raises you won't get
 compensation adjustments = raises = raises = raises you won't get
-pause = stop = stop = stop indefinitely
+>pause = stop = stop = stop indefinitely
 paused = stopped = stopped = stopped for good
 temporarily = for now = for a while = probably forever
 for the time being = for now = for a while = indefinitely
@@ -638,7 +647,6 @@ accountability = responsibility = blame = blame
 accountable = responsible = blamed = blamed
 high-performing = productive = overworked = overworked
 high performance = hard work = more work = longer hours
-performance = output = output = numbers
 underperforming = not doing well = failing = failing
 opportunity = chance = chance to do more work = ~more work
 opportunities = chances = more work = more work
@@ -671,7 +679,7 @@ feedback = criticism = criticism = criticism
 constructive feedback = criticism = criticism = criticism
 development plan = improvement plan = performance plan = the first step toward firing
 performance improvement plan = warning = final warning = the paperwork before firing
-strategic = planned = planned = vague
+strategic = key = key = so-called key
 initiatives = projects = projects = projects
 initiative = project = project = project
 we remain committed to = we still care about = we say we care about = we like to say we care about
@@ -688,13 +696,13 @@ export const THEMES = [
     id: "layoffs",
     weight: 10,
     patterns: [
-      /\blay ?offs?\b/i, /\blaid off\b/i, /\brightsiz/i, /\bdownsiz/i, /reduction in force/i, /\bRIF\b/,
+      /\blay ?offs?\b/i, /\blaid off\b/i, /\bright[- ]?siz/i, /workforce optimi[sz]ation/i, /optimi[sz]e (?:our|the) workforce/i, /transition(?:ing)? (?:\w+ )?out\b/i, /\bdownsiz/i, /reduction in force/i, /\bRIF\b/,
       /workforce reduction/i, /reduc\w* (?:our|the) (?:workforce|headcount|team)/i, /headcount/i,
       /eliminat\w* (?:\w+ )?(?:roles|positions|jobs)/i, /part(?:ing)? ways/i, /impacted (?:employees|colleagues|team members|roles)/i,
       /\bseverance\b/i, /\bseparation\b/i, /(?:roles|positions) (?:are|will be) (?:impacted|affected)/i,
-      /saying goodbye to/i, /\blet(?:ting)? go\b/i,
+      /saying goodbye to/i, /\blet(?:ting)? go\b(?! of)/i,
     ],
-    summary: ["Some people are losing their jobs.", "People are being laid off.", "They're firing people to save money."],
+    summary: ["Some people are losing their jobs.", "We're laying people off.", "We're firing people to save money."],
     line: ["Some jobs are being cut.", "People are getting laid off.", "We're firing people."],
   },
   {
@@ -784,6 +792,26 @@ export const THEMES = [
     line: ["A merger or acquisition is happening.", "Someone bought someone.", "We got bought."],
   },
 ];
+
+// Softer signals. One alone proves nothing, but two or more in the same memo mean layoffs.
+export const LAYOFF_HINTS = [
+  /restructur/i, /streamlin/i, /align(?:ing)? (?:our )?resources/i, /(?:difficult|hard|tough|painful) decisions?/i,
+  /\bsynergies\b/i, /\bleaner\b|\blean (?:team|organization|company)/i, /operational efficienc/i,
+  /\bheadcount\b/i, /\bpart(?:ing)? ways\b/i, /transition(?:ing)? (?:\w+ )?out\b/i, /eliminat\w* (?:\w+ )?(?:roles|positions|jobs)/i,
+  /\bright[- ]?siz/i, /reduction in force|\bRIF\b/, /workforce/i, /impacted (?:employees|colleagues|team members|roles)/i,
+];
+
+// Decode swaps that only apply when the memo is about layoffs. They win over DECODE_SWAPS.
+export const LAYOFF_CONTEXT_SWAPS = `
+synergies = cost savings = job cuts = job cuts
+unlock synergies = save money by combining teams = save money by cutting jobs = cut jobs
+impacted = affected = laid off = fired
+let go = laid off = fired = fired
+separation = exit = layoff = firing
+efficiencies = savings = job cuts = job cuts
+streamline = simplify = cut jobs = cut jobs
+streamlining = simplifying = cutting jobs = cutting jobs
+`;
 
 // Words that flip a raise or benefits theme into the bad news version.
 export const NEGATIVE_CUES = /\b(?:pause|paused|pausing|freeze|frozen|hold|not|no|won't|will not|unable|suspend|suspended|defer|deferred|delay|delayed|reduc\w*|eliminat\w*|discontinu\w*|lower|cap|limited|modest|evolv\w*)\b/i;

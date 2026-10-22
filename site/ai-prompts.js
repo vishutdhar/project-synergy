@@ -13,7 +13,7 @@ const DECODE_TONE = {
 
 const CORPORATE_TONE = {
   1: "Make it mildly professional, like a polite work email. Keep it short.",
-  2: "Make it sound like a middle manager: buzzwords like circle back, bandwidth, alignment, synergy, action items.",
+  2: "Make it sound like a middle manager: buzzwords like bandwidth, alignment, synergy, flag, action items.",
   3: "Make it sound like an over-the-top CEO on LinkedIn: north star, paradigm shift, leverage, unlock value, at scale. Be ridiculous.",
 };
 
@@ -134,14 +134,20 @@ export function summaryCoversThemes(summary, themeIds = []) {
   return re ? re.test(summary) : true;
 }
 
+// Few-shot pairs. Topics differ from the app's examples so the model can't just copy an answer.
+// Answers keep the facts and add no new plans, meetings or promises.
 const CORPORATE_SHOTS = {
-  1: [["I can't come to the meeting, I'm swamped.", "I'm a bit swamped today, so I won't be able to make the meeting. Apologies!"],
-      ["This idea is bad.", "I have a few concerns about this idea."]],
-  2: [["I can't come to the meeting, I'm swamped.", "I don't have the bandwidth for today's sync. Can we circle back offline?"],
-      ["This idea is bad.", "I'm not sure this initiative is aligned with our priorities. Let's take it offline."]],
-  3: [["I can't come to the meeting, I'm swamped.", "Due to exponential demand on my bandwidth, I'll be unable to join today's alignment session, but I remain fully bought in on the outcomes."],
-      ["This idea is bad.", "While I love the energy, this initiative isn't yet aligned with our north star, so let's pivot and unlock more value at scale."]],
+  1: [["I can't come to lunch, I'm busy.", "I'm a bit tied up today, so I can't make lunch."],
+      ["The printer is broken again.", "Heads up, the printer is out of order again."],
+      ["I don't like the new logo.", "I have a few concerns about the new logo."]],
+  2: [["I can't come to lunch, I'm busy.", "I don't have the bandwidth for a lunch sync today."],
+      ["The printer is broken again.", "Flagging that our print capability is down again."],
+      ["I don't like the new logo.", "I'm not fully aligned on the new logo direction."]],
+  3: [["I can't come to lunch, I'm busy.", "Due to unprecedented demand on my bandwidth, I'm unable to join today's nourishment alignment session."],
+      ["The printer is broken again.", "Our document output infrastructure is once again in a strategic pause."],
+      ["I don't like the new logo.", "I'm not yet bought in on the new brand identity's ability to unlock value at scale."]],
 };
+export const CORPORATE_EXAMPLE_ANSWERS = Object.values(CORPORATE_SHOTS).flat().map(([, a]) => a);
 
 export function buildCorporateMessages(text, level = 2) {
   const lvl = CORPORATE_SHOTS[level] ? level : 2;
@@ -152,6 +158,7 @@ export function buildCorporateMessages(text, level = 2) {
       content:
         "You rewrite plain messages into corporate speak as a joke. Keep the same meaning and the same speaker. " +
         `${CORPORATE_TONE[lvl]} ` +
+        "Do not add plans, meetings, promises or facts that are not in the message. " +
         "Reply with only the rewritten message, no quotes and no explanation.",
     },
     ...CORPORATE_SHOTS[lvl].flatMap(([q, a]) => [
@@ -189,7 +196,8 @@ export function parseNumbered(text, n) {
 
 // First sentence-ish line of a model reply, cleaned up.
 export function firstLine(text) {
-  let line = cleanModelText(text).split("\n").map((l) => l.trim()).find(Boolean) ?? "";
+  // Skip preamble lines like "Here's the short sentence:".
+  let line = cleanModelText(text).split("\n").map((l) => l.trim()).find((l) => l && !/:$/.test(l)) ?? "";
   line = line.replace(/^\d{1,2}[.)]\s*/, "").replace(/^(?:translation|meaning|plain english|plain)\s*:\s*/i, "");
   if (line && !/[.!?]$/.test(line)) line += ".";
   return line;

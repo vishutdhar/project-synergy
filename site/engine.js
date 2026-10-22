@@ -2,6 +2,7 @@
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
   DECODE_SWAPS, THEMES, NEGATIVE_CUES, FLUFF_PATTERNS, FLUFF_LINES, PLAIN_LINES, SPECIAL_LINES,
+  LAYOFF_HINTS, LAYOFF_CONTEXT_SWAPS,
 } from "./phrasebook.js";
 
 export const SOFT_CAP = 20000;
@@ -90,6 +91,8 @@ export const corporateEntries = parseSwaps(CORPORATE_SWAPS);
 export const decodeEntries = parseSwaps(DECODE_SWAPS);
 const corporateMatcher = buildMatcher(corporateEntries);
 const decodeMatcher = buildMatcher(decodeEntries);
+// In a layoff memo, the layoff readings of words like "synergies" come first.
+const layoffDecodeMatcher = buildMatcher([...parseSwaps(LAYOFF_CONTEXT_SWAPS), ...decodeEntries]);
 
 // Copy the capitalization style of `source` onto `replacement`.
 export function matchCase(source, replacement) {
@@ -112,7 +115,7 @@ function isClause(text, start, end) {
 
 // Swap phrases in one pass so replacements are never swapped again.
 // If the longest match at a spot fails its conditions, shorter matches inside it still get a chance.
-function swapPhrases(text, matcher, level, rng, swapChance) {
+function swapPhrases(text, matcher, level, rng, swapChance, used = null) {
   let changed = 0;
   let out = "";
   let last = 0;
@@ -134,9 +137,16 @@ function swapPhrases(text, matcher, level, rng, swapChance) {
     if (entry.always || rng() <= swapChance) {
       // Mostly pick from this level's tier, sometimes from the one below for variety.
       const tierIdx = level > 1 && rng() < 0.2 ? level - 2 : level - 1;
-      const choice = pick(rng, entry.tiers[tierIdx]);
+      let choice = pick(rng, entry.tiers[tierIdx]);
+      // Avoid repeating a key word already in the output ("capacity" twice).
+      if (used && repeatsKeyWord(choice, used)) {
+        // Same tier first, then milder tiers, then stronger ones.
+        const others = [entry.tiers[tierIdx], entry.tiers[level - 1], ...entry.tiers.slice(0, level - 1).reverse(), ...entry.tiers.slice(level)].flat();
+        choice = others.find((c) => !repeatsKeyWord(c, used)) ?? m[0];
+      }
       if (choice.toLowerCase() !== m[0].toLowerCase()) {
         changed++;
+        if (used) for (const k of keyWords(choice)) used.add(k);
         replacement = "\u0000" + matchCase(m[0], choice) + "\u0001";
       }
     }
@@ -145,6 +155,13 @@ function swapPhrases(text, matcher, level, rng, swapChance) {
   }
   return { text: out + text.slice(last), changed };
 }
+
+// Key words for duplicate checks: longer words, cut to a short stem so "capacity" and "capacities" match.
+const COMMON = new Set("about after again being could doing every going have having just more other really should still their there these thing think those want what when where which while would your yours with this that from them they then than been were will some into over very much need".split(" "));
+export function keyWords(text) {
+  return String(text).toLowerCase().replace(/[~^]/g, "").match(/[a-z][a-z']{4,}/g)?.filter((w) => !COMMON.has(w)).map((w) => w.slice(0, 6)) ?? [];
+}
+const repeatsKeyWord = (text, used) => keyWords(text).some((k) => used.has(k));
 
 // Fix a/an before the next word, drop articles before mass-noun markers (~), clean spacing.
 export function tidy(text) {
@@ -245,7 +262,8 @@ export function polishCase(text) {
 // ---------- Normal to Corporate ----------
 
 const SWAP_CHANCE = { 1: 0.5, 2: 0.85, 3: 1 };
-const OPENER_CHANCE = { 1: 0.35, 2: 0.75, 3: 1 };
+// Mild never adds an opener. Openers and closers are tone only (see phrasebook.js).
+const OPENER_CHANCE = { 1: 0, 2: 0.75, 3: 1 };
 const CLOSER_CHANCE = { 1: 0.4, 2: 0.8, 3: 1 };
 
 export function toCorporate(input, { level = 2, seed = 1 } = {}) {
@@ -254,9 +272,11 @@ export function toCorporate(input, { level = 2, seed = 1 } = {}) {
   if (!clean) return "";
   const rng = mulberry32(hashString(clean) ^ Math.imul(seed >>> 0, 2654435761) ^ (lvl * 97));
 
+  // Key words already in the input, plus every one we add, so nothing important repeats.
+  const used = new Set(keyWords(clean.replace(corporateMatcher.re, " ")));
   const paragraphs = splitParagraphs(clean).map((p) => {
     const sentences = splitSentences(p).map((s) => {
-      const { text } = swapPhrases(s, corporateMatcher, lvl, rng, SWAP_CHANCE[lvl]);
+      const { text } = swapPhrases(s, corporateMatcher, lvl, rng, SWAP_CHANCE[lvl], used);
       let t = capFirst(tidy(text));
       if (!endsWithPunct(t) && !/[,:;]$/.test(t)) t += ".";
       return t;
@@ -264,7 +284,12 @@ export function toCorporate(input, { level = 2, seed = 1 } = {}) {
     // C-suite: sprinkle an aside between sentences.
     if (lvl === 3 && sentences.length > 1) {
       for (let i = sentences.length - 1; i > 0; i--) {
-        if (rng() < 0.35) sentences.splice(i, 0, pick(rng, INTERJECTIONS));
+        const pool = INTERJECTIONS.filter((x) => !repeatsKeyWord(x, used));
+        if (pool.length && rng() < 0.35) {
+          const aside = pick(rng, pool);
+          keyWords(aside).forEach((k) => used.add(k));
+          sentences.splice(i, 0, aside);
+        }
       }
     }
     return sentences.join(" ");
@@ -272,14 +297,18 @@ export function toCorporate(input, { level = 2, seed = 1 } = {}) {
 
   let result = paragraphs.join("\n\n");
   if (rng() < OPENER_CHANCE[lvl]) {
-    let pool = OPENERS[lvl === 1 ? 1 : rng() < 0.25 ? lvl - 1 : lvl];
-    // Don't stack a greeting opener on a message that already starts with one.
-    if (/^(?:hi|hey|hello|greetings|hope)\b/i.test(result)) pool = pool.filter((o) => !/^(?:hi|hey|hello|hope)\b/i.test(o));
-    result = `${pick(rng, pool)} ${result}`;
+    let pool = OPENERS[rng() < 0.25 ? lvl - 1 : lvl].filter((o) => !repeatsKeyWord(o, used));
+    // A message that already starts with a greeting gets no opener in front of it.
+    if (/^(?:hi|hey|hello|greetings|hope|dear|good (?:morning|afternoon))\b/i.test(result)) pool = [];
+    if (pool.length) {
+      const opener = pick(rng, pool);
+      keyWords(opener).forEach((k) => used.add(k));
+      result = `${opener} ${result}`;
+    }
   }
   if (rng() < CLOSER_CHANCE[lvl]) {
-    const pool = lvl === 1 ? CLOSERS[1] : rng() < 0.25 ? CLOSERS[lvl - 1] : CLOSERS[lvl];
-    result = `${result} ${pick(rng, pool)}`;
+    const pool = (lvl === 1 ? CLOSERS[1] : rng() < 0.25 ? CLOSERS[lvl - 1] : CLOSERS[lvl]).filter((c) => !repeatsKeyWord(c, used));
+    if (pool.length) result = `${result} ${pick(rng, pool)}`;
   }
   return polishCase(tidy(result));
 }
@@ -339,13 +368,20 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
   let fluff = 0;
   let total = 0;
 
+  // Two or more soft layoff signals in one memo count as a layoff, even without the word.
+  const hints = LAYOFF_HINTS.filter((re) => re.test(clean)).length;
+  const strongLayoff = splitParagraphs(clean).flatMap(splitSentences).some((s) => detectThemes(s).includes("layoffs"));
+  const layoffContext = strongLayoff || hints >= 2;
+  if (layoffContext && !strongLayoff) scores.set("layoffs", themeById.layoffs.weight);
+  const matcher = layoffContext ? layoffDecodeMatcher : decodeMatcher;
+
   for (const paragraph of splitParagraphs(clean)) {
     for (const sentence of splitSentences(paragraph)) {
       if (isGreetingOrSignature(sentence)) continue;
       total++;
       const themes = detectThemes(sentence);
       for (const id of themes) scores.set(id, (scores.get(id) ?? 0) + themeById[id].weight);
-      const { text: swapped, changed } = swapPhrases(sentence, decodeMatcher, lvl, rng, 1);
+      const { text: swapped, changed } = swapPhrases(sentence, matcher, lvl, rng, 1);
       const isFluff = FLUFF_PATTERNS.some((p) => p.test(sentence));
       let plain;
       const special = SPECIAL_LINES.find((s) => s.pattern.test(sentence) && !(s.weak && themes.length));

@@ -1,11 +1,15 @@
 // AI mode worker. Loads Qwen2.5 0.5B Instruct with Transformers.js and runs it off the main thread.
 // Pinned Transformers.js build from jsDelivr. It only loads after the user turns on AI mode.
-import { pipeline, env } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.1/dist/transformers.min.js";
+import { pipeline, env, random, StoppingCriteria, LogitsProcessor } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.1/dist/transformers.min.js";
 import { detectThemes } from "./engine.js";
 import {
   MODEL_ID, MAX_AI_SENTENCES, sentencesForDecode, buildDecodeMessages, buildSummaryMessages,
-  buildCorporateMessages, firstLine, summaryCoversThemes,
+  buildCorporateMessages, firstLine, summaryCoversThemes, CORPORATE_EXAMPLE_ANSWERS,
 } from "./ai-prompts.js";
+import { guardOutput, echoesExample, contradictsThemes, isMetaReply, generationOptions, repeatSettings, sampleSeed, makeLoopStop, makeRepeatGuard } from "./ai-guard.js";
+
+const LoopStop = makeLoopStop(StoppingCriteria);
+const RepeatGuard = makeRepeatGuard(LogitsProcessor);
 
 env.allowLocalModels = false;
 env.useBrowserCache = true;
@@ -42,13 +46,17 @@ async function load({ device, dtype }) {
   }
 }
 
-async function ask(messages, maxNew, sample) {
+const countTokens = (text) => generator.tokenizer.encode(String(text ?? "")).length;
+
+// kind is "corporate", "line" or "summary". The budget depends on the input length.
+// seed makes sampling repeatable: the same request gives the same reply until the user rerolls.
+async function ask(messages, kind, inputText, seed) {
+  random.seed(seed);
+  const opts = generationOptions(kind, countTokens(inputText));
   const out = await generator(messages, {
-    max_new_tokens: maxNew,
-    do_sample: sample,
-    temperature: sample ? 0.8 : undefined,
-    top_p: sample ? 0.9 : undefined,
-    repetition_penalty: 1.05,
+    ...opts,
+    logits_processor: [new RepeatGuard(repeatSettings(kind))],
+    stopping_criteria: [new LoopStop()],
   });
   return out[0].generated_text.at(-1).content;
 }
@@ -60,15 +68,17 @@ self.onmessage = async (event) => {
       const t0 = performance.now();
       await load(msg);
       // Tiny warm-up so the first real request is not slow.
-      await ask([{ role: "user", content: "Hi" }], 1, false);
+      await generator([{ role: "user", content: "Hi" }], { max_new_tokens: 1 });
       self.postMessage({ type: "ready", ms: Math.round(performance.now() - t0) });
       return;
     }
     if (!generator) throw new Error("Model not loaded");
 
     if (msg.type === "toCorporate") {
-      const text = firstLineBlock(await ask(buildCorporateMessages(msg.text, msg.level), 200, msg.sample));
-      self.postMessage({ type: "corporate", id: msg.id, text });
+      const raw = firstLineBlock(await ask(buildCorporateMessages(msg.text, msg.level), "corporate", msg.text, sampleSeed(msg.text, msg.level, msg.seed)));
+      // A looping, empty or copied reply comes back empty, and the page shows the Instant version.
+      const checked = guardOutput(raw, { examples: CORPORATE_EXAMPLE_ANSWERS, maxWords: 120 });
+      self.postMessage({ type: "corporate", id: msg.id, text: checked.text, rejected: !checked.ok });
       return;
     }
 
@@ -78,15 +88,19 @@ self.onmessage = async (event) => {
       const lines = [];
       for (let i = 0; i < sentences.length; i++) {
         const themes = detectThemes(sentences[i]);
-        const plain = firstLine(await ask(buildDecodeMessages(sentences[i], msg.level, themes), 50, msg.sample));
+        let plain = guardOutput(firstLine(await ask(buildDecodeMessages(sentences[i], msg.level, themes), "line", sentences[i], sampleSeed(sentences[i], msg.level, msg.seed, i + 1))), { maxWords: 40 }).text;
+        // Empty means the page uses the Instant line for this sentence.
+        // Also when it just repeats the original sentence back.
+        if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8)) plain = "";
         lines.push({ original: sentences[i], plain });
         self.postMessage({ type: "line", id: msg.id, index: i, total: sentences.length, original: sentences[i], plain });
       }
       const tagged = lines.filter((l) => detectThemes(l.original).length).map((l) => l.plain);
-      const summary = firstLine(
-        await ask(buildSummaryMessages(tagged.length ? tagged : lines.map((l) => l.plain), msg.level, msg.themes ?? []), 60, msg.sample),
-      );
-      const summaryOk = summaryCoversThemes(summary, msg.themes ?? []);
+      const summary = guardOutput(
+        firstLine(await ask(buildSummaryMessages(tagged.length ? tagged : lines.map((l) => l.plain), msg.level, msg.themes ?? []), "summary", "", sampleSeed(msg.text, msg.level, msg.seed, -1))),
+        { maxWords: 40 },
+      ).text;
+      const summaryOk = summaryCoversThemes(summary, msg.themes ?? []) && !contradictsThemes(summary, msg.themes ?? []) && !isMetaReply(summary);
       self.postMessage({ type: "decoded", id: msg.id, summary, summaryOk, lines, skipped: all.length - sentences.length });
     }
   } catch (err) {

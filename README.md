@@ -19,15 +19,18 @@ The site is plain HTML, CSS and ES modules in `site/`. There is no build step.
 | `site/phrasebook.js` | Word and phrase swaps, openers, closers, decode swaps, theme rules |
 | `site/ai-prompts.js` | AI prompts and output parsing, shared by the browser worker and the Node prompt tests |
 | `site/ai-worker.js` | Web Worker that runs the model with Transformers.js |
+| `site/ai-guard.js` | Generation settings and checks on AI replies (loops, copied examples, cut-off text) |
 | `site/config.js` | App link used in Share to X posts, and the soft character cap |
 | `site/samples.js` | Fictional example memos and messages (no real company or person) |
 | `site/_headers` | Cloudflare Pages headers: CSP, security headers, cache rules |
 
+The page opens on Normal to corporate. The other tab is Corporate to normal. After a result, the Swap and translate back button flips the direction and puts the result in the text box, so you can go there and back.
+
 ### Instant mode (default)
 
-Corporate to normal splits the text into sentences, skips greetings and signatures, and checks each sentence against theme rules (layoffs, return to office, no raises, record year, reorg, cost cuts, hiring freeze, AI, performance pressure, leadership exits, benefit cuts, mergers). Each sentence gets a blunt translation from the theme it matches, a stock line if it is filler, or a phrase-by-phrase swap. The summary combines the top themes, with special cases such as "Record profits. No raises." Bluntness has three levels: Polite, Honest and Blunt.
+Corporate to normal splits the text into sentences, skips greetings and signatures, and checks each sentence against theme rules (layoffs, return to office, no raises, record year, reorg, cost cuts, hiring freeze, AI, performance pressure, leadership exits, benefit cuts, mergers). Each sentence gets a blunt translation from the theme it matches, a stock line if it is filler, or a phrase-by-phrase swap. The summary combines the top themes, with special cases such as "Record profits. No raises." Words like right-size, reduction in force, eliminate roles or headcount mean layoffs on their own. Softer phrases (restructuring, streamline, align resources, difficult decision, synergies) only count as layoffs when two or more show up in the same memo, and only then do words like "synergies" decode as job cuts. Bluntness has three levels: Polite, Honest and Blunt.
 
-Normal to corporate swaps words and phrases from a phrasebook of about 440 entries, each with options per level (common casual words always swap, even at Mild), then adds openers, closers and (at Full C-Suite) random asides. Output is deterministic for a given text, level and seed. Reroll changes the seed. The engine fixes a/an after swaps, keeps ALL CAPS, capitalizes every sentence start and standalone "i" (but not URLs, emails, code or words like iPhone) and normalizes curly quotes and dashes.
+Normal to corporate swaps words and phrases from a phrasebook of about 440 entries, each with options per level (common casual words always swap, even at Mild), then adds openers, closers and (at Full C-Suite) random asides. These set a tone only: they never add meetings, plans, deadlines or promises that weren't in the input, and Mild adds no opener. Key words don't repeat, so you won't get "capacity" twice in one message. Output is deterministic for a given text, level and seed. Reroll changes the seed. The engine fixes a/an after swaps, keeps ALL CAPS, capitalizes every sentence start and standalone "i" (but not URLs, emails, code or words like iPhone) and normalizes curly quotes and dashes.
 
 Input over 20,000 characters is trimmed at a sentence boundary, and the page says so.
 
@@ -45,7 +48,9 @@ Every path also loads `config.json`, `generation_config.json`, `tokenizer.json` 
 
 Nothing downloads until the user agrees in a dialog that states the size. A progress bar shows the download. Transformers.js keeps the files in the browser's Cache Storage (`transformers-cache`), and the page skips the dialog when the model is already cached.
 
-Decoding runs one sentence per model call (with up to 60 sentences per memo; the rest use Instant lines), then one short summary call. Each sentence prompt includes a hint from the Instant theme rules, which keeps the 0.5B model on topic. If the AI summary does not mention the top theme, the page uses the Instant summary and says so. Any model error falls back to Instant mode.
+Decoding runs one sentence per model call (with up to 60 sentences per memo; the rest use Instant lines), then one short summary call. Each sentence prompt includes a hint from the Instant theme rules, which keeps the 0.5B model on topic. If the AI summary does not mention the top theme, or denies it, the page uses the Instant summary and says so. Any model error falls back to Instant mode.
+
+Generation samples with the model's own settings (temperature 0.7, top_p 0.8, top_k 20; decoding uses temperature 0.3). Each request has a fixed seed, so the same input gives the same answer until you press Reroll. A repetition penalty of 1.15 applies to generated tokens only, and short line rewrites also ban repeated 3-grams. The built-in penalty options also count the prompt, which punished the example buzzwords, so they stay off. The token budget scales with the input and has a hard ceiling of 200. A stopping rule ends generation when the last tokens repeat a short pattern. Every reply then goes through `site/ai-guard.js`: repeated runs of the same 1 to 6 words are cut down to one copy, the text is trimmed to its last full sentence, and a reply that is still repetitive, copies a prompt example, or is empty is dropped. In that case the page shows the Instant version with a short note.
 
 ### Voice
 
@@ -67,6 +72,7 @@ Open http://localhost:8787.
 npm test                          # unit tests for the engine, share text and UI copy rules (node --test)
 node scripts/e2e.mjs              # Instant mode end to end in headless Chrome, writes screenshots to preview/
 node scripts/e2e-ai.mjs           # AI mode in headless Chrome (downloads the model into .chrome-profile/)
+node scripts/e2e-ai-matrix.mjs    # AI mode at every level in both directions, prints each output
 node scripts/prompt-test.mjs 2 q4f16   # runs the AI prompts on the four sample memos in Node, writes preview/prompt-test-*.md
 ```
 

@@ -38,19 +38,85 @@ const { page, errors, offsite } = await openPage({ width: 1280, height: 900 });
 const ctx = browser.defaultBrowserContext();
 await ctx.overridePermissions(new URL(BASE).origin, ["clipboard-read", "clipboard-write", "clipboard-sanitized-write"]);
 
-await check("page loads with title and default direction Corporate to normal", async () => {
+await check("page loads with Normal to corporate first and selected", async () => {
   assert.match(await page.title(), /Project Synergy/);
-  assert.equal(await text(page, "#run"), "Decode");
-  assert.equal(await text(page, "#level-name"), "Honest");
+  assert.equal(await text(page, "#run"), "Corporatize");
+  assert.equal(await text(page, "#level-name"), "Middle Manager");
+  const tabs = await page.$$eval(".direction label", (ls) => ls.map((l) => l.textContent.trim()));
+  assert.deepEqual(tabs, ["Normal to corporate", "Corporate to normal"]);
+  assert.equal(await page.$eval("#dir-corporate", (el) => el.checked), true);
+  assert.equal(await page.$eval("#swap-row", (el) => el.hidden), true);
+});
+
+await check("example on load is a plain sentence that comes back in corporate speak", async () => {
+  await page.click("#example");
+  await page.waitForSelector("#result:not([hidden]) .corporate-out");
+  const input = await page.$eval("#input", (el) => el.value);
+  assert.match(input, /meeting/);
+  assert.notEqual(await text(page, ".corporate-out"), input);
 });
 
 await page.screenshot({ path: shots + "desktop-empty.png", fullPage: true });
 
+await check("normal to corporate: type, Ctrl+Enter, levels and reroll", async () => {
+  await page.click("label[for=dir-corporate]");
+  await page.$eval("#level", (el) => { el.value = "2"; el.dispatchEvent(new Event("input")); });
+  assert.equal(await text(page, "#run"), "Corporatize");
+  assert.ok(["Mild", "Middle Manager", "Full C-Suite"].includes(await text(page, "#level-name")));
+  await page.click("#clear");
+  await page.type("#input", "hey, i can't make the meeting, i'm swamped. this idea is dumb and we have no time");
+  await page.keyboard.down("Control");
+  await page.keyboard.press("Enter");
+  await page.keyboard.up("Control");
+  await page.waitForSelector("#result:not([hidden]) .corporate-out");
+  const first = await text(page, ".corporate-out");
+  assert.match(first, /^[A-Z]/);
+  assert.ok(!/ {2}/.test(first));
+  const outs = new Set([first]);
+  for (let i = 0; i < 4; i++) {
+    await page.click("#reroll");
+    outs.add(await text(page, ".corporate-out"));
+  }
+  assert.ok(outs.size >= 3, `reroll variety: ${outs.size}`);
+  await page.$eval("#level", (el) => { el.value = "3"; el.dispatchEvent(new Event("input")); el.dispatchEvent(new Event("change")); });
+  assert.equal(await text(page, "#level-name"), "Full C-Suite");
+  await page.click("#run");
+  const top = await text(page, ".corporate-out");
+  assert.ok(top.length > first.length * 0.9, top);
+});
+
+await page.screenshot({ path: shots + "desktop-corporate.png", fullPage: true });
+
+await check("swap button flips the direction and translates the result back", async () => {
+  await page.click("label[for=dir-corporate]");
+  await page.click("#clear");
+  await page.type("#input", "i can't make the meeting, i'm swamped");
+  await page.click("#run");
+  await page.waitForSelector("#result:not([hidden]) .corporate-out");
+  const corporate = await text(page, ".corporate-out");
+  assert.equal(await page.$eval("#swap", (b) => b.tagName), "BUTTON");
+  assert.match(await page.$eval("#swap", (b) => b.getAttribute("aria-label")), /^Swap and translate back/);
+  // Keyboard: focus the button and press Enter.
+  await page.focus("#swap");
+  await page.keyboard.press("Enter");
+  await page.waitForSelector("#result:not([hidden]) .summary");
+  assert.equal(await page.$eval("#dir-normal", (el) => el.checked), true);
+  assert.equal(await text(page, "#run"), "Decode");
+  assert.equal(await page.$eval("#input", (el) => el.value), corporate);
+  const plain = await page.$$eval("ol.decode li p", (ps) => ps.map((p) => p.textContent).join(" "));
+  await page.click("#swap");
+  await page.waitForSelector("#result:not([hidden]) .corporate-out");
+  assert.equal(await page.$eval("#dir-corporate", (el) => el.checked), true);
+  assert.equal(await page.$eval("#input", (el) => el.value), plain);
+});
+
 await check("example memo decodes with a What they really mean summary", async () => {
+  await page.click("label[for=dir-normal]");
+  await page.$eval("#level", (el) => { el.value = "2"; el.dispatchEvent(new Event("input")); });
   await page.click("#example");
   await page.waitForSelector("#result:not([hidden]) .summary");
   const summary = await text(page, ".summary");
-  assert.match(summary, /^What they really mean: People are being laid off/);
+  assert.match(summary, /^What they really mean: We're laying people off/);
   const items = await page.$$eval("ol.decode li", (lis) => lis.length);
   assert.ok(items >= 8, `lines: ${items}`);
   const input = await page.$eval("#input", (el) => el.value);
@@ -83,33 +149,6 @@ await check("copy puts the full decode on the clipboard", async () => {
   assert.match(clip, /\n= /);
 });
 
-await check("normal to corporate: type, Ctrl+Enter, levels and reroll", async () => {
-  await page.click("label[for=dir-corporate]");
-  assert.equal(await text(page, "#run"), "Corporatize");
-  assert.ok(["Mild", "Middle Manager", "Full C-Suite"].includes(await text(page, "#level-name")));
-  await page.click("#clear");
-  await page.type("#input", "hey, i can't make the meeting, i'm swamped. this idea is dumb and we have no time");
-  await page.keyboard.down("Control");
-  await page.keyboard.press("Enter");
-  await page.keyboard.up("Control");
-  await page.waitForSelector("#result:not([hidden]) .corporate-out");
-  const first = await text(page, ".corporate-out");
-  assert.match(first, /^[A-Z]/);
-  assert.ok(!/ {2}/.test(first));
-  const outs = new Set([first]);
-  for (let i = 0; i < 4; i++) {
-    await page.click("#reroll");
-    outs.add(await text(page, ".corporate-out"));
-  }
-  assert.ok(outs.size >= 3, `reroll variety: ${outs.size}`);
-  await page.$eval("#level", (el) => { el.value = "3"; el.dispatchEvent(new Event("input")); el.dispatchEvent(new Event("change")); });
-  assert.equal(await text(page, "#level-name"), "Full C-Suite");
-  await page.click("#run");
-  const top = await text(page, ".corporate-out");
-  assert.ok(top.length > first.length * 0.9, top);
-});
-
-await page.screenshot({ path: shots + "desktop-corporate.png", fullPage: true });
 
 await check("long paste shows the soft cap note and still decodes", async () => {
   await page.click("label[for=dir-normal]");
@@ -177,9 +216,12 @@ await check("mic hidden on Edge user agent", async () => {
 
 // ---------- mobile ----------
 const m = await openPage({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
-await check("mobile: example decodes and layout fits the screen", async () => {
+await check("mobile: example decodes, swap fits, and layout fits the screen", async () => {
+  await m.page.click("label[for=dir-normal]");
   await m.page.click("#example");
   await m.page.waitForSelector("#result:not([hidden]) .summary");
+  const swapBox = await m.page.$eval("#swap", (b) => { const r = b.getBoundingClientRect(); return { w: r.width, h: r.height }; });
+  assert.ok(swapBox.h >= 44 && swapBox.w <= 390, JSON.stringify(swapBox));
   const overflow = await m.page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   assert.ok(overflow <= 0, `horizontal overflow ${overflow}px`);
 });
@@ -190,6 +232,7 @@ await m.page.screenshot({ path: shots + "mobile-top.png" });
 // Dark mode screenshot
 const d = await openPage({ width: 1280, height: 900 });
 await d.page.emulateMediaFeatures([{ name: "prefers-color-scheme", value: "dark" }]);
+await d.page.click("label[for=dir-normal]");
 await d.page.click("#example");
 await d.page.waitForSelector("#result:not([hidden]) .summary");
 await d.page.screenshot({ path: shots + "desktop-dark.png", fullPage: true });

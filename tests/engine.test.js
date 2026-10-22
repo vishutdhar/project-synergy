@@ -15,7 +15,8 @@ test("phrasebook is big: a few hundred entries", () => {
   assert.ok(corporateEntries.length >= 300, `corporate swaps: ${corporateEntries.length}`);
   assert.ok(decodeEntries.length >= 150, `decode swaps: ${decodeEntries.length}`);
   const extras = Object.values(OPENERS).flat().length + Object.values(CLOSERS).flat().length + INTERJECTIONS.length;
-  assert.ok(extras >= 60, `openers, closers, asides: ${extras}`);
+  // Tone-only lines. Ones that invented meetings, plans or facts were removed.
+  assert.ok(extras >= 50, `openers, closers, asides: ${extras}`);
 });
 
 test("phrasebook has no duplicate keys and no fancy punctuation", () => {
@@ -140,7 +141,7 @@ test("toNormal handles a 20k character paste quickly", () => {
 test("decode: sample memos get the right summaries", () => {
   const [layoff, rto, recordYear, reorg] = MEMOS;
   assert.deepEqual(toNormal(layoff).themes.slice(0, 1), ["layoffs"]);
-  assert.match(toNormal(layoff, { level: 2 }).summary, /laid off/);
+  assert.match(toNormal(layoff, { level: 2 }).summary, /laying people off|laid off/);
   assert.deepEqual(toNormal(rto).themes.slice(0, 1), ["rto"]);
   assert.match(toNormal(rto, { level: 2 }).summary, /office/i);
   const ry = toNormal(recordYear, { level: 2 });

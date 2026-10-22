@@ -9,13 +9,13 @@ const els = {
   form: $("form"), input: $("input"), inputLabel: $("input-label"), lede: $("lede"), count: $("count"), capNote: $("cap-note"),
   level: $("level"), levelLabel: $("level-label"), levelName: $("level-name"), ticks: [1, 2, 3].map((i) => $(`tick-${i}`)),
   run: $("run"), reroll: $("reroll"), example: $("example"), clear: $("clear"), mic: $("mic"), micNote: $("mic-note"),
-  result: $("result"), output: $("output"), resultNote: $("result-note"), copy: $("copy"), share: $("share"),
+  result: $("result"), swap: $("swap"), swapRow: $("swap-row"), output: $("output"), resultNote: $("result-note"), copy: $("copy"), share: $("share"),
   aiStatus: $("ai-status"), aiProgress: $("ai-progress"), aiStatusText: $("ai-status-text"), aiDesc: $("ai-desc"),
   consent: $("consent"), consentSize: $("consent-size"), consentTech: $("consent-tech"),
 };
 
 const state = {
-  direction: "toNormal",
+  direction: "toCorporate",
   seed: 1,
   last: null, // { direction, text, level, plain (copy text), shareText }
   exampleIndex: { toNormal: 0, toCorporate: 0 },
@@ -109,13 +109,29 @@ function renderCorporate(text) {
   els.output.replaceChildren(p);
 }
 
-function setResult({ direction, copyText, shareText, note = "" }) {
-  state.last = { direction, copyText, shareText };
+// swapText is what the swap button moves into the input: the corporate rewrite, or the plain decode lines.
+function setResult({ direction, copyText, shareText, swapText = copyText, note = "" }) {
+  state.last = { direction, copyText, shareText, swapText };
   els.result.hidden = false;
+  els.swapRow.hidden = false;
   els.share.href = xIntentUrl(shareText, CONFIG.appUrl);
   els.resultNote.hidden = !note;
   els.resultNote.textContent = note;
   els.reroll.disabled = false;
+}
+
+const plainOf = (decoded) => decoded.lines.map((l) => l.plain).join(" ");
+
+// Flip the direction and feed the result back in, for a round trip.
+function swapDirection() {
+  if (!state.last?.swapText) return;
+  const text = state.last.swapText;
+  const next = state.direction === "toNormal" ? "toCorporate" : "toNormal";
+  els.form.elements.direction.value = next;
+  setDirection(next);
+  els.input.value = text;
+  updateCount();
+  run();
 }
 
 // ---------- run ----------
@@ -139,7 +155,7 @@ async function run({ reroll = false } = {}) {
     const instant = toNormal(text, { level, seed: state.seed });
     if (!useAI) {
       renderDecode(instant);
-      setResult({ direction: "toNormal", copyText: formatDecode(instant), shareText: `What they really mean: ${instant.summary}`, note: capNote });
+      setResult({ direction: "toNormal", copyText: formatDecode(instant), shareText: `What they really mean: ${instant.summary}`, swapText: plainOf(instant), note: capNote });
       return;
     }
     await runAIDecode(text, level, instant, capNote, reroll);
@@ -154,10 +170,10 @@ async function run({ reroll = false } = {}) {
     els.result.hidden = false;
     setBusy(true);
     try {
-      const res = await askWorker({ type: "toCorporate", text, level, sample: reroll });
+      const res = await askWorker({ type: "toCorporate", text, level, seed: state.seed });
       const final = res.text || out;
       renderCorporate(final);
-      setResult({ direction: "toCorporate", copyText: final, shareText: final, note: [res.text ? "" : "The AI came back empty, so this is the Instant version.", capNote].filter(Boolean).join(" ") });
+      setResult({ direction: "toCorporate", copyText: final, shareText: final, note: [res.text ? "" : res.rejected ? "The AI reply didn't make sense, so this is the Instant version." : "The AI came back empty, so this is the Instant version.", capNote].filter(Boolean).join(" ") });
     } catch (err) {
       renderCorporate(out);
       setResult({ direction: "toCorporate", copyText: out, shareText: out, note: `AI mode hit an error, so this is the Instant version. (${err.message})` });
@@ -175,7 +191,7 @@ async function runAIDecode(text, level, instant, capNote, reroll) {
   setBusy(true);
   try {
     const res = await askWorker(
-      { type: "toNormal", text, level, themes: instant.themes, sample: reroll },
+      { type: "toNormal", text, level, themes: instant.themes, seed: state.seed },
       (msg) => {
         if (msg.type !== "line") return;
         if (view.lines[msg.index]) view.lines[msg.index].plain = msg.plain || view.lines[msg.index].plain;
@@ -192,10 +208,10 @@ async function runAIDecode(text, level, instant, capNote, reroll) {
     if (!res.summaryOk) notes.push("The AI summary missed the main point, so the summary is from Instant mode.");
     if (res.skipped > 0) notes.push(`AI decoded the first ${res.lines.length} sentences. The rest use Instant mode.`);
     if (capNote) notes.push(capNote);
-    setResult({ direction: "toNormal", copyText: formatDecode(final), shareText: `What they really mean: ${summary}`, note: notes.join(" ") });
+    setResult({ direction: "toNormal", copyText: formatDecode(final), shareText: `What they really mean: ${summary}`, swapText: plainOf(final), note: notes.join(" ") });
   } catch (err) {
     renderDecode(instant);
-    setResult({ direction: "toNormal", copyText: formatDecode(instant), shareText: `What they really mean: ${instant.summary}`, note: `AI mode hit an error, so this is the Instant version. (${err.message})` });
+    setResult({ direction: "toNormal", copyText: formatDecode(instant), shareText: `What they really mean: ${instant.summary}`, swapText: plainOf(instant), note: `AI mode hit an error, so this is the Instant version. (${err.message})` });
   } finally {
     setBusy(false);
   }
@@ -409,8 +425,7 @@ els.level.addEventListener("change", () => state.last && getEngine() === "instan
 for (const radio of els.form.elements.direction) {
   radio.addEventListener("change", () => {
     setDirection(radio.value);
-    els.result.hidden = true;
-    state.last = null;
+    hideResult();
   });
 }
 for (const radio of els.form.elements.engine) {
@@ -428,14 +443,22 @@ els.example.addEventListener("click", () => {
 els.clear.addEventListener("click", () => {
   els.input.value = "";
   updateCount();
-  els.result.hidden = true;
-  state.last = null;
+  hideResult();
   els.reroll.disabled = true;
   els.input.focus();
 });
 els.copy.addEventListener("click", copyResult);
+els.swap.addEventListener("click", swapDirection);
 
-setDirection("toNormal");
+function hideResult() {
+  els.result.hidden = true;
+  els.swapRow.hidden = true;
+  state.last = null;
+}
+
+// Browsers can restore old form state on reload, so set the tab and the state together.
+els.form.elements.direction.value = "toCorporate";
+setDirection("toCorporate");
 updateCount();
 setupMic();
 detectBackend().then((b) => {

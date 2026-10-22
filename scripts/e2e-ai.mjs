@@ -49,6 +49,7 @@ await page.screenshot({ path: shots + "ai-ready.png" });
 const ready = /ready/.test(await page.$eval("#ai-status-text", (e) => e.textContent));
 const outputs = {};
 if (ready) {
+  await page.click("label[for=dir-normal]");
   for (const [i, name] of [[0, "layoff"], [2, "record-year"]]) {
     await page.evaluate(async (i) => {
       const { MEMOS } = await import("/samples.js");

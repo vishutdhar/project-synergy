@@ -153,3 +153,8 @@ dialog h2 { margin-top: 0; font-size: 1.2rem; }
   .actions .btn { flex: 1; justify-content: center; }
   .lede { font-size: 1.05rem; }
 }
+
+/* Swap button between the input card and the result. */
+.swap-row { display: flex; justify-content: center; margin: -4px 0 12px; }
+.btn.swap { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; min-height: 44px; padding-inline: 18px; }
+@media (max-width: 520px) { .btn.swap { width: 100%; justify-content: center; } }

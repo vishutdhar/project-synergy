@@ -1,20 +1,20 @@
 {
   "log": [
-    "[15:03:03Z] console.warn: No available adapters.",
-    "[15:03:05Z] backend guess: Small open model that runs in your browser. One-time download, about 800 MB.",
-    "[15:03:05Z] worker created: http://localhost:8787/ai-worker.js",
-    "[15:03:10Z] consent dialog shown: false (model already cached)",
-    "[15:03:17Z] worker created: blob:http://localhost:8787/21372b23-4ff9-448c-9dcb-96aaaa76b101",
-    "[15:03:17Z] worker created: blob:http://localhost:8787/21372b23-4ff9-448c-9dcb-96aaaa76b101",
-    "[15:03:17Z] worker created: blob:http://localhost:8787/21372b23-4ff9-448c-9dcb-96aaaa76b101",
-    "[15:03:34Z] status: AI mode is ready (WebAssembly, q4).",
-    "[15:03:34Z] load finished after 24s: AI mode is ready (WebAssembly, q4).",
-    "[15:04:43Z] layoff: 68.6s, summary: What they really mean: The company is laying off its workforce, reducing costs, and we're cutting jobs., note: ",
-    "[15:10:20Z] record-year: 337.3s, summary: What they really mean: Tessaline's strong performance and your dedication have led to our success, so no raises for now., note: ",
-    "[15:10:29Z] corporate: 8.5s: I can't attend the meeting, I'm bogged down. This proposal is flawed.",
-    "[15:10:29Z] hosts contacted before consent: localhost:8787",
-    "[15:10:29Z] hosts contacted overall: localhost:8787, ",
-    "[15:10:29Z] transformers-cache entries: https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/config.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer_config.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/generation_config.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/onnx/model_q4.onnx, https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.mjs, https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.wasm"
+    "[15:33:31Z] console.warn: No available adapters.",
+    "[15:33:33Z] backend guess: Small open model that runs in your browser. One-time download, about 800 MB.",
+    "[15:33:33Z] consent dialog shown: true, size: 800 MB, tech: Your browser will run it on the CPU (WebAssembly), which is slower.",
+    "[15:33:34Z] worker created: https://project-synergy.pages.dev/ai-worker.js",
+    "[15:33:40Z] worker created: blob:https://project-synergy.pages.dev/a721ec43-0660-4df5-8949-012c086aec98",
+    "[15:33:40Z] worker created: blob:https://project-synergy.pages.dev/a721ec43-0660-4df5-8949-012c086aec98",
+    "[15:33:40Z] worker created: blob:https://project-synergy.pages.dev/a721ec43-0660-4df5-8949-012c086aec98",
+    "[15:33:52Z] status: AI mode is ready (WebAssembly, q4).",
+    "[15:33:52Z] load finished after 18s: AI mode is ready (WebAssembly, q4).",
+    "[15:34:52Z] layoff: 60.4s, summary: What they really mean: The company is laying off its workforce, reducing costs, and we're cutting jobs., note: ",
+    "[15:35:44Z] record-year: 52.2s, summary: What they really mean: Tessaline's strong performance and your dedication have led to our success, so no raises for now., note: ",
+    "[15:35:52Z] corporate: 7.4s: I can't attend the meeting, I'm bogged down. This proposal is flawed.",
+    "[15:35:52Z] hosts contacted before consent: project-synergy.pages.dev",
+    "[15:35:52Z] hosts contacted overall: project-synergy.pages.dev, cdn.jsdelivr.net, huggingface.co, us.aws.cdn.hf.co, ",
+    "[15:35:52Z] transformers-cache entries: https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/config.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/generation_config.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer_config.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer.json, https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/onnx/model_q4.onnx, https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.mjs, https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.wasm"
   ],
   "outputs": {
     "layoff": {
@@ -66,7 +66,7 @@
         }
       ],
       "note": "",
-      "seconds": "68.6"
+      "seconds": "60.4"
     },
     "record-year": {
       "summary": "What they really mean: Tessaline's strong performance and your dedication have led to our success, so no raises for now.",
@@ -109,24 +109,27 @@
         }
       ],
       "note": "",
-      "seconds": "337.3"
+      "seconds": "52.2"
     },
     "corporate": {
       "text": "I can't attend the meeting, I'm bogged down. This proposal is flawed.",
-      "seconds": "8.5"
+      "seconds": "7.4"
     }
   },
   "cache": [
     "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/config.json",
-    "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer_config.json",
     "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/generation_config.json",
+    "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer_config.json",
     "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/tokenizer.json",
     "https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct/resolve/main/onnx/model_q4.onnx",
     "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.mjs",
     "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.31.0-dev.20260914-8d85527a0/dist/ort-wasm-simd-threaded.asyncify.wasm"
   ],
   "hosts": [
-    "localhost:8787",
+    "project-synergy.pages.dev",
+    "cdn.jsdelivr.net",
+    "huggingface.co",
+    "us.aws.cdn.hf.co",
     ""
   ]
 }
