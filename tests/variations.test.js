@@ -93,3 +93,8 @@ test("slang found in the live check gets swapped at every level", () => {
   assert.equal(corp("thx for the help today ur the best 🙏", 1), "Thanks for the assist today, you're the best.");
   assert.equal(corp("this bug is driving me insane", 2), "This bug is really frustrating me.");
 });
+
+test("second audit: wait comma and a rude dismissal", () => {
+  assert.equal(corp("wait are we launching tomorrow??", 1), "Wait, are we launching tomorrow??");
+  for (const level of [1, 2, 3]) assert.doesNotMatch(corp("they can shove their return to office policy", level), /shove/);
+});

@@ -110,6 +110,7 @@ export function normalizeCasual(text) {
   t = t.replace(/\b(\w+) (to be honest|tbh),?\s*$/gim, (m, w, p) => (w === "honest" ? m : `${w}, ${p}`));
   t = t.replace(/\b(\w+) (by the way|btw)\s*$/gim, (m, w, p) => (/^(?:the|said|asked)$/i.test(w) ? m : `${w}, ${p}`));
   t = t.replace(/^(\s*)(by the way|btw)\s+(?=[a-z])/gim, "$1$2, ");
+  t = t.replace(/^(\s*)(wait|hold on|hang on)\s+(?=(?:are|is|did|do|does|was|were|what|why|who|how|when|where|so|we|i|you|they|he|she)\b)/gim, "$1$2, ");
   t = t.replace(/([a-z]) (you're|you are|ur|u r) (the best|a lifesaver|a star|amazing)\b/gi, "$1, you're $3");
   t = t.replace(/^(\s*)(oops|whoops)\s+(?=(?:my bad|sorry|wrong|typo)\b)/gim, "$1$2, ");
   t = t.replace(/^(\s*)(wow|whoa|oh wow|yikes)\s+(?=(?:thanks|thank|that|this|so|what|ok|okay|i|we|you|the|great|nice|cool|just)\b)/gim, "$1$2, ");
@@ -218,7 +219,7 @@ export const crudeEntries = parseSwaps(CRUDE_SWAPS).map((e) => ({ ...e, crude: t
 export const decodeEntries = parseSwaps(DECODE_SWAPS);
 const plainMatcher = buildMatcher(corporateEntries);
 // Sentences with no crude word skip the big crude matcher. A few crude idioms are spelled with clean words.
-export const mayBeCrude = (text) => hasCrude(text) || /\b(?:squat|knackered|screwed|crapped|shat|hardass|screw the|dick(?:ing|ed)? around|cockblock\w*|dumpster fire|brown-noser|kiss(?:ing|ed|es)? up)\b/i.test(text);
+export const mayBeCrude = (text) => hasCrude(text) || /\b(?:squat|knackered|screwed|crapped|shat|hardass|screw the|dick(?:ing|ed)? around|cockblock\w*|dumpster fire|brown-noser|kiss(?:ing|ed|es)? up|can shove|shove it)\b/i.test(text);
 const crudeMatcher = buildMatcher(crudeEntries);
 
 // The input with swearing already swapped for plain, mild wording. AI mode rewrites this

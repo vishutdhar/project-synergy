@@ -241,6 +241,7 @@ const PHRASES = `
 !crap = junk = junk = junk
 !damn it = oh no = that's frustrating = that's a suboptimal outcome
 !can go to hell = has really frustrated me = has really frustrated me = has created significant friction for me
+!can shove = can keep = can keep = are welcome to keep
 !go to hell = please leave me alone = I need some space = let's pause this relationship
 !{a|one} hell of a = quite a = quite a = a truly significant
 !from hell = that's been a nightmare = that's been extremely difficult = that's been a sustained source of friction
