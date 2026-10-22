@@ -50,3 +50,7 @@ node scripts/variations-grade.mjs --instant <tag> --ai <ai-tags> --dec <decode-a
 ```
 
 The eval and AI scripts write to `/workspace/project-synergy-research/variations/`, outside the repo.
+
+## Ideal change, October 2026
+
+The Mild and Middle Manager ideals for plain-to-corporate were too plain. Many were the input with the spelling fixed ("I'm going to be late sorry."). On 448 of the 652 items the hand-written ideal was run through the new level rules (site/register.js) and the result kept if it changed the text, passed the meaning check and was not a tidy copy of the input: 381 Mild, 167 Middle Manager and 69 Full C-Suite ideals. Full C-Suite was only changed where it read the same as Middle Manager. In dataset.jsonl each changed level keeps the old text in `ideal_output_before`. The `instant` and `ai` grades there are still from run r20, before the change. The level spec is in project-synergy-research/corporate-levels/research.md, and every change is listed in corporate-levels/ideal-changes.tsv.

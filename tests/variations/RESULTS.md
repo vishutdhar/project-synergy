@@ -680,3 +680,7 @@ q3-dec what the page shows (AI if it passes the gates, else Instant), hand-read 
   gates: lines-only=235 fallback=29
   AI shown on 0.0% of rows; hand-read pass rate of the AI text that gets shown: n/a (0 rows)
   mean overlap with ideal_output 0.125
+
+## r21, after the level fix (October 2026)
+
+Instant on all 1,003 items (3,009 outputs): 0 meaning, safety or crude flags. The corporate ideals were revised (see README). Mean token similarity to the input for plain-to-corporate went from 0.87 / 0.80 / 0.40 (Mild / Middle Manager / Full C-Suite) to 0.68 / 0.59 / 0.39. Mild and Middle Manager were identical on 370 of 652 items before and are within 7% on 35 now.
