@@ -330,7 +330,8 @@ i'm fine = I'm good = I'm doing well = I'm operating at full capacity
 i'm happy = I'm glad = I'm energized = I'm deeply energized
 i'm on it = I'm on it = I'm driving this = I'm owning this end to end
 ^on it = on it = driving it = owning it end to end
-^got it = understood = understood, thanks = fully aligned
+^got it = understood = understood = fully aligned
+!ok boomer energy from = a slightly dated tone from = a somewhat dated tone from = a legacy-mindset tone from
 i've got it = I've got it covered = I've got this handled = I'm owning this end to end
 ^makes sense = makes sense = that tracks = that resonates strategically
 good idea = good idea = solid initiative = best-in-class strategic initiative
@@ -564,6 +565,7 @@ export const INTERJECTIONS = [];
 // Corporate to Normal. Decode swaps: "corporate phrase = polite = honest = blunt".
 
 export const DECODE_SWAPS = `
+out of scope for now = not in the plan right now = not happening right now = not happening
 rightsizing = reducing staff = layoffs = mass firing
 right-sizing = reducing staff = layoffs = mass firing
 rightsize = reduce staff = lay off people = fire people
@@ -957,8 +959,8 @@ export const THEMES = [
     id: "departure",
     weight: 4,
     patterns: [/stepping (?:down|away|back)/i, /(?:has|have) decided to (?:leave|step|pursue)/i, /pursue other opportunities/i, /spend more time with (?:his|her|their) family/i],
-    summary: ["Someone in leadership is leaving.", "A leader is leaving, possibly not by choice.", "A leader got pushed out."],
-    line: ["Someone is leaving.", "They're leaving, maybe not by choice.", "They got pushed out."],
+    summary: ["Someone is leaving.", "Someone is leaving, maybe not by choice.", "Someone is out, maybe not by choice."],
+    line: ["Someone is leaving.", "They're leaving, maybe not by choice.", "They're out, maybe not by choice."],
   },
   {
     id: "benefits",
@@ -1124,10 +1126,14 @@ export const PLAIN_LINES = [
 
 // Sentence-level decodes that beat theme lines. Checked in order, first match wins.
 export const SPECIAL_LINES = [
+  { pattern: /\bbonus(?:es)?(?: payouts?| payments?)?\b[^.]{0,40}\b(?:delayed|pushed|postponed|deferred|moved)\b|\b(?:delay|postpon|defer)\w* (?:the |all |your |our )?(?:annual )?bonus/i,
+    lines: ["Bonuses are coming later.", "Bonuses are delayed.", "Your bonus is late. Maybe smaller."], asSummary: true },
   { pattern: /\bper my last email\b[^.]*\b(?:circle back|offline|parking lot)\b/i,
     lines: ["As I said before, let's talk about this later.", "I already told you. Let's drop this for now.", "I already told you. Drop it."], asSummary: true },
   { pattern: /\b(?:per my last email|as (?:previously|already) (?:mentioned|stated|discussed))\b/i,
-    lines: ["As I said before.", "I already told you this.", "Read my email."], asSummary: true },
+    lines: ["As I said before.", "I already told you this.", "Read my email."], asSummary: true,
+    // "Per my last email, the deadline is Friday" still says the deadline. Keep what follows the phrase.
+    keepRest: /^(?:per my last email|as (?:previously|already) (?:mentioned|stated|discussed))\b[,:]?\s*/i },
   { pattern: /\b(?:take (?:this|that|it) to the parking lot|circle back (?:on this )?offline|park (?:this|that)(?: for now)?|take (?:this|that|it) offline)\b/i,
     lines: ["Let's talk about this later.", "Let's drop this for now.", "Drop it."], asSummary: /^(?:let's|happy to|i'm happy to|can we|we can|i'll|i will|i'd like to)\b/i },
   { pattern: /\bunlock(?:ing)? synergies\b|\bdrive sustainable growth\b/i,

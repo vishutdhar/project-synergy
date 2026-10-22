@@ -165,3 +165,18 @@ test("AI decode checks: denials of the main news and meta replies are caught", (
   assert.equal(isMetaReply("here's the short sentence:."), true);
   assert.equal(isMetaReply("We're cutting jobs."), false);
 });
+
+test("Decode: 'per my last email' keeps what the email actually says", () => {
+  for (const level of [1, 2, 3]) {
+    const d = toNormal("Per my last email, the deadline is Friday.", { level });
+    assert.match(d.summary, /deadline is Friday/);
+    assert.match(d.summary, /^(?:As I said before|I already told you|Read my email)/);
+  }
+  assert.equal(toNormal("Per my last email, let's take this offline.", { level: 3 }).summary, "I already told you. Drop it.");
+});
+
+test("Decode: a bonus delay is not read as no raises, and a coworker leaving is not called a leader", () => {
+  assert.equal(toNormal("Bonus payouts will be delayed until Q2 while we finalize results.", { level: 2 }).summary, "Bonuses are delayed.");
+  const d = toNormal("Hi all, I'm writing to let you know that Tomas will be leaving us at the end of the week.", { level: 3 });
+  assert.doesNotMatch(d.summary, /leader/i);
+});

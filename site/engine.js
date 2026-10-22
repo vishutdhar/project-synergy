@@ -716,6 +716,12 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       if (special) {
         if (isFluff) fluff++;
         plain = ((layoffContext && special.layoffLines) || special.lines)[lvl - 1];
+        const rest = special.keepRest && special.keepRest.test(sentence) ? sentence.replace(special.keepRest, "").trim() : "";
+        if (rest.split(/\s+/).length >= 3) {
+          let tail = capFirst(tidy(swapPhrases(rest, matcher, lvl, rng, 1).text));
+          if (!endsWithPunct(tail)) tail += ".";
+          plain = `${plain} ${tail}`;
+        }
         if (special.asSummary === true || (special.asSummary instanceof RegExp && special.asSummary.test(sentence))) summaryLines.push(plain);
       } else if (themes.length) {
         // "Your job is being cut." already says "Some jobs are being cut.", so the weaker line goes.

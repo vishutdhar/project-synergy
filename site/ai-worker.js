@@ -8,7 +8,7 @@ import {
   MODEL_ID, MAX_AI_SENTENCES, sentencesForDecode, buildDecodeMessages, buildSummaryMessages,
   buildRetrievalCorporateMessages, firstLine, summaryCoversThemes, CORPORATE_EXAMPLE_ANSWERS,
 } from "./ai-prompts.js";
-import { guardOutput, echoesExample, contradictsThemes, isMetaReply, generationOptions, repeatSettings, sampleSeed, makeLoopStop, makeRepeatGuard } from "./ai-guard.js";
+import { guardOutput, echoesExample, contradictsThemes, isMetaReply, addsClaims, generationOptions, repeatSettings, sampleSeed, makeLoopStop, makeRepeatGuard } from "./ai-guard.js";
 
 const LoopStop = makeLoopStop(StoppingCriteria);
 const RepeatGuard = makeRepeatGuard(LogitsProcessor);
@@ -95,7 +95,7 @@ self.onmessage = async (event) => {
         let plain = guardOutput(firstLine(await ask(buildDecodeMessages(sentences[i], msg.level, themes), "line", sentences[i], sampleSeed(sentences[i], msg.level, msg.seed, i + 1))), { maxWords: 40 }).text;
         // Empty means the page uses the Instant line for this sentence.
         // Also when it just repeats the original sentence back.
-        if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8) || addsCrude(sentences[i], plain)) plain = "";
+        if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8) || addsCrude(sentences[i], plain) || addsClaims(plain, [...themes, ...(msg.themes ?? [])], sentences[i])) plain = "";
         lines.push({ original: sentences[i], plain });
         self.postMessage({ type: "line", id: msg.id, index: i, total: sentences.length, original: sentences[i], plain });
       }
@@ -104,7 +104,7 @@ self.onmessage = async (event) => {
         firstLine(await ask(buildSummaryMessages(tagged.length ? tagged : lines.map((l) => l.plain), msg.level, msg.themes ?? []), "summary", "", sampleSeed(msg.text, msg.level, msg.seed, -1))),
         { maxWords: 40 },
       ).text;
-      const summaryOk = summaryCoversThemes(summary, msg.themes ?? []) && !contradictsThemes(summary, msg.themes ?? []) && !isMetaReply(summary) && !addsCrude(msg.text, summary);
+      const summaryOk = summaryCoversThemes(summary, msg.themes ?? []) && !contradictsThemes(summary, msg.themes ?? []) && !isMetaReply(summary) && !addsCrude(msg.text, summary) && !addsClaims(summary, msg.themes ?? [], msg.text);
       self.postMessage({ type: "decoded", id: msg.id, summary, summaryOk, lines, skipped: all.length - sentences.length });
     }
   } catch (err) {

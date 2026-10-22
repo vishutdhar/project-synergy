@@ -195,3 +195,23 @@ export function contradictsThemes(text, themeIds = []) {
 export function isMetaReply(text) {
   return /\b(?:here(?:'s| is) (?:the|a|my)|short sentence|plain english|translation|rewritten|as an ai)\b|:\s*\.?$/i.test(text);
 }
+
+// Strong claims a decode line or summary can make. Each one needs support from the memo: one of the
+// listed themes, or the memo itself saying it. "No raises for this reason" on a layoff email is made up.
+const CLAIMS = [
+  { re: /\blaid off\b|\blayoffs?\b|\bfir(?:ed|ing)\b|\blosing (?:their|your|our) jobs?\b|\bjobs? (?:are|is) being cut\b/i,
+    themes: ["layoffs", "layoff-you", "reorg", "cost-cuts", "outsourcing", "stack-rank", "pip", "acquisition", "shutdown", "ai", "performance"],
+    memo: /lay ?off|eliminat|reduc|headcount|role|position|let (?:you|them) go|terminat|separat|exit|depart/i },
+  { re: /\braises?\b|\bbonus(?:es)?\b|\bsalar(?:y|ies)\b|\bpay cut\b/i,
+    themes: ["no-raises", "cost-cuts", "budget-freeze", "benefits", "record-year"],
+    memo: /raise|bonus|merit|salar|compensation|\bpay\b|reward|increase/i },
+  { re: /outsourc|offshor/i, themes: ["outsourcing"], memo: /vendor|partner|outsourc|nearshore|offshore|contract/i },
+  { re: /\bAI\b|\brobots?\b|\bautomat/i, themes: ["ai"], memo: /\bAI\b|automat|machine|copilot|model/i },
+  { re: /\bmerg|\bbought\b|\bacqui/i, themes: ["acquisition"], memo: /merg|acqui|joining forces|combined/i },
+  { re: /\bPIP\b|improvement plan/i, themes: ["pip"], memo: /plan|improvement|expectations/i },
+  { re: /\bshut(?:ting)? down\b|\bclosing down\b/i, themes: ["shutdown", "cost-cuts"], memo: /sunset|shut|clos|discontinu|deprecat|end|retir/i },
+  { re: /back to the office|return to (?:the )?office|in the office more/i, themes: ["rto"], memo: /office|in[- ]person|onsite|on-site/i },
+];
+export function addsClaims(text, themeIds = [], memo = "") {
+  return CLAIMS.some((c) => c.re.test(text) && !c.themes.some((t) => themeIds.includes(t)) && !c.memo.test(memo));
+}
