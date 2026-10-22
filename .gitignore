@@ -1,6 +1,6 @@
 node_modules/
 .model-cache/
-.chrome-profile/
+.chrome-profile*/
 *.log
 .DS_Store
 preview/mobile-decode.png
