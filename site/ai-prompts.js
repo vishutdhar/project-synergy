@@ -164,7 +164,7 @@ const CORPORATE_SHOTS = {
       ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet is a real mess, and I'm not fixing it again."]],
   2: [["I can't come to lunch, I'm busy.", "I don't have the bandwidth for lunch, so I can't make it."],
       ["The printer is broken again.", "Flagging that our print capability is down again."],
-      ["I don't like the new logo.", "I'm not fully aligned on the new logo direction."],
+      ["I don't like the new logo.", "I have some concerns about the new logo direction."],
       ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet has some serious quality gaps, and I'm not able to fix it again."]],
   3: [["I can't come to lunch, I'm busy.", "Due to unprecedented demand on my bandwidth, I'm unable to join the nourishment alignment initiative."],
       ["The printer is broken again.", "Our document output infrastructure is once again in a strategic pause."],

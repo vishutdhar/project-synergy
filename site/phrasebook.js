@@ -622,7 +622,7 @@ reorganization = reorganization = reorg = reorg
 new operating model = new structure = reorg = new boss, same work
 strategic pivot = change of plan = we changed course = the old plan failed
 pivot = change course = change course = admit the old plan failed
-headwinds = problems = problems = things going badly
+headwinds = problems = problems = trouble
 macroeconomic headwinds = the economy = the economy, which is our excuse = our excuse
 challenging macroeconomic environment = tough economy = the economy, our excuse = our excuse
 challenging environment = tough times = bad results = bad results
@@ -888,7 +888,7 @@ export const THEMES = [
     id: "rto",
     weight: 8,
     patterns: [
-      /return(?:ing)?[ -]to[ -](?:the )?office/i, /\bRTO\b/, /in[ -]person collaboration/i, /in[ -]office/i,
+      /return(?:ing)?[ -]to[ -](?:the )?office/i, /\bRTO\b/, /in[ -]person collaboration/i, /\bin[ -]office\b/i,
       /days? (?:a|per) week in/i, /back (?:to|in) the office/i, /\bour offices\b/i, /badge/i, /\bhubs?\b/i,
       /(?:three|four|five|3|4|5) days/i, /serendipit/i, /water ?cooler/i,
     ],
@@ -903,8 +903,8 @@ export const THEMES = [
       /total rewards/i, /pay (?:freeze|increase|adjustment)/i, /wage/i,
     ],
     requiresNegative: true,
-    summary: ["Don't expect a raise this year.", "No raises.", "The company made money. You won't see any of it."],
-    line: ["Raises are on hold.", "No raises this year.", "No raise for you."],
+    summary: ["Don't expect much of a raise this year.", "Raises are small or zero.", "Little or no raise for you."],
+    line: ["Raises are small or on hold.", "Small raises or none.", "Little or no raise for you."],
   },
   {
     id: "record-year",
@@ -975,7 +975,7 @@ export const THEMES = [
 // More ways memos say the same things. Found by the variations dataset (tests/variations).
 const MORE_PATTERNS = {
   "layoff-you": [/\b(?:your )?contract will not be renewed\b|\bnot (?:be )?renew(?:ing)? your contract\b/i, /\brelieved of (?:your|his|her|their) duties\b/i],
-  pip: [/\bperformance plan\b/i, /\breview progress against the goals\b/i, /\bmay result in (?:further|disciplinary|additional) action\b/i, /\bformal step in (?:our|the) performance process\b/i,
+  pip: [/\bfurther (?:disciplinary )?action (?:may|will|could) be taken\b/i, /\bperformance plan\b/i, /\breview progress against the goals\b/i, /\bmay result in (?:further|disciplinary|additional) action\b/i, /\bformal step in (?:our|the) performance process\b/i,
     /\btargets outlined in the attached plan\b/i, /\bconsistent improvement by\b/i, /\bgaps? between your performance and\b/i, /\breset expectations and demonstrate\b/i,
     /\bnext (?:30|45|60|90) days (?:are|will be) (?:important|critical)\b/i],
   shutdown: [/\b(?:office|site|plant|store|location|facility|studio|branch|warehouse) will close\b/i, /\bceas\w* (?:development|operations|production|support)\b/i,
@@ -997,13 +997,13 @@ const MORE_PATTERNS = {
     /\bstipends? (?:are|is) paused\b/i, /\bfreeze on \w+ spend\b/i, /\bon hold until (?:budgets?|the new budget)\b/i, /\bspending is frozen\b/i, /\bno new spend\b/i,
     /\bhold (?:any|all) (?:\w+ )?purchases\b/i, /\bput a hold on (?:all )?(?:non-critical |new )?purchases\b/i],
   "cost-cuts": [/\breduc\w* (?:our )?spend(?:ing)? on\b/i, /\bin savings\b|\blook for savings\b/i, /\breal estate footprint\b/i, /\bdoing more with less\b/i,
-    /\b(?:snacks|catered lunches|perks|swag)\b[^.]{0,40}\b(?:reduced|cut|scaled back)\b/i, /\bROI targets\b/i, /\blimit travel\b|\bpause new vendor contracts\b/i, /\breduce costs\b/i],
+    /\b(?:snacks|catered lunches|perks|swag)\b[^.]{0,40}\b(?:reduced|cut|scaled back)\b/i, /\bROI targets\b/i, /\blimit travel\b|\bpause new vendor contracts\b/i, /\breduce costs\b/i, /\bsmaller footprint\b/i],
   deflection: [/\bdon't want to speculate\b|\brather not (?:speculate|commit)\b/i, /\bsomething we'll look into\b|\bwe'll look into (?:it|that|this)\b/i,
     /\bdon't have anything (?:more )?to share\b|\bnothing (?:more )?to share\b/i, /\bwhen there is something to share\b/i, /\bstill working through\b/i,
     /\bas previously mentioned\b|\bper my last email\b/i, /\bout of scope for now\b/i, /\baware of the concerns\b/i, /\brest assured\b/i, /\bparking lot\b/i],
   delay: [/\btaking longer than (?:anticipated|expected|planned)\b/i, /\bno longer (?:tracking|realistic|feasible)\b/i, /\bmoved from \w+ to \w+\b/i, /\bin a later (?:sprint|release|phase)\b/i,
     /\bnow targeting\b/i, /\bdelivery will move\b/i, /\bmove (?:our |the )?(?:\w+ )?date from\b/i, /\bwill now take effect in\b/i, /\badjust\w* the timeline\b/i],
-  departure: [/\bno longer with the company\b/i, /\btransitions? to an advisory role\b|\btransitioning to the role of\b/i, /\bwill be leaving (?:us|the company)\b/i,
+  departure: [/\bno longer with the company\b/i, /\btransitions? to an advisory role\b|\btransitioning to the role of\b/i, /\b(?:[A-Z][a-z]+|he|she) will be leaving (?:us|the company)\b/,
     /\bwill be departing\b/i, /\bsearch for (?:our|a) next (?:CEO|CFO|COO|CTO|leader)\b/i],
   "hiring-freeze": [/\bheadcount (?:will be )?held flat\b/i, /\breviewing all open requisitions\b|\brequisitions?\b[^.]{0,40}\b(?:closed|on hold|paused)\b/i, /\bfreeze on (?:external )?hiring\b/i,
     /\bheadcount requests? (?:won't|will not) be\b/i, /\binternship program is cancell?ed\b/i, /\bwon't be able to open the \w+ role\b|\bwon't be filling open roles\b/i],
@@ -1011,13 +1011,13 @@ const MORE_PATTERNS = {
     /\bmy role (?:at \w+ )?was eliminated\b/i, /\bmy last (?:week|day)\b/i, /\bopen to conversations\b/i, /\bmy DMs are open\b/i],
   "no-raises": [/\b(?:annual|salary|pay|comp|merit) increases?\b/i, /\bbonus pool\b/i],
   benefits: [/\ballowance\b/i, /\breimbursement\b/i, /\bcommuter benefit\b/i, /\bunlimited PTO\b/i, /\bhigh-deductible\b/i, /\bstop covering\b/i, /\bmatch for the 401/i],
-  layoffs: [/\boptimi[sz]\w* (?:our|the) workforce\b/i, /\beliminat\w* (?:[\w%,]+ ){0,4}(?:roles|positions|jobs)\b/i, /\b(?:roles|positions|jobs) will be (?:eliminated|cut)\b/i, /\breduction affects\b/i,
+  layoffs: [/\broles will not continue\b/i, /\bteams? will be smaller\b|\bsmaller teams\b/i, /\boptimi[sz]\w* (?:our|the) workforce\b/i, /\beliminat\w* (?:[\w%,]+ ){0,4}(?:roles|positions|jobs)\b/i, /\b(?:roles|positions|jobs) will be (?:eliminated|cut)\b/i, /\breduction affects\b/i,
     /\b(?:removing|eliminating|cutting) (?:a|one|two) layers? of (?:\w+ )?management\b/i, /\bsaid goodbye to \d+/i,
     /\breduc\w* the size of (?:our|the) (?:team|workforce|company)\b/i, /\breduce its workforce\b/i, /\btransitioning (?:approximately |about |around )?\d+ roles out\b/i,
     /\bcuts in the\b/i, /\bsome colleagues will be leaving\b/i, /\boverlapping (?:roles|functions|positions)\b/i, /\baffected (?:staff|employees) will be notified\b/i],
   rto: [/\bexpected in the office\b/i, /\bin the office (?:Mon|Tue|Wed|Thu|Fri)\w* (?:through|and|to)\b/i, /\bending the fully remote\b/i, /\bmoving everyone to hybrid\b/i,
     /\battendance will be a factor\b/i, /\bremote (?:work )?exceptions\b/i, /\beveryone in the office\b/i, /\bhybrid model is changing\b/i],
-  reorg: [/\bunder a single leader\b/i, /\borganized around\b/i, /\bmatrix model\b|\bdual reporting\b/i, /\bwill be merged into\b/i, /\boperate as a single organization\b/i,
+  reorg: [/\bchanges to (?:our|the) (?:org(?:anizational)? )?structure\b/i, /\bfewer layers of management\b/i, /\bunder a single leader\b/i, /\borganized around\b/i, /\bmatrix model\b|\bdual reporting\b/i, /\bwill be merged into\b/i, /\boperate as a single organization\b/i,
     /\bwill move under\b/i, /\breporting to [A-Z]\w+/, /\bevolving our structure\b/i],
   performance: [/\bset a high bar\b|\baddress underperformance\b|\bunderperform/i, /\bbring (?:their|your|our) A-game\b/i, /\bwork-life integration\b|\bwinning takes sacrifice\b/i,
     /\breviewing results closely\b|\bconsistently miss targets\b|\bimprove or move on\b/i, /\bthe bar is going up\b|\braising the bar\b/i],
@@ -1044,7 +1044,7 @@ for (const t of THEMES) {
   const BENEFIT_WORDS = "(?! (?:the |our |its )?(?:[\\w-]+ ){0,2}(?:stipend|allowance|benefit|perk|reimbursement|match|subsidy))";
   shutdown.patterns = shutdown.patterns.map((p) => (p.source === "\\bdiscontinu" ? new RegExp(`\\bdiscontinu\\w*${BENEFIT_WORDS}`, "i") : p));
   const reorg = THEMES.find((t) => t.id === "reorg");
-  reorg.patterns = reorg.patterns.map((p) => (p.source === "consolidat" ? /consolidat(?:e|es|ed|ing|ion)?\b(?! (?:our )?(?:office|real estate|space|vendors|tools|licenses))/i : p));
+  reorg.patterns = reorg.patterns.map((p) => (p.source === "consolidat" ? /consolidat(?:e|es|ed|ing|ion)?\b(?! (?:our |two |three |\w+ )?(?:offices?|real estate|space|vendors|tools|licenses))/i : p));
   const doMore = THEMES.find((t) => t.id === "cost-cuts");
   doMore.patterns = doMore.patterns.map((p) => (p.source === "do more with less" ? /\bdo(?:ing)? more with less\b/i : p));
 }
@@ -1103,7 +1103,7 @@ export const FLUFF_PATTERNS = [
   /\bgrateful\b/i, /^(?:a big |a huge )?thank(?:s| you)?\b|\bthank you (?:all|everyone|to)\b/i, /\bproud\b/i, /\bjourney\b/i, /\bfamily\b/i, /\bheart\b/i,
   /\bmission\b/i, /\bvalues\b/i, /\bexcit\w*/i, /\bthrilled\b/i, /\binspir\w*/i, /\bpassion\w*/i,
   /\bbright future\b/i, /\bbest is yet to come\b/i, /\btogether\b/i, /\bcommitted\b/i, /\bcare deeply\b/i,
-  /\bpeople are our\b/i, /\bincredible\b/i, /\bamazing\b/i, /\bhumbled\b/i,
+  /\bpeople are our\b/i, /\bevery (?:single )?one of you\b/i, /\bincredible\b/i, /\bamazing\b/i, /\bhumbled\b/i,
 ];
 
 export const FLUFF_LINES = [
@@ -1120,11 +1120,11 @@ export const PLAIN_LINES = [
 // Sentence-level decodes that beat theme lines. Checked in order, first match wins.
 export const SPECIAL_LINES = [
   { pattern: /\bper my last email\b[^.]*\b(?:circle back|offline|parking lot)\b/i,
-    lines: ["As I said before, let's talk about this later.", "I already told you. Let's drop this for now.", "I already told you. Drop it."] },
+    lines: ["As I said before, let's talk about this later.", "I already told you. Let's drop this for now.", "I already told you. Drop it."], asSummary: true },
   { pattern: /\b(?:per my last email|as (?:previously|already) (?:mentioned|stated|discussed))\b/i,
-    lines: ["As I said before.", "I already told you this.", "Read my email."] },
-  { pattern: /\b(?:take (?:this|that|it) to the parking lot|circle back (?:on this )?offline|park (?:this|that) for now)\b/i,
-    lines: ["Let's talk about this later.", "Let's drop this for now.", "Drop it."] },
+    lines: ["As I said before.", "I already told you this.", "Read my email."], asSummary: true },
+  { pattern: /\b(?:take (?:this|that|it) to the parking lot|circle back (?:on this )?offline|park (?:this|that)(?: for now)?|take (?:this|that|it) offline)\b/i,
+    lines: ["Let's talk about this later.", "Let's drop this for now.", "Drop it."], asSummary: /^(?:let's|happy to|i'm happy to|can we|we can|i'll|i will|i'd like to)\b/i },
   { pattern: /\bunlock(?:ing)? synergies\b|\bdrive sustainable growth\b/i,
     layoffLines: ["Cutting jobs should save money.", "Cutting jobs saves them money.", "Firing people saves them money."],
     lines: ["They expect to save money by combining things.", "Combining things should save them money.", "Merging things to save money."] },

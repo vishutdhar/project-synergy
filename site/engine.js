@@ -683,6 +683,7 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
   const lines = [];
   let fluff = 0;
   let total = 0;
+  const summaryLines = [];
 
   // Two or more soft layoff signals in one memo count as a layoff, even without the word.
   const hints = LAYOFF_HINTS.filter((re) => re.test(clean)).length;
@@ -691,9 +692,11 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
   if (layoffContext && !strongLayoff) scores.set("layoffs", themeById.layoffs.weight);
   const matcher = layoffContext ? layoffDecodeMatcher : decodeMatcher;
 
+  // A short note like "reminder: retro at 4" can look like a sign-off. If every sentence looks like one, decode them all.
+  const allSkipped = splitParagraphs(clean).flatMap(splitSentences).every((s) => isGreetingOrSignature(s));
   for (const paragraph of splitParagraphs(clean)) {
     for (const sentence of splitSentences(paragraph)) {
-      if (isGreetingOrSignature(sentence)) continue;
+      if (!allSkipped && isGreetingOrSignature(sentence)) continue;
       total++;
       const themes = detectThemes(sentence);
       for (const id of themes) scores.set(id, (scores.get(id) ?? 0) + themeById[id].weight);
@@ -704,6 +707,7 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       if (special) {
         if (isFluff) fluff++;
         plain = ((layoffContext && special.layoffLines) || special.lines)[lvl - 1];
+        if (special.asSummary === true || (special.asSummary instanceof RegExp && special.asSummary.test(sentence))) summaryLines.push(plain);
       } else if (themes.length) {
         // "Your job is being cut." already says "Some jobs are being cut.", so the weaker line goes.
         plain = summaryThemes(themes).slice(0, 2).map((id) => themeById[id].line[lvl - 1]).join(" ");
@@ -722,7 +726,8 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
 
   const ranked = [...scores.entries()].sort((a, b) => b[1] - a[1]).map(([id]) => id);
   const fluffShare = total ? fluff / total : 0;
-  const summary = combineSummary(ranked, lvl, fluffShare);
+  // A message that is only a phrase like "per my last email, let's take this offline" is summed up by that phrase.
+  const summary = summaryLines.length && summaryLines.length === total ? summaryLines.join(" ") : combineSummary(ranked, lvl, fluffShare);
   return { summary, lines, themes: ranked, signal: pickSignal(ranked, fluffShare) };
 }
 
