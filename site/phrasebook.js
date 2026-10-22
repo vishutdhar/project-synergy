@@ -56,9 +56,9 @@ this week = this week = this sprint = within the current execution window
 eventually = in time = down the road = at some point on the long-term roadmap
 again = once more = one more time = in another iteration
 !happen again = happen again = recur = recur in any future iteration
-!it won't = it will not = it definitely will not = it categorically will not
-!this won't = this will not = this definitely will not = this categorically will not
-!that won't = that will not = that definitely will not = that categorically will not
+!it won't = it will not = it is not going to = it categorically will not
+!this won't = this will not = this is not going to = this categorically will not
+!that won't = that will not = that is not going to = that categorically will not
 idea = thought = initiative = strategic initiative
 ideas = thoughts = initiatives = strategic initiatives
 goal = goal = objective = north star
@@ -369,7 +369,7 @@ too much = too much = a lot = over capacity
 !i'm slammed = I'm buried = I'm underwater = I'm at max capacity across all verticals
 !^can't = cannot = cannot commit to that = cannot commit bandwidth to that
 !^i can't = I'm unable to make that work = I'm not able to commit to that = I'm unable to commit bandwidth to that
-!>won't = will not = will definitely not = won't be in a position to
+!>won't = will not = won't be able to = won't be in a position to
 !^won't = will not = will not be doing that = will not be prioritizing that
 !^don't know = don't know just yet = don't have visibility into that yet = lack line of sight on that
 !>don't know = don't yet know = don't have clarity on = lack visibility into
