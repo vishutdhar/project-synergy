@@ -180,3 +180,15 @@ test("Decode: a bonus delay is not read as no raises, and a coworker leaving is 
   const d = toNormal("Hi all, I'm writing to let you know that Tomas will be leaving us at the end of the week.", { level: 3 });
   assert.doesNotMatch(d.summary, /leader/i);
 });
+
+test("AI decode checks: made-up offices, numbers, denials and lost 'you' are caught", async () => {
+  const { decodeTextFails } = await import("../site/ai-guard.js");
+  assert.equal(decodeTextFails("The office is closing down.", "We are discontinuing the Basic plan.", ["shutdown"]), true);
+  assert.equal(decodeTextFails("Severance goes to people with 10 years.", "Severance packages will include 8 weeks of pay.", ["layoffs"]), true);
+  assert.equal(decodeTextFails("No changes here.", "Please use the new dashboard going forward.", []), true);
+  assert.equal(decodeTextFails("Lumen Labs is being eliminated.", "Your role at Lumen Labs is being eliminated.", ["layoff-you"]), true);
+  assert.equal(decodeTextFails("No layoffs this month.", "We no longer require your services.", ["layoff-you"]), true);
+  assert.equal(decodeTextFails("Your performance is improving, so you're not about to be fired.", "This plan is a formal step.", ["pip"]), true);
+  assert.equal(decodeTextFails("12% of the staff will be cut.", "We are reducing our workforce by approximately 12%.", ["layoffs"]), false);
+  assert.equal(decodeTextFails("Data entry work is moving to a cheaper location.", "We are moving data entry work to lower-cost locations.", ["outsourcing"]), false);
+});

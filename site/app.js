@@ -256,7 +256,7 @@ async function run({ reroll = false } = {}) {
 
 async function runAIDecode(text, level, instant, capNote, reroll) {
   // Show the sentences right away and fill in AI lines as they arrive.
-  const view = { summary: "", signal: instant.signal, lines: instant.lines.map((l) => ({ original: l.original, plain: l.plain })) };
+  const view = { summary: instant.summary, signal: instant.signal, lines: instant.lines.map((l) => ({ original: l.original, plain: l.plain })) };
   renderDecode(view, { pendingFrom: 0 });
   setBusy(true);
   try {
@@ -275,10 +275,11 @@ async function runAIDecode(text, level, instant, capNote, reroll) {
     const final = { summary, lines, signal: instant.signal };
     renderDecode(final);
     const notes = [];
-    if (!res.summaryOk) notes.push("The AI summary missed the main point, so the summary is from Instant mode.");
+    const aiLines = res.lines.filter((l) => l.plain).length;
+    notes.push(aiLines ? "The summary is from Instant mode. AI wrote the sentence lines that passed its checks." : "None of the AI lines passed its checks, so this is the Instant version.");
     if (res.skipped > 0) notes.push(`AI decoded the first ${res.lines.length} sentences. The rest use Instant mode.`);
     if (capNote) notes.push(capNote);
-    setResult({ direction: "toNormal", copyText: formatDecode(final), shareText: `What they really mean: ${summary}`, swapText: plainOf(final), note: notes.join(" "), engine: "AI" });
+    setResult({ direction: "toNormal", copyText: formatDecode(final), shareText: `What they really mean: ${summary}`, swapText: plainOf(final), note: notes.join(" "), engine: aiLines ? "AI" : "Instant (AI fallback)" });
   } catch (err) {
     renderDecode(instant);
     setResult({ direction: "toNormal", copyText: formatDecode(instant), shareText: `What they really mean: ${instant.summary}`, swapText: plainOf(instant), engine: "Instant (AI fallback)", note: `AI mode hit an error, so this is the Instant version. (${err.message})` });

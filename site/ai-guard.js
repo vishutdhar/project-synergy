@@ -181,10 +181,11 @@ export function makeLoopStop(StoppingCriteria) {
 
 // A decode that denies the memo's main news ("No layoffs." for a layoff memo) is wrong, not blunt.
 const DENIALS = {
-  "layoff-you": /\b(?:you(?:'re| are) (?:not|safe)|your job is safe|you keep your job)\b/i,
+  "layoff-you": /\b(?:you(?:'re| are) (?:not|safe)|your job is safe|you keep your job)\b|\bno (?:layoffs?|job cuts)\b/i,
   rejection: /\b(?:it's a yes|you got (?:it|the job)|approved)\b/i,
   layoffs: /\bno (?:layoffs?|job cuts|one (?:is )?(?:losing|getting fired))\b|\bnot (?:laying|cutting|firing)\b|\bno one will lose\b/i,
   "no-raises": /\b(?:raises|bonuses) (?:are|will be) (?:coming|bigger|higher)\b/i,
+  pip: /\bnot (?:about to be |going to be |being )?fired\b|\bnot a step toward(?:s)? firing\b|\bperformance is improving\b/i,
   rto: /\bstay (?:fully )?remote\b|\bno (?:need|one needs) to come (?:in|back)\b/i,
 };
 export function contradictsThemes(text, themeIds = []) {
@@ -193,7 +194,7 @@ export function contradictsThemes(text, themeIds = []) {
 
 // Lines that talk about the task instead of doing it.
 export function isMetaReply(text) {
-  return /\b(?:here(?:'s| is) (?:the|a|my)|short sentence|plain english|translation|rewritten|as an ai)\b|:\s*\.?$/i.test(text);
+  return /\b(?:here(?:'s| is) (?:the|a|my)|short sentence|plain english|translation|rewritten|as an ai|the reader)\b|:\s*\.?$/i.test(text);
 }
 
 // Strong claims a decode line or summary can make. Each one needs support from the memo: one of the
@@ -210,8 +211,34 @@ const CLAIMS = [
   { re: /\bmerg|\bbought\b|\bacqui/i, themes: ["acquisition"], memo: /merg|acqui|joining forces|combined/i },
   { re: /\bPIP\b|improvement plan/i, themes: ["pip"], memo: /plan|improvement|expectations/i },
   { re: /\bshut(?:ting)? down\b|\bclosing down\b/i, themes: ["shutdown", "cost-cuts"], memo: /sunset|shut|clos|discontinu|deprecat|end|retir/i },
-  { re: /back to the office|return to (?:the )?office|in the office more/i, themes: ["rto"], memo: /office|in[- ]person|onsite|on-site/i },
+  { re: /back to the office|return to (?:the )?office|in the office more|office mandate/i, themes: ["rto"], memo: /office|in[- ]person|onsite|on-site/i },
+  { re: /\boffices?\b/i, themes: [], memo: /office|site|building|location|hub|desk|in[- ]person/i },
+  { re: /\blocations?\b|\b(?:cheaper|different|new) place\b/i, themes: [], memo: /locat|offshore|nearshore|country|region|city|site|lower-cost|low-cost|move to|relocat|office/i },
 ];
 export function addsClaims(text, themeIds = [], memo = "") {
   return CLAIMS.some((c) => c.re.test(text) && !c.themes.some((t) => themeIds.includes(t)) && !c.memo.test(memo));
+}
+
+// Numbers the memo never gave ("10 years", "next month") are made up. Small words like "one" are fine.
+const NUM = /\b\d[\d,.]*%?/g;
+export function addsNumbers(text, source = "") {
+  const have = new Set((String(source).match(NUM) ?? []).map((n) => n.replace(/[,.%]+$/, "")));
+  return (String(text).match(NUM) ?? []).some((n) => !have.has(n.replace(/[,.%]+$/, "")));
+}
+
+// One check for an AI decode line or summary, shared by the page, the harness and the grader.
+// themes: the sentence's themes plus the whole memo's themes.
+export function decodeTextFails(text, source, themes = []) {
+  return isMetaReply(text) || contradictsThemes(text, themes) || addsClaims(text, themes, source) || addsNumbers(text, source) || addsDenial(text, source) || dropsYou(text, source);
+}
+
+// "Your role is being eliminated" decoded as "Lumen Labs is being eliminated" loses who it is about.
+export function dropsYou(text, source = "") {
+  return /\byour (?:role|position|job|services|employment|contract)\b/i.test(source) && !/\byou|\byour|\brole\b|\bposition\b|\bjob\b/i.test(text);
+}
+
+// "No changes here." or "No layoffs." for a sentence that denies nothing is made up.
+export function addsDenial(text, source = "") {
+  const denies = /^no\b|\bno (?:changes?|new|layoffs?|more|one)\b|\bnot (?:happening|changing)\b/i.test(text);
+  return denies && !/\bno\b|\bnot\b|n't\b|\bunable\b|\bwithout\b|\bnever\b|\bend|\bstop|discontinu|paus|freez|cancel|eliminat|retir|wind|clos|sunset|\bunfortunately\b/i.test(source);
 }

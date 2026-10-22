@@ -21,12 +21,17 @@ id, direction ("toCorporate" or "toNormal"), category, expected_signal (decode t
 input, must_keep (numbers, names and dates the output has to keep),
 levels: [{ level, ideal_output,
            instant: { output, grade, hand_read, flags, note },
-           ai: { model, output, grade, hand_read, flags, note, gate } or null }]
+           ai: { model, fewshot, output, shown, shown_grade, grade, hand_read, flags, note, gate } or null }]
 ```
 
 - `grade` is `pass` or `fail` when a person read the output, `auto-pass` when only the automated checks ran and found nothing, and `fail` when a check fired.
 - For decode, `output` is the summary, then ` | `, then the per-sentence lines joined with ` || `.
-- `ai.gate` says whether the page would show the AI text (`ok`) or fall back to Instant, and why (`meaning`, `drift`, `idiom`, `crude`, `empty`).
+- `ai.output` is the raw model text. `ai.grade` grades that raw text.
+- `ai.shown` is what the page shows in AI mode: the AI text when it passes the checks, the Instant text otherwise. `ai.shown_grade` grades that. For decode, lines marked `[I]` came from Instant.
+- `ai.gate` says whether the page would show the AI text (`ok`) or fall back to Instant, and why (`meaning`, `drift`, `idiom`, `crude`, `empty`, `guard`, `unsafe`). For decode it is `lines-only` when some AI lines are shown, or `fallback`.
+- `ai.fewshot` is `retrieval` (the nearest hand-written examples, minus the item itself) or `fixed`.
+- Decode summaries in AI mode come from Instant. The 0.5B model's summaries made up offices, locations and denials too often in this round, so the page shows only AI lines that pass `decodeTextFails` in `site/ai-guard.js`. The raw AI summary is still in `ai.output` for training.
+- The grader re-runs the current gates on the stored model text, so a gate change does not need a new model run. Hand labels live in `labels-ai.tsv`, `labels-instant-before.tsv` and `labels-instant-after.tsv` next to the runs.
 
 ## Using it
 
@@ -41,7 +46,7 @@ levels: [{ level, ideal_output,
 node tests/variations/build.mjs
 node scripts/variations-eval.mjs <tag>
 node scripts/variations-ai.mjs --dir toCorporate --out runs/<tag>.s0.jsonl --shard 0/3
-node scripts/variations-grade.mjs --instant <tag> --ai <ai-tags> --dec <decode-ai-tags>
+node scripts/variations-grade.mjs --instant <tag> --ai <ai-tags> --dec <decode-ai-tags>   # first tag of each is written to dataset.jsonl
 ```
 
 The eval and AI scripts write to `/workspace/project-synergy-research/variations/`, outside the repo.

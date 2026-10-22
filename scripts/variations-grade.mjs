@@ -2,7 +2,8 @@
 // A row passes when the automated checks find nothing and, if a person read it, the hand label is not F.
 // Usage: node scripts/variations-grade.mjs --instant r12 --before before --ai q25-corp-after,q3-corp,q25rag-corp --dec q25-dec-after,q3-dec
 import fs from "node:fs";
-import { toCorporateDetailed } from "../site/engine.js";
+import { toCorporateDetailed, toNormal, detectThemes } from "../site/engine.js";
+import { decodeTextFails } from "../site/ai-guard.js";
 import { checkMeaning } from "../site/meaning.js";
 import { hasCrude, lostIdioms, findCrude } from "../site/profanity.js";
 import { aiCorporateGate, isFlat } from "../site/faithful.js";
@@ -10,6 +11,7 @@ import { summaryCoversThemes } from "../site/ai-prompts.js";
 import { corporateFlags, overlap, mustKeep } from "../tests/variations/checks.mjs";
 
 const arg = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : d; };
+const SHOW_AI_SUMMARY = process.argv.includes("--ai-summary");
 const R = "/workspace/project-synergy-research/variations/";
 const items = JSON.parse(fs.readFileSync(new URL("../tests/variations/items.json", import.meta.url)));
 const byId = Object.fromEntries(items.map((i) => [i.id, i]));
@@ -61,7 +63,7 @@ function gradeAI(tag, labels, instantRows) {
   return rows.map((r) => {
     const item = byId[r.id];
     const read = labels.readRanges.some((x) => x.file === `${tag}.s${r.shard}` && r.idx >= x.from && r.idx < x.to);
-    const hand = labels.fail.get(`${tag}:${key(r)}`) ?? (tag.startsWith("q25-") && !tag.includes("rag") ? labels.fail.get(key(r)) : undefined);
+    const hand = labels.fail.get(`${tag}:${key(r)}`) ?? (tag === "q25-corp-after" ? labels.fail.get(key(r)) : undefined);
     if (item.direction === "toCorporate") {
       const ai = r.ai_text ?? "";
       const auto = ai ? corporateFlags(item.input, ai, r.level) : ["empty"];
@@ -74,16 +76,28 @@ function gradeAI(tag, labels, instantRows) {
       const shownPass = gate === "ok" ? rawPass : fallback.pass;
       return { ...r, text: ai, auto, read, hand, gate, rawPass, shownPass, sim: overlap(ai, item.ideal[r.level - 1]) };
     }
+    // Decode: re-run the current AI decode checks on the stored model text, so gate changes need no rerun.
+    // Hand labels on decode rows judge what the page shows (AI summary and lines that pass, Instant for the rest).
+    const instR = toNormal(item.input, { level: r.level, seed: 1 });
+    const memoThemes = instR.themes ?? [];
+    const lines = r.lines.map((l, i) => {
+      const aiOk = Boolean(l.ai) && !decodeTextFails(l.ai, l.original, [...detectThemes(l.original), ...memoThemes]);
+      return { ...l, aiOk, shown: aiOk ? l.ai : (instR.lines[i]?.plain ?? l.shown) };
+    });
     const summary = r.ai_summary ?? "";
     const auto = [];
     if (!summary) auto.push("empty");
     if (summary && item.signal && !["none", "fluff"].includes(item.signal) && !summaryCoversThemes(summary, [item.signal])) auto.push("signal");
     if (findCrude(summary).length) auto.push("crude");
     for (const l of r.lines) if (l.ai && overlap(l.original, l.ai) > 0.6) auto.push("echo");
+    // The page no longer shows AI decode summaries (too many made-up details in this round), only AI lines.
+    const summaryOk = SHOW_AI_SUMMARY && Boolean(r.summary_ok && summary) && !decodeTextFails(summary, item.input, memoThemes);
+    const aiShown = summaryOk || lines.some((l) => l.aiOk);
+    const shownText = `${summaryOk ? summary : instR.summary} | ${lines.map((l) => (l.aiOk ? "" : "[I] ") + l.shown).join(" || ")}`;
     const rawPass = !auto.length && !hand;
     const fallback = inst[key(r)];
-    const shownPass = r.summary_ok && summary ? rawPass : fallback.pass;
-    return { ...r, text: `${summary} | ${r.lines.map((l) => l.ai || "<fallback>").join(" || ")}`, auto: [...new Set(auto)], read, hand, gate: r.summary_ok ? "ok" : "fallback", rawPass, shownPass, sim: overlap(summary, item.ideal[r.level - 1]) };
+    const shownPass = aiShown ? !hand && !(summaryOk && auto.length) : fallback.pass;
+    return { ...r, text: `${summary} | ${r.lines.map((l) => l.ai || "<fallback>").join(" || ")}`, shownText, auto: [...new Set(auto)], read, hand, gate: summaryOk ? "ok" : aiShown ? "lines-only" : "fallback", rawPass, shownPass, sim: overlap(summaryOk ? summary : instR.summary, item.ideal[r.level - 1]) };
   });
 }
 
@@ -141,6 +155,8 @@ for (const [t, rows] of Object.entries(ai)) {
   out.push(`  AI shown on ${pct(rows.filter((r) => r.gate === "ok").length, rows.length)} of rows; hand-read pass rate of the AI text that gets shown: ${pct(okRead.filter((r) => r.rawPass).length, okRead.length)} (${okRead.length} rows)`);
   out.push(`  mean overlap with ideal_output ${(rows.reduce((a, r) => a + r.sim, 0) / rows.length).toFixed(3)}`);
 }
+// Hand-read comparisons that do not fit the per-run tables (paired before/after samples, model choice).
+if (fs.existsSync(`${R}graded-notes.txt`)) out.push("", fs.readFileSync(`${R}graded-notes.txt`, "utf8").trim());
 fs.writeFileSync(`${R}graded.txt`, out.join("\n") + "\n");
 console.log(out.join("\n"));
 
@@ -156,7 +172,7 @@ const ds = items.map((item) => {
       level,
       ideal_output: item.ideal[level - 1],
       instant: { output: ins?.text ?? "", grade: !ins?.pass ? "fail" : ins.read ? "pass" : "auto-pass", hand_read: Boolean(ins?.read), flags: ins?.auto ?? [], note: ins?.hand ?? "" },
-      ai: a ? { model: a.model, output: a.text, grade: !a.rawPass ? "fail" : a.read ? "pass" : "auto-pass", hand_read: a.read, flags: a.auto, note: a.hand ?? "", gate: a.gate } : null,
+      ai: a ? { model: a.model, fewshot: a.fewshot ?? "fixed", output: a.text, shown: a.shownText ?? a.shown ?? "", shown_grade: a.shownPass ? (a.read ? "pass" : "auto-pass") : "fail", grade: !a.rawPass ? "fail" : a.read ? "pass" : "auto-pass", hand_read: a.read, flags: a.auto, note: a.hand ?? "", gate: a.gate } : null,
     };
   });
   return { id: item.id, direction: item.direction, category: item.category, expected_signal: item.signal ?? null, input: item.input, must_keep: item.direction === "toCorporate" ? mustKeep(item.input) : [], levels: lv };

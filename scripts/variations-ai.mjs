@@ -5,7 +5,7 @@
 import fs from "node:fs";
 import { pipeline, env, random, StoppingCriteria, LogitsProcessor } from "@huggingface/transformers";
 import * as P from "../site/ai-prompts.js";
-import { guardOutput, echoesExample, contradictsThemes, isMetaReply, addsClaims, generationOptions, repeatSettings, sampleSeed, makeLoopStop, makeRepeatGuard } from "../site/ai-guard.js";
+import { guardOutput, echoesExample, contradictsThemes, isMetaReply, addsClaims, decodeTextFails, generationOptions, repeatSettings, sampleSeed, makeLoopStop, makeRepeatGuard } from "../site/ai-guard.js";
 import { softenCrude, toCorporateDetailed, toNormal, detectThemes } from "../site/engine.js";
 import { checkMeaning } from "../site/meaning.js";
 import { hasCrude, addsCrude, lostIdioms } from "../site/profanity.js";
@@ -80,12 +80,12 @@ for (const item of mine) for (const level of levels) {
     for (let i = 0; i < sentences.length; i++) {
       const themes = detectThemes(sentences[i]);
       let plain = guardOutput(P.firstLine(await ask(P.buildDecodeMessages(sentences[i], level, themes), "line", sentences[i], sampleSeed(sentences[i], level, 1, i + 1))), { maxWords: 40 }).text;
-      if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8) || addsCrude(sentences[i], plain) || addsClaims(plain, [...themes, ...(instant.themes ?? [])], sentences[i])) plain = "";
+      if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8) || addsCrude(sentences[i], plain) || decodeTextFails(plain, sentences[i], [...themes, ...(instant.themes ?? [])])) plain = "";
       lines.push({ original: sentences[i], ai: plain, shown: plain || instant.lines[i]?.plain || "" });
     }
     const tagged = lines.filter((l) => detectThemes(l.original).length).map((l) => l.shown);
     const summary = guardOutput(P.firstLine(await ask(P.buildSummaryMessages(tagged.length ? tagged : lines.map((l) => l.shown), level, instant.themes ?? []), "summary", "", sampleSeed(item.input, level, 1, -1))), { maxWords: 40 }).text;
-    const summaryOk = P.summaryCoversThemes(summary, instant.themes ?? []) && !contradictsThemes(summary, instant.themes ?? []) && !isMetaReply(summary) && !addsCrude(item.input, summary) && !addsClaims(summary, instant.themes ?? [], item.input);
+    const summaryOk = P.summaryCoversThemes(summary, instant.themes ?? []) && !contradictsThemes(summary, instant.themes ?? []) && !isMetaReply(summary) && !addsCrude(item.input, summary) && !decodeTextFails(summary, item.input, instant.themes ?? []);
     row = { id: item.id, level, model, ai_summary: summary, summary_ok: summaryOk, shown_summary: summaryOk && summary ? summary : instant.summary, lines };
   }
   row.ms = Date.now() - t1;

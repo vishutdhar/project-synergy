@@ -8,7 +8,7 @@ import {
   MODEL_ID, MAX_AI_SENTENCES, sentencesForDecode, buildDecodeMessages, buildSummaryMessages,
   buildRetrievalCorporateMessages, firstLine, summaryCoversThemes, CORPORATE_EXAMPLE_ANSWERS,
 } from "./ai-prompts.js";
-import { guardOutput, echoesExample, contradictsThemes, isMetaReply, addsClaims, generationOptions, repeatSettings, sampleSeed, makeLoopStop, makeRepeatGuard } from "./ai-guard.js";
+import { guardOutput, echoesExample, contradictsThemes, isMetaReply, addsClaims, decodeTextFails, generationOptions, repeatSettings, sampleSeed, makeLoopStop, makeRepeatGuard } from "./ai-guard.js";
 
 const LoopStop = makeLoopStop(StoppingCriteria);
 const RepeatGuard = makeRepeatGuard(LogitsProcessor);
@@ -95,16 +95,14 @@ self.onmessage = async (event) => {
         let plain = guardOutput(firstLine(await ask(buildDecodeMessages(sentences[i], msg.level, themes), "line", sentences[i], sampleSeed(sentences[i], msg.level, msg.seed, i + 1))), { maxWords: 40 }).text;
         // Empty means the page uses the Instant line for this sentence.
         // Also when it just repeats the original sentence back.
-        if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8) || addsCrude(sentences[i], plain) || addsClaims(plain, [...themes, ...(msg.themes ?? [])], sentences[i])) plain = "";
+        if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8) || addsCrude(sentences[i], plain) || decodeTextFails(plain, sentences[i], [...themes, ...(msg.themes ?? [])])) plain = "";
         lines.push({ original: sentences[i], plain });
         self.postMessage({ type: "line", id: msg.id, index: i, total: sentences.length, original: sentences[i], plain });
       }
-      const tagged = lines.filter((l) => detectThemes(l.original).length).map((l) => l.plain);
-      const summary = guardOutput(
-        firstLine(await ask(buildSummaryMessages(tagged.length ? tagged : lines.map((l) => l.plain), msg.level, msg.themes ?? []), "summary", "", sampleSeed(msg.text, msg.level, msg.seed, -1))),
-        { maxWords: 40 },
-      ).text;
-      const summaryOk = summaryCoversThemes(summary, msg.themes ?? []) && !contradictsThemes(summary, msg.themes ?? []) && !isMetaReply(summary) && !addsCrude(msg.text, summary) && !addsClaims(summary, msg.themes ?? [], msg.text);
+      // The headline summary comes from Instant mode. In the 1,000-input round the 0.5B model's summaries
+      // invented offices, locations and denials too often to show (tests/variations, graded.txt).
+      const summary = "";
+      const summaryOk = false;
       self.postMessage({ type: "decoded", id: msg.id, summary, summaryOk, lines, skipped: all.length - sentences.length });
     }
   } catch (err) {

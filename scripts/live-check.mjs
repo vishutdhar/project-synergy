@@ -4,6 +4,7 @@
 import puppeteer from "puppeteer-core";
 import { toCorporateDetailed, toNormal } from "../site/engine.js";
 import { aiCorporateGate } from "../site/faithful.js";
+import { decodeTextFails } from "../site/ai-guard.js";
 import { findCrude } from "../site/profanity.js";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:8787/";
@@ -92,7 +93,7 @@ if (withAI) {
   const status = await page.$eval("#ai-status-text", (e) => e.textContent);
   log(/ready/.test(status), `AI status: ${status}`);
   await toDirection("toCorporate");
-  for (const [text, level] of [["i can't make the meeting, i'm swamped", 2], ["fuck all was done in that meeting", 1], ["the build is broken again", 3], ["recieved the contract, will reveiw tonite", 1], ["we lost the Hooli deal", 2], ["I need the numbers by Thursday", 3]]) {
+  for (const [text, level] of [["i can't make the meeting, i'm swamped", 2], ["fuck all was done in that meeting", 1], ["the build is broken again", 3], ["recieved the contract, will reveiw tonite", 1], ["we lost the Hooli deal", 2], ["I need the numbers by Thursday", 3], ["the plan is to fuck off all day today", 2], ["is the 2pm still happening", 1], ["Ops fucked up the migration", 3], ["can you review my PR before lunch?", 2]]) {
     await setLevel(level);
     await run(text);
     const got = await page.$eval(".corporate-out", (e) => e.textContent);
@@ -102,10 +103,16 @@ if (withAI) {
     log(ok, `AI N>C L${level} ${JSON.stringify(text)} [${engine}] => ${JSON.stringify(got)}`);
   }
   await toDirection("toNormal");
-  await setLevel(2);
-  await run(dec[1]);
-  const summary = await page.$eval(".summary", (e) => e.textContent);
-  log(/lay|cut|fir|job/i.test(summary) && !findCrude(summary).length, `AI C>N L2 right-size memo => ${JSON.stringify(summary)}`);
+  // AI decode: the summary comes from Instant mode, and every shown line passes the decode checks.
+  for (const [text, level] of [[dec[1], 2], [dec[6], 3], [dec[9], 1], ["We are discontinuing the Basic plan. Existing customers will move to the Plus plan at the same price until renewal.", 2]]) {
+    await setLevel(level);
+    await run(text);
+    const summary = await page.$eval(".summary", (e) => e.textContent);
+    const lines = await page.$$eval("ol.decode li > p", (els) => els.map((e) => e.textContent));
+    const want = toNormal(text, { level, seed: 1 });
+    const badLine = lines.find((l, i) => findCrude(l).length || (l !== want.lines[i]?.plain && decodeTextFails(l, want.lines[i]?.original ?? text, want.themes)));
+    log(summary.includes(want.summary) && !badLine, `AI C>N L${level} ${JSON.stringify(text.slice(0, 50))} => ${JSON.stringify(summary)}${badLine ? ` bad line ${JSON.stringify(badLine)}` : ""} (${lines.length} lines)`);
+  }
 }
 log(errors.length === 0, `no page or console errors${errors.length ? `: ${errors.join(" | ")}` : ""}`);
 console.log(`\n${pass} passed, ${fails.length} failed`);
