@@ -4,6 +4,13 @@
 // Matching is case insensitive and whole word. Longer phrases win over shorter ones.
 
 export const CORPORATE_SWAPS = `
+!like actually = seriously = genuinely = in all candor
+!for like = for about = for roughly = for approximately
+!amazing how = it's remarkable how = it's truly remarkable how = it's a masterclass in agility how
+!so glad we = really glad we = thrilled that we = truly energized that we
+!oh look, = well, look: = interesting development: = a fun development:
+!my brain is fried = I'm mentally drained = I'm running low on bandwidth = my cognitive bandwidth is fully depleted
+!happy friday everyone = happy Friday, everyone = wishing everyone a happy Friday = wishing the whole team a high-impact Friday
 !^jesus christ = wow = yikes = what a development
 i don't understand = I'm not sure I understand = I'm not fully clear on = I lack clarity on
 i don't agree with = I'm not sure I agree with = I'm not aligned with = I'm not aligned with the strategic direction of

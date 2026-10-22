@@ -164,6 +164,7 @@ const PHRASES = `
 !fucking with = messing with = interfering with = disrupting
 !fucked with = messed with = interfered with = disrupted
 !{fuck|screw|dick} around = mess around = waste time = engage in low-value activity
+!stop {fucking|screwing|dicking} around and = let's focus and = let's get focused and = let's prioritize execution and
 !{fucking|screwing|dicking} around = messing around = wasting time = engaging in low-value activity
 !{fucked|screwed|dicked} around = messed around = wasted time = engaged in low-value activity
 !{jerk|jerking|jerked|jerks} {us|me|them|him|her|you} around = mess $2 around = string $2 along = not be straight with $2
@@ -234,6 +235,7 @@ const PHRASES = `
 !{shittier|crappier} = worse = lower-quality = more suboptimal
 !{feel|felt|feeling|feels} like {shit|crap} = $1 terrible = $1 unwell = $1 like I'm at reduced capacity
 !{look|looks|looked|looking} like {shit|crap} = $1 bad = $1 rough = $1 far from launch-ready
+!what a {shitty|crappy|shit|crap} week = what a rough week = what a challenging week = what a week of significant headwinds
 !like {shit|crap} = badly = poorly = suboptimally
 !{is|are|was|were} shit = $1 bad = $1 disappointing = $1 underperforming
 !{is|are|was|were} crap = $1 not great = $1 low quality = $1 underperforming
@@ -280,6 +282,7 @@ const PHRASES = `
 !{pisses|pissed|pissing} {me|us|him|her|them|everyone|people} off = {annoys|annoyed|annoying} $2 = {frustrates|frustrated|frustrating} $2 = {creates friction for|created friction for|creating friction for} $2
 !piss off the = annoy the = frustrate the = create friction with the
 !pissing off the = annoying the = frustrating the = creating friction with the
+!piss off with = please give it a rest with = I'd ask that we pause = I'd propose we sunset
 !piss off = please leave me alone = please give me some space = let's take a step back
 !pisses me off = annoys me = frustrates me = creates friction for me
 !{taking|take|takes|took} the piss = $1 it too far = $1 an unreasonable position = $1 a position that's not in good faith

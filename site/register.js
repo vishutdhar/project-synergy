@@ -10,7 +10,7 @@ const M = (s) => "\u0000" + s + "\u0001";
 const strip = (s) => String(s).replace(/[\u0000\u0001]/g, "");
 
 // Words that can start a sentence and still read right in lowercase after a lead-in.
-const LOWERABLE = new Set(("the a an this that these those there it it's its our my your their his her we we're we've we'll " +
+const LOWERABLE = new Set(("wow yes yeah oh so well happy really thrilled truly the a an this that these those there it it's its our my your their his her we we're we've we'll " +
   "you you're they they're he she everyone everybody someone somebody nobody nothing everything all some no not just also still " +
   "so then now today tomorrow tonight yesterday apparently honestly basically one two three half most none each every any " +
   "here what who when where why how which is are was were do does did can could will would should has have had").split(" "));
@@ -28,7 +28,7 @@ export function lowerFirst(marked, { force = false } = {}) {
 }
 
 // Verbs a sentence can open with as an instruction to the reader.
-const REQUEST_VERBS = "send|call|check|fix|review|look|update|tell|ask|add|share|book|schedule|cancel|delete|remove|push|merge|finish|sign|approve|submit|print|bring|grab|join|help|confirm|double-check|find|write|fill|order|pay|clean|turn|open|close|restart|install|include|invite|reply|respond|answer|forward|email|text|ping|post|upload|download|print|rename|move|reschedule|resend|re-send|give|show|get|read|test|deploy|ship|stop|quit|keep|remember|make|put|set|leave|come|follow|wait|hold|take|label|tag|file|fill out|note|loop|cc|bcc|unmute|mute|mention|explain|clarify|walk|send over|hand|return|start|try|run|pull|use";
+const REQUEST_VERBS = "restock|refill|replace|water|empty|unjam|send|call|check|fix|review|look|update|tell|ask|add|share|book|schedule|cancel|delete|remove|push|merge|finish|sign|approve|submit|print|bring|grab|join|help|confirm|double-check|find|write|fill|order|pay|clean|turn|open|close|restart|install|include|invite|reply|respond|answer|forward|email|text|ping|post|upload|download|print|rename|move|reschedule|resend|re-send|give|show|get|read|test|deploy|ship|stop|quit|keep|remember|make|put|set|leave|come|follow|wait|hold|take|label|tag|file|fill out|note|loop|cc|bcc|unmute|mute|mention|explain|clarify|walk|send over|hand|return|start|try|run|pull|use";
 const DECISION_VERBS = "pick|choose|go|skip|drop|cut|kill|stick|ditch|scrap|pause|postpone|delay|push back|wait|just";
 const REQ_RE0 = new RegExp(`^(?:just )?(?:${REQUEST_VERBS})\\b`, "i");
 // "Call with the Tokyo office at 7am" is a noun, not an instruction.
@@ -275,7 +275,7 @@ function restructureAt(marked, lvl, ctx = {}) {
     if (needX && words <= 16) {
       const S = needX[1].toLowerCase() === "i" ? "I" : "we";
       const obj = needX[2];
-      if (S === "I" && /^(?:the|a|an|my|your|some|more|those|that|this|these|\d|access|feedback|sign-?off|approval|input|eyes)\b/i.test(obj)) {
+      if (S === "I" && /^(?:the|a|an|my|your|some|more|those|that|this|these|\d|access|feedback|sign-?off|approval|input|eyes)\b/i.test(obj) && !/\bor (?:we|I|it|you|they|else)\b/i.test(obj)) {
         if (lvl === 1) return done(`${M("Could I get")} ${obj}?`, "indirect-request");
         if (lvl === 2) return done(`${had ? "" : useLabel("Quick ask:") + " "}${M(had ? "Could I get" : "could I get")} ${obj}?`, "indirect-request");
         return none;
@@ -382,6 +382,17 @@ function restructureAt(marked, lvl, ctx = {}) {
       if (lvl === 2) return done(`${had ? "" : useLabel("Quick flag:") + " "}${M(had ? "Please don't" : "please don't")} ${r}.`, "polite-negative");
       return done(`${M("Please don't")} ${r}.`, "polite-negative");
     }
+    const sbp = body.match(/^(somebody|someone|anyone),? please,? (.+)$/i);
+    if (sbp && REQ_RE.test(sbp[2]) && words <= 22 && !/\band (?:I|I'll|we|we'll|then)\b/i.test(sbp[2])) {
+      const r = markedBody.replace(/^\u0000?(?:somebody|someone|anyone)\u0001?,?\s+\u0000?please\u0001?,?\s+/i, "");
+      if (r !== markedBody) {
+        if (lvl === 1) return done(`${M("Could someone please")} ${lowerFirst(r, { force: true })}?`, "indirect-request");
+        if (lvl === 2) return done(`${M("Would someone be able to")} ${lowerFirst(r, { force: true })}?`, "indirect-request");
+        return none;
+      }
+    }
+    const split = body.match(/^I'll ([^,]{3,40}), you (\w+)([^,]*)$/);
+    if (split && lvl === 1 && !isQ) return done(`${M("I'll")} ${split[1]}, ${M("and you can")} ${split[2]}${split[3]}.`, "polite-split");
     const please = body.match(/^(?:please|pls|plz),? (.+)$/i);
     if (please && REQ_RE.test(please[1]) && words <= 22 && !/,\s*(?:I|we|you|it|they)\b/i.test(please[1]) && !/\band (?:I|I'll|we|we'll|then)\b/i.test(please[1])) {
       const r = markedBody.replace(/^\u0000?(?:please|pls|plz)\u0001?,?\s+/i, "");
@@ -587,7 +598,7 @@ function restructureAt(marked, lvl, ctx = {}) {
 
   // Praise gets a kudos label at Middle Manager, never a heads-up.
   const PRAISE = /\b(?:lifesaver|saved|nailed|crushed|killed it|thoughtful|great job|great work|amazing|awesome|rock|rocks|star|legend|the best|well done|kudos|shout-?out|proud of|impressive|brilliant|fantastic|stellar)\b/i;
-  if (PRAISE.test(body) && !isQ && !/\b(?:not|no|never|n't)\b/i.test(body)) {
+  if (PRAISE.test(body) && !isQ && !/"|^another\b|\bhow\b/i.test(body) && !/\b(?:not|no|never|n't)\b/i.test(body)) {
     if (lvl === 2 && !had && ctx.first) return done(`${useLabel("Kudos:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "praise");
     return none;
   }
@@ -596,7 +607,7 @@ function restructureAt(marked, lvl, ctx = {}) {
   const update = ctx.first && words >= 2 && words <= 30 && !REQ_RE.test(body) && !DEC_RE.test(body) && !/\b(?:to be honest|be honest|honestly)\b/i.test(body) && !/^(?:I think|honestly|frankly|unpopular opinion|imo|I'd|I would|I'm happy|I'm glad|happy to|glad to)\b/i.test(body) && !/^(?:and|but|or|so|because)\b/i.test(body) && !/^[\w']+(?: [\w']+)?,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body);
   if (update) {
     const personal = /^(?:I|I'm|I've|I'll|I'd|my)\b/.test(body);
-    if (lvl === 2 && !had) return done(`${useLabel(personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
+    if (lvl === 2 && !had) return done(`${useLabel(/^I hope\b/.test(body) ? "Warm wishes:" : personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
     if (lvl === 1 && ctx.forceMild && (ctx.count ?? 1) <= 2 && (subjectOk || iStatement) && !/^that\b/i.test(body)) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "frame");
   }
   return none;

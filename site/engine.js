@@ -1,5 +1,5 @@
 // Project Synergy rewrite engine. Pure functions, no network, runs in the browser and in Node.
-import { restructure, tokenSim, polishRegister } from "./register.js";
+import { restructure, tokenSim, polishRegister, lowerFirst } from "./register.js";
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
   DECODE_SWAPS, THEMES, NEGATIVE_CUES, FLUFF_PATTERNS, FLUFF_LINES, PLAIN_LINES, SPECIAL_LINES,
@@ -595,7 +595,9 @@ export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
   const lvl = clampLevel(level);
   // Censored spellings become plain ones (f*ck, wtf) so the crude rewrites can catch them. Slurs never get through.
   // Texting shorthand becomes plain words first.
-  const clean = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
+  const clean = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim()
+    // Run-on "a call with Northwind they want a demo" -> "a call with Northwind. They want a demo".
+    .replace(/\b(with|from|to|at|for) ([A-Z][a-z]+) (they|she|he) (?=\w)/g, (_m, p, n, w) => `${p} ${n}. ${w[0].toUpperCase()}${w.slice(1)} `);
   const empty = { text: "", check: { ok: true, lost: [], added: [] }, fallback: "", unsafe: [] };
   if (!clean) return empty;
   // A sentence with no safe rewrite is left out, so the meaning check skips it too.
@@ -614,6 +616,7 @@ export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
         dropped.push(...d2);
       }
     }
+    text = levelFloor(input, clean, text, lvl, seed);
     const check = checkMeaning(without(dropped), text);
     if (check.ok && !hasCrude(text)) return { text, check, fallback: k ? "reseed" : "", unsafe: [...new Set(dropped)] };
   }
@@ -627,6 +630,25 @@ export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
     text = polishCase(tidy(safe.text));
   }
   return { text, check: checkMeaning(without(dropped), text), fallback: "plain", unsafe: [...new Set(dropped)] };
+}
+
+// Last resort so each level reads differently. Mild that is still a tidy copy gets a soft opener;
+// Middle Manager that reads the same as Mild gets a label. Sarcasm and interjections are left alone at Mild.
+const HAS_LABEL = /^[A-Z][\w' ,-]{1,32}:\s/;
+const INTERJECTION = /^(?:everyone|team|folks|all|really|truly|wow|oh|ah|yeah|yes|yay|ugh|lol|haha|so glad|love|amazing|sure|great|cool|nice|thanks|thank you|hi|hey|hello|happy|welcome|congrat|hmm|ok|okay|fine|same|no|nope|yep)\b/i;
+function levelFloor(input, clean, text, lvl, seed) {
+  const words = text.split(/\s+/).filter(Boolean).length;
+  if (words < 3 || /\n/.test(text) || HAS_LABEL.test(text)) return text;
+  if (lvl === 1 && words < 4) return text;
+  if (lvl === 1 && tokenSim(clean, text) >= 0.9 && !INTERJECTION.test(text) && !/^[^.!?]*\?/.test(text) && !/\bby the way\b|\bplease\b/i.test(text) && !/^(?:I|I'm|I'll|I've|I'd|Just|Please|Could|Would|Can|Let's|Unfortunately|Apologies|Sorry)\b/.test(text)) {
+    const lf = lowerFirst(text);
+    if (/^[a-z]/.test(lf) || /^I\b/.test(lf)) return `Just so you know, ${lf}`;
+  }
+  if (lvl === 2) {
+    const mild = toCorporateDetailed(input, { level: 1, seed }).text;
+    if (tokenSim(mild, text) >= 0.9 || tokenSim(clean, text) >= 0.9) return `For visibility: ${lowerFirst(text)}`;
+  }
+  return text;
 }
 
 export function toCorporate(input, opts = {}) {
