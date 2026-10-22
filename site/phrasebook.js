@@ -9,14 +9,14 @@ i have no idea = I'm not sure yet = I don't have the full picture yet = I lack t
 !no idea = no clear answer yet = limited visibility = zero line of sight
 i don't care = I'm flexible on this = I'm agnostic on that = I'm fully outcome-agnostic here
 i don't have time = my plate is full = I don't have the bandwidth = I'm at full capacity across all verticals
-no time = limited time = zero bandwidth = no available capacity
+no time = no spare time = zero bandwidth = no available capacity
 !i'm busy = I'm tied up = I'm heads down = I'm in deep execution mode
 !i'm tired = I'm worn out = I'm at reduced capacity = my personal battery KPIs are trending down
 i'm hungry = I could use a break = I need to refuel = I need to optimize my caloric pipeline
 i'm bored = I'm looking for a new challenge = I'm seeking more strategic stretch = I'm under-leveraged
 !i'm sorry = I apologize = I acknowledge the miss = I take full ownership of the learning opportunity
 !^sorry = apologies = apologies for the friction = I own that misalignment
-my bad = my mistake = I'll own that = that's a learning I'm taking forward
+my bad = my mistake = I own that = that's a learning I'm taking forward
 !^i quit = I'm moving on = I'm transitioning to my next chapter = I'm exploring opportunities outside the org
 i'm leaving = I'm heading out = I'm transitioning out = I'm sunsetting my presence
 i'm out = I'm signing off = I'm stepping back = I'm exiting this workstream
@@ -42,11 +42,11 @@ calm down = let's slow down a bit = let's reset the temperature = let's recalibr
 !^yes = sounds good = absolutely, I'm aligned = that's a strong yes from a strategic standpoint
 ^yeah = sure = absolutely = affirmative, let's operationalize that
 ^yep = sure = absolutely = that's a hard yes
-!^no = not right now = that's not a priority this quarter = we're going to deprioritize that
-^nope = not this time = that's a no for now = that's not on the roadmap
+!^no = no, thanks = that's a no from me = that's a hard no from a strategic standpoint
+^nope = no, thanks = that's a no from me = that's a hard no, and it's not on the roadmap
 maybe = possibly = potentially = potentially
 probably = likely = likely = directionally
-never = not in the near term = not on the current roadmap = not in this fiscal lifetime
+never = never = never ever = at no point in this or any fiscal year
 right now = right away = as a top priority = immediately, with urgency
 !asap = soon = at your earliest convenience = with maximum urgency
 later = a bit later = in a future sprint = in a later phase
@@ -55,6 +55,10 @@ next week = next week = early next sprint = in the next planning horizon
 this week = this week = this sprint = within the current execution window
 eventually = in time = down the road = at some point on the long-term roadmap
 again = once more = one more time = in another iteration
+!happen again = happen again = recur = recur in any future iteration
+!it won't = it will not = it definitely will not = it categorically will not
+!this won't = this will not = this definitely will not = this categorically will not
+!that won't = that will not = that definitely will not = that categorically will not
 idea = thought = initiative = strategic initiative
 ideas = thoughts = initiatives = strategic initiatives
 goal = goal = objective = north star
@@ -109,7 +113,7 @@ people = folks = stakeholders = human capital
 everyone = everyone = all hands = the entire ecosystem
 customer = customer = client = end user
 customers = customers = clients = end users
-users = users = end users = our user ecosystem
+users = users = end users = end-user ecosystem
 job = role = position = career journey
 working = working = executing = driving outcomes
 worked = worked = executed = delivered value
@@ -172,7 +176,9 @@ tell = tell = inform = socialize this with
 told = told = informed = socialized this with
 tell me = let me know = keep me posted = keep me in the loop
 let me know = let me know = keep me posted = keep me in the loop
-send = send = share = circulate
+send = send = send over = circulate
+send me = send me = please send me = kindly send over
+send you = send you = send over = circulate
 sent = sent = shared = circulated
 share = share = socialize = cascade
 learn = learn = upskill = upskill
@@ -245,7 +251,7 @@ can you = could you = would you be able to = do you have the bandwidth to
 could you = could you = would you be able to = do you have the bandwidth to
 !>i can't = I'm unable to = I don't have the capacity to = I'm not resourced to
 !>can't = cannot = won't be able to = won't have the bandwidth to
-^i won't = I'd rather not = I'm not going to commit to that = I'm declining to operationalize that
+^i won't = I won't = I'm not going to commit to that = I'm declining to operationalize that
 not my job = not my area = outside my scope = outside my core competency
 not my problem = not my area = outside my scope = not in my swim lane
 who cares = it's not a priority = that's low impact = that's not needle-moving
@@ -272,7 +278,7 @@ worried = concerned = cautious = risk-aware
 confused = unclear = seeking clarity = seeking alignment
 !hate = dislike = have concerns about = have strategic reservations about
 !love = really like = really value = deeply value
-want = want = would like = would love
+>want = want = would like = would love
 understand = understand = get = have alignment on
 remember = remember = recall = have institutional memory of
 forget = forget = drop = deprioritize
@@ -340,7 +346,7 @@ i've got it = I've got it covered = I've got this handled = I'm owning this end 
 makes sense = makes sense = that tracks = that resonates strategically
 good idea = good idea = solid initiative = best-in-class strategic initiative
 !bad idea = questionable idea = risky initiative = value-destroying initiative
-no way = not likely = that's a tough sell = that's not on the roadmap
+no way = definitely not = that's a firm no = that's a hard no from a roadmap standpoint
 sounds good = sounds good = I'm aligned = love the alignment here
 i'm sick = I'm sick = I'm out sick = I'm operating at reduced capacity
 call me = call me = ping me = let's set up a touchbase
@@ -363,7 +369,7 @@ too much = too much = a lot = over capacity
 !i'm slammed = I'm buried = I'm underwater = I'm at max capacity across all verticals
 !^can't = cannot = cannot commit to that = cannot commit bandwidth to that
 !^i can't = I'm unable to make that work = I'm not able to commit to that = I'm unable to commit bandwidth to that
-!>won't = will not = would rather not = won't be in a position to
+!>won't = will not = will definitely not = won't be in a position to
 !^won't = will not = will not be doing that = will not be prioritizing that
 !^don't know = don't know just yet = don't have visibility into that yet = lack line of sight on that
 !>don't know = don't yet know = don't have clarity on = lack visibility into
@@ -392,7 +398,7 @@ too much = too much = a lot = over capacity
 !sorry about = apologies for = I acknowledge the miss on = I take full ownership of
 !so sorry = very sorry = sincerely apologetic = deeply aligned on owning this
 !^sure = of course = happy to = absolutely, let's operationalize that
-!^nah = not this time = I'll pass for now = that's not on the roadmap
+!^nah = no thanks = I'll pass = that's a hard pass from a roadmap standpoint
 !guys = folks = team = valued stakeholders
 !you guys = you all = the team = our valued stakeholders
 !hey guys = hi folks = hi team = greetings, valued stakeholders
@@ -446,6 +452,7 @@ too much = too much = a lot = over capacity
 !nobody read = no one read = nobody reviewed = zero stakeholders consumed
 !the build = the latest build = the release = the deployment pipeline
 !great job = great work = outstanding work = best-in-class value delivery
+!a great job = a great job = an outstanding job = a best-in-class job
 !let's get drinks = let's grab drinks = let's do happy hour = let's activate a team bonding initiative
 !too lazy = not motivated enough = too under-engaged = too deep in rest-optimization mode
 `;
@@ -693,11 +700,124 @@ path forward = plan = plan = plan
 // phrase per bluntness level, and a line used when a sentence clearly belongs to it.
 export const THEMES = [
   {
+    id: "layoff-you",
+    weight: 14,
+    patterns: [
+      /\byour (?:role|position|job|employment)\b[^.]{0,80}\b(?:eliminat|impacted|affected|end(?:s|ed|ing)?\b|terminat|no longer)/i,
+      /\b(?:eliminat|impact|affect)\w* your (?:role|position|job)/i, /\byour last day\b/i, /\blet(?:ting)? you go\b/i,
+      /\byou(?:'ve| have| are|'re)? (?:been )?(?:impacted|affected) by (?:this|today's|the|our|these)\b/i,
+      /\byour (?:separation|severance)\b/i, /no longer (?:require|need) your (?:services|role)/i, /\byour (?:role|position) (?:is|was) (?:one of those|among those)/i,
+    ],
+    summary: ["You're losing your job.", "You're being laid off.", "You're fired. This is the exit email."],
+    line: ["Your job is being cut.", "You're being laid off.", "You're out."],
+  },
+  {
+    id: "pip",
+    weight: 11,
+    patterns: [/performance improvement plan/i, /\bPIP\b/, /\bimprovement plan\b/i, /\b(?:30|60|90|thirty|sixty|ninety)[- ]day (?:plan|period|review|window)\b/i, /(?:below|did not meet|does not meet|not meeting|not met) (?:the )?expectations/i, /\bdocumented (?:concerns|gaps)\b/i],
+    summary: ["Your performance is under formal review, with a deadline.", "You're on a PIP. That often ends in an exit.", "This is the paper trail before they fire you."],
+    line: ["You're on a formal improvement plan.", "You're on a PIP.", "They're building the case to fire you."],
+  },
+  {
+    id: "shutdown",
+    weight: 9,
+    patterns: [
+      /\bsunset(?:ting|ted|s)?\b/i, /\bwind(?:ing)? down\b/i, /\bdiscontinu/i, /end[- ]of[- ](?:life|sale|support)\b/i, /\bEOL\b/, /\bshut(?:ting)? down\b/i,
+      /\bcease (?:operations|development|support|production)/i, /\bdeprecat/i, /no longer (?:be )?(?:supported|available|offered|maintained)\b/i,
+      /\bclos(?:e|ing) (?:the|our|its) (?:\w+ )?(?:office|site|plant|store|location|facility|business|product|studio|division)/i,
+    ],
+    summary: ["Something is being shut down.", "They're shutting it down.", "It's dead. They're pulling the plug."],
+    line: ["This is being shut down.", "It's being shut down.", "It's dead."],
+  },
+  {
+    id: "outsourcing",
+    weight: 9,
+    patterns: [
+      /\boutsourc/i, /\boffshor/i, /\bnearshor/i, /managed service provider/i, /global (?:capability|delivery|service|shared services|business services) cent(?:er|re)/i,
+      /cent(?:er|re) of excellence in/i, /lower[- ]cost (?:locations?|regions?|markets|geograph)/i, /\bBPO\b/,
+      /\bwill (?:transition|move|shift|transfer) to (?:the |an? |our )?(?:provider|partner|vendor)\b/i,
+      /partner(?:ing)? with (?:an? )?(?:trusted |strategic |leading )?(?:global |external |third[- ]party )?(?:provider|vendor|partner) to (?:deliver|handle|run|provide|support|manage)/i,
+      /(?:transition|mov|shift|migrat|transfer)\w* (?:this |the |some |these |certain |our )?(?:work|functions?|operations|support|roles|activities|responsibilities|services) to (?:an? |our )?(?:external|third[- ]party|partner|vendor|provider|global|offshore|lower[- ]cost|trusted)/i,
+    ],
+    summary: ["Some work is moving to an outside company or a cheaper location.", "They're outsourcing the work.", "Your job is moving somewhere cheaper."],
+    line: ["Work is moving to an outside company.", "They're outsourcing this.", "Cheaper people elsewhere will do this."],
+  },
+  {
+    id: "rejection",
+    weight: 8,
+    patterns: [
+      /(?:decided|decision|chosen|chose) (?:to )?(?:move|go|proceed) (?:forward )?with (?:other|another|a different)/i, /(?:other|another) candidates?/i,
+      /(?:will not|won't|not be|are not|aren't|unable to|not able to) (?:be )?(?:moving|move) forward/i, /not (?:a|the right) (?:fit|match)\b/i,
+      /(?:decided|decision) (?:not to|against) (?:pursu|fund|approv|proceed|mov|green ?light)/i, /\bdeprioritiz/i, /\bon hold indefinitely\b/i,
+      /\bunable to (?:approve|accommodate|support|offer|fund)/i, /(?:will|would|could) not be (?:approved|funded|pursued|prioritized)/i, /we regret to inform/i,
+      /keep your (?:resume|application|details|information) on file/i, /wish you (?:the best|success|luck) (?:in|with) your (?:search|future|job)/i,
+      /\bnot (?:something we can|in a position to) (?:approve|support|fund|prioritize)/i, /\bnot (?:at|right) (?:this time|now)\b/i,
+    ],
+    summary: ["The answer is no, said kindly.", "It's a no.", "No. They're just being polite about it."],
+    line: ["This is a no.", "It's a no.", "No."],
+  },
+  {
+    id: "stack-rank",
+    weight: 8,
+    patterns: [/stack[- ]?rank/i, /forced (?:ranking|distribution|curve)/i, /bottom \d+\s?(?:%|percent)/i, /\bcalibrat/i, /(?:meets|met) (?:most|some) expectations/i, /\b(?:unregretted|non-?regrettable) attrition/i, /\blow(?:est)?[- ]performers?\b/i, /\bperformance (?:curve|distribution)\b/i],
+    summary: ["Some people will be rated low no matter what.", "Stack ranking. Someone has to be at the bottom.", "They're picking who to fire and calling it calibration."],
+    line: ["Ratings are being forced onto a curve.", "Stack ranking. Someone has to lose.", "They're picking who to fire."],
+  },
+  {
+    id: "budget-freeze",
+    weight: 7,
+    patterns: [
+      /budget freeze/i, /spend(?:ing)? freeze/i, /freez\w* (?:all |on |our )*(?:discretionary|non-essential|travel|budgets?|spend)/i,
+      /(?:discretionary|non-essential) (?:spend(?:ing)?|expenses?|purchases) (?:is|are|will be|has been|have been) (?:paused|frozen|on hold|suspended)/i,
+      /(?:travel|training|conference|offsite|event) (?:and \w+ )?budgets? (?:is|are|has been|have been|will be) (?:paused|frozen|cut|suspended|on hold)/i,
+      /additional (?:approval|scrutiny) (?:for|on) (?:all )?(?:spend|purchases|expenses)/i, /\bpaus\w* (?:all )?(?:non-essential|discretionary) spend/i,
+    ],
+    summary: ["Spending is frozen for now.", "The budget is frozen. Don't ask for money.", "The money tap is off. Don't even ask."],
+    line: ["Spending is on hold.", "Budgets are frozen.", "No money for anything."],
+  },
+  {
+    id: "new-chapter",
+    weight: 7,
+    firstPerson: true,
+    patterns: [
+      /\b(?:new|next) chapter\b/i, /\bnext adventure\b/i, /\bopen to (?:work|new opportunities|new roles)\b|#opentowork/i, /\bbittersweet\b/i,
+      /after \w+ (?:amazing|incredible|wonderful|great|fantastic|unforgettable|rewarding) years/i, /excited to (?:announce|share) (?:that )?I/i,
+      /\bmy (?:last day|time at)\b/i, /\bI (?:was|got) (?:impacted|affected|laid off|let go)\b/i, /\bI(?:'m| am) (?:officially )?(?:moving on|leaving)\b/i,
+    ],
+    summary: ["They're changing jobs and putting it nicely.", "They left their job, maybe not by choice, and want the next one.", "Job's gone. The inspirational post is the cover story."],
+    line: ["They're changing jobs.", "They left or lost their job.", "Job gone. Spin on."],
+  },
+  {
+    id: "delay",
+    weight: 6,
+    patterns: [
+      /\bdelay(?:ed|ing|s)?\b/i, /\bslip(?:ped|ping|s)?\b/i, /\bpush(?:ed|ing)? (?:out|back)\b/i, /\breschedul/i, /\bbehind schedule\b/i,
+      /(?:moved|pushed|shifted|moving|pushing|shifting) (?:the \w+ )?(?:to|into) (?:Q[1-4]|next (?:quarter|year|month|sprint)|(?:early|mid|late)[ -]\w+|the (?:second|back) half)/i,
+      /(?:revised|updated|new|adjusted|realistic) (?:timeline|target date|launch date|ETA|delivery date|go-live)/i, /timelines? (?:has |have )?(?:shifted|moved|changed|slipped)/i,
+      /\brebaselin/i, /later than (?:planned|expected|originally|anticipated)/i, /(?:no longer|not) (?:on track|going to make|hitting)/i, /\bre-?phas/i,
+    ],
+    summary: ["It's going to be late.", "It's late. The date moved.", "It's late, and the new date will slip too."],
+    line: ["This is running late.", "It's delayed.", "It's late. Again."],
+  },
+  {
+    id: "deflection",
+    weight: 4,
+    patterns: [
+      /\bgreat question\b/i, /\btake (?:this|that|it) offline\b/i, /\bcircle back\b/i, /not in a position to (?:comment|share|discuss|say|speculate)/i,
+      /(?:too early|premature) to (?:say|tell|comment|speculate|share)/i, /(?:still|currently|actively) (?:evaluating|assessing|exploring|reviewing) (?:our |all |the |a |several |many )?(?:options|paths?|situation|next steps|alternatives)/i,
+      /(?:can't|cannot|won't|don't) (?:get into|go into|speak to|comment on) (?:the )?(?:specifics|details|individual|rumors|speculation)/i,
+      /\bpark (?:that|this)\b/i, /let me get back to you/i, /\bno (?:final )?decisions? (?:has|have) been made\b/i, /nothing to (?:share|announce) (?:at this time|right now|yet)/i,
+      /(?:a lot of|many) moving (?:parts|pieces)/i, /\bwe hear you\b/i,
+    ],
+    summary: ["They didn't really answer.", "That's a non-answer.", "They dodged it. Assume the worst."],
+    line: ["They're avoiding a direct answer.", "Non-answer.", "Dodged."],
+  },
+  {
     id: "layoffs",
     weight: 10,
     patterns: [
       /\blay ?offs?\b/i, /\blaid off\b/i, /\bright[- ]?siz/i, /workforce optimi[sz]ation/i, /optimi[sz]e (?:our|the) workforce/i, /transition(?:ing)? (?:\w+ )?out\b/i, /\bdownsiz/i, /reduction in force/i, /\bRIF\b/,
-      /workforce reduction/i, /reduc\w* (?:our|the) (?:workforce|headcount|team)/i, /headcount/i,
+      /workforce reduction/i, /reduc\w* (?:our |the )?(?:global )?(?:workforce|headcount|team)/i, /headcount (?:will be |is |will )?(?:lower|reduc\w*|cut|smaller|down)/i,
       /eliminat\w* (?:\w+ )?(?:roles|positions|jobs)/i, /part(?:ing)? ways/i, /impacted (?:employees|colleagues|team members|roles)/i,
       /\bseverance\b/i, /\bseparation\b/i, /(?:roles|positions) (?:are|will be) (?:impacted|affected)/i,
       /saying goodbye to/i, /\blet(?:ting)? go\b(?! of)/i,
@@ -751,7 +871,7 @@ export const THEMES = [
   {
     id: "hiring-freeze",
     weight: 5,
-    patterns: [/hiring freeze/i, /pause (?:on )?(?:hiring|backfill)/i, /\bbackfills?\b/i, /not (?:be )?(?:hiring|backfilling)/i, /open (?:roles|reqs)/i],
+    patterns: [/hiring freeze/i, /paus\w* (?:on |all |new )*(?:hiring|backfill)/i, /\bbackfills?\b/i, /not (?:be )?(?:hiring|backfilling)/i, /open (?:roles|reqs)/i, /freez\w* (?:on )?(?:hiring|headcount)/i, /(?:hiring|headcount) (?:is |will be |has been )?(?:paused|frozen|on hold)/i, /headcount (?:is |will (?:be |stay |remain )?)?flat/i],
     summary: ["No new hires for a while.", "No one new is being hired, so you'll cover the gaps.", "No help is coming. You'll do the extra work."],
     line: ["Hiring is on hold.", "No new hires.", "No help is coming."],
   },
@@ -765,7 +885,7 @@ export const THEMES = [
   {
     id: "performance",
     weight: 4,
-    patterns: [/high[ -]perform/i, /performance (?:bar|standards|expectations|management)/i, /raise the bar/i, /accountab/i, /improvement plan/i, /\bPIP\b/, /\bintensity\b/i, /hardcore/i],
+    patterns: [/high[ -]perform/i, /performance (?:bar|standards|expectations|management)/i, /raise the bar/i, /accountab/i, /\bintensity\b/i, /hardcore/i],
     summary: ["They expect more from you.", "Work harder or you might be next.", "Work harder, or you're next."],
     line: ["They expect more from everyone.", "Work harder.", "Work harder or you're next."],
   },
@@ -792,6 +912,32 @@ export const THEMES = [
     line: ["A merger or acquisition is happening.", "Someone bought someone.", "We got bought."],
   },
 ];
+
+// The headline for each signal, shown at the top of a decode. Ordered by how bad the news is.
+export const SIGNALS = {
+  "layoff-you": { label: "You're being laid off", tone: "bad" },
+  layoffs: { label: "Layoffs", tone: "bad" },
+  pip: { label: "PIP", tone: "bad" },
+  shutdown: { label: "Shutdown", tone: "bad" },
+  outsourcing: { label: "Outsourcing", tone: "bad" },
+  rejection: { label: "It's a no", tone: "bad" },
+  "stack-rank": { label: "Stack ranking", tone: "bad" },
+  "no-raises": { label: "No raises", tone: "bad" },
+  rto: { label: "Back to the office", tone: "warn" },
+  "budget-freeze": { label: "Budget freeze", tone: "warn" },
+  "hiring-freeze": { label: "Hiring freeze", tone: "warn" },
+  "new-chapter": { label: "New chapter post", tone: "warn" },
+  delay: { label: "Delay", tone: "warn" },
+  reorg: { label: "Reorg", tone: "warn" },
+  "cost-cuts": { label: "Cost cuts", tone: "warn" },
+  benefits: { label: "Benefit cuts", tone: "bad" },
+  acquisition: { label: "Merger", tone: "warn" },
+  departure: { label: "Exec exit", tone: "warn" },
+  ai: { label: "AI push", tone: "warn" },
+  performance: { label: "Pressure to perform", tone: "warn" },
+  deflection: { label: "Non-answer", tone: "warn" },
+  "record-year": { label: "Good year", tone: "good" },
+};
 
 // Softer signals. One alone proves nothing, but two or more in the same memo mean layoffs.
 export const LAYOFF_HINTS = [

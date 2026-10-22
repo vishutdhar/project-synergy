@@ -111,7 +111,7 @@ test("matchCase keeps ALL CAPS and leaves pronoun capitals alone", () => {
 
 test("empty and whitespace input", () => {
   assert.equal(toCorporate("   "), "");
-  assert.deepEqual(toNormal(" \n "), { summary: "", lines: [], themes: [] });
+  assert.deepEqual(toNormal(" \n "), { summary: "", lines: [], themes: [], signal: { id: "none", label: "No bad news found", tone: "none" } });
 });
 
 test("normalizeInput strips fancy punctuation", () => {
@@ -146,7 +146,8 @@ test("decode: sample memos get the right summaries", () => {
   assert.match(toNormal(rto, { level: 2 }).summary, /office/i);
   const ry = toNormal(recordYear, { level: 2 });
   assert.ok(ry.themes.includes("no-raises") && ry.themes.includes("record-year"));
-  assert.equal(ry.summary, "Record profits. No raises.");
+  assert.equal(ry.summary, "No raises, even after a record year.");
+  assert.equal(ry.signal.label, "No raises");
   assert.deepEqual(toNormal(reorg).themes.slice(0, 1), ["reorg"]);
 });
 
@@ -187,7 +188,7 @@ test("decode: no themes means a no-news summary", () => {
 
 test("formatDecode output for copy", () => {
   const out = formatDecode(toNormal(MEMOS[2], { level: 2 }));
-  assert.match(out, /^What they really mean: /);
+  assert.match(out, /^Signal: No raises\nWhat they really mean: /);
   assert.match(out, /\n\n"/);
 });
 

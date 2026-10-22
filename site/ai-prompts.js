@@ -64,6 +64,16 @@ const HINT_TEXT = {
   departure: "a leader is leaving, maybe pushed out",
   benefits: "benefits are being cut",
   acquisition: "the company is merging or being bought",
+  "layoff-you": "the reader is being laid off",
+  pip: "the reader is on a performance improvement plan, often a step toward firing",
+  shutdown: "a product, office or team is being shut down",
+  outsourcing: "work is moving to an outside company or a cheaper location",
+  rejection: "the answer is no",
+  "stack-rank": "people are being ranked so some get low ratings on purpose",
+  "budget-freeze": "spending is frozen",
+  "new-chapter": "the writer left or lost their job",
+  delay: "the project is late and the date moved",
+  deflection: "they are avoiding the question",
 };
 
 export function hintFor(themeIds = []) {
@@ -125,6 +135,16 @@ export const THEME_KEYWORDS = {
   departure: /leav|left|step|pushed|quit/i,
   benefits: /benefit|perk|insurance|health/i,
   acquisition: /merg|bought|acqui|buy/i,
+  "layoff-you": /you|your job|laid off|fired|out\b/i,
+  pip: /PIP|plan|fire|perform|review/i,
+  shutdown: /shut|clos|dead|end|kill|plug|gone/i,
+  outsourcing: /outsourc|cheap|vendor|outside|contract|offshore|elsewhere/i,
+  rejection: /\bno\b|reject|not|won't|turned down|declin/i,
+  "stack-rank": /rank|rat|curve|bottom|fire|low/i,
+  "budget-freeze": /budget|spend|money|freez/i,
+  "new-chapter": /job|left|leav|laid off|quit|new/i,
+  delay: /late|delay|slip|moved|push|date/i,
+  deflection: /answer|dodg|avoid|nothing|know|vague/i,
 };
 
 export function summaryCoversThemes(summary, themeIds = []) {
@@ -137,13 +157,13 @@ export function summaryCoversThemes(summary, themeIds = []) {
 // Few-shot pairs. Topics differ from the app's examples so the model can't just copy an answer.
 // Answers keep the facts and add no new plans, meetings or promises.
 const CORPORATE_SHOTS = {
-  1: [["I can't come to lunch, I'm busy.", "I'm a bit tied up today, so I can't make lunch."],
+  1: [["I can't come to lunch, I'm busy.", "I'm a bit tied up, so I can't make lunch."],
       ["The printer is broken again.", "Heads up, the printer is out of order again."],
       ["I don't like the new logo.", "I have a few concerns about the new logo."]],
-  2: [["I can't come to lunch, I'm busy.", "I don't have the bandwidth for a lunch sync today."],
+  2: [["I can't come to lunch, I'm busy.", "I don't have the bandwidth for lunch, so I can't make it."],
       ["The printer is broken again.", "Flagging that our print capability is down again."],
       ["I don't like the new logo.", "I'm not fully aligned on the new logo direction."]],
-  3: [["I can't come to lunch, I'm busy.", "Due to unprecedented demand on my bandwidth, I'm unable to join today's nourishment alignment session."],
+  3: [["I can't come to lunch, I'm busy.", "Due to unprecedented demand on my bandwidth, I'm unable to join the nourishment alignment initiative."],
       ["The printer is broken again.", "Our document output infrastructure is once again in a strategic pause."],
       ["I don't like the new logo.", "I'm not yet bought in on the new brand identity's ability to unlock value at scale."]],
 };
@@ -158,7 +178,8 @@ export function buildCorporateMessages(text, level = 2) {
       content:
         "You rewrite plain messages into corporate speak as a joke. Keep the same meaning and the same speaker. " +
         `${CORPORATE_TONE[lvl]} ` +
-        "Do not add plans, meetings, promises or facts that are not in the message. " +
+        "Do not add plans, meetings, promises, people or facts that are not in the message. " +
+        "Keep every no and not as a clear no, keep questions as questions, and keep all numbers, names and dates exactly. " +
         "Reply with only the rewritten message, no quotes and no explanation.",
     },
     ...CORPORATE_SHOTS[lvl].flatMap(([q, a]) => [

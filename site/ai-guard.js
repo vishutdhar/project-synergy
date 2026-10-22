@@ -181,6 +181,8 @@ export function makeLoopStop(StoppingCriteria) {
 
 // A decode that denies the memo's main news ("No layoffs." for a layoff memo) is wrong, not blunt.
 const DENIALS = {
+  "layoff-you": /\b(?:you(?:'re| are) (?:not|safe)|your job is safe|you keep your job)\b/i,
+  rejection: /\b(?:it's a yes|you got (?:it|the job)|approved)\b/i,
   layoffs: /\bno (?:layoffs?|job cuts|one (?:is )?(?:losing|getting fired))\b|\bnot (?:laying|cutting|firing)\b|\bno one will lose\b/i,
   "no-raises": /\b(?:raises|bonuses) (?:are|will be) (?:coming|bigger|higher)\b/i,
   rto: /\bstay (?:fully )?remote\b|\bno (?:need|one needs) to come (?:in|back)\b/i,

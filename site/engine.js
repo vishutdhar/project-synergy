@@ -2,8 +2,9 @@
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
   DECODE_SWAPS, THEMES, NEGATIVE_CUES, FLUFF_PATTERNS, FLUFF_LINES, PLAIN_LINES, SPECIAL_LINES,
-  LAYOFF_HINTS, LAYOFF_CONTEXT_SWAPS,
+  LAYOFF_HINTS, LAYOFF_CONTEXT_SWAPS, SIGNALS,
 } from "./phrasebook.js";
+import { checkMeaning, setAllowedCaps, isShouting } from "./meaning.js";
 
 export const SOFT_CAP = 20000;
 export const LEVELS = {
@@ -115,7 +116,7 @@ function isClause(text, start, end) {
 
 // Swap phrases in one pass so replacements are never swapped again.
 // If the longest match at a spot fails its conditions, shorter matches inside it still get a chance.
-function swapPhrases(text, matcher, level, rng, swapChance, used = null) {
+function swapPhrases(text, matcher, level, rng, swapChance, used = null, protect = []) {
   let changed = 0;
   let out = "";
   let last = 0;
@@ -129,7 +130,13 @@ function swapPhrases(text, matcher, level, rng, swapChance, used = null) {
       if (e.beforeWord && !/^\s+[A-Za-z]/.test(text.slice(end))) return false;
       return true;
     });
-    if (!entry) {
+    // After "don't" or "did not", a swap that starts with a helper verb would read "don't would like".
+    const negAux = /\b(?:don't|doesn't|didn't|dont|do not|does not|did not)\s*$/i.test(text.slice(0, start));
+    if (entry && negAux && entry.tiers.flat().some((o) => /^(?:would|will|am|is|are|have|has|can|could)\b/i.test(o))) {
+      re.lastIndex = start + 1;
+      continue;
+    }
+    if (!entry || protect.some(([a, b]) => start < b && end > a)) {
       re.lastIndex = start + 1;
       continue;
     }
@@ -265,24 +272,90 @@ const SWAP_CHANCE = { 1: 0.5, 2: 0.85, 3: 1 };
 // Mild never adds an opener. Openers and closers are tone only (see phrasebook.js).
 const OPENER_CHANCE = { 1: 0, 2: 0.75, 3: 1 };
 const CLOSER_CHANCE = { 1: 0.4, 2: 0.8, 3: 1 };
+const LIST_MARK = /^(\s*(?:[-*\u2022]|\d{1,2}[.)])\s+)/;
 
-export function toCorporate(input, { level = 2, seed = 1 } = {}) {
-  const lvl = clampLevel(level);
-  const clean = normalizeInput(input).trim();
-  if (!clean) return "";
-  const rng = mulberry32(hashString(clean) ^ Math.imul(seed >>> 0, 2654435761) ^ (lvl * 97));
+// Capitalized words the phrasebook may add on its own (KPI, OKRs, AI). The meaning check allows them.
+const CAPS_SOURCES = [CORPORATE_SWAPS, ...Object.values(OPENERS).flat(), ...Object.values(CLOSERS).flat(), ...INTERJECTIONS].join(" ");
+setAllowedCaps(CAPS_SOURCES.match(/\b[A-Z][\w'&-]*/g) ?? []);
 
+// Spans a swap must not touch: numbers, dates, times and names.
+function protectedSpans(sentence) {
+  const spans = [];
+  const add = (re) => {
+    for (const m of sentence.matchAll(re)) spans.push([m.index, m.index + m[0].length]);
+  };
+  add(/\d[\d,.:]*\s?(?:%|k|m|am|pm)?/gi);
+  add(/\b(?:today|tonight|tomorrow|yesterday|(?:this|next|last) (?:week|month|quarter|year)|EOD|EOW|COB|monday|tuesday|wednesday|thursday|friday|saturday|sunday|january|february|march|april|june|july|august|september|october|november|december)\b/gi);
+  // Capitalized words after the first word of the sentence, unless the whole thing is shouted.
+  if (!isShouting(sentence)) for (const m of sentence.matchAll(/(?<=\S\s+)[A-Z][\w'&-]*/g)) {
+    if (!/^I(?:'m|'ve|'ll|'d)?$/.test(m[0])) spans.push([m.index, m.index + m[0].length]);
+  }
+  return spans;
+}
+
+// Break the input into units: prose paragraphs and list items, with the line break that came before each.
+export function splitUnits(text) {
+  const units = [];
+  let prose = [];
+  let sep = "";
+  let pendingSep = "";
+  const flush = () => {
+    if (prose.length) units.push({ kind: "prose", text: prose.join(" "), sep });
+    prose = [];
+  };
+  for (const line of text.split("\n")) {
+    if (!line.trim()) {
+      flush();
+      pendingSep = "\n\n";
+      continue;
+    }
+    const brk = units.length || prose.length ? pendingSep || "\n" : "";
+    if (LIST_MARK.test(line)) {
+      flush();
+      const [, mark] = line.match(LIST_MARK);
+      units.push({ kind: "item", mark: mark.trimStart(), text: line.slice(mark.length).trim(), sep: brk });
+    } else {
+      if (!prose.length) sep = brk;
+      prose.push(line.trim());
+    }
+    pendingSep = "";
+  }
+  flush();
+  return units;
+}
+
+// Rewrite one sentence. Tries a few random draws and keeps the first one that passes the meaning check.
+// If none pass, the sentence stays as the user wrote it.
+function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true } = {}) {
+  const protect = protectedSpans(sentence);
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const trial = new Set(used);
+    const { text } = swapPhrases(sentence, corporateMatcher, lvl, rng, SWAP_CHANCE[lvl], trial, protect);
+    let t = capFirst(tidy(text));
+    if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t)) t += ".";
+    if (checkMeaning(sentence, t).ok) {
+      for (const k of trial) used.add(k);
+      return t;
+    }
+  }
+  let t = capFirst(tidy(sentence));
+  if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t)) t += ".";
+  return t;
+}
+
+function corporateOnce(clean, lvl, rng, { extras = true } = {}) {
   // Key words already in the input, plus every one we add, so nothing important repeats.
   const used = new Set(keyWords(clean.replace(corporateMatcher.re, " ")));
-  const paragraphs = splitParagraphs(clean).map((p) => {
-    const sentences = splitSentences(p).map((s) => {
-      const { text } = swapPhrases(s, corporateMatcher, lvl, rng, SWAP_CHANCE[lvl], used);
-      let t = capFirst(tidy(text));
-      if (!endsWithPunct(t) && !/[,:;]$/.test(t)) t += ".";
-      return t;
-    });
+  const units = splitUnits(clean);
+  const parts = units.map((u) => {
+    if (u.kind === "item") {
+      // List items keep their marker and their own line. No added period, no asides.
+      const body = splitSentences(u.text).map((s) => rewriteSentence(s, lvl, rng, used, { addPeriod: false })).join(" ");
+      return u.sep + u.mark + body;
+    }
+    const sentences = splitSentences(u.text).map((s) => rewriteSentence(s, lvl, rng, used));
     // C-suite: sprinkle an aside between sentences.
-    if (lvl === 3 && sentences.length > 1) {
+    if (extras && lvl === 3 && sentences.length > 1) {
       for (let i = sentences.length - 1; i > 0; i--) {
         const pool = INTERJECTIONS.filter((x) => !repeatsKeyWord(x, used));
         if (pool.length && rng() < 0.35) {
@@ -292,25 +365,54 @@ export function toCorporate(input, { level = 2, seed = 1 } = {}) {
         }
       }
     }
-    return sentences.join(" ");
+    return u.sep + sentences.join(" ");
   });
 
-  let result = paragraphs.join("\n\n");
-  if (rng() < OPENER_CHANCE[lvl]) {
+  let result = parts.join("");
+  // Openers and closers go on their own line when the message has a list, so the list stays intact.
+  const first = units[0];
+  const last = units[units.length - 1];
+  const openJoin = first?.kind === "item" ? "\n" : " ";
+  const closeJoin = last?.kind === "item" ? "\n\n" : " ";
+  if (extras && rng() < OPENER_CHANCE[lvl]) {
     let pool = OPENERS[rng() < 0.25 ? lvl - 1 : lvl].filter((o) => !repeatsKeyWord(o, used));
     // A message that already starts with a greeting gets no opener in front of it.
     if (/^(?:hi|hey|hello|greetings|hope|dear|good (?:morning|afternoon))\b/i.test(result)) pool = [];
     if (pool.length) {
       const opener = pick(rng, pool);
       keyWords(opener).forEach((k) => used.add(k));
-      result = `${opener} ${result}`;
+      result = `${opener}${openJoin}${result}`;
     }
   }
-  if (rng() < CLOSER_CHANCE[lvl]) {
+  if (extras && rng() < CLOSER_CHANCE[lvl]) {
     const pool = (lvl === 1 ? CLOSERS[1] : rng() < 0.25 ? CLOSERS[lvl - 1] : CLOSERS[lvl]).filter((c) => !repeatsKeyWord(c, used));
-    if (pool.length) result = `${result} ${pick(rng, pool)}`;
+    if (pool.length) result = `${result}${closeJoin}${pick(rng, pool)}`;
   }
   return polishCase(tidy(result));
+}
+
+/**
+ * Normal to corporate with the meaning check. Returns { text, check, fallback }.
+ * fallback is "" when the first try passed, "reseed" when a later try passed,
+ * and "plain" when only the version without openers, closers and asides passed.
+ */
+export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
+  const lvl = clampLevel(level);
+  const clean = normalizeInput(input).trim();
+  if (!clean) return { text: "", check: { ok: true, lost: [], added: [] }, fallback: "" };
+  for (let k = 0; k < 6; k++) {
+    const rng = mulberry32(hashString(clean) ^ Math.imul((seed + k * 7919) >>> 0, 2654435761) ^ (lvl * 97));
+    const text = corporateOnce(clean, lvl, rng);
+    const check = checkMeaning(clean, text);
+    if (check.ok) return { text, check, fallback: k ? "reseed" : "" };
+  }
+  const rng = mulberry32(hashString(clean) ^ Math.imul(seed >>> 0, 2654435761) ^ (lvl * 97));
+  const text = corporateOnce(clean, lvl, rng, { extras: false });
+  return { text, check: checkMeaning(clean, text), fallback: "plain" };
+}
+
+export function toCorporate(input, opts = {}) {
+  return toCorporateDetailed(input, opts).text;
 }
 
 // ---------- Corporate to Normal ----------
@@ -320,6 +422,8 @@ export function detectThemes(sentence) {
   for (const theme of THEMES) {
     if (!theme.patterns.some((p) => p.test(sentence))) continue;
     if (theme.requiresNegative && !NEGATIVE_CUES.test(sentence)) continue;
+    // LinkedIn posts are about the writer, so "new chapter" in a CEO memo does not count.
+    if (theme.firstPerson && !/\b(?:I|I'm|I've|I'll|I'd)\b|\b(?:my|me)\b/i.test(sentence.replace(/\bI\b(?=\.)/g, ""))) continue;
     found.push(theme.id);
   }
   return found;
@@ -327,25 +431,49 @@ export function detectThemes(sentence) {
 
 const themeById = Object.fromEntries(THEMES.map((t) => [t.id, t]));
 
+// Themes that say the same thing as a stronger one are left out of the summary.
+const COVERED_BY = { "layoff-you": ["layoffs", "new-chapter"], pip: ["performance"], "stack-rank": ["performance"] };
+
+function summaryThemes(themeIds) {
+  const drop = new Set(themeIds.flatMap((id) => COVERED_BY[id] ?? []));
+  return themeIds.filter((id) => !drop.has(id));
+}
+
+// Combos that read better as one sentence. Each one leads with the bad news.
+const COMBOS = [
+  { id: "new-chapter", all: ["new-chapter", "layoffs"], signal: "Laid off, new chapter post",
+    text: ["They were laid off and are looking for their next job.", "They got laid off and are job hunting.", "Laid off, and spinning it as a fresh start."] },
+  { all: ["no-raises", "record-year"],
+    text: ["Raises are on hold, even after a great year.", "No raises, even after a record year.", "No raises. They made record money and you get nothing."] },
+  { all: ["layoffs", "record-year"],
+    text: ["Jobs are being cut, even though the company is doing well.", "They're laying people off, even after record results.", "They're firing people right after making a fortune."] },
+  { all: ["layoffs", "acquisition"],
+    text: ["Jobs are being cut after the merger.", "We're laying people off after getting bought.", "New owners, fewer jobs. People are getting fired."] },
+];
+
 function combineSummary(themeIds, lvl, fluffShare) {
   const i = lvl - 1;
-  const has = (id) => themeIds.includes(id);
-  // Combos that read better as one sentence.
-  if (has("record-year") && has("no-raises")) {
-    return ["The company had a great year, but raises are on hold.", "Record profits. No raises.", "They made record money and you get nothing."][i];
-  }
-  if (has("record-year") && has("layoffs")) {
-    return ["The company is doing well and still cutting jobs.", "Record results, and they're laying people off anyway.", "They made a fortune and are firing people anyway."][i];
-  }
-  if (has("acquisition") && has("layoffs")) {
-    return ["After the merger, some jobs are being cut.", "We got bought, and people are being laid off.", "New owners, fewer jobs."][i];
-  }
-  if (!themeIds.length) {
-    if (fluffShare > 0.5) return ["Lots of kind words, not much news.", "A lot of words that don't say much.", "Nothing. This is a lot of words for nothing."][i];
+  const ids = summaryThemes(themeIds);
+  const top = ids[0];
+  const combo = COMBOS.find((c) => c.all.includes(top) && c.all.every((id) => ids.includes(id)));
+  if (combo) return combo.text[i];
+  if (!ids.length) {
+    if (fluffShare >= 0.5) return ["Lots of kind words, not much news.", "A lot of words that don't say much.", "Nothing. This is a lot of words for nothing."][i];
     return ["Nothing hidden here.", "It mostly says what it says.", "Nothing to decode. Rare."][i];
   }
-  const top = themeIds.slice(0, 3).map((id) => themeById[id].summary[i]);
-  return top.join(" ");
+  return ids.slice(0, 3).map((id) => themeById[id].summary[i]).join(" ");
+}
+
+// The headline for a decode: the strongest signal, or a note that there is none.
+export function pickSignal(themeIds, fluffShare = 0) {
+  const ids = summaryThemes(themeIds);
+  const top = ids[0];
+  if (!top) {
+    return fluffShare >= 0.5 ? { id: "fluff", label: "All fluff", tone: "none" } : { id: "none", label: "No bad news found", tone: "none" };
+  }
+  const combo = COMBOS.find((c) => c.signal && c.all.includes(top) && c.all.every((id) => ids.includes(id)));
+  const base = SIGNALS[top] ?? { label: top, tone: "warn" };
+  return { id: combo?.id ?? top, label: combo?.signal ?? base.label, tone: base.tone, also: ids.slice(1).filter((id) => SIGNALS[id]?.tone !== "good").slice(0, 2).map((id) => SIGNALS[id]?.label ?? id) };
 }
 
 // "Team,", "Hi everyone,", "Pat Ellery CEO, Corvane Systems" and similar lines carry no meaning.
@@ -361,7 +489,7 @@ export function isGreetingOrSignature(sentence) {
 export function toNormal(input, { level = 2, seed = 1 } = {}) {
   const lvl = clampLevel(level);
   const clean = normalizeInput(input).trim();
-  if (!clean) return { summary: "", lines: [], themes: [] };
+  if (!clean) return { summary: "", lines: [], themes: [], signal: pickSignal([]) };
   const rng = mulberry32(hashString(clean) ^ Math.imul(seed >>> 0, 2654435761) ^ (lvl * 131));
   const scores = new Map();
   const lines = [];
@@ -370,7 +498,7 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
 
   // Two or more soft layoff signals in one memo count as a layoff, even without the word.
   const hints = LAYOFF_HINTS.filter((re) => re.test(clean)).length;
-  const strongLayoff = splitParagraphs(clean).flatMap(splitSentences).some((s) => detectThemes(s).includes("layoffs"));
+  const strongLayoff = splitParagraphs(clean).flatMap(splitSentences).some((s) => detectThemes(s).some((id) => id === "layoffs" || id === "layoff-you"));
   const layoffContext = strongLayoff || hints >= 2;
   if (layoffContext && !strongLayoff) scores.set("layoffs", themeById.layoffs.weight);
   const matcher = layoffContext ? layoffDecodeMatcher : decodeMatcher;
@@ -403,14 +531,16 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
   }
 
   const ranked = [...scores.entries()].sort((a, b) => b[1] - a[1]).map(([id]) => id);
-  const summary = combineSummary(ranked, lvl, total ? fluff / total : 0);
-  return { summary, lines, themes: ranked };
+  const fluffShare = total ? fluff / total : 0;
+  const summary = combineSummary(ranked, lvl, fluffShare);
+  return { summary, lines, themes: ranked, signal: pickSignal(ranked, fluffShare) };
 }
 
 // Plain-text version of a decode, for copy and share.
 export function formatDecode(result, { withLines = true } = {}) {
   if (!result || !result.summary) return "";
-  const head = `What they really mean: ${result.summary}`;
+  const signal = result.signal && !["none", "fluff"].includes(result.signal.id) ? `Signal: ${result.signal.label}\n` : "";
+  const head = `${signal}What they really mean: ${result.summary}`;
   if (!withLines || !result.lines.length) return head;
   const body = result.lines.map((l) => `"${l.original}"\n= ${l.plain}`).join("\n\n");
   return `${head}\n\n${body}`;
