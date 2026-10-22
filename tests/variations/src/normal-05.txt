@@ -1,0 +1,281 @@
+# cat=crude
+this meeting is a fucking waste of time
+This meeting is a waste of time.
+This meeting isn't a good use of our time.
+This meeting isn't a productive use of our bandwidth.
+
+who the hell scheduled this at 6am
+Who scheduled this at 6am?
+Who scheduled this for 6am?
+Who scheduled this for 6am?
+
+Kevin's code is shit and I have to fix it again
+Kevin's code has problems, and I have to fix it again.
+Kevin's code needs work, and I have to fix it again.
+Kevin's code has quality gaps, and I need to remediate it again.
+
+the client is being a total asshole about the invoice
+The client is being very difficult about the invoice.
+The client is being really difficult about the invoice.
+The client is being highly challenging about the invoice.
+
+I don't give a damn about the new logo
+I don't care about the new logo.
+I don't have strong feelings about the new logo.
+The new logo isn't a priority for me.
+
+holy shit we actually shipped it
+Wow, we actually shipped it.
+Wow, we actually shipped it!
+Wow, we actually shipped it. Huge milestone!
+
+screw it, let's just go with option B
+Let's just go with option B.
+Let's go ahead with option B.
+Let's move forward with option B.
+
+this vendor is full of crap
+This vendor isn't being honest with us.
+This vendor isn't being straight with us.
+This vendor isn't operating with full transparency.
+
+we're so screwed if the server dies again
+We're in trouble if the server dies again.
+We're in real trouble if the server goes down again.
+We face significant risk if the server goes down again.
+
+my boss is a dick
+My boss is difficult.
+My boss is really difficult to work with.
+My manager is a challenging stakeholder.
+
+what the fuck happened to the staging environment
+What happened to the staging environment?
+What happened to the staging environment?
+What happened to the staging environment?
+
+that was a shit show of a launch
+That launch was a mess.
+That launch was chaotic.
+That launch was a cross-functional misalignment event.
+
+i'm pissed they cancelled my PTO
+I'm upset they cancelled my PTO.
+I'm frustrated that my PTO was cancelled.
+I'm deeply frustrated that my PTO was cancelled.
+
+this is bullshit, I did all the work and Tom got the credit
+This isn't fair. I did all the work and Tom got the credit.
+I have concerns here. I did all the work and Tom got the credit.
+I have concerns here. I drove all the work and Tom received the credit.
+
+damn, the demo crashed in front of the CEO
+Ugh, the demo crashed in front of the CEO.
+Unfortunately, the demo crashed in front of the CEO.
+Unfortunately, the demo crashed in front of the CEO.
+
+fuck, I deleted the prod database
+I deleted the production database.
+I accidentally deleted the production database.
+I accidentally deleted the production database.
+
+the hell are you talking about
+What are you talking about?
+Sorry, what do you mean?
+Could you clarify what you mean?
+
+piss off with the surveys already
+Please stop sending the surveys.
+Please ease up on the surveys.
+Let's pause the surveys.
+
+he's a lazy bastard and everyone knows it
+He doesn't pull his weight, and everyone knows it.
+He isn't pulling his weight, and the team has noticed.
+He isn't contributing at the expected level, and the team has noticed.
+
+I busted my ass on this and got zero thanks
+I worked really hard on this and got no thanks.
+I worked very hard on this and wasn't thanked.
+I operated at maximum output on this and received no recognition.
+
+this spreadsheet is a goddamn nightmare
+This spreadsheet is a nightmare.
+This spreadsheet is really hard to work with.
+This spreadsheet is a significant pain point.
+
+shut up about synergy already
+Please stop talking about synergy.
+Can we move on from the synergy topic?
+Let's move on from the synergy topic.
+
+our competitors are kicking our ass
+Our competitors are beating us.
+Our competitors are outperforming us.
+Our competitors are outperforming us in the market.
+
+i fucked up the invoice, sending a corrected one
+I messed up the invoice. Sending a corrected one.
+I made a mistake on the invoice. Sending a corrected one now.
+I made an error on the invoice. Sending a corrected version now.
+
+this laptop is a piece of shit
+This laptop is terrible.
+This laptop is really unreliable.
+This laptop is significantly underperforming.
+
+wtf is this email from HR
+What is this email from HR?
+What is this email from HR about?
+Could someone clarify this email from HR?
+
+no fucking way we hit the target
+No way, we hit the target!
+Wow, we really hit the target!
+Incredible, we hit the target!
+
+I swear to god if one more person pings me
+If one more person pings me, I'll lose it.
+I'm at my limit with pings right now.
+I'm at capacity on pings right now.
+
+Legal is cockblocking the whole deal
+Legal is blocking the whole deal.
+Legal is holding up the whole deal.
+Legal is a blocker on the whole deal.
+
+sales promised the client some bullshit feature we don't have
+Sales promised the client a feature we don't have.
+Sales promised the client a feature that doesn't exist.
+Sales committed a feature to the client that isn't on the roadmap.
+
+i don't know what the fuck I'm doing with this budget
+I don't know what I'm doing with this budget.
+I'm not sure how to approach this budget.
+I need support on how to approach this budget.
+
+we got our asses handed to us in the review
+We got beaten badly in the review.
+The review went very poorly for us.
+The review surfaced significant gaps for us.
+
+stop being such a hardass about expenses
+Please stop being so strict about expenses.
+Could you be a bit less strict about expenses?
+Could we take a more flexible approach to expenses?
+
+ugh this sucks, the launch slipped again
+Ugh, this is frustrating. The launch slipped again.
+This is disappointing. The launch slipped again.
+This is disappointing. The launch timeline slipped again.
+
+the board is gonna lose their shit
+The board is going to be very upset.
+The board is going to be very unhappy.
+The board is going to react very strongly.
+
+stop micromanaging me for fuck's sake
+Please stop micromanaging me.
+Please give me more room to work.
+Please give me more autonomy here.
+
+that's the dumbest idea I've heard all week
+That's the weakest idea I've heard all week.
+I have serious concerns about that idea.
+I have significant reservations about that idea.
+
+bloody hell, the train is cancelled again
+The train is cancelled again.
+Unfortunately, the train is cancelled again.
+Unfortunately, the train is cancelled again.
+
+shit, I forgot the 3pm
+I forgot the 3pm.
+I'm sorry, I forgot the 3pm.
+Apologies, the 3pm slipped my mind.
+
+he crapped all over my proposal in front of everyone
+He tore apart my proposal in front of everyone.
+He criticized my proposal harshly in front of everyone.
+He was harshly critical of my proposal in front of everyone.
+
+this is a clusterfuck, nobody knows who owns what
+This is a mess. Nobody knows who owns what.
+This is chaotic. Nobody knows who owns what.
+This is a cross-functional misalignment event. Ownership is unclear.
+
+# cat=polite
+thanks so much for jumping on that call last minute
+Thanks so much for jumping on that call last minute.
+Thank you for joining that call on short notice.
+Thank you for joining that call on short notice.
+
+great job on the presentation today!
+Great job on the presentation today!
+Great job on today's presentation!
+Outstanding work on today's presentation!
+
+really appreciate you covering for me yesterday
+I really appreciate you covering for me yesterday.
+Thank you for covering for me yesterday.
+Thank you for covering for me yesterday.
+
+welcome to the team Aisha!
+Welcome to the team, Aisha!
+Welcome to the team, Aisha!
+Welcome to the team, Aisha!
+
+congrats on the promotion, well deserved
+Congrats on the promotion. Well deserved.
+Congratulations on the promotion. Well deserved.
+Congratulations on the promotion. Very well deserved.
+
+happy friday everyone
+Happy Friday, everyone.
+Happy Friday, everyone.
+Happy Friday, everyone.
+
+sorry for the slow reply, it's been a week
+Sorry for the slow reply. It's been a busy week.
+Apologies for the delayed reply. It's been a busy week.
+Apologies for the delayed response. It's been a high-volume week.
+
+thank you for your patience while we sort this out
+Thank you for your patience while we sort this out.
+Thank you for your patience while we work through this.
+Thank you for your patience while we work through this.
+
+no rush on this, whenever you get a chance
+No rush on this. Whenever you get a chance.
+No rush on this. Whenever you have a moment.
+No urgency on this. Whenever you have bandwidth.
+
+hope you're feeling better
+Hope you're feeling better.
+I hope you're feeling better.
+I hope you're feeling better.
+
+good luck on your last day, we'll miss you
+Good luck on your last day. We'll miss you.
+Best of luck on your last day. We'll miss you.
+Best of luck on your last day. You'll be missed.
+
+thanks everyone, great quarter
+Thanks, everyone. Great quarter.
+Thank you, everyone. It was a great quarter.
+Thank you, everyone. A strong quarter.
+
+happy to help anytime
+Happy to help anytime.
+Always happy to help.
+Always happy to support.
+
+you saved my life with that spreadsheet
+That spreadsheet really saved me.
+Your spreadsheet was a huge help.
+Your spreadsheet was a huge help.
+
+nice catch on that bug
+Nice catch on that bug.
+Great catch on that bug.
+Great catch on that bug.

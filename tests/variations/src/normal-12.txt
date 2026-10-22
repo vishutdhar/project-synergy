@@ -1,0 +1,309 @@
+# cat=request
+can someone please explain why my access got revoked
+Can someone please explain why my access was revoked?
+Could someone explain why my access was revoked?
+Could someone clarify why my access was revoked?
+
+I need you to stop messaging me after 10pm
+Please stop messaging me after 10pm.
+Please avoid messaging me after 10pm.
+Please hold non-urgent messages until working hours, not after 10pm.
+
+pls approve my PTO, it's been pending 2 weeks
+Please approve my PTO. It's been pending for 2 weeks.
+Could you approve my PTO? It's been pending for 2 weeks.
+Could you approve my PTO request? It's been pending for 2 weeks.
+
+can we get the design files in Figma, not PDF
+Can we get the design files in Figma, not PDF?
+Could we get the design files in Figma instead of PDF?
+Could we get the design files in Figma rather than PDF?
+
+need a volunteer for the hiring panel Thursday
+I need a volunteer for the hiring panel on Thursday.
+We need a volunteer for the hiring panel on Thursday.
+We're looking for a volunteer for Thursday's hiring panel.
+
+can someone with a car pick up the banners
+Can someone with a car pick up the banners?
+Could someone with a car pick up the banners?
+Could someone with a car pick up the banners?
+
+send me your feedback by EOD
+Send me your feedback by end of day.
+Please send me your feedback by end of day.
+Please share your feedback by end of day.
+
+I need a quiet room for an interview at 1
+I need a quiet room for an interview at 1.
+I need a quiet room for an interview at 1.
+I need a quiet room for an interview at 1.
+
+# cat=pushback
+I'm not comfortable with this going to the client yet
+I'm not comfortable sending this to the client yet.
+I'm not comfortable with this going to the client yet.
+I'm not comfortable with this going to the client at this stage.
+
+we can't promise that date
+We can't promise that date.
+We're not in a position to commit to that date.
+We're not in a position to commit to that date.
+
+this isn't a priority for my team right now
+This isn't a priority for my team right now.
+This isn't a priority for my team at the moment.
+This isn't on my team's priority list at the moment.
+
+I think we're solving the wrong problem
+I think we're solving the wrong problem.
+I'm concerned we may be solving the wrong problem.
+I'm concerned we're solving for the wrong problem.
+
+let's not reply to that email yet
+Let's not reply to that email yet.
+Let's hold off on replying to that email.
+Let's hold off on responding to that email.
+
+that's not my job
+That's not my job.
+That falls outside my role.
+That sits outside my remit.
+
+I don't agree with firing the contractor
+I don't agree with firing the contractor.
+I don't agree with letting the contractor go.
+I don't support exiting the contractor.
+
+# cat=vent
+I hate open-ended "any updates?" pings
+I really dislike open-ended "any updates?" pings.
+Open-ended "any updates?" pings are frustrating for me.
+Open-ended "any updates?" pings aren't an effective use of time.
+
+our tools don't talk to each other and I copy paste all day
+Our tools don't talk to each other, so I copy and paste all day.
+Our tools aren't integrated, so I spend all day copying and pasting.
+Our tools aren't integrated, so I spend all day on manual copy-paste.
+
+i feel invisible on this team
+I feel invisible on this team.
+I don't feel seen on this team.
+I don't feel my contributions are visible on this team.
+
+It's Wednesday and I've had zero focus time this week
+It's Wednesday, and I've had no focus time this week.
+It's Wednesday, and I haven't had any focus time this week.
+It's Wednesday, and I've had zero focus time this week.
+
+the "urgent" request was not urgent at all
+The "urgent" request wasn't urgent at all.
+The "urgent" request turned out not to be urgent.
+The "urgent" request turned out not to be time-sensitive.
+
+# cat=typos-slang-emoji
+ty for the coffee ☕
+Thanks for the coffee ☕
+Thank you for the coffee ☕
+Thank you for the coffee ☕
+
+the deploy is yeeted lol
+The deploy is out.
+The deploy is out.
+The deployment is live.
+
+brb grabbing food 🍕
+Back soon, grabbing food 🍕
+Stepping away to grab food, back soon 🍕
+Stepping away to grab food, back shortly 🍕
+
+wat does this error mean
+What does this error mean?
+Does anyone know what this error means?
+Does anyone know what this error means?
+
+im def not doing that
+I'm definitely not doing that.
+I definitely won't be doing that.
+I definitely won't be taking that on.
+
+kk ill send it after lunch
+Okay, I'll send it after lunch.
+Okay, I'll send it after lunch.
+Understood, I'll send it after lunch.
+
+thats a hard no from me dawg
+That's a hard no from me.
+That's a firm no from me.
+That's a firm no from my side.
+
+so hyped for the launch 🚀🚀
+So excited for the launch 🚀🚀
+Really excited for the launch 🚀🚀
+Very excited for the launch 🚀🚀
+
+ugh mondays amirite
+Ugh, Mondays, right?
+Mondays, right?
+Mondays, right?
+
+need coffee or i will perish
+I really need coffee.
+I really need some coffee.
+I urgently need coffee.
+
+# cat=list
+Q4 goals:\n- hit $2M ARR\n- hire 2 SDRs\n- launch the partner program
+Q4 goals:\n- hit $2M ARR\n- hire 2 SDRs\n- launch the partner program
+Q4 goals:\n- reach $2M ARR\n- hire 2 SDRs\n- launch the partner program
+Q4 objectives:\n- reach $2M ARR\n- hire 2 SDRs\n- launch the partner program
+
+blockers:\n- no test data\n- waiting on legal\n- Ravi is out sick
+Blockers:\n- no test data\n- waiting on Legal\n- Ravi is out sick
+Blockers:\n- no test data\n- waiting on Legal\n- Ravi is out sick
+Current blockers:\n- no test data\n- pending Legal\n- Ravi is out sick
+
+options:\na) delay launch\nb) cut features\nc) add people
+Options:\na) delay the launch\nb) cut features\nc) add people
+Options:\na) delay the launch\nb) reduce scope\nc) add people
+Options:\na) delay the launch\nb) reduce scope\nc) add resourcing
+
+wins this week: closed Acme, fixed checkout, hired Zoe
+Wins this week: closed Acme, fixed checkout, hired Zoe.
+Wins this week: we closed Acme, fixed checkout and hired Zoe.
+Wins this week: closed Acme, remediated checkout and hired Zoe.
+
+# cat=run-on
+the meeting got moved again and nobody updated the invite so half of us showed up to an empty room and the other half were on zoom
+The meeting was moved again and nobody updated the invite, so half of us showed up to an empty room and the other half were on Zoom.
+The meeting moved again without an updated invite, so half of us went to an empty room while the rest were on Zoom.
+The meeting moved again without an updated invite, so half the team went to an empty room while the rest joined on Zoom.
+
+i finished early so if anyone needs help with anything let me know because otherwise im just going to start on next sprint stuff
+I finished early, so let me know if anyone needs help. Otherwise, I'll start on next sprint's work.
+I finished early, so let me know if anyone needs help. Otherwise, I'll get started on next sprint's work.
+I finished early, so let me know if anyone needs support. Otherwise, I'll get a head start on next sprint.
+
+# cat=one-liner
+noted
+Noted.
+Noted, thanks.
+Noted. Thank you.
+
+all good
+All good.
+All good on my end.
+All good on my end.
+
+on my list
+It's on my list.
+It's on my list.
+It's on my roadmap.
+
+in a meeting, will reply after
+I'm in a meeting and will reply after.
+I'm in a meeting and will reply afterward.
+I'm in a meeting and will respond afterward.
+
+not today satan
+Not today.
+Not today, thanks.
+Not today.
+
+can't talk, driving
+I can't talk right now. I'm driving.
+I can't talk at the moment, as I'm driving.
+I can't talk at the moment, as I'm driving.
+
+sounds like a plan
+Sounds like a plan.
+Sounds like a plan.
+Sounds like a solid plan.
+
+same time next week?
+Same time next week?
+Same time next week?
+Same time next week?
+
+# cat=polite
+thanks for your help with the move
+Thanks for your help with the move.
+Thank you for your help with the move.
+Thank you for your support with the move.
+
+you did a really thoughtful job on this
+You did a really thoughtful job on this.
+You did a really thoughtful job on this.
+You did an exceptionally thoughtful job on this.
+
+let me know if I can help with anything
+Let me know if I can help with anything.
+Let me know if there's anything I can help with.
+Let me know if there's anything I can support with.
+
+sorry to bother you on your day off
+Sorry to bother you on your day off.
+Apologies for bothering you on your day off.
+Apologies for reaching out on your day off.
+
+thanks for the feedback, really helpful
+Thanks for the feedback. It was really helpful.
+Thank you for the feedback. It was very helpful.
+Thank you for the feedback. It was extremely helpful.
+
+# cat=status
+we finally fixed the memory leak
+We finally fixed the memory leak.
+We've finally fixed the memory leak.
+We've finally remediated the memory leak.
+
+the survey got 62% response rate
+The survey got a 62% response rate.
+The survey had a 62% response rate.
+The survey achieved a 62% response rate.
+
+we're about 70% done with the audit prep
+We're about 70% done with the audit prep.
+We're about 70% through the audit prep.
+We're about 70% through audit preparation.
+
+the hiring freeze means no backfill for Jen
+The hiring freeze means no backfill for Jen.
+Because of the hiring freeze, we can't backfill Jen.
+Due to the hiring freeze, we can't backfill Jen.
+
+the client approved the designs, moving to build
+The client approved the designs, so we're moving to build.
+The client approved the designs, and we're moving into build.
+The client approved the designs, and we're moving into the build phase.
+
+we migrated 2 of 5 services so far
+We've migrated 2 of 5 services so far.
+We've migrated 2 of 5 services so far.
+We've migrated 2 of 5 services to date.
+
+customer churn went up 3 points this quarter
+Customer churn went up 3 points this quarter.
+Customer churn rose 3 points this quarter.
+Customer churn increased 3 points this quarter.
+
+# cat=deadline-blocker
+I need the contract back by tomorrow noon or we miss the window
+I need the contract back by noon tomorrow, or we miss the window.
+I need the signed contract by noon tomorrow, or we'll miss the window.
+I need the executed contract by noon tomorrow, or we'll miss the window.
+
+the launch is next Tuesday no matter what
+The launch is next Tuesday, no matter what.
+The launch is next Tuesday regardless.
+The launch is locked for next Tuesday.
+
+we can't start until the budget is approved
+We can't start until the budget is approved.
+We can't start until the budget is approved.
+We can't kick off until the budget is approved.
+
+the designer quit so the mockups are late
+The designer quit, so the mockups are late.
+The designer left, so the mockups are delayed.
+The designer departed, so the mockups are delayed.

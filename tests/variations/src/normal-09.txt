@@ -1,0 +1,275 @@
+# cat=scheduling
+can we do 30 min instead of an hour
+Can we do 30 minutes instead of an hour?
+Could we make it 30 minutes instead of an hour?
+Could we condense this to 30 minutes instead of an hour?
+
+does tuesday at 2 work for you
+Does Tuesday at 2 work for you?
+Would Tuesday at 2 work for you?
+Would Tuesday at 2 work for you?
+
+I'm double booked at 11, which one should I go to
+I'm double-booked at 11. Which one should I go to?
+I'm double-booked at 11. Which meeting should I prioritize?
+I'm double-booked at 11. Which meeting should I prioritize?
+
+let's move the retro to after lunch
+Let's move the retro to after lunch.
+Let's move the retro to after lunch.
+Let's shift the retro to after lunch.
+
+I'm free all afternoon if you want to talk
+I'm free all afternoon if you want to talk.
+I'm available all afternoon if you'd like to talk.
+I'm available all afternoon if you'd like to connect.
+
+cancel the 4pm, nothing to discuss
+Let's cancel the 4pm. There's nothing to discuss.
+Let's cancel the 4pm, as there's nothing to discuss.
+Let's cancel the 4pm, as there's nothing on the agenda.
+
+can we make this a recurring thing
+Can we make this a recurring meeting?
+Could we make this a recurring meeting?
+Could we make this a recurring touchpoint?
+
+I only have 15 minutes
+I only have 15 minutes.
+I only have 15 minutes available.
+I only have a 15-minute window.
+
+who's running the meeting today
+Who's running the meeting today?
+Who's leading the meeting today?
+Who's facilitating today's meeting?
+
+let's do this over slack instead
+Let's do this over Slack instead.
+Let's handle this over Slack instead.
+Let's take this async over Slack instead.
+
+# cat=hr-people
+I want to transfer to the data team
+I'd like to transfer to the data team.
+I'm interested in transferring to the data team.
+I'd like to explore a transfer to the data team.
+
+I'm thinking about quitting
+I'm thinking about quitting.
+I'm considering leaving.
+I'm considering my next move outside the company.
+
+I want to go part time
+I'd like to go part-time.
+I'd like to discuss moving to part-time.
+I'd like to explore a transition to part-time.
+
+my coworker keeps making comments about my accent and it's not ok
+My coworker keeps making comments about my accent, and it's not okay.
+A coworker keeps commenting on my accent, and it's not acceptable.
+A coworker keeps commenting on my accent, and it's not acceptable.
+
+I'm pregnant and want to talk about leave
+I'm pregnant and would like to talk about leave.
+I'm pregnant and would like to discuss parental leave.
+I'm pregnant and would like to discuss my parental leave plan.
+
+I got another offer, can we talk
+I got another offer. Can we talk?
+I've received another offer. Could we talk?
+I've received an external offer. Could we connect?
+
+I'm resigning, my last day is the 20th
+I'm resigning, and my last day is the 20th.
+I'm resigning, and my last day will be the 20th.
+I'm resigning, and my last day will be the 20th.
+
+can I get a reference letter
+Could I get a reference letter?
+Would you be willing to write me a reference letter?
+Would you be willing to provide a reference letter?
+
+I don't think my manager likes me
+I don't think my manager likes me.
+I'm not sure my manager and I are on good terms.
+I sense some misalignment with my manager.
+
+the interview candidate was great, let's hire her
+The interview candidate was great. Let's hire her.
+The candidate was excellent, and I recommend we hire her.
+The candidate was outstanding, and I recommend we extend an offer.
+
+he was not a good fit, way too arrogant
+He wasn't a good fit. He came across as too arrogant.
+He wasn't a fit. He came across as overly confident.
+He wasn't a fit. He came across as overconfident.
+
+# cat=money
+the expense report got rejected again
+My expense report got rejected again.
+My expense report was rejected again.
+My expense report was rejected again.
+
+we can't afford a new CRM this year
+We can't afford a new CRM this year.
+We don't have budget for a new CRM this year.
+We don't have budget for a new CRM this year.
+
+who's paying for the team dinner
+Who's paying for the team dinner?
+Who's covering the team dinner?
+Who's covering the team dinner?
+
+my reimbursement is 2 months late
+My reimbursement is 2 months late.
+My reimbursement is 2 months overdue.
+My reimbursement is 2 months overdue.
+
+that software is $900 a seat, way too expensive
+That software is $900 a seat, which is too expensive.
+That software is $900 a seat, which is too expensive for us.
+That software is $900 a seat, which is outside our budget.
+
+can I expense my home internet
+Can I expense my home internet?
+Am I able to expense my home internet?
+Am I able to expense my home internet?
+
+we're saving $8k a month by dropping the old vendor
+We're saving $8k a month by dropping the old vendor.
+We're saving $8k a month by dropping the old vendor.
+We're unlocking $8k a month in savings by exiting the old vendor.
+
+# cat=remote-office
+I work better from home
+I work better from home.
+I'm more productive working from home.
+I'm more productive working remotely.
+
+the office AC is broken again, it's 85 degrees
+The office AC is broken again. It's 85 degrees.
+The office AC is broken again, and it's 85 degrees.
+The office AC is down again, and it's 85 degrees.
+
+I'm not coming in 5 days a week
+I'm not coming in 5 days a week.
+I won't be able to come in 5 days a week.
+I won't be able to commit to 5 days a week in the office.
+
+can we stop booking the big room for 2 people
+Can we stop booking the big room for 2 people?
+Could we avoid booking the large room for 2 people?
+Could we avoid booking the large room for 2-person meetings?
+
+someone stole my lunch from the fridge
+Someone took my lunch from the fridge.
+Someone took my lunch from the fridge.
+Someone took my lunch from the fridge.
+
+the parking garage is full again
+The parking garage is full again.
+The parking garage is full again.
+The parking garage is at capacity again.
+
+my camera is off because I'm eating
+My camera is off because I'm eating.
+I have my camera off because I'm eating.
+My camera is off while I eat.
+
+is anyone actually in the office today
+Is anyone in the office today?
+Is anyone in the office today?
+Is anyone on site today?
+
+# cat=it-tech
+my password expired and I'm locked out
+My password expired and I'm locked out.
+My password expired, and I'm locked out.
+My password expired, and I'm locked out.
+
+the shared drive is out of space
+The shared drive is out of space.
+The shared drive is full.
+The shared drive is at capacity.
+
+I clicked a weird link in an email, should I worry
+I clicked a strange link in an email. Should I be worried?
+I clicked a suspicious link in an email. Should I be concerned?
+I clicked a suspicious link in an email. Should I escalate?
+
+Zoom keeps crashing on my mac
+Zoom keeps crashing on my Mac.
+Zoom keeps crashing on my Mac.
+Zoom keeps crashing on my Mac.
+
+can we get a real password manager
+Can we get a proper password manager?
+Could we get a proper password manager?
+Could we invest in an enterprise password manager?
+
+the new laptop is great btw
+The new laptop is great, by the way.
+By the way, the new laptop is great.
+By the way, the new laptop is excellent.
+
+prod is down
+Production is down.
+Production is down.
+Production is down.
+
+who has the AWS root password
+Who has the AWS root password?
+Who has the AWS root password?
+Who has access to the AWS root password?
+
+the website is super slow on mobile
+The website is very slow on mobile.
+The website is really slow on mobile.
+The website has significant latency on mobile.
+
+I accidentally emailed the whole company
+I accidentally emailed the whole company.
+I accidentally emailed the entire company.
+I accidentally emailed the entire company.
+
+# cat=customer-sales
+the customer wants a discount
+The customer wants a discount.
+The customer is asking for a discount.
+The customer is requesting a discount.
+
+they signed for 2 years!
+They signed for 2 years!
+They signed a 2-year contract!
+They signed a 2-year contract, a big win!
+
+the prospect went with a competitor
+The prospect went with a competitor.
+The prospect chose a competitor.
+The prospect chose a competitor.
+
+they want to cancel unless we fix the sync issue
+They want to cancel unless we fix the sync issue.
+They'll cancel unless we fix the sync issue.
+They intend to cancel unless we resolve the sync issue.
+
+the client asked for a call with someone senior
+The client asked for a call with someone senior.
+The client has asked for a call with someone senior.
+The client has requested a call with senior leadership.
+
+we oversold what the product can do
+We oversold what the product can do.
+We overpromised on what the product can do.
+We overcommitted on product capabilities.
+
+our biggest client is unhappy
+Our biggest client is unhappy.
+Our biggest client is unhappy.
+Our largest client is dissatisfied.
+
+pipeline looks thin for next quarter
+The pipeline looks thin for next quarter.
+The pipeline looks light for next quarter.
+The pipeline looks light for next quarter.

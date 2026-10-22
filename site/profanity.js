@@ -43,8 +43,10 @@ const CANON = [
   [/\b(what|who|where|why|how|when) (?:in )?the (?:fuck|hell|heck|shit)\b(?! is going on\b)/gi, "$1"],
   // "hurry the fuck up" -> "hurry up". "shut" and "get" have their own rewrites.
   [/\b(?!(?:shut|get)\b)([a-z]+) the (?:fuck|hell|heck) (?=[a-z])/gi, "$1 "],
+  // "the hell is wrong with this" -> "what is wrong with this"
+  [/(^|[.!?]\s+)the (?:fuck|hell|heck) (?=(?:is|are|was|were|do|does|did|have|has|happened)\b)/gi, "$1what "],
   // Intensifiers just go away: "the fucking printer" -> "the printer", "damn good" -> "good".
-  [/\b(?:fucking|fuckin|bloody|goddamn|goddamned|damned|damn|motherfucking)\s+(?!(?:it|you|him|her|them|off|up|over|around|with|me|this|that|us|all)\b)(?=[a-z])/gi, ""],
+  [/(?<!\bgive an? |\bgives an? |\bgiving an? )\b(?:fucking|fuckin|bloody|goddamn|goddamned|damned|damn|motherfucking)\s+(?!(?:it|you|him|her|them|off|up|over|around|with|me|this|that|us|all)\b)(?=[a-z])/gi, ""],
   // "Fix it, you idiot." -> "Fix it." The insult adds nothing a colleague needs to read.
   [/(^|[.!?]\s+)you (?:idiot|moron|dumbass|asshole|jerk|dick|prick|twat|wanker|bastard|clown)s?\s*[,!.]?\s*/gi, "$1"],
   [/,\s*you (?:idiot|moron|dumbass|asshole|jerk|dick|prick|twat|wanker|bastard|clown)s?\b/gi, ""],
@@ -118,13 +120,17 @@ const PHRASES = `
 !fucking off = slacking off = taking it easy = entering a strategic recharge window
 !fucked off = slacked off = took it easy = entered a strategic recharge window
 !{tell|told|telling|tells} {him|her|them|you|me|kevin|everyone} to {fuck|piss|bugger|sod} off = $1 $2 to leave me alone = $1 $2 I need some space = $1 $2 we need to pause this conversation
+!>fuck {this|that} = I'm fed up with $1 = I'm frustrated with $1 = I'm deeply misaligned with $1
 !fuck {this|that} = I'm fed up with $1 = I'd like to revisit $1 approach = $1 approach isn't aligned with our north star
 !fuck {this|that} shit = I'm fed up with $1 = I'd like to revisit $1 approach = $1 approach isn't aligned with our north star
+!>screw {this|that} = I'm fed up with $1 = I'm frustrated with $1 = I'm deeply misaligned with $1
 !screw {this|that} = I'm fed up with $1 = I'd like to revisit $1 approach = $1 approach isn't aligned with our north star
 !{fuck|screw} you = I disagree with you = I strongly disagree with you = I'm fundamentally misaligned with you
 !{fuck|screw} him = I'm frustrated with him = I have serious concerns about him = he and I are deeply misaligned
 !{fuck|screw} her = I'm frustrated with her = I have serious concerns about her = she and I are deeply misaligned
 !{fuck|screw} them = I'm frustrated with them = I have serious concerns about them = they're not aligned with our north star
+!screw the = forget the = let's skip the = let's bypass the
+!{fuck|screw} it, let's = let's go ahead and = let's move forward and = let's bias for action and
 !{fuck|screw} it = let's just go ahead = let's move forward as is = let's bias for action
 !fuck me = wow, that's rough = that's a real setback = that's a significant setback
 !{fuck|screw|cock|mess} up = mess up = drop the ball = make an avoidable mistake
@@ -170,10 +176,10 @@ const PHRASES = `
 !shut the fuck up = please stop talking = let's pause the discussion = let's table your input for now
 !get the fuck out of = please leave = please step out of = I'd appreciate some space in
 !get the fuck out = please leave = please step out = I'd appreciate some space
-!for fuck's sake = come on = honestly = with respect
+!for fuck's sake = , please = , please = , please
 !fuck my life = this is rough = I'm having a hard day = my personal KPIs are trending down
 !{oh|aw|ah} {fuck|shit|crap|hell} = oh no = that's frustrating = that's a suboptimal outcome
-!holy {fuck|shit|crap|hell} = wow = wow, that's big = this is a paradigm shift
+!holy {fuck|shit|crap|hell} = wow, = wow, big news: = this is a paradigm shift:
 !^{fuck|shit|crap|damn|damn it|hell|bugger|bollocks|fuck me|fucking hell|bloody hell|shit shit shit} = oh no = that's frustrating = that's a suboptimal outcome
 !{i|we|you|they} {don't|do not|didn't|did not} give a {fuck|shit|damn|crap|rat's ass|toss} about = $1 $2 care about = $1 $2 see a priority in = $1 $2 see strategic value in
 !{he|she|it} {doesn't|does not|didn't|did not} give a {fuck|shit|damn|crap|rat's ass|toss} about = $1 $2 care about = $1 $2 see a priority in = $1 $2 see strategic value in
@@ -189,9 +195,10 @@ const PHRASES = `
 !who gives a {fuck|shit|damn|crap|rat's ass|toss} = who cares = who is prioritizing this = what's the value-add here
 !{zero|no} {fucks|shits} given about = I don't care about = I don't see a priority in = I don't see strategic value in
 !{zero|no} {fucks|shits} given = I don't care = I don't see this as a priority = I don't see this as a strategic priority
-!{clusterfuck|cluster fuck|shitshow|shit show|shitstorm|shit storm|fuckfest|dumpster fire} = mess = chaotic situation = cross-functional misalignment event
+!{clusterfuck|cluster fuck|shitshow|shit show|shitstorm|shit storm|fuckfest|dumpster fire} = mess = mess = cross-functional misalignment event
 !{clusterfucks|shitshows|shitstorms} = messes = chaotic situations = cross-functional misalignment events
 !what a {clusterfuck|cluster fuck|shitshow|shit show|shitstorm|fuckfest} = what a mess = this is chaotic = this is a cross-functional misalignment event
+!{a|one} {shitshow|shit show|clusterfuck|cluster fuck|dumpster fire} of a = a mess of a = a chaotic = a deeply misaligned
 !{a|one} {fuckload|fuckton|fuck ton|fuck load|shitload|shit load|shitton|shit ton|crapload|crap ton|crapton|hell of a lot} of = a lot of = a large amount of = a significant volume of
 !{a|one} {fuckload|fuckton|fuck ton|fuck load|shitload|shit load|shitton|shit ton|crapload|crap ton|crapton|hell of a lot} = a lot = a great deal = a significant amount
 !{fuckloads|shitloads|craploads|fucktons|shittons} of = lots of = large amounts of = significant volumes of
@@ -230,12 +237,42 @@ const PHRASES = `
 !like {shit|crap} = badly = poorly = suboptimally
 !{is|are|was|were} shit = $1 bad = $1 disappointing = $1 underperforming
 !{is|are|was|were} crap = $1 not great = $1 low quality = $1 underperforming
+!{this|that} crap = $1 = $1 = $1
 !crap = junk = junk = junk
 !damn it = oh no = that's frustrating = that's a suboptimal outcome
+!can go to hell = has really frustrated me = has really frustrated me = has created significant friction for me
 !go to hell = please leave me alone = I need some space = let's pause this relationship
 !{a|one} hell of a = quite a = quite a = a truly significant
 !from hell = that's been a nightmare = that's been extremely difficult = that's been a sustained source of friction
 !{went|gone|go|goes|going} to hell = $1 badly = $1 badly = $1 off track
+!{went|gone|go|goes|going} to shit = $1 badly = $1 badly = $1 off track
+!kicking our {ass|asses|butt|butts} = beating us = outperforming us = outperforming us in the market
+!kicked our {ass|asses|butt|butts} = beat us = outperformed us = decisively outperformed us
+!kicking my {ass|asses|butt|butts} = beating me = outperforming me = outperforming me in the market
+!kicked my {ass|asses|butt|butts} = beat me = outperformed me = decisively outperformed me
+!kicking your {ass|asses|butt|butts} = beating you = outperforming you = outperforming you in the market
+!kicked your {ass|asses|butt|butts} = beat you = outperformed you = decisively outperformed you
+!kicking their {ass|asses|butt|butts} = beating them = outperforming them = outperforming them in the market
+!kicked their {ass|asses|butt|butts} = beat them = outperformed them = decisively outperformed them
+!{got|get|getting} {our|my|their|your} {ass|asses} handed to {us|me|them|you} = $1 beaten badly = $1 clearly outperformed = $1 decisively outperformed
+!lose {their|his|her|my|your|our} shit = be very upset = be extremely upset = react very strongly
+!losing {their|his|her|my|your|our} shit = getting very upset = getting extremely upset = reacting very strongly
+!lost {their|his|her|my|your|our} shit = got very upset = got extremely upset = reacted very strongly
+!up {our|my|his|her|their|your} {ass|asses|butt|butts} about = on $1 case about = on $1 case about = putting pressure on $1 team about
+!up {our|my|his|her|their|your} {ass|asses|butt|butts} = on $1 case = on $1 case = putting pressure on $1 team
+!{cockblocking|cock-blocking} = blocking = blocking = blocking
+!{cockblocked|cock-blocked} = blocked = blocked = blocked
+!can go fuck {themselves|himself|herself|yourself|itself} = can look elsewhere = can look elsewhere = can explore other options
+!are you shitting me = are you serious = are you serious = can you confirm that's accurate
+!{you're|you are} shitting me = you're kidding = you can't be serious = I want to confirm that's accurate
+!{such a|so} hardass = so strict = so strict = so high-accountability
+!{a|the} hardass = $1 stickler = $1 real stickler = $1 high-accountability operator
+!hardass = strict = very strict = high-accountability
+!crapped all over = criticized = harshly criticized = was harshly critical of
+!shat all over = criticized = harshly criticized = was harshly critical of
+!shit all over = criticized = harshly criticized = was harshly critical of
+!{a|such a|this|that} lazy {bastard|ass|asshole|shit|prick} = $1 lazy person = $1 disengaged colleague = $1 low-engagement contributor
+!lazy {bastard|ass|asshole|shit|prick} = lazy = disengaged = low-engagement
 !like hell = a lot = a great deal = significantly
 !{is|was|been|has been} hell = $1 rough = $1 very difficult = $1 a high-friction period
 !{pissed|pissed off|pissy} = annoyed = frustrated = deeply frustrated
@@ -257,7 +294,8 @@ const PHRASES = `
 !{the|that|this|some} {idiot|moron|dumbass} = $1 person = $1 person = $1 stakeholder
 !{the|those|these|some} {idiots|morons} = $1 people = $1 people = $1 stakeholders
 !{idiot|moron|dumbass} = someone = someone = someone
-!{idiots|morons} = people = people = stakeholders
+!{look|looked|looking|looks} like {idiots|morons|fools} = $1 foolish = $1 unprepared = $1 misaligned
+!{idiots|morons} = fools = careless people = stakeholders with growth areas
 !idiotic = not well thought out = not well thought through = not grounded in first principles
 !{is|was} {an asshole|a jerk|a dick|a prick|a douche|a douchebag|a bastard|a dickhead|an asshat|a wanker|a twat|a jackass|a tool} = $1 hard to work with = $1 a challenging collaborator = $1 operating with low collaboration KPIs
 !{he's|she's|you're} {an asshole|a jerk|a dick|a prick|a douche|a douchebag|a bastard|a dickhead|an asshat|a wanker|a twat|a jackass} = $1 hard to work with = $1 a challenging collaborator = $1 operating with low collaboration KPIs
@@ -416,7 +454,7 @@ export const IDIOM_MEANINGS = [
   },
   {
     id: "bad",
-    re: /\b(?:sucks?|sucked|blows|blew)\b(?! (?:up|it up|up to|at)\b)/i,
+    re: /(?<!-)\b(?:sucks?|sucked|blows|blew)\b(?! (?:up|it up|up to|at)\b)(?!-)/i,
     must: /great|frustrat|underindex|struggl|poor|bad|weak|not good|disappoint|unfortunate|well|terrible|rough|subpar|underperform|issue|problem|not ideal|suboptimal/i,
   },
 ];

@@ -1,0 +1,250 @@
+# cat=mixed signal=layoffs
+Team, 2025 was a record year for revenue. Even so, we are reducing headcount by 6% to invest in our AI roadmap. Impacted employees will hear from HR today.
+They had a record year but are still cutting 6% of jobs to spend on AI.
+Record year, and they're still laying off 6% for AI.
+Record money, and they're firing 6% to pay for AI.
+
+We are restructuring the sales organization, and as a result some roles will be eliminated. We'll also pause hiring for the rest of the year.
+Sales is being reorganized with some jobs cut, and hiring is paused.
+Sales reorg with layoffs, plus a hiring freeze.
+Sales reorg, people fired, and no replacements.
+
+After a strong quarter, we're doubling down on efficiency. This means fewer layers of management and a smaller footprint in our London office.
+They're cutting managers and shrinking London after a strong quarter.
+Good quarter, but they're cutting managers and shrinking London.
+Great quarter. Managers fired, London shrunk.
+
+As we integrate with Polaris, we'll be consolidating overlapping functions, and some colleagues will be leaving us.
+After the merger with Polaris, duplicate jobs are being cut.
+Merger layoffs: overlapping jobs are being cut.
+Merged with Polaris, firing the duplicates.
+
+We are making changes to how we operate, including a reduction in force of about 200 roles and the closure of our Dublin site.
+About 200 jobs are being cut and the Dublin site is closing.
+200 layoffs and Dublin is shutting down.
+200 people fired and Dublin is dead.
+
+To fund our transformation, we're eliminating some positions and outsourcing parts of customer support.
+Some jobs are being cut and some support work is going to an outside company.
+Layoffs, plus support is being outsourced.
+Firing people and shipping support out.
+
+# cat=mixed signal=no-raises
+We had our best year ever, thanks to all of you. Unfortunately, given economic uncertainty, there will be no merit increases this cycle.
+Best year ever, but no raises this cycle.
+No raises, even after a record year.
+Record year, no raises. They keep the money.
+
+Bonuses will be paid at 50% of target this year, and salary increases are postponed until Q3.
+Bonuses are half of target and raises are delayed to Q3.
+Half bonuses and no raises until Q3.
+Half your bonus and no raise.
+
+We're investing heavily in AI this year, so the merit budget will be smaller than usual.
+Raises will be smaller because money is going to AI.
+Smaller raises because they're spending on AI.
+Your raise went to the AI budget.
+
+# cat=mixed signal=rto
+We're bringing teams back to the office four days a week. To make it easier, we're adding free lunch and upgraded spaces.
+Office four days a week, with free lunch and nicer spaces.
+Back to the office four days a week. Free lunch to sweeten it.
+Four days at your desk. Here's a sandwich.
+
+Starting in May, everyone will work from a hub at least three days a week, and attendance will be tracked.
+From May, office three days a week, and they'll track attendance.
+Office three days a week from May, and they're tracking it.
+Three days a week and they're watching your badge.
+
+Our hybrid model is changing: teams will now be in the office Monday through Thursday, and remote exceptions will be rare.
+Office Monday to Thursday, and remote exceptions will be hard to get.
+Four office days a week. Don't ask for remote.
+Monday to Thursday at your desk. No exceptions.
+
+# cat=mixed signal=reorg
+We're reorganizing Engineering into four product groups, and Priya will now report to Marco. We know this is a lot of change.
+Engineering is being reorganized into four groups, and Priya now reports to Marco.
+Engineering reorg. Priya reports to Marco now.
+Engineering reorg. New bosses, more chaos.
+
+As part of the new structure, we will also pause backfills while we assess team sizes.
+They're reorganizing and not replacing people who leave for now.
+Reorg plus a backfill freeze.
+Reorg, and nobody who leaves gets replaced.
+
+# cat=mixed signal=delay
+The launch is moving to Q4 to give us time to address quality issues. We'll also be reducing the scope of version 1.
+The launch moved to Q4 and version 1 will do less.
+It's delayed to Q4 and smaller.
+Late and smaller. Q4.
+
+Because of the vendor delay, the go-live is pushed to February, and the training budget is frozen until then.
+Go-live moved to February, and training money is frozen until then.
+It's delayed to February, and no training budget until then.
+Late to February, and no training money.
+
+# cat=mixed signal=shutdown
+We're sunsetting the Atlas product line and redeploying the team to our core platform. Some roles will not continue.
+The Atlas product is ending, most of the team moves to the core platform, and some jobs are cut.
+Atlas is being shut down, with some layoffs.
+Atlas is dead, and some of the team is fired.
+
+# cat=mixed signal=budget-freeze
+Spending is frozen through Q1, and we won't be filling open roles until it lifts.
+Spending and hiring are both on hold through Q1.
+Budget and hiring freeze through Q1.
+No money and no help through Q1.
+
+# cat=mixed signal=hiring-freeze
+With AI tools now available to every team, we will hold headcount flat and expect productivity gains.
+They're not hiring and expect AI to make people more productive.
+Hiring freeze, and AI is supposed to fill the gap.
+No new people. Use the robot.
+
+# cat=mixed signal=performance
+This year we're raising the performance bar. Ratings will be calibrated, and the bottom 10% will be managed out.
+They expect more, and the lowest-rated 10% will be pushed out.
+Higher bar, and the bottom 10% gets fired.
+Bottom 10% gets fired. Perform.
+
+# cat=none signal=none
+Hi all, the kitchen will be cleaned on Friday, so please take your food out of the fridge by Thursday night.
+Clear out your food from the fridge by Thursday night.
+Take your food out of the fridge by Thursday night.
+Empty your fridge stuff by Thursday.
+
+Reminder: the all-hands is at 10 AM tomorrow in the main auditorium.
+The all-hands is tomorrow at 10 AM in the auditorium.
+All-hands tomorrow at 10 AM.
+All-hands, 10 AM tomorrow.
+
+Please submit your expense reports for October by November 5.
+October expenses are due November 5.
+Expenses due November 5.
+Expenses by November 5.
+
+The VPN will be down for maintenance from 11 PM to 1 AM on Saturday.
+The VPN is down Saturday from 11 PM to 1 AM.
+VPN maintenance Saturday night, 11 to 1.
+No VPN Saturday 11 PM to 1 AM.
+
+We've updated the travel booking tool. You can now book hotels directly in the app.
+You can now book hotels in the travel app.
+The travel app can book hotels now.
+Hotels are in the travel app now.
+
+Welcome to our new hires starting this week in Engineering and Marketing!
+New people started in Engineering and Marketing this week.
+New hires started this week.
+New people started.
+
+The parking garage will be repainted next week, so levels 2 and 3 will be closed.
+Parking levels 2 and 3 are closed next week for painting.
+Levels 2 and 3 of the garage are closed next week.
+No parking on 2 and 3 next week.
+
+Open enrollment for benefits runs from November 1 to November 15.
+You can choose benefits from November 1 to 15.
+Benefits enrollment is November 1 to 15.
+Pick your benefits by November 15.
+
+Please review and sign the updated code of conduct in Workday by Friday.
+Sign the updated code of conduct in Workday by Friday.
+Sign the new code of conduct by Friday.
+Sign the code of conduct by Friday.
+
+The quarterly town hall will be livestreamed for remote employees.
+Remote people can watch the town hall online.
+The town hall will be streamed.
+Town hall is streamed.
+
+Hey team, I'll be out Thursday and Friday. Mia is covering any urgent requests.
+They're out Thursday and Friday, and Mia covers urgent things.
+Out Thursday and Friday. Ask Mia.
+Gone Thursday and Friday. Mia's on point.
+
+The fire drill is scheduled for 2 PM on Wednesday. Please follow the floor wardens.
+Fire drill at 2 PM Wednesday.
+Fire drill Wednesday at 2 PM.
+Fire drill, Wednesday, 2 PM.
+
+We moved the design review to Room 4B at 3 PM.
+The design review is now in Room 4B at 3 PM.
+Design review moved to 4B, 3 PM.
+Design review: 4B, 3 PM.
+
+Our holiday schedule for next year is now posted on the intranet.
+Next year's holidays are on the intranet.
+The holiday calendar is posted.
+Holiday calendar is up.
+
+The new coffee machine on the third floor is now working.
+The third-floor coffee machine works now.
+New coffee machine on three works.
+Coffee machine on three works.
+
+Please make sure your laptops are updated to the latest OS by the end of the month.
+Update your laptop OS by the end of the month.
+Update your laptop by month end.
+Update your laptop.
+
+We're piloting a new feedback tool with the support team this quarter.
+The support team is trying a new feedback tool this quarter.
+Support is testing a new feedback tool.
+Support is testing a new tool.
+
+Thanks for joining today's sprint review. Notes and recordings are in the shared folder.
+Notes and recordings from the sprint review are in the shared folder.
+Sprint review notes are in the shared folder.
+Notes are in the folder.
+
+The Q3 roadmap has been published. Please add comments by Wednesday.
+The Q3 roadmap is out. Comment by Wednesday.
+Q3 roadmap is posted. Comments due Wednesday.
+Roadmap's out. Comment by Wednesday.
+
+Our office will be closed on Monday for the public holiday.
+The office is closed Monday for the holiday.
+Office closed Monday.
+Office closed Monday.
+
+# cat=fluff signal=fluff
+Our people are our greatest asset, and we're so proud of the passion you bring every day.
+A thank-you that says nothing new.
+Nice words, no news.
+Filler. Means nothing.
+
+We're on an incredible journey together, and the best is yet to come.
+Feel-good words, no news.
+Hype, no information.
+Hype. Means nothing.
+
+I'm humbled and grateful to lead such an amazing team.
+The leader is thanking the team.
+Nice words, no news.
+Filler.
+
+Together, we'll continue to live our values and deliver for our customers.
+A feel-good line about values.
+Feel-good filler.
+Corporate filler.
+
+Thank you all for your dedication, resilience and heart this year.
+A thank-you note.
+A thank-you, no news.
+Thanks, but no money.
+
+Our mission has never been more important, and I'm inspired by each of you.
+Inspirational words, no news.
+Pep talk, no information.
+Pep talk. Nothing else.
+
+We are a family, and families stick together through every season.
+They want loyalty.
+They want loyalty from you.
+They want loyalty. Don't expect it back.
+
+I couldn't be more excited about what's ahead for our community.
+They're excited about the future.
+Hype, no details.
+Hype.

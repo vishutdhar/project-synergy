@@ -1,0 +1,279 @@
+# cat=layoff-you signal=layoff-you
+Hi Sam, as part of our ongoing restructuring, your position has been eliminated effective today. HR will reach out about next steps.
+Your job has been cut as of today.
+You're being laid off, effective today.
+You're fired, today. HR will handle the paperwork.
+
+We're sorry to share that your role is among those impacted by this week's changes. Please return your laptop by Friday.
+Your job is one of the ones being cut.
+You're being laid off. Return your laptop by Friday.
+You're out. Hand in the laptop by Friday.
+
+Thank you for your service. Your last day will be November 14, and your severance details are attached.
+Your job ends on November 14, and severance details are attached.
+You're being let go. Your last day is November 14.
+You're done on November 14. Here's your severance.
+
+After careful review, we no longer require your services as of the end of the month.
+Your job is ending at the end of the month.
+You're being let go at the end of the month.
+You're fired, effective end of month.
+
+Your employment with Corvane will end on March 1. This decision was not a reflection of your performance.
+Your job at Corvane ends on March 1, and they say it's not about your work.
+You're being laid off on March 1. They say it isn't about your performance.
+You're out on March 1. "Not about performance" is the usual line.
+
+As discussed, this email confirms that your position has been affected by the reduction in force. Your benefits continue through June 30.
+This confirms your job was cut in the layoffs. Benefits last until June 30.
+You were laid off. Your benefits run until June 30.
+You got cut in the layoffs. Benefits end June 30.
+
+We have made the difficult decision to let you go. Your access will be removed at 5 PM today.
+They've decided to let you go, and your access ends at 5 PM today.
+You're fired. Your access ends at 5 PM today.
+You're fired, and locked out at 5 today.
+
+Unfortunately, your contract will not be renewed when it expires on the 31st.
+Your contract won't be renewed after the 31st.
+Your contract ends on the 31st and won't be renewed.
+You're done on the 31st. No renewal.
+
+You've been impacted by the reorganization. Please join a brief call with HR at 10:00 to discuss your transition.
+You're losing your job in the reorg. HR wants to talk at 10:00.
+You're being laid off in the reorg. HR call at 10:00.
+You're out. HR will walk you through it at 10:00.
+
+We are writing to inform you that your role at Lumen Labs is being eliminated as part of our efforts to streamline operations.
+Your job at Lumen Labs is being cut to save money.
+You're being laid off from Lumen Labs to cut costs.
+Lumen Labs is firing you to save money.
+
+Your position will transition to our partner in Manila, and your last day will be April 4.
+Your job is moving to a partner in Manila, and your last day is April 4.
+Your job is being outsourced to Manila. Last day April 4.
+Your job got shipped to Manila. You're out April 4.
+
+Effective immediately, you are relieved of your duties. Please do not log in to company systems.
+You no longer work here, starting now, and shouldn't log in.
+You're fired, effective now. Don't log in.
+You're fired. Right now. Don't touch the systems.
+
+# cat=layoffs signal=layoffs
+Today we are reducing our workforce by approximately 12% to align our cost structure with current demand.
+They're cutting about 12% of jobs to save money.
+About 12% of people are being laid off.
+They're firing 12% of the company to cut costs.
+
+To position us for long-term success, we are eliminating around 400 roles across Sales and Operations.
+About 400 jobs in Sales and Operations are being cut.
+They're laying off about 400 people in Sales and Operations.
+400 people in Sales and Ops are getting fired.
+
+We made the difficult decision to part ways with a number of talented colleagues today.
+Some coworkers lost their jobs today.
+People got laid off today.
+They fired people today.
+
+As we sharpen our focus, some teams will be smaller. Impacted employees will receive an email within the hour.
+Some teams are losing people. Those affected will get an email within the hour.
+There are layoffs. Check your email in the next hour.
+Layoffs. Watch your inbox for the next hour.
+
+This was not an easy decision, but reducing headcount is necessary to protect the business.
+They're cutting jobs and say it's necessary.
+They're laying people off to protect the company.
+They're firing people to protect the business. Not you, the business.
+
+We are right-sizing the design organization to reflect our new priorities.
+The design team is being made smaller.
+They're laying off designers.
+They're firing designers.
+
+Following the merger, we have identified overlapping roles and will be consolidating teams. Affected staff will be notified this week.
+After the merger, duplicate jobs are being cut. People affected will hear this week.
+Jobs are being cut after the merger. You'll know this week.
+Merger done, duplicates fired. Find out this week.
+
+We are saying goodbye to about 60 colleagues in our Austin office.
+About 60 people in the Austin office are losing their jobs.
+About 60 people in Austin are being laid off.
+They're firing about 60 people in Austin.
+
+Our new operating model requires a leaner organization, and some positions will be eliminated.
+The new structure means fewer people, so some jobs are being cut.
+There's a reorg with job cuts.
+New org chart, fewer people. Some of you are fired.
+
+Severance packages will include 8 weeks of pay plus one week per year of service.
+Laid-off people get 8 weeks of pay plus a week per year worked.
+Severance is 8 weeks plus a week per year for those laid off.
+If you're fired, you get 8 weeks plus a week per year.
+
+We are optimizing our workforce to drive efficiency in a challenging market.
+They're cutting staff to save money in a tough market.
+They're laying people off because business is tough.
+They're firing people and blaming the market.
+
+To streamline decision making, we are removing a layer of middle management.
+A layer of managers is being cut.
+They're laying off a layer of middle managers.
+Middle managers are getting fired.
+
+Today's reduction affects roughly 1 in 10 employees globally.
+About 1 in 10 employees are losing their jobs.
+They're laying off about 10% of the company worldwide.
+One in ten people are fired today.
+
+# cat=pip signal=pip
+Over the next 60 days, we'll work together on a structured improvement plan with clear weekly goals.
+You're on a 60-day improvement plan with weekly goals.
+You're on a 60-day PIP.
+You're on a 60-day PIP. Start looking for a job.
+
+Your recent performance has not met expectations in several key areas, which we have documented.
+Your work hasn't met expectations, and it's been written down.
+They say you're underperforming, and they're documenting it.
+They're building a file on you.
+
+We're putting a Performance Improvement Plan in place to support your success.
+You're being put on a performance improvement plan.
+You're on a PIP.
+You're on a PIP. That's step one of firing.
+
+Let's meet weekly to review progress against the goals in your development plan. Failure to meet these goals may result in further action.
+Weekly check-ins on your goals, and missing them could have consequences.
+Weekly PIP check-ins. Miss the goals and you may be fired.
+Weekly PIP meetings. Miss a goal and you're out.
+
+Your manager has raised concerns about your output, and we'd like to set a 30-day review period.
+Your manager is worried about your work and wants a 30-day review.
+You're on a 30-day performance review.
+You have 30 days to prove yourself or you're out.
+
+We want to be transparent that this plan is a formal step in our performance process.
+This plan is an official step in the performance process.
+This is a formal PIP.
+This PIP is official. It's the paper trail.
+
+Several deliverables were late or incomplete, and we need to see consistent improvement by the end of the quarter.
+Some of your work was late or unfinished, and they want steady improvement by the end of the quarter.
+You missed deadlines and need to improve by the end of the quarter.
+Fix your work by end of quarter or you're gone.
+
+Going forward, you'll be expected to meet the targets outlined in the attached plan.
+You need to hit the targets in the attached plan.
+You're on a plan. Hit the targets in it.
+Hit the targets in the PIP or you're out.
+
+We'd like to schedule time to discuss some gaps between your performance and the expectations for your level.
+They want to talk about where your work falls short for your level.
+They think you're underperforming for your level.
+They're about to tell you you're not good enough.
+
+This is an opportunity to reset expectations and demonstrate the impact we know you're capable of.
+They want you to improve and show results.
+You're on notice to improve.
+Prove yourself or you're out.
+
+# cat=shutdown signal=shutdown
+We've made the decision to sunset Pathfinder on June 30. Thank you to everyone who used it.
+Pathfinder is shutting down on June 30.
+They're killing Pathfinder on June 30.
+Pathfinder is dead on June 30.
+
+After much consideration, we will be winding down our consumer business over the next six months.
+The consumer business is being shut down over six months.
+They're shutting down the consumer business.
+Consumer business is dead. Six months to lights out.
+
+The Denver office will close at the end of the year. Employees can relocate or work remotely.
+The Denver office is closing at the end of the year, with relocation or remote work offered.
+They're closing the Denver office. Move or go remote.
+Denver office is dead. Move or work from home.
+
+Version 3 of the API will be deprecated and no longer supported after March 31.
+The old API stops being supported after March 31.
+They're shutting off API version 3 after March 31.
+API v3 dies March 31. Upgrade or break.
+
+We are discontinuing the Basic plan. Existing customers will move to the Plus plan at the same price until renewal.
+The Basic plan is ending, and customers move to Plus at the same price until renewal.
+They're killing the Basic plan and moving people to Plus.
+Basic plan is gone. You're on Plus until they raise the price.
+
+As part of our focus on core products, we are ceasing development on the mobile app.
+They're stopping work on the mobile app.
+The mobile app is being shut down.
+The mobile app is dead.
+
+Our research lab will wind down operations by September, and the team will be offered other roles where possible.
+The research lab is closing by September, and some people may get other jobs inside.
+The research lab is shutting down. Some people might get moved.
+Research lab is dead. Some of you might land somewhere.
+
+We're retiring the legacy portal on Friday. Please use the new dashboard going forward.
+The old portal shuts down Friday, so use the new dashboard.
+The old portal dies Friday. Use the new dashboard.
+Old portal is gone Friday. Deal with the new one.
+
+Effective next month, the podcast will be on an indefinite hiatus.
+The podcast is stopping next month, maybe for good.
+They're shutting down the podcast.
+The podcast is dead. "Hiatus" means dead.
+
+We're bringing the Meridian pilot to a close and folding the learnings into other work.
+The Meridian pilot is ending.
+They're killing the Meridian pilot.
+Meridian is dead. "Learnings" is the eulogy.
+
+# cat=outsourcing signal=outsourcing
+We are partnering with a global services firm to handle first-line IT support starting in Q2.
+An outside company will take over basic IT support in Q2.
+They're outsourcing IT support in Q2.
+IT support is being outsourced in Q2. Those jobs are gone.
+
+Some finance operations will transition to our center of excellence in Kraków.
+Some finance work is moving to the office in Kraków.
+Finance work is being moved to Kraków.
+Finance jobs are moving to Kraków, where it's cheaper.
+
+To scale efficiently, we will leverage a trusted vendor for content moderation.
+An outside vendor will do content moderation.
+They're outsourcing content moderation.
+Moderation is going to a cheap vendor.
+
+Customer support for EMEA will move to our partner in Cape Town by the end of the year.
+EMEA customer support is moving to a partner in Cape Town by year end.
+They're outsourcing EMEA support to Cape Town.
+EMEA support jobs are going to Cape Town.
+
+We are expanding our nearshore team in Monterrey, and some QA responsibilities will shift there.
+Some QA work is moving to the team in Monterrey.
+QA is being moved to Monterrey.
+QA jobs are going to Monterrey, where it's cheaper.
+
+Payroll and benefits administration will be managed by an external provider from July.
+An outside company will run payroll and benefits from July.
+They're outsourcing payroll and benefits in July.
+Payroll and benefits jobs are gone in July.
+
+We are moving data entry work to lower-cost locations to remain competitive.
+Data entry is moving to cheaper locations.
+They're moving data entry somewhere cheaper.
+Data entry jobs are going somewhere cheaper.
+
+Our managed service partner will take over network operations, and the current team will help with the handover.
+An outside partner is taking over network operations, and the current team will help hand it over.
+Network ops is being outsourced, and the team has to train their replacements.
+You're training your replacements, then network ops is outsourced.
+
+The warehouse will be operated by a third-party logistics provider starting next quarter.
+An outside logistics company will run the warehouse next quarter.
+They're outsourcing the warehouse next quarter.
+The warehouse is going to a contractor. Those jobs are gone.
+
+Engineering for the legacy platform is transitioning to an offshore partner.
+Work on the old platform is moving to an overseas partner.
+They're offshoring the legacy platform work.
+Legacy engineering jobs are going offshore.

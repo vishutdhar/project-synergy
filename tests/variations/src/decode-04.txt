@@ -1,0 +1,261 @@
+# cat=reorg signal=reorg
+Effective Monday, the Platform and Data teams will combine under a single leader.
+The Platform and Data teams are merging under one boss on Monday.
+Reorg: Platform and Data merge on Monday.
+Reorg Monday. Someone just lost their team.
+
+We're realigning our go-to-market organization around industries rather than regions.
+Sales is being reorganized by industry instead of region.
+It's a sales reorg. New teams, new bosses.
+Sales reorg. Expect chaos.
+
+As part of our new operating model, several teams will now report to the COO.
+Some teams will now report to the COO.
+Reorg: some teams now report to the COO.
+Reorg. New boss for some of you.
+
+We are restructuring the marketing function to increase agility.
+Marketing is being reorganized.
+Marketing is being reorganized, maybe with cuts.
+Marketing reorg. Cuts usually follow.
+
+Reporting lines for the support team will change on the 1st. Your manager will share details.
+The support team gets new managers on the 1st.
+Support has a reorg on the 1st.
+Support reorg on the 1st. New bosses.
+
+We're consolidating our three design groups into one central studio.
+The three design groups are merging into one.
+Design teams are being merged.
+Three design teams become one. Fewer seats.
+
+To reduce complexity, product teams will be organized around customer journeys instead of features.
+Product teams are being reorganized around customer journeys.
+It's a product reorg.
+Product reorg. Expect confusion.
+
+Following a review of our structure, we're moving to a matrix model with dual reporting.
+They're moving to a structure where you have two bosses.
+Reorg. Now you have two bosses.
+Two bosses. Twice the meetings.
+
+The EMEA and APAC regions will be merged into a single International organization.
+EMEA and APAC are being merged into one group.
+Reorg: EMEA and APAC merge.
+Regions merged. Someone's job is redundant.
+
+# cat=cost-cuts signal=cost-cuts
+We're taking steps to improve operational efficiency and reduce costs across the business.
+The company is cutting costs.
+They're cutting costs.
+They're cutting costs. You might be one.
+
+To protect our margins, we'll be reducing spend on vendors and consultants by 20%.
+They're cutting vendor and consultant spending by 20%.
+Vendor and consultant spend is cut 20%.
+20% cuts on vendors. Cheaper everything.
+
+We're asking every team to find 10% in savings for next year.
+Every team has to cut 10% of its costs next year.
+Every team must cut 10% next year.
+Find 10% to cut, or they'll find it for you.
+
+As part of our cost discipline efforts, the company will downgrade to economy travel for all flights.
+All flights will be economy now to save money.
+Economy flights only.
+Economy only. Even for long flights.
+
+We are consolidating our office space to reduce our real estate footprint.
+They're using less office space to save money.
+They're cutting office space.
+Smaller offices, more crowding.
+
+Streamlining our tool stack will save over $2M annually.
+Cutting some tools will save over $2M a year.
+They're cutting tools to save $2M a year.
+Your favorite tool is probably getting cut.
+
+We're doing more with less this year by focusing on the highest-impact work.
+They want the same output with fewer resources.
+Do more work with less money.
+Same work, fewer people, less money.
+
+Snacks and catered lunches will be reduced to twice a week.
+Free food is cut to twice a week.
+Less free food.
+They cut the snacks. Things are bad.
+
+Going forward, all new spend will be evaluated against clear ROI targets.
+New spending has to show a clear return.
+Spending is being cut back.
+Prove the ROI or no money.
+
+# cat=ai signal=ai
+We're becoming an AI-first company, and every team will be expected to integrate AI into their workflows.
+They want every team using AI in their work.
+AI everywhere, and you're expected to use it.
+AI-first. Your job is next.
+
+Before requesting additional headcount, teams must show why the work cannot be done with AI.
+You have to prove AI can't do the work before hiring.
+No new hires unless AI can't do it.
+No people unless the robot can't do it.
+
+Our new AI assistant will automate routine support tickets, freeing the team for higher-value work.
+An AI assistant will handle simple support tickets.
+AI is taking over basic support tickets.
+AI is taking support jobs.
+
+We're investing in automation to scale our operations without growing headcount at the same rate.
+They want automation so they can grow without hiring as much.
+Automation instead of hiring.
+Robots instead of new hires.
+
+AI usage will be part of everyone's performance goals this year.
+How much you use AI will count in your review.
+Your review will measure your AI usage.
+Use AI or get a bad review.
+
+We're piloting AI agents in Finance to accelerate month-end close.
+They're testing AI in Finance to speed up month-end.
+AI is being tested in Finance.
+AI is coming for Finance jobs.
+
+Machine learning will now handle first-pass resume screening.
+AI will screen resumes first.
+A machine screens resumes now.
+A robot rejects your resume now.
+
+The content team will use generative AI to produce first drafts of all articles.
+Writers will start from AI drafts.
+AI writes the first drafts now.
+AI writes now. Writers edit.
+
+# cat=performance signal=performance
+We are raising the bar on performance and expect everyone to operate with greater intensity.
+They expect everyone to work harder.
+Work harder.
+Work harder, or you're next.
+
+Our culture is one of high performance, and we will hold each other accountable.
+They expect a lot and will hold people to it.
+High expectations, and they'll call out slackers.
+Perform or get blamed.
+
+This is a hardcore environment, and long hours will be the norm.
+Expect long hours.
+Long hours are expected.
+Work all the time.
+
+We expect leaders to set a high bar for their teams and address underperformance quickly.
+Managers should push their teams and deal with weak performers fast.
+Managers are told to push and cut low performers.
+Your manager is told to push you or push you out.
+
+Going forward, performance expectations will be reviewed quarterly rather than annually.
+Performance reviews will happen every quarter now.
+Reviews are quarterly now. More pressure.
+Four chances a year to get fired.
+
+We need everyone to bring their A-game as we head into a critical year.
+They want everyone at their best this year.
+Work harder this year.
+No slacking. They're watching.
+
+Accountability for results will be at the heart of our new performance framework.
+The new review system focuses on results.
+You'll be judged harder on results.
+Miss your numbers and you'll hear about it.
+
+# cat=departure signal=departure
+After 9 years leading the company, Maria has decided to step down as CEO at the end of the month.
+Maria is leaving as CEO at the end of the month.
+Maria is stepping down as CEO, maybe not by choice.
+Maria got pushed out.
+
+Our CTO, Dev, will be leaving to pursue other opportunities. We thank him for his contributions.
+The CTO, Dev, is leaving.
+Dev is leaving, possibly pushed out.
+Dev got pushed out.
+
+Jordan is stepping back from day-to-day operations to spend more time with family.
+Jordan is stepping back from daily work.
+Jordan is leaving, maybe not by choice.
+Jordan got pushed out.
+
+Effective today, Karen is no longer with the company. Please direct questions to Luis.
+Karen has left the company, so ask Luis instead.
+Karen is gone, effective today.
+Karen got fired today.
+
+Our CFO has decided to leave, and we have begun a search for a successor.
+The CFO is leaving, and they're looking for a replacement.
+The CFO is leaving.
+The CFO is out.
+
+Please join me in thanking Ana for her leadership as she transitions to an advisory role.
+Ana is moving into an advisory role.
+Ana is stepping down into an advisory role.
+Ana got kicked upstairs.
+
+# cat=benefits signal=benefits
+The company match for the 401(k) is paused for the remainder of the year.
+The 401(k) match is on hold for the rest of the year.
+No 401(k) match for the rest of the year.
+Your retirement match is gone this year.
+
+Starting January, employee health insurance premiums will increase by 15%.
+Health insurance will cost you 15% more from January.
+Your health premiums go up 15%.
+Your health insurance costs more.
+
+We're evolving our benefits program and will discontinue the wellness stipend.
+The wellness stipend is ending.
+They're cutting the wellness stipend.
+Wellness stipend is gone.
+
+The commuter benefit will be reduced from $200 to $100 per month.
+The commuter benefit is cut to $100 a month.
+Commuter benefit cut in half.
+Half the commuter money, more commuting.
+
+Unlimited PTO is being replaced with a fixed 20 days per year.
+Unlimited time off is becoming 20 days a year.
+No more unlimited PTO. 20 days.
+Unlimited PTO is over.
+
+The home office allowance will no longer be available for new hires.
+New hires won't get a home office allowance.
+No home office money for new hires.
+No home office money anymore.
+
+We are lowering the 401(k) match from 6% to 3%.
+The 401(k) match drops from 6% to 3%.
+They cut the 401(k) match in half.
+Your retirement match got halved.
+
+# cat=acquisition signal=acquisition
+We're excited to announce that Lattice has signed a definitive agreement to acquire Northbeam.
+Lattice is buying Northbeam.
+Lattice is buying Northbeam.
+Lattice bought Northbeam. Overlap cuts next.
+
+Today we're joining forces with Kestrel to create a combined company with greater scale.
+The company is merging with Kestrel.
+It's a merger with Kestrel.
+Merger with Kestrel. Duplicate jobs at risk.
+
+The acquisition is expected to close in Q2, subject to regulatory approval.
+The deal should close in Q2 if regulators approve.
+The buyout closes in Q2, probably.
+Sale closes in Q2. Then changes.
+
+As part of the integration, we'll be aligning systems and teams over the next year.
+They'll combine systems and teams over the next year after the deal.
+Merger integration means teams will be combined.
+Integration means cuts.
+
+Nothing changes for you day to day while the merger is finalized.
+Your work stays the same until the merger is done.
+Nothing changes yet. The merger isn't done.
+Nothing changes yet.

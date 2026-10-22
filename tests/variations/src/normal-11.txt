@@ -1,0 +1,258 @@
+# cat=crude
+fuck this printer
+This printer is so frustrating.
+This printer is really frustrating.
+This printer is a significant pain point.
+
+the new VP is a fucking clown
+The new VP is hard to take seriously.
+I'm struggling to take the new VP seriously.
+I have concerns about the new VP's leadership.
+
+are you shitting me, they moved the deadline up?
+Are you serious? They moved the deadline up?
+Really? They moved the deadline up?
+To confirm, they moved the deadline up?
+
+stop dicking around and send the contract
+Please stop stalling and send the contract.
+Please send the contract without further delay.
+Please send the contract without further delay.
+
+I'm sick of this crap
+I'm tired of this.
+I'm worn out by this.
+I've reached my limit on this.
+
+this release is fucked
+This release is broken.
+This release is in serious trouble.
+This release is facing significant issues.
+
+they can shove their return to office policy
+I strongly disagree with their return-to-office policy.
+I have serious concerns about the return-to-office policy.
+I have significant reservations about the return-to-office policy.
+
+holy crap the AWS bill is $60k
+Wow, the AWS bill is $60k.
+Wow, the AWS bill is $60k.
+Heads up, the AWS bill is $60k.
+
+it's a shitty situation but we'll deal
+It's a bad situation, but we'll deal with it.
+It's a tough situation, but we'll handle it.
+It's a challenging situation, but we'll navigate it.
+
+god damn it, I left my badge at home
+I left my badge at home.
+Unfortunately, I left my badge at home.
+Unfortunately, I left my badge at home.
+
+the hell is wrong with this API
+What's wrong with this API?
+What's going on with this API?
+What's driving the issues with this API?
+
+nobody gives a shit about the mission statement
+Nobody cares about the mission statement.
+Nobody is paying attention to the mission statement.
+The mission statement isn't resonating with anyone.
+
+he's such a suck-up to the director
+He's always trying to impress the director.
+He works hard to stay on the director's good side.
+He's very focused on managing up to the director.
+
+we did fuck all on the roadmap this quarter
+We did nothing on the roadmap this quarter.
+We made no progress on the roadmap this quarter.
+We made no progress on the roadmap this quarter.
+
+let's not screw this up, the client is watching
+Let's not mess this up. The client is watching.
+Let's not drop the ball on this. The client is watching.
+Let's execute flawlessly here. The client is watching.
+
+this onboarding is a joke and a half-assed one
+This onboarding isn't very good, and it feels rushed.
+This onboarding needs work and feels rushed.
+This onboarding has significant gaps and feels under-invested.
+
+i'm so fucking tired
+I'm so tired.
+I'm really tired.
+I'm running on empty.
+
+that pricing page is crap, nobody can find the button
+That pricing page isn't great. Nobody can find the button.
+That pricing page needs work. Nobody can find the button.
+That pricing page is underperforming. Nobody can find the button.
+
+the auditors are up our ass about the receipts
+The auditors are pressing us hard about the receipts.
+The auditors are pushing us hard on the receipts.
+The auditors are applying significant scrutiny to the receipts.
+
+whoever wrote this regex can go to hell
+Whoever wrote this regex made my life hard.
+This regex is very hard to work with.
+This regex is a significant pain point.
+
+we look like idiots in front of the client
+We look bad in front of the client.
+We look unprepared in front of the client.
+We appear underprepared in front of the client.
+
+Jesus Christ, three outages in one week
+Three outages in one week.
+Wow, three outages in one week.
+Three outages in one week is concerning.
+
+he pissed off the whole sales team
+He upset the whole sales team.
+He frustrated the whole sales team.
+He created friction with the entire sales team.
+
+screw the process, just call them
+Skip the process and just call them.
+Let's skip the process and just call them.
+Let's bypass the process and just call them.
+
+this sucks
+This is frustrating.
+This is disappointing.
+This is a suboptimal situation.
+
+the migration went to shit at 2am
+The migration went badly at 2am.
+The migration failed at 2am.
+The migration failed at 2am.
+
+stop bitching and fix it
+Please stop complaining and fix it.
+Let's focus on fixing it rather than complaining.
+Let's pivot from concerns to a fix.
+
+his feedback was a load of bull
+His feedback wasn't accurate.
+His feedback wasn't grounded in fact.
+His feedback wasn't grounded in data.
+
+fuckin finally, the budget got approved
+Finally, the budget got approved.
+Finally, the budget has been approved.
+At last, the budget has been approved.
+
+the reorg is a total shitstorm
+The reorg is a mess.
+The reorg is very chaotic.
+The reorg is a highly turbulent situation.
+
+# cat=sarcasm
+oh fantastic, another tool to learn
+Oh fantastic, another tool to learn.
+Oh, wonderful, another tool to learn.
+How exciting, another tool to learn.
+
+great, so we're just ignoring the bug then
+Great, so we're just ignoring the bug, then.
+Okay, so we're just ignoring the bug, then.
+Understood, so we're deprioritizing the bug, then.
+
+wow thanks for telling me at 4:55 on a friday
+Wow, thanks for telling me at 4:55 on a Friday.
+Thanks for letting me know at 4:55 on a Friday.
+Thank you for flagging this at 4:55 on a Friday.
+
+sure, let's add another approval step, that'll speed things up
+Sure, let's add another approval step. That'll speed things up.
+Sure, another approval step will definitely speed things up.
+Sure, another approval layer will definitely accelerate things.
+
+oh look, the "temporary" fix from 2019 broke
+Oh look, the "temporary" fix from 2019 broke.
+Oh look, the "temporary" fix from 2019 broke.
+Oh look, the "temporary" fix from 2019 failed.
+
+yes, I'd love to redo the whole deck tonight
+Yes, I'd love to redo the whole deck tonight.
+Of course, I'd love to redo the whole deck tonight.
+Of course, I'd love to rebuild the entire deck tonight.
+
+ah, the classic "quick favor" that takes all week
+Ah, the classic "quick favor" that takes all week.
+Ah, the classic "quick favor" that takes all week.
+Ah, the classic "quick favor" that consumes the whole week.
+
+how wonderful, mandatory fun on a saturday
+How wonderful, mandatory fun on a Saturday.
+How wonderful, mandatory fun on a Saturday.
+How wonderful, mandatory fun on a Saturday.
+
+# cat=decline
+I'd rather not lead the project, I'm stretched thin
+I'd rather not lead the project. I'm stretched thin.
+I'd prefer not to lead the project, as I'm stretched thin.
+I'd prefer not to lead the initiative, as I'm already at capacity.
+
+no I can't lend you my login
+No, I can't lend you my login.
+No, I can't share my login.
+No, I'm not able to share my credentials.
+
+I'm passing on the mentorship program this year
+I'm passing on the mentorship program this year.
+I'll be passing on the mentorship program this year.
+I'll be opting out of the mentorship program this year.
+
+we're not taking new clients until March
+We're not taking new clients until March.
+We aren't taking on new clients until March.
+We aren't onboarding new clients until March.
+
+can't help, I've never used Salesforce
+I can't help. I've never used Salesforce.
+I'm not able to help, as I've never used Salesforce.
+I'm not the right person, as I've never used Salesforce.
+
+# cat=question
+who decided we're doing this in-house
+Who decided we're doing this in-house?
+Who made the decision to do this in-house?
+Who made the call to build this in-house?
+
+is this a fire or can it wait till Monday
+Is this urgent, or can it wait until Monday?
+Is this urgent, or can it wait until Monday?
+Is this urgent, or can it wait until Monday?
+
+what's the password for the conference room TV
+What's the password for the conference room TV?
+What's the password for the conference room TV?
+What's the password for the conference room TV?
+
+why are we paying for 3 different chat apps
+Why are we paying for 3 different chat apps?
+Could you help me understand why we pay for 3 chat apps?
+Could we revisit why we're paying for 3 chat apps?
+
+can anyone explain the new org chart to me
+Can anyone explain the new org chart to me?
+Could someone walk me through the new org chart?
+Could someone walk me through the new org structure?
+
+did we ever hear back from the auditors
+Did we ever hear back from the auditors?
+Have we heard back from the auditors?
+Have we received a response from the auditors?
+
+so who's actually in charge of this
+So who's in charge of this?
+Who's leading this?
+Who's the owner of this?
+
+is it just me or is this survey super long
+Is it just me, or is this survey very long?
+Is it just me, or is this survey quite long?
+Is it just me, or is this survey quite long?

@@ -1,0 +1,212 @@
+# cat=linkedin signal=new-chapter
+Some personal news: after 5 years, I've made the decision to leave Quanta. I'm taking the summer to reflect and figure out what's next. If you know of roles in growth marketing, my DMs are open!
+They left Quanta after 5 years and are looking for a growth marketing job.
+They left Quanta with no next job and are job hunting.
+Out at Quanta, no job lined up, please hire them.
+
+I was one of the 1,200 people impacted at Strato this week. I'm proud of the work we did and ready for what's next. #OpenToWork
+They were laid off from Strato this week and are looking for work.
+Strato laid them off this week. They need a job.
+Laid off from Strato. Hiring?
+
+Thrilled to share that I've accepted a new role as VP of Sales at Fernway! Grateful to everyone at Crestline who made the last 6 years special.
+They're leaving Crestline after 6 years to be VP of Sales at Fernway.
+They got a VP of Sales job at Fernway and are leaving Crestline.
+New VP job at Fernway. Bye, Crestline.
+
+Life update: my role at Tidal was eliminated last month. I've been using the time to learn, rest and reconnect. Open to conversations about product ops.
+Their job at Tidal was cut last month, and they're looking for product ops work.
+They were laid off from Tidal and are job hunting.
+Tidal fired them. They want a product ops job.
+
+# cat=linkedin signal=record-year
+Incredibly proud of this team. We just closed the best quarter in our company's history and grew ARR 140% year over year!
+The company had its best quarter ever, with ARR up 140%.
+Record quarter, ARR up 140%.
+Huge quarter. 140% growth. Bragging.
+
+What a year for Kinetic! Record revenue, 3 new offices and 500 new customers. Grateful for this incredible team.
+Kinetic had a record year with new offices and customers.
+Record year at Kinetic.
+Kinetic made a lot of money. Victory lap.
+
+# cat=linkedin signal=layoffs
+Hard day at Nimbus. We said goodbye to 15% of our team today. Every one of them is talented, and I'd hire them again. If you're hiring, please reach out.
+Nimbus laid off 15% of its staff today.
+Nimbus laid off 15% of people today.
+Nimbus fired 15% today. The CEO feels bad on LinkedIn.
+
+As a founder, the hardest decision I've had to make was reducing our team by a third. We'll come out of this stronger.
+The founder laid off a third of the company.
+They laid off a third of the team.
+They fired a third of the company and say they'll be stronger.
+
+# cat=linkedin signal=ai
+We're using AI agents to handle 70% of our customer conversations, and our team is now free to focus on the work that matters most.
+AI now handles 70% of customer chats.
+AI took over 70% of customer support.
+AI is doing 70% of support. Fewer people needed.
+
+Hot take: in two years, every company will have more AI agents than employees. We're already halfway there.
+They think AI agents will outnumber staff soon.
+They want more AI and fewer people.
+They're replacing people with AI and bragging about it.
+
+# cat=linkedin signal=performance
+At our company, we don't do work-life balance. We do work-life integration. The best people want to win, and winning takes sacrifice.
+They expect very long hours.
+Expect to work all the time.
+No work-life balance. Work all the time.
+
+# cat=email signal=delay
+Hi Rachel, quick update on the vendor portal: we've hit some unexpected integration issues, so we're now targeting the week of the 20th instead of the 6th. I'll keep you posted.
+The vendor portal is late, now the week of the 20th instead of the 6th.
+The vendor portal slipped two weeks, to the week of the 20th.
+Two weeks late. Maybe the 20th.
+
+Hi team, the client has requested additional changes, so delivery will move to next Friday.
+Delivery moves to next Friday because of client changes.
+Delivery is delayed to next Friday.
+Late again. Next Friday.
+
+# cat=email signal=rejection
+Dear Mr. Okafor, thank you for submitting your manuscript. After careful review, it does not fit our current publishing needs.
+They're not publishing the manuscript.
+It's a no on the manuscript.
+Rejected.
+
+Hi Leo, thanks for the request. Unfortunately, we can't offer a discount beyond what's in the current agreement.
+They won't give any extra discount.
+No extra discount.
+No discount.
+
+Hello, we have carefully considered your application for the grant. Regrettably, we are unable to fund it in this round.
+The grant application wasn't funded this round.
+No grant this round.
+No money for you.
+
+# cat=email signal=pip
+Hi Chris, following our conversation, I've attached the performance plan we discussed. We'll meet every Tuesday for the next 45 days to review progress.
+Chris is on a 45-day performance plan with weekly check-ins.
+Chris is on a 45-day PIP.
+Chris is on a PIP. 45 days to save the job.
+
+# cat=email signal=layoff-you
+Hi Dana, I'm sorry to share that your position is being eliminated. Your final day will be October 31, and you'll receive 10 weeks of severance.
+Dana's job is being cut, with a last day of October 31 and 10 weeks of severance.
+Dana is being laid off October 31.
+Dana's fired. Out October 31.
+
+# cat=email signal=deflection
+Thanks for raising this. We're aware of the concerns and are working through them. I don't have anything more to share at this time.
+They know about the concerns but won't say more.
+That's a non-answer.
+They dodged it.
+
+Hi Kim, good question on comp bands. That's something we're still working through with HR, so I'd rather not commit to anything yet.
+They won't commit to an answer on pay bands.
+No answer on pay bands.
+They dodged the pay question.
+
+# cat=slack signal=rto
+Hey all, reminder that leadership wants everyone in the office Tues and Thurs starting next week. I know, I know.
+You need to be in the office Tuesdays and Thursdays from next week.
+Office Tuesday and Thursday from next week.
+Back in the office twice a week. Yes, really.
+
+# cat=slack signal=hiring-freeze
+FYI we just got word that the two open reqs on our team are frozen, so we're going to have to reprioritize.
+The team's two open jobs are frozen, so priorities will shift.
+The two open roles are frozen.
+No new hires. Do the work yourselves.
+
+# cat=slack signal=budget-freeze
+Heads up: Finance says no new spend until the 1st, so hold any tool purchases.
+No new spending until the 1st, so don't buy tools.
+Spending is frozen until the 1st.
+No money until the 1st.
+
+# cat=slack signal=reorg
+Looks like we're getting a new skip-level in the reorg. Org chart goes live Monday.
+There's a reorg with a new boss above your manager, starting Monday.
+Reorg. New skip-level on Monday.
+Reorg. New big boss on Monday.
+
+# cat=slack signal=shutdown
+PSA the old wiki goes read-only Friday and gets deleted end of month, move anything you need.
+The old wiki becomes read-only Friday and is deleted at month end.
+The old wiki is shutting down. Save what you need.
+Old wiki dies this month. Save your stuff.
+
+# cat=slack signal=none
+anyone want to grab lunch at noon? thinking tacos
+Someone wants to get tacos for lunch at noon.
+Taco lunch at noon, anyone?
+Tacos at noon.
+
+the staging server is back up, thanks Raj
+The staging server works again, thanks to Raj.
+Staging is back up.
+Staging's back.
+
+reminder: retro at 4, bring your sticky notes
+Retro at 4.
+Retro at 4.
+Retro at 4.
+
+deploy went out clean, nice work everyone
+The deploy went well.
+Clean deploy.
+Deploy worked.
+
+# cat=email signal=none
+Hi Ahmed, attaching the signed NDA. Let me know if you need anything else before our call on Tuesday.
+The signed NDA is attached for Tuesday's call.
+Here's the signed NDA.
+NDA attached.
+
+Hi all, the Q2 board deck is in the shared drive. Comments by Thursday please.
+The Q2 board deck is ready. Comment by Thursday.
+Board deck is in the drive. Comments by Thursday.
+Board deck's up. Comment by Thursday.
+
+Dear customer, your invoice #8812 for $340 is now available in your account.
+Invoice #8812 for $340 is ready.
+Your $340 invoice is ready.
+You owe $340.
+
+# cat=email signal=cost-cuts
+Hi managers, as part of our efficiency push, please review all software licenses on your teams and cancel anything unused by the 15th.
+Managers must cancel unused software licenses by the 15th to save money.
+Cut unused software by the 15th.
+Cut tools by the 15th. Cost cutting.
+
+# cat=email signal=benefits
+Hi everyone, starting next year the company will no longer cover the full cost of dependent health coverage.
+Next year, you'll pay part of family health coverage.
+Family health coverage costs you more next year.
+Your family's insurance costs more.
+
+# cat=email signal=outsourcing
+Hi team, as you know, we've signed with Orion Partners to run our Tier 2 support. Over the next 8 weeks, we'll need your help documenting processes for the handover.
+An outside company, Orion Partners, will run Tier 2 support, and you'll document the work for them.
+Tier 2 support is being outsourced to Orion. Help hand it over.
+Document your job so Orion can take it.
+
+# cat=email signal=acquisition
+Hi team, I wanted you to hear it from me first: we've agreed to be acquired by Halvorsen. Nothing changes today, and we'll share more at Friday's all-hands.
+The company is being bought by Halvorsen. Nothing changes today, and more news comes Friday.
+Halvorsen is buying us. More details Friday.
+We got bought by Halvorsen. Changes are coming.
+
+# cat=email signal=stack-rank
+Managers, reminder that final ratings must follow the guided distribution: 20% exceeds, 70% meets, 10% below.
+Ratings must follow a fixed spread: 20% high, 70% middle, 10% low.
+Forced ratings: 10% must be rated low.
+10% of people get a bad rating. Quota.
+
+# cat=email signal=departure
+Hi all, I'm writing to let you know that Tomas will be leaving us at the end of the week. We wish him the best in his next role.
+Tomas is leaving at the end of the week.
+Tomas is leaving Friday.
+Tomas is out Friday.

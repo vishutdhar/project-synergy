@@ -1,0 +1,197 @@
+# cat=run-on
+so i was going to finish the deck but then the client called and then my manager wanted a quick chat and now its 5 and i haven't started
+I was going to finish the deck, but the client called, then my manager wanted a quick chat, and now it's 5 and I haven't started.
+I planned to finish the deck, but a client call and a chat with my manager came up, so it's now 5 and I haven't started.
+I planned to finalize the deck, but a client call and a manager sync took priority, so it's now 5 and I haven't started.
+
+the vendor said monday then tuesday then they stopped answering and now it's thursday and we still don't have the parts
+The vendor said Monday, then Tuesday, then stopped answering. It's now Thursday and we still don't have the parts.
+The vendor promised Monday, then Tuesday, then went quiet. It's Thursday and we still don't have the parts.
+The vendor committed to Monday, then Tuesday, then went unresponsive. It's Thursday and the parts still haven't arrived.
+
+ok so basically the thing is we need more money or more time and nobody wants to give us either
+Basically, we need more money or more time, and nobody wants to give us either.
+In short, we need more budget or more time, and neither has been offered.
+In short, we need more budget or more runway, and neither is currently available.
+
+I told them it would break and they didn't listen and it broke
+I told them it would break. They didn't listen, and it broke.
+I flagged that it would break. The warning wasn't acted on, and it broke.
+I flagged the risk that it would break. It wasn't actioned, and it broke.
+
+we had a great call with Northwind they want a demo next week and they asked about pricing for 200 seats
+We had a great call with Northwind. They want a demo next week and asked about pricing for 200 seats.
+We had a great call with Northwind. They'd like a demo next week and asked about pricing for 200 seats.
+We had a strong call with Northwind. They've requested a demo next week and asked about pricing for 200 seats.
+
+can you look at the doc and tell me if it makes sense because I've read it so many times I can't tell anymore
+Can you look at the doc and tell me if it makes sense? I've read it so many times I can't tell anymore.
+Could you review the doc and let me know if it makes sense? I've read it so many times I can't tell anymore.
+Could you review the doc and confirm it lands? I've read it so many times I've lost perspective.
+
+# cat=rant
+I'm going to be honest. This project has been a disaster from day one. The scope changed four times, we lost two engineers, and leadership still expects the original date. I can't keep working 60 hour weeks.
+I'll be honest. This project has gone badly from day one. The scope changed four times, we lost two engineers, and leadership still expects the original date. I can't keep working 60-hour weeks.
+I want to be candid. This project has struggled from day one. The scope changed four times, we lost two engineers, and leadership still expects the original date. I'm not able to sustain 60-hour weeks.
+I want to be fully transparent. This initiative has faced headwinds from day one. Scope shifted four times, we lost two engineers, and leadership still expects the original date. 60-hour weeks are not sustainable for me.
+
+Every time I fix something, someone else breaks it. Nobody writes tests. Nobody reviews PRs. And then I'm the one who gets paged at 3am. I'm done.
+Every time I fix something, someone else breaks it. Nobody writes tests or reviews PRs, and I'm the one who gets paged at 3am. I've had enough.
+Every time I fix something, something else breaks. Tests aren't being written and PRs aren't being reviewed, and I'm the one paged at 3am. I'm at my limit.
+Every fix I ship gets broken elsewhere. Tests aren't being written and PRs aren't being reviewed, yet I'm the one paged at 3am. I'm at the end of my capacity.
+
+We were told the reorg wouldn't affect us. Now half my team reports to someone else and nobody told me until the org chart changed. How am I supposed to plan anything?
+We were told the reorg wouldn't affect us. Now half my team reports to someone else, and I only found out when the org chart changed. How am I supposed to plan anything?
+We were told the reorg wouldn't affect us. Half my team now reports elsewhere, and I learned about it from the org chart. How can I plan effectively?
+We were told the reorg wouldn't impact us. Half my team now reports elsewhere, and I learned about it from the org chart. How can I plan effectively in this environment?
+
+The client wants everything yesterday, won't pay for rush fees, and changes their mind every call. I've had three versions approved and then unapproved this week alone.
+The client wants everything immediately, won't pay rush fees, and changes their mind every call. Three versions were approved and then unapproved this week alone.
+The client wants everything immediately, won't cover rush fees, and changes direction on every call. Three versions were approved and then reversed this week alone.
+The client expects immediate delivery, declines rush fees, and shifts direction on every call. Three versions were approved and then reversed this week alone.
+
+I asked for a raise in March. They said wait for the review cycle. The review cycle came and they said budgets are tight. Meanwhile we just hired three VPs.
+I asked for a raise in March. They said to wait for the review cycle. When it came, they said budgets were tight. Meanwhile, we just hired three VPs.
+I asked for a raise in March and was told to wait for the review cycle. At the review cycle, I was told budgets were tight. Meanwhile, we just hired three VPs.
+I raised compensation in March and was told to wait for the review cycle. At the review cycle, budgets were tight. Meanwhile, we just onboarded three VPs.
+
+I love my team. I hate this process. Four approvals for a $50 purchase is insane. I spent more time on the form than the thing costs.
+I love my team, but I dislike this process. Four approvals for a $50 purchase is too much. I spent more time on the form than the item is worth.
+I love my team, but this process is a problem. Four approvals for a $50 purchase is excessive. The form cost more time than the item is worth.
+I love my team, but this process is a pain point. Four approvals for a $50 purchase is excessive. The form took more time than the item is worth.
+
+Can we talk about how the "optional" training is mandatory, scheduled during our busiest week, and three hours long? Because nobody asked us.
+Can we talk about the "optional" training? It's mandatory, scheduled in our busiest week and three hours long, and nobody asked us.
+Could we discuss the "optional" training? It's effectively mandatory, falls in our busiest week, and runs three hours, and we weren't consulted.
+Could we discuss the "optional" training? It's effectively mandatory, lands in our peak week, runs three hours, and the team wasn't consulted.
+
+I've been here 6 years and the new guy makes more than me. I found out from a spreadsheet he left open. I'm not okay with this.
+I've been here 6 years, and the new hire makes more than me. I found out from a spreadsheet he left open. I'm not okay with this.
+I've been here 6 years, and a new hire is paid more than I am. I learned this from a spreadsheet left open. I'm not comfortable with this.
+I've been here 6 years, and a new hire is compensated above me. I learned this from a spreadsheet left open. This isn't acceptable to me.
+
+# cat=numbers-names-dates
+Marcus needs the Q3 forecast by Oct 15
+Marcus needs the Q3 forecast by Oct 15.
+Marcus needs the Q3 forecast by Oct 15.
+Marcus needs the Q3 forecast by Oct 15.
+
+we spent $12,400 on cloud last month, double what we planned
+We spent $12,400 on cloud last month, double what we planned.
+Cloud spend last month was $12,400, double our plan.
+Cloud spend last month came in at $12,400, double our plan.
+
+Sofia and Wei are out until the 9th
+Sofia and Wei are out until the 9th.
+Sofia and Wei are out of office until the 9th.
+Sofia and Wei are out of office until the 9th.
+
+conversion dropped from 4.2% to 3.1% after the redesign
+Conversion dropped from 4.2% to 3.1% after the redesign.
+Conversion fell from 4.2% to 3.1% after the redesign.
+Conversion declined from 4.2% to 3.1% post-redesign.
+
+the board meeting moved from the 12th to the 19th
+The board meeting moved from the 12th to the 19th.
+The board meeting has moved from the 12th to the 19th.
+The board meeting has been moved from the 12th to the 19th.
+
+Ana closed the $250k Contoso deal!!
+Ana closed the $250k Contoso deal!
+Ana closed the $250k Contoso deal!
+Ana closed the $250k Contoso deal, a major win!
+
+we have 3 open roles and 140 applicants
+We have 3 open roles and 140 applicants.
+We have 3 open roles and 140 applicants.
+We have 3 open roles and 140 applicants in the pipeline.
+
+the 9:30 with Dr. Patel is cancelled
+The 9:30 with Dr. Patel is cancelled.
+The 9:30 with Dr. Patel has been cancelled.
+The 9:30 with Dr. Patel has been cancelled.
+
+uptime was 99.2% last month, SLA is 99.9
+Uptime was 99.2% last month, and the SLA is 99.9.
+Uptime was 99.2% last month, below the 99.9 SLA.
+Uptime was 99.2% last month, below the 99.9 SLA.
+
+Jamal starts Monday, can someone set up his laptop
+Jamal starts Monday. Can someone set up his laptop?
+Jamal starts Monday. Could someone set up his laptop?
+Jamal starts Monday. Could someone set up his laptop?
+
+the 2025 budget is 15% smaller
+The 2025 budget is 15% smaller.
+The 2025 budget is 15% smaller.
+The 2025 budget is 15% smaller.
+
+ticket #4821 is still open after 3 weeks
+Ticket #4821 is still open after 3 weeks.
+Ticket #4821 is still open after 3 weeks.
+Ticket #4821 is still unresolved after 3 weeks.
+
+Lisa from Finance said we can spend up to $5k
+Lisa from Finance said we can spend up to $5k.
+Lisa from Finance confirmed we can spend up to $5k.
+Lisa from Finance confirmed a spend ceiling of $5k.
+
+we need 6 more engineers to hit the March date
+We need 6 more engineers to hit the March date.
+We'll need 6 more engineers to hit the March date.
+We'll need 6 additional engineers to hit the March date.
+
+call with Tokyo office at 7am PST Thursday
+Call with the Tokyo office at 7am PST Thursday.
+There's a call with the Tokyo office at 7am PST on Thursday.
+There's a sync with the Tokyo office at 7am PST on Thursday.
+
+we're at 87% of quota with 2 weeks left
+We're at 87% of quota with 2 weeks left.
+We're at 87% of quota with 2 weeks left.
+We're at 87% of quota with 2 weeks remaining.
+
+Chris said no to the budget increase
+Chris said no to the budget increase.
+Chris declined the budget increase.
+Chris declined the budget increase.
+
+the server bill is $3,200 a month and we use maybe 10% of it
+The server bill is $3,200 a month, and we use about 10% of it.
+The server bill is $3,200 a month, and we use roughly 10% of it.
+The server bill is $3,200 a month, with roughly 10% utilization.
+
+Hannah's leaving on the 30th, her replacement isn't hired yet
+Hannah is leaving on the 30th, and her replacement isn't hired yet.
+Hannah is leaving on the 30th, and her replacement hasn't been hired yet.
+Hannah departs on the 30th, and her replacement hasn't been hired yet.
+
+the conference is May 6-8 in Chicago, 4 of us are going
+The conference is May 6-8 in Chicago, and 4 of us are going.
+The conference is May 6-8 in Chicago, and 4 of us are attending.
+The conference is May 6-8 in Chicago, and 4 of us are attending.
+
+we got 47 complaints about the update in 2 days
+We got 47 complaints about the update in 2 days.
+We received 47 complaints about the update in 2 days.
+We received 47 complaints about the update in 2 days.
+
+Omar's demo is at 11, not 10
+Omar's demo is at 11, not 10.
+Omar's demo is at 11, not 10.
+Omar's demo is at 11, not 10.
+
+refund for order 55123 went through
+The refund for order 55123 went through.
+The refund for order 55123 has gone through.
+The refund for order 55123 has been processed.
+
+Elena wants to cut the team from 8 to 5
+Elena wants to cut the team from 8 to 5.
+Elena wants to reduce the team from 8 to 5.
+Elena wants to reduce the team from 8 to 5.
+
+the move to the new office is Dec 1, pack your desks by Nov 28
+The move to the new office is Dec 1. Please pack your desks by Nov 28.
+The move to the new office is Dec 1. Please pack your desks by Nov 28.
+The move to the new office is Dec 1. Please pack your desks by Nov 28.

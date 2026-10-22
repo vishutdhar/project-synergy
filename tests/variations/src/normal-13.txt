@@ -1,0 +1,171 @@
+# cat=misc-work
+the new intern is asking great questions
+The new intern is asking great questions.
+The new intern is asking excellent questions.
+The new intern is asking very insightful questions.
+
+I want to try a 4 day week pilot
+I'd like to try a 4-day week pilot.
+I'd like to propose a 4-day week pilot.
+I'd like to propose piloting a 4-day week.
+
+let's ask the customers instead of guessing
+Let's ask the customers instead of guessing.
+Let's ask customers rather than guessing.
+Let's validate with customers rather than guessing.
+
+I took the wrong train and I'm in the wrong city
+I took the wrong train and I'm in the wrong city.
+I took the wrong train and ended up in the wrong city.
+I took the wrong train and ended up in the wrong city.
+
+we have too many dashboards
+We have too many dashboards.
+We have too many dashboards.
+We have too many dashboards to be effective.
+
+I'd like to shadow the sales team for a day
+I'd like to shadow the sales team for a day.
+I'd like to shadow the sales team for a day.
+I'd like to shadow the sales team for a day.
+
+we need fewer meetings and more decisions
+We need fewer meetings and more decisions.
+We need fewer meetings and more decisions.
+We need fewer meetings and more decision-making.
+
+the coffee machine is broken, this is an emergency
+The coffee machine is broken. This is an emergency.
+The coffee machine is broken. This is urgent.
+The coffee machine is down. This is a priority-one issue.
+
+I don't think we need a consultant for this
+I don't think we need a consultant for this.
+I don't think we need a consultant for this.
+I don't see a need for a consultant here.
+
+the reorg slides leaked on reddit
+The reorg slides leaked on Reddit.
+The reorg slides leaked on Reddit.
+The reorg slides leaked on Reddit.
+
+# cat=vent-multi
+I explained it. Then I wrote it down. Then I made a video. They still asked.
+I explained it, wrote it down and made a video, and they still asked.
+I explained it, documented it and recorded a video, and the question still came up.
+I explained it, documented it and recorded a video, and the question still came up.
+
+New manager, new priorities, same deadline. Fun.
+New manager, new priorities, same deadline. Not fun.
+New manager and new priorities, but the same deadline. That's tough.
+New manager and new priorities, but the same deadline. That's challenging.
+
+I got paged 6 times last night. None of them were real.
+I got paged 6 times last night, and none of them were real issues.
+I was paged 6 times last night, and none were real issues.
+I was paged 6 times last night, and none were actionable.
+
+They cut our budget by half. They kept the targets.
+They cut our budget in half but kept the targets.
+Our budget was cut in half, but the targets stayed the same.
+Our budget was cut in half, while the targets remained unchanged.
+
+# cat=crude
+this damn spreadsheet won't save
+This spreadsheet won't save.
+This spreadsheet won't save.
+This spreadsheet won't save.
+
+Tom's being a real pain in the ass about the logo
+Tom is being really difficult about the logo.
+Tom is being very difficult about the logo.
+Tom is a high-friction stakeholder on the logo.
+
+that client can go fuck themselves
+I don't want to work with that client anymore.
+I'd prefer not to continue working with that client.
+I'd recommend we reassess our relationship with that client.
+
+what a shitty week
+What a bad week.
+It's been a tough week.
+It's been a challenging week.
+
+you screwed me over in that meeting
+You put me in a bad spot in that meeting.
+You treated me unfairly in that meeting.
+I felt undermined in that meeting.
+
+# cat=question
+are we allowed to use ChatGPT for client work
+Are we allowed to use ChatGPT for client work?
+Are we permitted to use ChatGPT for client work?
+Are we permitted to use ChatGPT for client work?
+
+who's on call this weekend
+Who's on call this weekend?
+Who's on call this weekend?
+Who's on call this weekend?
+
+how do I book a meeting room
+How do I book a meeting room?
+How do I book a meeting room?
+How do I book a meeting room?
+
+when do we find out about promotions
+When do we find out about promotions?
+When will we hear about promotions?
+When will promotion decisions be shared?
+
+# cat=customer
+we can't share another customer's data with you
+We can't share another customer's data with you.
+We're not able to share another customer's data.
+We're unable to share another customer's data.
+
+your account was suspended for non-payment
+Your account was suspended for non-payment.
+Your account has been suspended for non-payment.
+Your account has been suspended due to non-payment.
+
+we'll have a fix out by Friday
+We'll have a fix out by Friday.
+We'll have a fix out by Friday.
+We'll have a fix deployed by Friday.
+
+I escalated your ticket to engineering
+I escalated your ticket to engineering.
+I've escalated your ticket to engineering.
+I've escalated your ticket to the engineering team.
+
+# cat=sarcasm
+oh good, more "alignment"
+Oh good, more "alignment."
+Oh good, more "alignment."
+Oh good, more "alignment."
+
+amazing how the budget appears when the CEO wants something
+Amazing how the budget appears when the CEO wants something.
+Interesting how budget appears when the CEO wants something.
+Interesting how budget materializes when the CEO wants something.
+
+wow, a whole 1% raise, I'll try not to spend it all at once
+Wow, a 1% raise. I'll try not to spend it all at once.
+A 1% raise. I'll try not to spend it all at once.
+A 1% raise. I'll try not to spend it all at once.
+
+# cat=hr-people
+can I bring my dog to the office
+Can I bring my dog to the office?
+Am I allowed to bring my dog to the office?
+Am I permitted to bring my dog to the office?
+
+I need to report something that happened at the offsite
+I need to report something that happened at the offsite.
+I need to report an incident from the offsite.
+I need to report an incident from the offsite.
+
+my manager wants me to work weekends without overtime
+My manager wants me to work weekends without overtime pay.
+My manager is asking me to work weekends without overtime pay.
+My manager is asking me to work weekends without overtime compensation.

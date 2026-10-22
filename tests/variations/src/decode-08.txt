@@ -1,0 +1,203 @@
+# cat=press signal=layoffs
+Globex today announced a strategic realignment that will reduce its workforce by approximately 1,500 positions, primarily in its legacy hardware business.
+Globex is cutting about 1,500 jobs, mostly in old hardware.
+Globex is laying off about 1,500 people.
+Globex is firing 1,500 people.
+
+As part of our commitment to operational excellence, we will be transitioning approximately 40 roles out of the business over the coming weeks.
+About 40 people will lose their jobs in the coming weeks.
+About 40 people are being laid off.
+40 people are getting fired.
+
+# cat=press signal=shutdown
+Effective immediately, Zephyr Airlines will suspend operations on its Boston to Denver route.
+Zephyr is stopping its Boston to Denver flights.
+The Boston to Denver route is shut down.
+Boston to Denver flights are dead.
+
+# cat=press signal=acquisition
+Orion Corp. and Westfield Inc. today announced a merger of equals, creating a combined company with $8 billion in annual revenue.
+Orion and Westfield are merging into one company.
+Orion and Westfield are merging.
+Merger. Job cuts usually follow.
+
+# cat=slack signal=delay
+fyi the demo is slipping to next thursday, vendor still hasn't sent the build
+The demo moves to next Thursday because the vendor hasn't sent the build.
+The demo slipped to next Thursday.
+Demo's late. Next Thursday, maybe.
+
+# cat=slack signal=deflection
+good q, let me get back to you on that one
+They'll answer later.
+No answer yet.
+Dodged.
+
+# cat=slack signal=layoffs
+hearing there were cuts in the platform org this morning, anyone know how many?
+Someone heard about job cuts in the platform group this morning.
+There were layoffs in the platform org.
+Platform org got hit with layoffs.
+
+# cat=slack signal=no-raises
+so apparently comp increases are "on hold pending market conditions" lol
+Raises are on hold for now.
+No raises for now.
+No raises. "Market conditions."
+
+# cat=slack signal=rejection
+legal said no on using the customer logo in the deck
+Legal won't allow the customer logo in the deck.
+Legal said no to the logo.
+No logo.
+
+# cat=slack signal=ai
+leadership wants every team to try the new AI copilot by end of month and report usage
+Every team has to try the AI copilot by month end and report usage.
+Mandatory AI copilot use, with usage tracked.
+Use the AI or they'll know.
+
+# cat=email signal=rto
+Hi team, a reminder that our in-office days are now Monday, Wednesday and Thursday. Please update your calendars.
+The office days are now Monday, Wednesday and Thursday.
+Office three days a week: Monday, Wednesday, Thursday.
+Three office days. Update your calendar.
+
+# cat=email signal=hiring-freeze
+Hi Jon, unfortunately we won't be able to open the analyst role we talked about. All new requisitions are on hold for now.
+The analyst job won't be opened because hiring is on hold.
+No analyst hire. Hiring is frozen.
+No new hire for you.
+
+# cat=email signal=reorg
+Hi all, starting next month the customer success team will move from Sales into the Operations org, reporting to Wen.
+Customer success is moving into Operations under Wen next month.
+Reorg: customer success moves to Ops under Wen.
+Reorg. Wen is your boss now.
+
+# cat=email signal=pip
+Hi Taylor, I'd like to schedule time this week to go over your performance plan. As we discussed, the next 60 days are important.
+Taylor is on a 60-day performance plan.
+Taylor is on a 60-day PIP.
+Taylor has 60 days.
+
+# cat=email signal=benefits
+Hi everyone, beginning in March, the company will stop covering the cost of mobile phone plans.
+The company stops paying for phone plans in March.
+No more phone plan coverage from March.
+Pay your own phone bill.
+
+# cat=email signal=outsourcing
+Hi all, our IT helpdesk will be provided by NorthStar Solutions starting next month. You'll submit tickets the same way.
+An outside company, NorthStar, will run the IT helpdesk next month.
+The IT helpdesk is being outsourced to NorthStar.
+IT helpdesk jobs went to NorthStar.
+
+# cat=email signal=departure
+I'm sad to share that Grace has decided to step down as head of Marketing. Her last day will be the 30th.
+Grace is leaving as head of Marketing on the 30th.
+Grace is stepping down from Marketing.
+Grace is out.
+
+# cat=email signal=cost-cuts
+To reduce costs, printed materials will no longer be provided at meetings. Please bring your laptop.
+No more printouts at meetings to save money.
+They cut printing to save money.
+No printouts. Cost cutting.
+
+# cat=email signal=record-year
+Team, the numbers are in: we finished the year 18% ahead of plan, the best result in our history.
+The company beat its plan by 18%, its best year ever.
+Best year ever, 18% over plan.
+Record year. 18% over.
+
+# cat=email signal=budget-freeze
+Hi managers, please put a hold on all non-critical purchases until the new budget is approved in February.
+Hold off on non-essential purchases until February.
+Spending is frozen until February.
+No spending until February.
+
+# cat=email signal=stack-rank
+Hi managers, please submit your team rankings by Friday. Each team should identify at least one person in the bottom tier.
+Managers must rank their teams, with at least one person at the bottom.
+Forced ranking: someone has to be rated lowest.
+Pick someone to rate lowest. Due Friday.
+
+# cat=email signal=performance
+Hi team, the bar is going up next quarter. I'll be looking for faster turnaround and fewer mistakes from everyone.
+They expect faster and better work next quarter.
+Work faster and better.
+Faster, fewer mistakes, or else.
+
+# cat=email signal=new-chapter
+Hi all, this is my last week at Harbor. I've accepted a role elsewhere and I'll miss you all.
+They're leaving Harbor this week for another job.
+They're leaving Harbor for a new job.
+They quit. Last week at Harbor.
+
+# cat=email signal=layoff-you
+Hi Ben, I regret to inform you that due to budget reductions, your position will be eliminated effective December 15.
+Ben's job is being cut on December 15 because of budget cuts.
+Ben is being laid off December 15.
+Ben's fired December 15.
+
+# cat=none signal=none
+Hi team, the security training is due by the 31st. It takes about 20 minutes.
+The 20-minute security training is due by the 31st.
+Security training due the 31st.
+Do the security training.
+
+Please welcome Rosa to the support team! She's joining us from Austin.
+Rosa joined the support team from Austin.
+Rosa is new on support.
+New person: Rosa.
+
+The elevator on the east side will be out of service Tuesday morning.
+The east elevator is out Tuesday morning.
+East elevator is down Tuesday morning.
+Take the stairs Tuesday.
+
+Our customer survey results are in, and they're posted on the team page.
+The customer survey results are on the team page.
+Survey results are posted.
+Survey results are up.
+
+# cat=fluff signal=fluff
+Every single one of you makes this company what it is. Thank you for showing up with heart.
+A thank-you with no news.
+Nice words, no news.
+Filler.
+
+We remain deeply committed to our values of integrity, curiosity and care.
+They're restating company values.
+Values talk, no news.
+Values filler.
+
+# cat=atlas signal=deflection
+Happy to take this offline and align on next steps.
+They want to discuss it privately later.
+Let's talk later, not here.
+Not here. Later.
+
+We'll circle back once we have more clarity from leadership.
+They'll come back to it when leadership decides.
+No answer until leadership decides.
+They don't know, or won't say.
+
+# cat=mixed signal=layoffs
+Hi all, today we're announcing changes to our structure. We're combining the Growth and Brand teams, and unfortunately 12 roles will be eliminated. We're also pausing hiring through Q2.
+Growth and Brand are merging, 12 jobs are cut, and hiring is paused through Q2.
+Reorg with 12 layoffs and a hiring freeze through Q2.
+Teams merged, 12 people fired, and no hiring until Q2.
+
+# cat=mixed signal=rto
+We're excited to open our new downtown office next month. To make the most of it, we'll be asking everyone to come in at least three days a week.
+There's a new downtown office, and you must come in three days a week.
+New office, and three days a week in it.
+New office, so three days a week at your desk.
+
+# cat=mixed signal=no-raises
+We've finalized the compensation plan for next year. Given our current performance, there will be no merit increases, but we're adding an extra day of PTO.
+No raises next year, but one extra day off.
+No raises. You get one extra PTO day.
+No raise. Here's a day off instead.

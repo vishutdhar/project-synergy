@@ -112,7 +112,7 @@ export function checkMeaning(input, output, { checkNames = true } = {}) {
     const inNames = names(inp);
     const outText = out;
     if (inNames.some((n) => !new RegExp(`(?<![\\w])${n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\w])`).test(outText))) lost.push("names");
-    const inWords = new Set(inp.toLowerCase().match(/[a-z][\w'&-]*/g) ?? []);
+    const inWords = new Set((inp.toLowerCase().match(/[a-z][\w'&-]*/g) ?? []).flatMap((w) => [w, w.replace(/'s$/, "")]));
     if (names(out).some((n) => !inWords.has(n.toLowerCase()) && !allowedCaps.has(n))) added.push("name");
   }
   return { ok: !lost.length && !added.length, lost, added };

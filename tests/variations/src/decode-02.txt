@@ -1,0 +1,234 @@
+# cat=rejection signal=rejection
+Thank you for your interest in the Senior Analyst role. We have decided to move forward with other candidates.
+You didn't get the Senior Analyst job.
+It's a no on the Senior Analyst job.
+No. You didn't get the job.
+
+We appreciate the thought that went into this proposal, but we won't be moving forward at this time.
+They liked the proposal but aren't going ahead with it.
+It's a no on the proposal.
+No. Nice try.
+
+After reviewing your request for additional headcount, we are unable to approve it this cycle.
+Your request for more people was turned down this cycle.
+No extra headcount.
+No. You don't get more people.
+
+While we love the energy behind this idea, it's not something we can prioritize right now.
+They like the idea but won't work on it now.
+It's a no for now.
+No. "Not right now" means never.
+
+Your request to work remotely from Portugal has been reviewed, and we are not able to support it.
+Your request to work from Portugal was turned down.
+No, you can't work from Portugal.
+No Portugal for you.
+
+We're grateful you applied. Unfortunately, the position has been filled.
+Someone else got the job.
+The job is filled. You didn't get it.
+No. Someone else got it.
+
+Leadership has decided not to pursue the partnership with Vantage at this stage.
+They decided not to partner with Vantage for now.
+The Vantage partnership is off.
+No Vantage deal.
+
+Thanks for the pitch. It's not quite the right fit for our roadmap, but we'll keep it in mind.
+Your pitch isn't a fit for their plans right now.
+It's a no on your pitch.
+No. "We'll keep it in mind" means no.
+
+We have reviewed your appeal and the original decision will stand.
+Your appeal was reviewed and the decision stays the same.
+Your appeal was denied.
+Appeal denied.
+
+We'd love to stay in touch for future opportunities that better match your background.
+They aren't hiring you now, but want to stay in touch.
+You didn't get it, but they'll keep in touch.
+Rejected, politely.
+
+Your conference travel request falls outside current guidelines and cannot be approved.
+Your conference trip was not approved.
+No conference trip.
+No trip. Stay home.
+
+# cat=stack-rank signal=stack-rank
+This year's calibration will ensure ratings are distributed consistently across teams.
+Ratings will be adjusted so every team has a similar spread.
+They're forcing ratings onto a curve.
+Someone on every team has to get a bad rating.
+
+Managers should expect that roughly 10% of each team will be rated as not meeting expectations.
+About 10% of each team will get a low rating.
+10% of every team gets a bad rating no matter what.
+They need 10% of you to fail. It's a quota.
+
+We are introducing a performance distribution model to differentiate high and low performers.
+They're ranking people to separate high and low performers.
+It's stack ranking.
+Stack ranking is back. Someone's going to lose.
+
+As part of talent review, we will identify our bottom 5% and discuss next steps.
+They'll find the bottom 5% and decide what to do with them.
+The bottom 5% will be flagged, maybe for exits.
+They're picking the 5% to fire.
+
+Ratings will be calibrated against peers, so a strong year may still land in the middle.
+You're rated against coworkers, so a good year might still get an average rating.
+Ratings are on a curve, so good work may still get a middling score.
+Your great year gets a middling score. Curve.
+
+Our goal is to reduce non-regrettable attrition by addressing low performance earlier.
+They want to push out low performers sooner.
+They want to get rid of low performers faster.
+They're firing the people they don't care about, faster.
+
+We'll be holding calibration sessions in December to finalize ratings.
+Ratings will be decided in December meetings.
+Your rating gets decided in December calibration.
+In December, managers fight over who gets the bad ratings.
+
+Not everyone can be exceeding expectations, so please set ratings carefully.
+Managers can't give everyone top ratings.
+Not everyone gets a good rating.
+There's a quota on good ratings.
+
+The new framework caps the number of top ratings each org can award.
+Each group can only give a limited number of top ratings.
+Top ratings are capped.
+Only a few people get top ratings, no matter what.
+
+# cat=budget-freeze signal=budget-freeze
+Effective immediately, all discretionary spending requires VP approval through year end.
+Any optional spending needs VP approval until the end of the year.
+Spending is basically frozen until year end.
+No money until next year unless a VP says so.
+
+We are pausing all non-essential travel and conferences until further notice.
+Optional travel and conferences are on hold.
+No travel or conferences for now.
+Travel's frozen. Stay home.
+
+Please hold off on new software purchases while we review our tooling spend.
+Don't buy new software for now.
+Software purchases are frozen.
+No new software. Don't ask.
+
+The offsite budget has been frozen for Q4.
+There's no money for offsites in Q4.
+The offsite budget is frozen for Q4.
+No offsite in Q4.
+
+All purchase orders above $1,000 will require additional approval from Finance.
+Purchases over $1,000 need extra Finance approval.
+Spending over $1,000 is locked down.
+Want over $1,000? Good luck with Finance.
+
+We're asking teams to defer any spend that isn't critical to Q1 commitments.
+Only spend money on things needed for Q1.
+Spending is frozen except for Q1 essentials.
+Only spend if it's critical. Otherwise no.
+
+Training and education stipends are paused for the rest of the fiscal year.
+Training money is on hold for the rest of the fiscal year.
+No training budget this year.
+Training stipend is gone for the year.
+
+We're implementing a temporary freeze on contractor spend.
+There's a freeze on paying contractors for now.
+Contractor spending is frozen.
+No contractor money.
+
+Team celebrations and swag orders are on hold until budgets reset in January.
+Team parties and swag are on hold until January.
+No party or swag money until January.
+No parties until January.
+
+# cat=hiring-freeze signal=hiring-freeze
+We are pausing hiring for all non-revenue roles until further notice.
+They've stopped hiring for roles that don't bring in money.
+Hiring is frozen outside of sales.
+No new hires unless they sell.
+
+Open roles will remain on hold through Q1, and departures will not be backfilled.
+No hiring through Q1, and people who leave won't be replaced.
+Hiring freeze through Q1. No replacements.
+No help is coming. Quitters won't be replaced.
+
+Headcount will be held flat next year while we focus on productivity.
+No new jobs next year. They want more from the current team.
+Hiring freeze next year. Do more with the same people.
+No new people. Work harder.
+
+We are reviewing all open requisitions, and some may be closed.
+They're reviewing open jobs and may cancel some.
+Some open jobs may be cancelled.
+Those open roles you were promised may vanish.
+
+Effective today, we are implementing a freeze on external hiring.
+They've stopped hiring from outside the company.
+Hiring is frozen.
+No new hires. Starting now.
+
+Until revenue stabilizes, new headcount requests won't be considered.
+No new jobs until revenue is steady.
+Hiring is frozen until revenue improves.
+No new hires until the money comes back.
+
+We will not be backfilling Alex's role, and his work will be redistributed across the team.
+Alex won't be replaced, and the team will take on his work.
+No backfill for Alex. You'll do his work.
+Alex isn't being replaced. His work is yours now.
+
+The summer internship program is cancelled this year.
+There's no summer internship program this year.
+No interns this summer.
+Interns are cancelled.
+
+# cat=new-chapter signal=new-chapter
+After 7 incredible years at Fintrex, I'm excited to share that I'm starting a new chapter!
+They're leaving Fintrex after 7 years.
+They left Fintrex after 7 years, maybe not by choice.
+Seven years at Fintrex, and now they're out.
+
+Bittersweet news: last week was my final day at Orbit. I'm so grateful for the people I met.
+Their last day at Orbit was last week.
+They left Orbit last week, possibly laid off.
+They're out at Orbit. The gratitude is the cover story.
+
+I was impacted by the recent layoffs at Zenly. I'm #OpenToWork and would love any intros!
+They were laid off from Zenly and are looking for work.
+They got laid off from Zenly and need a job.
+Zenly laid them off. They need a job.
+
+Excited to announce I'm taking some time to recharge before my next adventure.
+They left their job and don't have a new one yet.
+They're between jobs.
+No job yet. "Recharging."
+
+My time at Helio has come to an end. What a journey it has been!
+They're no longer at Helio.
+They left Helio, maybe not by choice.
+They're out at Helio.
+
+Today is my last day at the company after 12 years. On to the next challenge!
+They're leaving after 12 years.
+They're leaving after 12 years, maybe not by choice.
+Twelve years and they're done.
+
+I'm thrilled to share that I'm open to new opportunities in product marketing.
+They're looking for a new product marketing job.
+They're job hunting in product marketing.
+They need a job.
+
+After an amazing 4 years, I'm moving on from Brightline. More soon!
+They're leaving Brightline after 4 years.
+They're leaving Brightline. No new job yet.
+They're out at Brightline. No plan announced.
+
+I got laid off today. It stings, but I'm proud of what we built.
+They were laid off today.
+They got laid off today.
+Laid off today.

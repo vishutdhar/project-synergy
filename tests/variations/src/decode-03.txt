@@ -1,0 +1,209 @@
+# cat=delay signal=delay
+Due to unforeseen complexity, the go-live date has shifted to early Q3.
+The launch moved to early Q3.
+It's late. Now early Q3.
+It's late, and Q3 will probably slip too.
+
+We're rebaselining the timeline to ensure a high-quality release.
+They're setting a new, later date.
+It's delayed.
+It's late, and they're calling it quality.
+
+The migration is taking longer than anticipated, and we now expect completion in May.
+The migration is running late and should finish in May.
+The migration is delayed to May.
+The migration is late. May, supposedly.
+
+To accommodate additional testing, the release has been pushed back two weeks.
+The release moved back two weeks for more testing.
+The release is two weeks late.
+Two weeks late, at least.
+
+We're no longer tracking to the original holiday launch window.
+It won't launch by the holidays as planned.
+The holiday launch is off. It's late.
+It's late. Holidays are out.
+
+Our revised ETA for the integration is end of month, pending vendor dependencies.
+The integration should be done by month end if the vendor delivers.
+The integration is late, now end of month if the vendor comes through.
+End of month, if the vendor shows up. Don't count on it.
+
+We are re-phasing the rollout so that Phase 2 now begins in January.
+Phase 2 now starts in January.
+Phase 2 got pushed to January.
+Phase 2 is late. January now.
+
+Given the current scope, a September delivery is no longer realistic.
+They can't deliver by September anymore.
+September is off. It's late.
+September's not happening.
+
+The new building opening has moved from spring to fall.
+The new building opens in fall instead of spring.
+The building is delayed to fall.
+Building's late. Fall, maybe.
+
+The feature will ship in a later sprint as we prioritize stability.
+The feature is coming in a later sprint.
+The feature is delayed.
+The feature slipped. Again.
+
+# cat=deflection signal=deflection
+Great question. We're still evaluating the options and will share more when we can.
+They don't have an answer yet.
+That's a non-answer.
+They dodged it.
+
+I don't want to speculate on that, but rest assured we're looking at it closely.
+They won't answer that yet.
+They're avoiding the question.
+Dodged. Assume the worst.
+
+Let's take this offline and circle back next week.
+They want to talk about it later, not here.
+They're putting off the question.
+They're burying the question.
+
+It's too early to say what this means for individual teams.
+They can't say yet what it means for each team.
+They won't say what happens to teams.
+They know. They're not telling you.
+
+No decisions have been made at this time, and we'll keep you posted.
+Nothing is decided yet.
+No answer yet.
+No answer. Means decisions are coming.
+
+There are a lot of moving parts, and I'd rather not get ahead of the process.
+It's complicated and they won't commit to an answer.
+That's a non-answer.
+They're dodging.
+
+We hear you, and your feedback is being considered as we plan.
+They heard the feedback, but promise nothing.
+They hear you and are promising nothing.
+"We hear you" means no.
+
+I can't comment on rumors, but I can say we remain focused on our customers.
+They won't comment on the rumors.
+They're dodging the rumors.
+They won't deny it.
+
+That's a fair point, and it's something we'll look into as part of the broader review.
+They might look into it later.
+They're putting it off.
+That's a polite brush-off.
+
+Per my last email, let's circle back offline and take this to the parking lot.
+They already answered and want to drop this for now.
+I already told you. Let's drop this for now.
+Read my last email. Stop asking here.
+
+# cat=rto signal=rto
+Starting March 3, all employees are expected in the office Tuesday through Thursday.
+From March 3, you need to be in the office Tuesday to Thursday.
+Office three days a week from March 3.
+Back to your desk three days a week from March 3.
+
+We believe in-person collaboration is essential to our culture, so we're moving to four days a week in office.
+They want you in the office four days a week.
+Office four days a week.
+Four days in the office. Culture means attendance.
+
+Badge data will be used to understand office utilization.
+They'll track when you come in with your badge.
+They're tracking your badge swipes.
+They're watching your badge swipes.
+
+Remote work exceptions will be reviewed case by case and approved only in limited circumstances.
+It will be hard to get approval to stay remote.
+Remote exceptions will be rare.
+You're not getting a remote exception.
+
+To foster connection, we're asking teams to return to the office five days a week from January.
+Everyone needs to be in the office full-time from January.
+Full-time office from January.
+Five days at your desk from January.
+
+Our hubs are where innovation happens, and we look forward to seeing you there more often.
+They want you in the office more often.
+Come to the office more.
+Get back to the office.
+
+Employees living within 50 miles of an office will be expected on site at least three days a week.
+If you live within 50 miles, you need to be in the office three days a week.
+Within 50 miles? Office three days a week.
+Live nearby? Three days at your desk.
+
+We're ending the fully remote pilot and moving everyone to hybrid.
+Full remote work is ending, and everyone goes hybrid.
+Remote work is over. Hybrid now.
+No more remote. Come in.
+
+Attendance will be a factor in performance reviews going forward.
+Coming to the office will affect your review.
+Office attendance now counts in your review.
+Skip the office and your review suffers.
+
+# cat=no-raises signal=no-raises
+Given the current environment, merit increases will be deferred until next year.
+Raises are postponed until next year.
+No raises this year.
+No raise for you this year.
+
+This year's bonus pool will be smaller than in previous years.
+Bonuses will be smaller this year.
+Smaller bonuses this year.
+Your bonus shrank.
+
+We will not be making salary adjustments in this cycle.
+There won't be raises this cycle.
+No raises this cycle.
+No raise.
+
+Compensation increases will be modest and focused on our highest performers.
+Raises will be small and mostly for top performers.
+Small raises, mostly for top performers.
+Most of you get little or nothing.
+
+We're evolving our total rewards philosophy to emphasize long-term value over annual increases.
+They're shifting away from yearly raises.
+Fewer raises going forward.
+No raises. They'll call it long-term value.
+
+Annual increases are capped at 2% this year.
+Raises are capped at 2% this year.
+Raises max out at 2%.
+2% max. Less than inflation.
+
+Bonus payouts will be delayed until Q2 while we finalize results.
+Bonuses are coming later, in Q2.
+Bonuses are delayed to Q2.
+Bonus is late. Maybe smaller.
+
+# cat=record-year signal=record-year
+What a year! We hit record revenue of $1.2B and exceeded every target we set.
+The company had its best year, with $1.2B in revenue.
+Record year: $1.2B in revenue.
+They made a record $1.2B.
+
+Q3 was our strongest quarter ever, thanks to the incredible work of this team.
+It was the company's best quarter ever.
+Best quarter ever.
+They made a ton of money last quarter.
+
+We closed the year at an all-time high in customer count and profitability.
+The company has more customers and profit than ever.
+Record customers and profit.
+Record profits.
+
+Our results this year exceeded expectations across every region.
+The company did better than expected everywhere.
+Great year in every region.
+They made more money than expected everywhere.
+
+Thanks to you, we delivered record growth for the third straight year.
+The company grew a record amount for the third year in a row.
+Third record year in a row.
+Third record year. Ask for a raise.

@@ -1,0 +1,216 @@
+# cat=memo signal=layoffs
+We are making the difficult decision to right-size our organization to better align resources with our strategic priorities. This will allow us to unlock synergies and drive sustainable growth.
+They're laying people off to save money and grow profits.
+We're laying people off. Cutting jobs saves them money.
+They're firing people to save money.
+
+Team, I want to share some difficult news. Over the past year, our costs have grown faster than our revenue. Today, we are reducing the size of our team by about 300 people. This was not a decision I made lightly.
+Costs grew faster than sales, so about 300 people are losing their jobs.
+They're laying off about 300 people because costs outgrew revenue.
+They spent too much, so 300 people are fired.
+
+To all employees: in order to return to profitability, we are taking several actions, including eliminating roughly 8% of positions and consolidating two offices.
+They're cutting about 8% of jobs and merging two offices to make a profit again.
+8% layoffs and two offices merged to get profitable.
+8% fired and two offices merged, to make the numbers.
+
+# cat=memo signal=rto
+Hi everyone. Over the past few years we've learned a lot about how we work best. We believe our best ideas come from being together. Starting February 1, we're asking everyone to be in the office four days a week. Exceptions will be reviewed case by case.
+From February 1, you need to be in the office four days a week, and exceptions will be rare.
+Office four days a week from February 1. Exceptions are rare.
+Four days at your desk from February 1. Don't ask for exceptions.
+
+# cat=memo signal=no-raises
+Thank you for an outstanding year. Despite our strong results, the economic outlook remains uncertain, and we've made the prudent decision to defer merit increases until mid-year. Bonuses will be paid as planned.
+Strong year, but raises are delayed to mid-year. Bonuses are still paid.
+No raises until mid-year, even after a great year. Bonuses are fine.
+Great year, no raise yet. They're keeping the money.
+
+# cat=memo signal=reorg
+As we enter our next phase, we're evolving our structure. Product and Engineering will now operate as a single organization led by Nadia. Design will move under Product. We'll share team-level details next week.
+Product and Engineering are merging under Nadia, and Design moves under Product.
+Reorg: Product and Engineering merge under Nadia.
+Reorg. Nadia runs it all now. Details next week.
+
+# cat=memo signal=cost-cuts
+We're facing headwinds this year and need to be disciplined. Please limit travel to customer meetings, pause new vendor contracts, and look for savings wherever you can.
+Money is tight, so cut travel, avoid new vendors and save where you can.
+They're cutting costs: less travel and no new vendors.
+Business is bad. Stop spending.
+
+# cat=memo signal=delay
+Hi all, I want to be transparent about Project Helios. We've hit technical challenges that will move our launch date from June to September. We're confident this is the right call.
+Project Helios is delayed from June to September.
+Helios slipped from June to September.
+Helios is three months late.
+
+# cat=memo signal=deflection
+I know there have been a lot of rumors. I want to assure you that we're focused on our customers and our people. When there is something to share, you'll hear it from me first.
+They're not confirming or denying the rumors.
+They dodged the rumors.
+They won't deny it. Something's coming.
+
+# cat=memo signal=ai
+We are entering a new era. AI will transform every role at this company. Over the next year, we expect each team to find ways to accomplish more with AI tools before adding headcount.
+They want every team to use AI before hiring anyone.
+Use AI instead of hiring.
+AI first, people last.
+
+# cat=memo signal=acquisition
+I'm thrilled to announce that we've entered into an agreement to be acquired by Valmont Group. This partnership will accelerate our mission. Until the deal closes, it's business as usual.
+Valmont Group is buying the company. Nothing changes until the deal closes.
+We're being bought by Valmont. Business as usual for now.
+Valmont bought us. Changes after it closes.
+
+# cat=memo signal=benefits
+We're making changes to our benefits to keep them sustainable. Starting next year, the wellness stipend will be replaced with a meditation app subscription, and the gym reimbursement will end.
+The wellness stipend becomes a meditation app, and gym reimbursement is ending.
+Benefits cut: no gym money, and an app instead of the stipend.
+They took your gym money and gave you an app.
+
+# cat=memo signal=shutdown
+After eight years, we've made the decision to close our Seattle studio. We're grateful to the team for the amazing games they've made. We'll support everyone through this transition.
+The Seattle studio is closing.
+They're shutting down the Seattle studio.
+Seattle studio is dead.
+
+# cat=memo signal=outsourcing
+We're expanding our partnership with Atlas Global Services, who will take on accounts payable and receivable starting in Q3. Our finance team will focus on strategic work.
+An outside firm will handle accounts payable and receivable from Q3.
+Accounts payable and receivable are being outsourced in Q3.
+Those finance jobs are going to Atlas in Q3.
+
+# cat=memo signal=hiring-freeze
+To manage costs, we are pausing all hiring except for a small number of business-critical roles approved by the executive team.
+They've stopped hiring except for a few key roles.
+Hiring freeze, except a few critical roles.
+No hiring. Almost none.
+
+# cat=memo signal=performance
+We expect a lot from each other. Going forward, every team will set clear quarterly targets, and we'll be reviewing results closely. Those who consistently miss targets will be supported to improve or move on.
+They'll track quarterly targets, and people who keep missing them may be pushed out.
+Hit your targets or you'll be pushed out.
+Miss your numbers and you're gone.
+
+# cat=memo signal=budget-freeze
+Effective today, all non-essential spending is frozen until further notice. This includes travel, events and new software. Exceptions require CFO sign-off.
+All optional spending is frozen, including travel, events and software.
+Spending freeze: no travel, events or new software.
+No money for anything. Ask the CFO and good luck.
+
+# cat=memo signal=departure
+After 15 remarkable years, our founder Elise will be transitioning to the role of Executive Chair. A search for our next CEO is underway.
+Founder Elise is stepping down as CEO and becoming Executive Chair.
+Elise is stepping down as CEO.
+Elise is out as CEO.
+
+# cat=memo signal=stack-rank
+As part of our commitment to excellence, we're introducing a new performance calibration process. Managers will rank team members against each other, and ratings will follow a target distribution.
+Managers will rank people against each other, with a set spread of ratings.
+Stack ranking with forced ratings.
+Stack ranking. Someone has to lose.
+
+# cat=memo signal=record-year
+I want to thank each of you for an unbelievable year. We exceeded our revenue target by 30% and hit an all-time high in customer satisfaction.
+The company beat its revenue goal by 30% and set a satisfaction record.
+Record year, 30% over target.
+They made 30% more than planned.
+
+# cat=memo signal=layoff-you
+Hi Priya, thank you for meeting with me today. As discussed, your role is being eliminated as part of the restructuring. Your last day will be next Friday, and HR will follow up about your severance and benefits.
+Priya's job is being cut, and her last day is next Friday.
+Priya is being laid off. Last day next Friday.
+Priya is fired. Out next Friday.
+
+# cat=memo signal=pip
+Hi Marcus, as we discussed, I'm concerned about the missed deadlines on the last three projects. We're putting a 30-day plan in place with clear goals. If expectations aren't met, further action may be taken.
+Marcus is on a 30-day plan after missing deadlines, and it could lead to more action.
+Marcus is on a 30-day PIP.
+Marcus has 30 days or he's fired.
+
+# cat=memo signal=rejection
+Thank you for your proposal to expand the internship program. While we see the value, budget constraints mean we can't approve it this year.
+The internship expansion isn't approved this year.
+It's a no on the internship expansion.
+No.
+
+# cat=memo signal=new-chapter
+After 10 wonderful years at Pinecrest, I've decided it's time for a new chapter. My last day is Friday. Stay in touch!
+They're leaving Pinecrest after 10 years, last day Friday.
+They're leaving Pinecrest Friday.
+Ten years and out on Friday.
+
+# cat=memo signal=fluff
+As we close out the year, I want to say how proud I am of this team. Your passion, grit and heart inspire me every day. Here's to an even brighter future together.
+A thank-you message with no news.
+Nice words, no news.
+Feel-good filler.
+
+# cat=memo signal=none
+Hi team, the office will be closed from December 24 to January 1. If you need IT help during that time, email the helpdesk.
+The office is closed December 24 to January 1. Email the helpdesk for IT help.
+Office closed December 24 to January 1.
+Office closed for the holidays.
+
+The new expense tool goes live on Monday. Training videos are in the help center, and the old tool will be available until the end of the month.
+The new expense tool starts Monday, and the old one works until month end.
+New expense tool Monday. Old one until month end.
+New expense tool Monday.
+
+# cat=atlas signal=deflection
+Per my last email, let's take this offline.
+I already answered this. Let's talk about it separately.
+I already told you. Let's not do this here.
+Read my email. Not here.
+
+Let's park this and circle back after the quarter.
+Let's set this aside until after the quarter.
+Let's drop this until after the quarter.
+We're dropping this. Maybe after the quarter.
+
+As previously mentioned, this is out of scope for now.
+As they said before, this isn't part of the plan right now.
+I already said this isn't in scope.
+Not happening. Already said so.
+
+# cat=mixed signal=record-year
+We had a fantastic year, with record bookings and three major launches. Thank you to everyone who made it happen.
+The company had record bookings and three big launches.
+Record bookings and three launches.
+Record bookings. Great year.
+
+# cat=mixed signal=departure
+Our COO, Raymond, will be departing at the end of the quarter. In the interim, his teams will report to me directly.
+The COO, Raymond, is leaving at the end of the quarter, and his teams report to the CEO for now.
+Raymond is leaving. His teams report to the CEO.
+Raymond's out. CEO takes his teams.
+
+# cat=mixed signal=acquisition
+We're pleased to welcome the team from Brightwave, which we acquired this week. Their product will become part of our analytics suite.
+They bought Brightwave this week, and its product joins the analytics suite.
+We bought Brightwave.
+We bought Brightwave. Their product gets folded in.
+
+# cat=mixed signal=benefits
+Due to rising costs, we will be moving to a high-deductible health plan as the default option next year.
+The default health plan next year will have a higher deductible.
+Your default health plan gets worse next year.
+You'll pay more for health care.
+
+# cat=mixed signal=cost-cuts
+In the spirit of being good stewards of our resources, the annual holiday party will be replaced with team-level celebrations on a $25-per-person budget.
+The holiday party is replaced by small team events at $25 per person.
+They cut the holiday party to $25 a head.
+No holiday party. $25 each.
+
+# cat=mixed signal=delay
+We're adjusting the timeline for the new pricing to give customers more notice. It will now take effect in April instead of January.
+The new pricing starts in April instead of January.
+New pricing is delayed to April.
+Pricing change pushed to April.
+
+# cat=mixed signal=shutdown
+The Nova beta will end on May 1. We'll use what we learned to improve our main app.
+The Nova beta ends May 1.
+Nova is shutting down May 1.
+Nova is dead May 1.

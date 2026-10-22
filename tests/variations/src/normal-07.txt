@@ -1,0 +1,227 @@
+# cat=deadline-blocker
+we're not going to make the Friday deadline
+We're not going to make the Friday deadline.
+We won't be able to hit the Friday deadline.
+We won't be able to deliver by the Friday deadline.
+
+I need two more days
+I need two more days.
+I'll need two more days.
+I'll need two more days to deliver.
+
+can we push the launch to next month?
+Can we push the launch to next month?
+Could we move the launch to next month?
+Could we realign the launch to next month?
+
+this is blocked on legal, nothing I can do
+This is blocked on Legal, and there's nothing I can do.
+This is blocked on Legal, and it's out of my hands.
+This is blocked on Legal, and it's outside my control.
+
+the deadline is impossible
+The deadline isn't possible.
+The deadline isn't realistic.
+The deadline isn't achievable.
+
+if we don't get the API keys by tomorrow we slip a week
+If we don't get the API keys by tomorrow, we slip a week.
+If we don't have the API keys by tomorrow, we'll slip by a week.
+If the API keys don't land by tomorrow, the timeline slips by a week.
+
+it'll be done when it's done
+It'll be done when it's done.
+It'll be done as soon as it's ready.
+It will be delivered when it's ready.
+
+I can have it by Wednesday, not before
+I can have it by Wednesday, not before.
+I can have it ready by Wednesday, but not before.
+I can deliver it by Wednesday, but not earlier.
+
+waiting on 3 people to approve, chasing them now
+I'm waiting on 3 people to approve and following up now.
+We're waiting on 3 approvals, and I'm following up now.
+We're pending 3 approvals, and I'm actively following up.
+
+we need a decision today or we lose the slot
+We need a decision today or we lose the slot.
+We need a decision today, or we'll lose the slot.
+We need a decision today, or we'll lose the slot.
+
+the release is on hold until the security fix lands
+The release is on hold until the security fix lands.
+The release is paused until the security fix lands.
+The release is paused pending the security fix.
+
+I can do fast or cheap, pick one
+I can do it fast or cheap. Pick one.
+I can do this fast or cheap, but not both.
+We can optimize for speed or cost, but not both.
+
+the report will be a day late
+The report will be a day late.
+The report will be a day behind.
+The report will be delivered a day late.
+
+we're waiting on the client to send data, been 2 weeks
+We're waiting on the client to send data. It's been 2 weeks.
+We've been waiting on the client's data for 2 weeks.
+We've been pending the client's data for 2 weeks.
+
+nobody told me this was due today
+Nobody told me this was due today.
+I wasn't told this was due today.
+I didn't have visibility that this was due today.
+
+# cat=feedback
+your slides had too much text
+Your slides had too much text.
+Your slides were a bit text-heavy.
+Your slides were text-heavy.
+
+you keep interrupting people in meetings
+You keep interrupting people in meetings.
+I've noticed you often interrupt people in meetings.
+I've noticed a pattern of interrupting others in meetings.
+
+the report was good but way too long
+The report was good, but much too long.
+The report was strong, but it ran long.
+The report was strong, but there's an opportunity to tighten it.
+
+you need to respond faster to customers
+You need to respond faster to customers.
+Please respond to customers more quickly.
+Please improve response times with customers.
+
+great work, but please test before pushing
+Great work, but please test before pushing.
+Great work. Please test before pushing.
+Great work. Please make sure to test before pushing.
+
+your code works but nobody can read it
+Your code works, but it's hard to read.
+Your code works, but it's difficult to read.
+Your code works, but readability could improve.
+
+you were rude to the vendor yesterday
+You were rude to the vendor yesterday.
+You came across as rude to the vendor yesterday.
+Your tone with the vendor yesterday came across as harsh.
+
+I loved how you handled that angry customer
+I loved how you handled that angry customer.
+You handled that upset customer really well.
+You handled that escalated customer exceptionally well.
+
+stop showing up late to standup
+Please stop showing up late to standup.
+Please be on time for standup.
+Please make sure to join standup on time.
+
+the design is fine but the colors are ugly
+The design is fine, but I don't like the colors.
+The design works, but the colors need another pass.
+The design is solid, but the palette needs another iteration.
+
+you did great in the interview, honestly
+Honestly, you did great in the interview.
+Honestly, you did really well in the interview.
+Candidly, you performed very well in the interview.
+
+this proposal needs a lot more work
+This proposal needs a lot more work.
+This proposal needs significant work.
+This proposal needs significant iteration.
+
+please stop taking credit for my work
+Please stop taking credit for my work.
+Please make sure my work is credited to me.
+Please ensure my contributions are attributed to me.
+
+you're doing too much, delegate some of it
+You're doing too much. Delegate some of it.
+You're taking on too much. Consider delegating some of it.
+You're over capacity. Consider delegating some of it.
+
+the email you sent the client had 3 typos
+The email you sent the client had 3 typos.
+The email you sent the client had 3 typos.
+The email you sent the client had 3 typos.
+
+# cat=customer
+sorry, that's not something we support
+Sorry, that's not something we support.
+Unfortunately, that isn't something we support.
+Unfortunately, that isn't something we currently support.
+
+your order shipped today and should arrive Thursday
+Your order shipped today and should arrive Thursday.
+Your order shipped today and should arrive Thursday.
+Your order shipped today and is expected to arrive Thursday.
+
+we can't refund you after 30 days
+We can't refund you after 30 days.
+We're unable to offer a refund after 30 days.
+We're unable to process refunds after 30 days.
+
+the outage was our fault, we're sorry
+The outage was our fault, and we're sorry.
+The outage was our fault, and we apologize.
+The outage was on us, and we sincerely apologize.
+
+we fixed the bug you reported
+We fixed the bug you reported.
+We've fixed the bug you reported.
+We've remediated the bug you reported.
+
+we're raising prices by 10% in January
+We're raising prices by 10% in January.
+Our prices will increase by 10% in January.
+Our pricing will increase by 10% in January.
+
+I'll need your account number to look into this
+I'll need your account number to look into this.
+Could you share your account number so I can look into this?
+Could you share your account number so I can investigate?
+
+you were charged twice, I've refunded the second one
+You were charged twice, and I've refunded the second charge.
+You were charged twice, and I've refunded the duplicate charge.
+You were charged twice, and the duplicate charge has been refunded.
+
+we don't have a date for that feature yet
+We don't have a date for that feature yet.
+We don't have a release date for that feature yet.
+We don't have a committed date for that feature yet.
+
+your trial ends tomorrow
+Your trial ends tomorrow.
+Your trial ends tomorrow.
+Your trial period ends tomorrow.
+
+this is a known issue, we're working on it
+This is a known issue, and we're working on it.
+This is a known issue, and we're working on a fix.
+This is a known issue, and we're actively working on a fix.
+
+no, we can't do a custom build for free
+No, we can't do a custom build for free.
+Unfortunately, we can't offer a custom build at no cost.
+Unfortunately, we're unable to offer a custom build at no cost.
+
+please stop calling our CEO directly
+Please stop calling our CEO directly.
+Please don't contact our CEO directly.
+Please route requests through your account team rather than our CEO.
+
+we lost your ticket, so sorry, can you resend
+We lost your ticket. So sorry. Can you resend it?
+We lost your ticket, and we're very sorry. Could you resend it?
+We misplaced your ticket, and we sincerely apologize. Could you resend it?
+
+thanks for being a customer for 5 years!
+Thanks for being a customer for 5 years!
+Thank you for being a customer for 5 years!
+Thank you for 5 years as a valued customer!

@@ -28,7 +28,7 @@ test("layoff memo: no awkward word swaps", () => {
     assert.doesNotMatch(text, /planned priorities/);
   }
   // The second sentence is translated, with synergies read as layoffs because the memo is about layoffs.
-  assert.match(toNormal(LAYOFF_MEMO, { level: 2 }).lines[1].plain, /cutting jobs/);
+  assert.match(toNormal(LAYOFF_MEMO, { level: 2 }).lines[1].plain, /cutting jobs/i);
 });
 
 test("soft layoff signals: two or more in one memo count as layoffs, one alone does not", () => {

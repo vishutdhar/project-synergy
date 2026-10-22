@@ -51,6 +51,103 @@ export function normalizeInput(text) {
     .replace(/\u00A0/g, " ");
 }
 
+// ---------- Casual text cleanup (Normal to Corporate only) ----------
+// Texting shorthand and common typos become plain words before any swap, so "pls send tmrw"
+// reads "please send tomorrow". Only whole words, never inside URLs, code or names.
+const CASUAL_WORDS = {
+  u: "you", r: "are", ur: "your", urs: "yours", ya: "you", yall: "you all", "y'all": "you all", rn: "right now",
+  tmrw: "tomorrow", tmr: "tomorrow", tmw: "tomorrow", tomorow: "tomorrow", tommorow: "tomorrow", tommorrow: "tomorrow", "2morrow": "tomorrow", "2day": "today", "2nite": "tonight",
+  tonite: "tonight", pls: "please", plz: "please", plez: "please", thx: "thanks", thnx: "thanks", thanx: "thanks", ty: "thank you", tysm: "thank you so much",
+  np: "no problem", idk: "I don't know", idc: "I don't care", imo: "in my opinion,", imho: "in my opinion,", tbh: "to be honest,", ngl: "honestly,",
+  lmk: "let me know", brb: "be right back,", omw: "on my way", lgtm: "looks good to me", btw: "by the way", fyi: "FYI", ooo: "out of office", wfh: "working from home",
+  bc: "because", cuz: "because", coz: "because", "'cause": "because", "w/": "with", "w/o": "without", b4: "before", l8: "late", l8r: "later", gr8: "great",
+  gonna: "going to", wanna: "want to", gotta: "have to", kinda: "kind of", sorta: "sort of", lemme: "let me", gimme: "give me", dunno: "don't know", finna: "about to",
+  yeah: "yes", yea: "yes", yep: "yes", yup: "yes", ya: "yes", nah: "no,", nope: "no", k: "OK", kk: "OK", okk: "OK", okie: "OK", oki: "OK",
+  im: "I'm", ive: "I've", ill: "I'll", id: "I'd", dont: "don't", cant: "can't", wont: "won't", didnt: "didn't", doesnt: "doesn't", isnt: "isn't", wasnt: "wasn't",
+  arent: "aren't", werent: "weren't", havent: "haven't", hasnt: "hasn't", shouldnt: "shouldn't", couldnt: "couldn't", wouldnt: "wouldn't", thats: "that's", whats: "what's",
+  theres: "there's", youre: "you're", theyre: "they're", hes: "he's", shes: "she's", weve: "we've", theyve: "they've", youve: "you've", wouldve: "would've", shouldve: "should've", couldve: "could've",
+  sry: "sorry", srry: "sorry", soz: "sorry", msg: "message", mtg: "meeting", mins: "minutes", hrs: "hours", convo: "conversation", rly: "really", srsly: "seriously",
+  prob: "probably", prolly: "probably", probs: "probably", obv: "obviously", obvi: "obviously", def: "definitely", defo: "definitely", deffo: "definitely",
+  any1: "anyone", some1: "someone", every1: "everyone", no1: "no one", teh: "the", recieved: "received", recieve: "receive", reveiw: "review", definately: "definitely",
+  definitly: "definitely", seperate: "separate", wierd: "weird", untill: "until", alot: "a lot", wat: "what", wut: "what", wht: "what", becuase: "because", becasue: "because",
+  tho: "though", thru: "through", ppl: "people", pplz: "people", govt: "government", abt: "about", appt: "appointment", asap: "ASAP", eod: "EOD", eow: "EOW",
+  amirite: ", right?", afk: "offline", dawg: "", bruh: "", fam: "", sus: "questionable", borked: "broken", yeeted: "scrapped", wanna: "want to", lol: "", lmao: "", lmfao: "", rofl: "", haha: "", hahaha: "", hehe: "", smh: "", fr: "", omg: "wow,", omfg: "wow,", ugh: "", ughh: "", welp: "",
+};
+const CASUAL_RE = new RegExp(`(?<![\\w'/@.:-])(${Object.keys(CASUAL_WORDS).map(escapeRe).join("|")}|ha(?:ha)+h?|ugh+|lo+l+)(?![\\w'/@-]|\\.\\w)`, "gi");
+const DAYS = /\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|january|february|april|june|july|august|september|october|november|december)\b/g;
+const EMOJI = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator})(?:\uFE0F|\u200D|\p{Emoji_Modifier}|\p{Extended_Pictographic})*/gu;
+const EMOTICON = /(?<=^|\s)(?::\)|:-\)|:\(|:-\(|:D|:P|:p|;\)|;-\)|:\/|:-\/|<3|xD|XD|:\||\^_\^|-_-)(?=\s|$|[.,!?])/g;
+// A sentence that starts with one of these and has no subject gets "I" or "I'm" in front.
+const NEEDS_I = /^(?!got it\b)(?:overslept|need|can't|cannot|can not|won't|will be|need to|have to|didn't|haven't|forgot|missed|got|hate|love|think|thought|wanted|want|hope|meant|saw|left|made|tried|sent|finished|fixed|pushed|merged|broke|should|might|may need|just (?:sent|saw|got|finished|pushed|merged|realized|noticed)|already|still need|also need|really need|totally forgot)\b/i;
+const NEEDS_IM = /^(?:running \d+ min|on a call|back from|in a meeting|in meetings|taking|waiting|running late|running behind|heading|stuck|working on|leaving|feeling|out sick|on my way|almost done|swamped|slammed|exhausted|so tired|tired|sick today|busy|done for|off today|out today|back in|not feeling|going to be|about to)\b/i;
+const QUESTION_START = /^(?!what an? |how (?:wonderful|nice|great|exciting|fun|generous|lovely|cool|sweet|thoughtful)\b)(?:so (?:who|what|when|where|why|how)|(?:has|did|does) \w+|wtf|wth|why tf|the (?:hell|fuck) (?:is|are|was|were|do|does|did)|who|what|what's|when|where|why|how|which|whose|is (?:it|this|that|there|anyone|everyone|the|my|our|your|he|she)|are (?:you|we|they|there|the|these|those|any)|am i|was (?:it|that|there|the)|were (?:you|we|they)|(?:do|does|did|can|could|would|will|should|shall|have|has|had|may|might|won't|can't|didn't|don't|doesn't|isn't|aren't) (?:you|we|they|i|he|she|it|this|that|there|anyone|anybody|someone|everyone|people|y'all|you all|the|our|your|my|any)|any (?:update|updates|news|word|chance|idea|ideas|luck|thoughts)|anyone|anybody|you (?:free|around|there|up for|ok|okay|good|coming|joining)|u (?:free|around|there|up for|ok|good|coming))\b/i;
+
+export function normalizeCasual(text) {
+  let t = String(text);
+  t = t.replace(EMOJI, " ").replace(EMOTICON, " ");
+  t = t.replace(CASUAL_RE, (m) => {
+    const key = m.toLowerCase();
+    let rep = CASUAL_WORDS[key];
+    if (rep === undefined) rep = ""; // laughter and "ugh" variants
+    if (!rep) return "";
+    if (key === "ur") return rep; // fixed below for "you're"
+    if (/^[A-Z]/.test(m) && /^[a-z]/.test(rep)) rep = rep[0].toUpperCase() + rep.slice(1);
+    return rep;
+  });
+  // "your late" / "your welcome" / "your right" mean "you're".
+  t = t.replace(/\b([Yy])our (late|welcome|right|wrong|going|not|so|still|the best|amazing|awesome|killing|kidding|joking|on mute|muted|up next|good|all set|fine|done|out|back|in charge|correct|always|never|being|a lifesaver|the man|a star)\b/g, "$1ou're $2");
+  t = t.replace(/\bb (there|back|right|ready|late|home|in|online|on)\b/gi, "be $1");
+  t = t.replace(/^\s*bet\s*[.!]*\s*$/i, "Sounds good.").replace(/^\s*rip\s*[.!]*\s*$/i, "That's unfortunate.");
+  t = t.replace(/\bthe vibes (in|at|on|of|during) ([^.!?,]*?) (?:were|are) off\b/gi, "the mood $1 $2 was off").replace(/\bvibes? (?:were|are|was|is) off\b/gi, "mood was off");
+  t = t.replace(/\b(is|are|was|were|be|been) (\d+) ?(days?|weeks?|months?) late\b/gi, "$1 $2 $3 overdue");
+  t = t.replace(/\b(running|run|ran) (\d+) ?(min|mins|minutes|hours?|hrs?) late\b/gi, "$1 $2 $3 behind");
+  t = t.replace(/\b(\d+) ?(min|mins|minutes|hours?|hrs?|days?|weeks?|months?) late\b/gi, "$1 $2 behind schedule");
+  t = t.replace(/^(\s*)(?:y'?all|you all)(?=\s+(?:the|we|i|it|this|that|there|guess|check|look|our)\b)/gim, "$1everyone,");
+  t = t.replace(/\bdon'?t @ me,? but\b/gi, "unpopular opinion, but");
+  t = t.replace(/\blma+o+\b|\blo+l+\b/gi, "");
+  t = t.replace(/^(\s*)(no|yes|yeah|ok|okay|sure|nope)\s+(?=(?:I|I'm|I'll|we|we're|you|it|it's|that's|that)\b)/gim, "$1$2, ");
+  t = t.replace(/^(\s*)(honestly|frankly|basically|seriously|anyway|actually)\s+(?=[a-z])/gim, "$1$2, ");
+  t = t.replace(/\b(\w+) (to be honest|tbh),?\s*$/gim, (m, w, p) => (w === "honest" ? m : `${w}, ${p}`));
+  t = t.replace(/\blowkey\b/gi, "quietly").replace(/\bslapped\b/gi, "was great");
+  t = t.replace(/(^|[.!?]\s+)wait,? what\b[?!.]*/gi, (_m, p) => p + "Wait, what?");
+  // "honestly," left at the very end of a sentence loses its comma.
+  t = t.replace(/,(?=\s*[.!?])/g, "").replace(/,\s*$/, "");
+  // "r" left over means "are", and "u" means "you". "i" is fixed later by polishCase.
+  t = t.replace(DAYS, (d) => d[0].toUpperCase() + d.slice(1));
+  t = t.replace(/\b(since|in|by|until|till|from|before|after|early|mid|late|end of) (march|may)\b/gi, (_m, p, mo) => `${p} ${mo[0].toUpperCase()}${mo.slice(1).toLowerCase()}`);
+  t = t.replace(/\b(we're|we are|i'm|i am|they're|you're|we|they) (?:so )?cooked\b/gi, "$1 in trouble");
+  // Clean up the gaps left by dropped words.
+  t = t.replace(/[ \t]{2,}/g, " ").replace(/ +([,.!?;:])/g, "$1").replace(/^[ \t]*[,.;:]\s*/gm, "").replace(/,\s*([.!?])/g, "$1").replace(/[ \t]+$/gm, "").replace(/^[ \t]+/gm, (m) => m);
+  // Per line (keeps lists intact): add a missing subject and a missing question mark.
+  t = t.split("\n").map((line) => {
+    if (/^\s*(?:[-*\u2022]|\d{1,2}[.)]|[a-hA-H]\))\s/.test(line)) return line;
+    return line.replace(/(^|[.!?]\s+)([^.!?]+)([.!?]*)/g, (whole, lead, body, end) => {
+      let b = body;
+      const trimmed = b.trim();
+      if (!trimmed) return whole;
+      let tailQuestion = false;
+      if (!end && QUESTION_START.test(trimmed) && !/\b(?:I think|let me know|wondering)\b/i.test(trimmed)) end = "?";
+      else if (!end && /,\s*(?:(?:can|could|would|will) (?:you|someone|anyone|somebody|we)|should (?:I|we)|which one|any (?:ideas|thoughts)|(?:want|need) anything|anyone want|what (?:did|do|does|is|are|should|can) (?:I|we|you|they)|right|thoughts)\b[^,]*$/i.test(trimmed)) { end = "?"; tailQuestion = true; }
+      else if (!end && /^(?:ok|okay|but|and|so)\b.*\bwhy$/i.test(trimmed)) end = "?";
+      if (end === "?" && /:\s*$/.test(trimmed)) end = "";
+      // "can we get help, we're drowning" asks first, then explains: "Can we get help? We're drowning."
+      if (end === "?" && !tailQuestion && QUESTION_START.test(trimmed)) {
+        const split = b.match(/^(\s*[^,]+),\s+((?:we're|i'm|it's|they're|this is|that's|we are|i am|everything is|nothing is)\b.*)$/i);
+        if (split) return lead + split[1] + "? " + split[2][0].toUpperCase() + split[2].slice(1) + ".";
+      }
+      else if (end === "." && QUESTION_START.test(trimmed) && /^(?:who|what|when|where|why|how|which)\b/i.test(trimmed) && trimmed.split(/\s+/).length <= 8) end = "?";
+      if (end !== "?" || tailQuestion) {
+        if (NEEDS_IM.test(trimmed)) b = b.replace(/^(\s*)/, "$1I'm ");
+        else if (NEEDS_I.test(trimmed)) b = b.replace(/^(\s*)/, "$1I ");
+        b = b.replace(/^(\s*)I (I'm|I) /, "$1$2 ");
+      }
+      if (b !== body && /^\s*I/.test(b)) b = b.replace(/^(\s*I'?m? )([A-Z])(?=[a-z])/, (_m, p, c) => p + c.toLowerCase());
+      return lead + b + end;
+    });
+  }).join("\n");
+  return t.trim();
+}
+
 // Parse "from = t1|t1b = t2 = t3" lines into entries.
 function parseSwaps(block) {
   const entries = [];
@@ -116,13 +213,13 @@ export const crudeEntries = parseSwaps(CRUDE_SWAPS).map((e) => ({ ...e, crude: t
 export const decodeEntries = parseSwaps(DECODE_SWAPS);
 const plainMatcher = buildMatcher(corporateEntries);
 // Sentences with no crude word skip the big crude matcher. A few crude idioms are spelled with clean words.
-const mayBeCrude = (text) => hasCrude(text) || /\b(?:squat|knackered|dumpster fire|brown-noser|kiss(?:ing|ed|es)? up)\b/i.test(text);
+const mayBeCrude = (text) => hasCrude(text) || /\b(?:squat|knackered|screwed|crapped|shat|hardass|screw the|dick(?:ing|ed)? around|cockblock\w*|dumpster fire|brown-noser|kiss(?:ing|ed|es)? up)\b/i.test(text);
 const crudeMatcher = buildMatcher(crudeEntries);
 
 // The input with swearing already swapped for plain, mild wording. AI mode rewrites this
 // version, so the model never sees "fuck off" and can't copy it into the reply.
 export function softenCrude(input) {
-  const clean = canonicalizeCrude(normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
+  const clean = canonicalizeCrude(normalizeCasual(normalizeInput(input))).replace(/[ \t]{2,}/g, " ").trim();
   if (!mayBeCrude(clean)) return clean;
   let { text } = swapPhrases(clean, crudeMatcher, 1, () => 0, 1);
   if (hasCrude(text)) text = cleanCrude(text).text;
@@ -191,11 +288,14 @@ function swapPhrases(text, matcher, level, rng, swapChance, used = null, protect
       const tierIdx = level > 1 && rng() < 0.2 ? level - 2 : level - 1;
       let choice = pick(rng, entry.tiers[tierIdx]);
       // Avoid repeating a key word already in the output ("capacity" twice).
-      if (used && repeatsKeyWord(choice, used)) {
+      // Words kept from the matched phrase itself ("minutes" in "minutes late") are not repeats.
+      const own = new Set(keyWords(m[0]));
+      const repeats = (c) => keyWords(c).some((k) => used.has(k) && !own.has(k));
+      if (used && repeats(choice)) {
         // Same tier first, then milder tiers, then stronger ones.
         const others = [entry.tiers[tierIdx], entry.tiers[level - 1], ...entry.tiers.slice(0, level - 1).reverse(), ...entry.tiers.slice(level)].flat();
         // A crude phrase is never kept as is, even if every option repeats a word.
-        choice = others.find((c) => !repeatsKeyWord(c, used)) ?? (entry.crude ? choice : m[0]);
+        choice = others.find((c) => !repeats(c)) ?? (entry.crude ? choice : m[0]);
       }
       if (choice.toLowerCase() !== m[0].toLowerCase()) {
         changed++;
@@ -237,6 +337,8 @@ export function tidy(text) {
     .replace(/,\s*,/g, ",")
     .replace(/([.!?])\s*\.(?!\.)/g, "$1")
     .replace(/:\s*\./g, ".")
+    .replace(/,(\s*[.!?])/g, "$1")
+    .replace(/:(\s*[!?])/g, "$1")
     .replace(/ *\n */g, "\n")
     .trim();
   return t;
@@ -265,7 +367,10 @@ export function splitSentences(paragraph) {
   // Re-join tiny fragments like "U.S." splits.
   const out = [];
   for (const s of parts) {
-    if (out.length && /\b(?:[A-Z]\.){1,3}$|\b(?:Mr|Ms|Mrs|Dr|Inc|Co|Jr|Sr|vs|etc|e\.g|i\.e)\.$/.test(out[out.length - 1])) {
+    const prev = out[out.length - 1];
+    // A question or exclamation inside a quote that opened mid-sentence ("any updates?" pings) stays in that sentence.
+    const midQuote = prev && /\S\s+"[^"]*[!?]"$/.test(prev) && /^[a-z]/.test(s);
+    if (out.length && (midQuote || /\b(?:[A-Z]\.){1,3}$|\b(?:Mr|Ms|Mrs|Dr|Inc|Co|Jr|Sr|vs|etc|e\.g|i\.e)\.$/.test(prev))) {
       out[out.length - 1] += " " + s;
     } else out.push(s);
   }
@@ -273,6 +378,7 @@ export function splitSentences(paragraph) {
 }
 
 export function capFirst(s) {
+  if (/^\s*\S*(?::\/\/|^www\.)/.test(s) || /^\s*(?:https?:|www\.)/i.test(s)) return s;
   return s.replace(/^(\s*["'(]?)([a-z])/, (_m, p, c) => p + c.toUpperCase());
 }
 
@@ -292,6 +398,7 @@ const LITERAL_TOKEN = /:\/\/|^www\.|@|[\\/`_={}<>#]|\.[a-z]{2,}(?:[/?#]|$)|[a-z]
 export function polishCase(text) {
   const parts = String(text).split(/(\s+)/);
   let sentenceStart = true;
+  let quoteMid = false;
   for (let i = 0; i < parts.length; i++) {
     const part = parts[i];
     if (!part || /^\s+$/.test(part)) continue;
@@ -307,7 +414,11 @@ export function polishCase(text) {
     parts[i] = tok;
     // Next token starts a sentence after . ! ? (not after "..", "e.g." style abbreviations, or decimals).
     const abbrev = /^(?:e\.g\.|i\.e\.|etc\.|vs\.|mr\.|mrs\.|ms\.|dr\.)$/i.test(part.replace(/^["'(]+/, ""));
-    sentenceStart = /[.!?]["')\]\u2019\u201D]*$/.test(part) && !/\.\.["')\]]*$/.test(part) && !abbrev;
+    // A quote opened mid-sentence ("any updates?" pings) does not end the sentence when it closes.
+    if (/^["\u201C]/.test(part) && !sentenceStart) quoteMid = true;
+    const closesMidQuote = quoteMid && /[!?]["\u201D]$/.test(part);
+    if (/["\u201D]$/.test(part)) quoteMid = false;
+    sentenceStart = /[.!?]["')\]\u2019\u201D]*$/.test(part) && !/\.\.["')\]]*$/.test(part) && !abbrev && !closesMidQuote;
   }
   return parts.join("");
 }
@@ -316,9 +427,10 @@ export function polishCase(text) {
 
 const SWAP_CHANCE = { 1: 0.5, 2: 0.85, 3: 1 };
 // Mild never adds an opener. Openers and closers are tone only (see phrasebook.js).
-const OPENER_CHANCE = { 1: 0, 2: 0.75, 3: 1 };
-const CLOSER_CHANCE = { 1: 0.4, 2: 0.8, 3: 1 };
-const LIST_MARK = /^(\s*(?:[-*\u2022]|\d{1,2}[.)])\s+)/;
+// Mild and Middle Manager add nothing. Full C-Suite gets a lead-in and sometimes a neutral sign-off.
+const OPENER_CHANCE = { 1: 0, 2: 0, 3: 1 };
+const CLOSER_CHANCE = { 1: 0, 2: 0, 3: 0.5 };
+const LIST_MARK = /^(\s*(?:[-*\u2022]|\d{1,2}[.)]|[a-hA-H]\))\s+)/;
 
 // Capitalized words the phrasebook may add on its own (KPI, OKRs, AI). The meaning check allows them.
 const CAPS_SOURCES = [CORPORATE_SWAPS, CRUDE_SWAPS, ...Object.values(OPENERS).flat(), ...Object.values(CLOSERS).flat(), ...INTERJECTIONS].join(" ");
@@ -331,6 +443,8 @@ function protectedSpans(sentence) {
     for (const m of sentence.matchAll(re)) spans.push([m.index, m.index + m[0].length]);
   };
   add(/\d[\d,.:]*\s?(?:%|k|m|am|pm)?/gi);
+  // Quoted words are the user's exact words: "quick favor" stays as written.
+  add(/"[^"\n]{1,80}"/g);
   add(/\b(?:today|tonight|tomorrow|yesterday|(?:this|next|last) (?:week|month|quarter|year)|EOD|EOW|COB|monday|tuesday|wednesday|thursday|friday|saturday|sunday|january|february|march|april|june|july|august|september|october|november|december)\b/gi);
   // Capitalized words after the first word of the sentence, unless the whole thing is shouted.
   if (!isShouting(sentence)) for (const m of sentence.matchAll(/(?<=\S\s+)[A-Z][\w'&-]*/g)) {
@@ -386,7 +500,7 @@ function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true, dropped =
     }
     const { text } = swapPhrases(base, plainMatcher, lvl, rng, SWAP_CHANCE[lvl], trial, prot);
     let t = capFirst(tidy(text));
-    if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t)) t += ".";
+    if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t) && /[A-Za-z0-9]/.test(t)) t += ".";
     if (checkMeaning(sentence, t).ok && !hasCrude(t)) {
       for (const k of trial) used.add(k);
       return t;
@@ -413,17 +527,6 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [] } = {}) {
       return u.sep + u.mark + body;
     }
     const sentences = splitSentences(u.text).map((s) => rewriteSentence(s, lvl, rng, used, { dropped })).filter(Boolean);
-    // C-suite: sprinkle an aside between sentences.
-    if (extras && lvl === 3 && sentences.length > 1) {
-      for (let i = sentences.length - 1; i > 0; i--) {
-        const pool = INTERJECTIONS.filter((x) => !repeatsKeyWord(x, used));
-        if (pool.length && rng() < 0.35) {
-          const aside = pick(rng, pool);
-          keyWords(aside).forEach((k) => used.add(k));
-          sentences.splice(i, 0, aside);
-        }
-      }
-    }
     return u.sep + sentences.join(" ");
   });
 
@@ -433,18 +536,20 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [] } = {}) {
   const last = units[units.length - 1];
   const openJoin = first?.kind === "item" ? "\n" : " ";
   const closeJoin = last?.kind === "item" ? "\n\n" : " ";
-  if (extras && rng() < OPENER_CHANCE[lvl]) {
-    let pool = OPENERS[rng() < 0.25 ? lvl - 1 : lvl].filter((o) => !repeatsKeyWord(o, used));
+  if (extras && /[A-Za-z]/.test(result) && rng() < OPENER_CHANCE[lvl]) {
+    let pool = OPENERS[lvl].filter((o) => !repeatsKeyWord(o, used));
     // A message that already starts with a greeting gets no opener in front of it.
     if (/^(?:hi|hey|hello|greetings|hope|dear|good (?:morning|afternoon))\b/i.test(result)) pool = [];
+    // Nor one that already opens with a lead-in like "In the spirit of radical candor,".
+    if (/^(?:in the spirit of|candidly|frankly|honestly|to be honest|transparently|for (?:full )?visibility|big picture)\b/i.test(result)) pool = [];
     if (pool.length) {
       const opener = pick(rng, pool);
       keyWords(opener).forEach((k) => used.add(k));
       result = `${opener}${openJoin}${result}`;
     }
   }
-  if (extras && rng() < CLOSER_CHANCE[lvl]) {
-    const pool = (lvl === 1 ? CLOSERS[1] : rng() < 0.25 ? CLOSERS[lvl - 1] : CLOSERS[lvl]).filter((c) => !repeatsKeyWord(c, used));
+  if (extras && /[A-Za-z]/.test(result) && rng() < CLOSER_CHANCE[lvl]) {
+    const pool = CLOSERS[lvl].filter((c) => !repeatsKeyWord(c, used));
     if (pool.length) result = `${result}${closeJoin}${pick(rng, pool)}`;
   }
   return polishCase(tidy(result));
@@ -458,7 +563,8 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [] } = {}) {
 export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
   const lvl = clampLevel(level);
   // Censored spellings become plain ones (f*ck, wtf) so the crude rewrites can catch them. Slurs never get through.
-  const clean = canonicalizeCrude(normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
+  // Texting shorthand becomes plain words first.
+  const clean = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
   const empty = { text: "", check: { ok: true, lost: [], added: [] }, fallback: "", unsafe: [] };
   if (!clean) return empty;
   // A sentence with no safe rewrite is left out, so the meaning check skips it too.
@@ -492,11 +598,13 @@ export function detectThemes(sentence) {
   const found = [];
   for (const theme of THEMES) {
     if (!theme.patterns.some((p) => p.test(sentence))) continue;
-    if (theme.requiresNegative && !NEGATIVE_CUES.test(sentence)) continue;
+    if (theme.requiresNegative && !NEGATIVE_CUES.test(sentence) && !theme.negative?.test(sentence)) continue;
     // LinkedIn posts are about the writer, so "new chapter" in a CEO memo does not count.
     if (theme.firstPerson && !/\b(?:I|I'm|I've|I'll|I'd)\b|\b(?:my|me)\b/i.test(sentence.replace(/\bI\b(?=\.)/g, ""))) continue;
     found.push(theme.id);
   }
+  // A benefit being discontinued is a benefit cut, not a product shutdown.
+  if (found.includes("benefits")) return found.filter((id) => id !== "shutdown");
   return found;
 }
 
@@ -529,7 +637,7 @@ function combineSummary(themeIds, lvl, fluffShare) {
   const combo = COMBOS.find((c) => c.all.includes(top) && c.all.every((id) => ids.includes(id)));
   if (combo) return combo.text[i];
   if (!ids.length) {
-    if (fluffShare >= 0.5) return ["Lots of kind words, not much news.", "A lot of words that don't say much.", "Nothing. This is a lot of words for nothing."][i];
+    if (fluffShare > 0.5) return ["Lots of kind words, not much news.", "A lot of words that don't say much.", "Nothing. This is a lot of words for nothing."][i];
     return ["Nothing hidden here.", "It mostly says what it says.", "Nothing to decode. Rare."][i];
   }
   return ids.slice(0, 3).map((id) => themeById[id].summary[i]).join(" ");
@@ -540,7 +648,7 @@ export function pickSignal(themeIds, fluffShare = 0) {
   const ids = summaryThemes(themeIds);
   const top = ids[0];
   if (!top) {
-    return fluffShare >= 0.5 ? { id: "fluff", label: "All fluff", tone: "none" } : { id: "none", label: "No bad news found", tone: "none" };
+    return fluffShare > 0.5 ? { id: "fluff", label: "All fluff", tone: "none" } : { id: "none", label: "No bad news found", tone: "none" };
   }
   const combo = COMBOS.find((c) => c.signal && c.all.includes(top) && c.all.every((id) => ids.includes(id)));
   const base = SIGNALS[top] ?? { label: top, tone: "warn" };
@@ -555,6 +663,15 @@ export function isGreetingOrSignature(sentence) {
   if (/^(?:best|thanks|cheers|regards|warmly|sincerely|onward)[^.!?]{0,40}$/i.test(s)) return true;
   const words = s.split(/\s+/).length;
   return !/[.!?]["')\]]*$/.test(s) && words <= 8 && !/\b(?:we|will|are|is|our|you)\b/i.test(s);
+}
+
+// A decode line that only swapped a word or two just repeats the memo. Say so plainly instead.
+const wordSet = (s) => new Set(String(s).toLowerCase().replace(/[\u0000\u0001]/g, "").match(/[a-z']{3,}/g) ?? []);
+function echoes(original, swapped) {
+  const A = wordSet(original), B = wordSet(swapped);
+  let shared = 0;
+  for (const w of A) if (B.has(w)) shared++;
+  return A.size > 5 && shared / (A.size + B.size - shared || 1) > 0.6;
 }
 
 export function toNormal(input, { level = 2, seed = 1 } = {}) {
@@ -585,13 +702,15 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       let plain;
       const special = SPECIAL_LINES.find((s) => s.pattern.test(sentence) && !(s.weak && themes.length));
       if (special) {
-        plain = special.lines[lvl - 1];
+        if (isFluff) fluff++;
+        plain = ((layoffContext && special.layoffLines) || special.lines)[lvl - 1];
       } else if (themes.length) {
-        plain = themes.slice(0, 2).map((id) => themeById[id].line[lvl - 1]).join(" ");
+        // "Your job is being cut." already says "Some jobs are being cut.", so the weaker line goes.
+        plain = summaryThemes(themes).slice(0, 2).map((id) => themeById[id].line[lvl - 1]).join(" ");
       } else if (isFluff) {
         fluff++;
         plain = pick(rng, FLUFF_LINES)[lvl - 1];
-      } else if (changed > 0) {
+      } else if (changed > 0 && !echoes(sentence, swapped)) {
         plain = capFirst(tidy(swapped));
         if (!endsWithPunct(plain)) plain += ".";
       } else {

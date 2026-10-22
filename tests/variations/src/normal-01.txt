@@ -1,0 +1,290 @@
+# cat=one-liner
+no
+No.
+No, I'm not able to do that.
+I'm going to have to decline on this one.
+
+lol ok
+Okay, sounds good.
+Understood, that works for me.
+Understood. Fully aligned on that.
+
+sounds good
+Sounds good.
+Sounds good to me.
+Sounds good. I'm fully aligned.
+
+k
+Okay.
+Okay, noted.
+Noted. Aligned.
+
+on it
+On it.
+I'm on it.
+I'm on it and will drive this forward.
+
+yep
+Yes.
+Yes, confirmed.
+Confirmed. Fully aligned.
+
+nope
+No.
+No, that won't work.
+That's a no from me at this time.
+
+ty!
+Thank you!
+Thanks so much!
+Thank you. Deeply appreciated!
+
+np
+No problem.
+Happy to help.
+Happy to support.
+
+idk
+I'm not sure.
+I don't know yet.
+I don't have visibility into that yet.
+
+will do
+Will do.
+Will do, I'll take care of it.
+Will do. I'll own this.
+
+brb
+Back in a minute.
+Stepping away for a minute, back shortly.
+Stepping away briefly. Back shortly.
+
+omw
+On my way.
+On my way now.
+On my way now. Joining shortly.
+
+fine
+Fine.
+That works.
+That works for me.
+
+whatever works
+Whatever works for you.
+I'm flexible, whatever works best for you.
+I'm flexible on this. Whatever works best for the team.
+
+can't today
+I can't today.
+I'm not able to today.
+I don't have the bandwidth for this today.
+
+done
+Done.
+This is done.
+This is complete and closed out.
+
+ok but why
+Okay, but why?
+Okay, but can you help me understand why?
+Understood, but can you walk me through the rationale?
+
+who's this
+Who is this?
+Can you tell me who this is?
+Could you share who this is?
+
+lmk
+Let me know.
+Let me know when you can.
+Please keep me posted.
+
+no worries
+No worries.
+No worries at all.
+No worries at all. All good.
+
+agreed
+Agreed.
+Agreed, I'm on the same page.
+Agreed. Fully aligned.
+
+hard pass
+No thanks.
+I'm going to pass on this one.
+I'm going to respectfully pass on this opportunity.
+
+big if true
+That would be big if it's true.
+If that's true, it's a big deal.
+If accurate, that's a significant development.
+
+wait what
+Wait, what?
+Sorry, can you clarify?
+Sorry, could you clarify what you mean?
+
+lgtm
+Looks good to me.
+Looks good to me, approved.
+Looks good to me. Approved from my side.
+
+ship it
+Ship it.
+Let's ship it.
+Let's ship it and get it in front of users.
+
+not my problem
+That's not my area.
+That falls outside my area.
+That sits outside my scope.
+
+hmm
+Hmm.
+Let me think about that.
+Let me reflect on that.
+
+same
+Same here.
+Same here, I agree.
+Same here. I share that view.
+
+cool cool cool
+Cool.
+Sounds good.
+Sounds great.
+
+sorry!!
+Sorry!
+Sorry about that!
+Apologies for that!
+
+thx
+Thanks.
+Thanks a lot.
+Thank you, much appreciated.
+
+yes please
+Yes, please.
+Yes, please, that would be great.
+Yes, please. That would be very helpful.
+
+not yet
+Not yet.
+Not yet, still working on it.
+Not yet. It's still in progress.
+
+got it 👍
+Got it 👍
+Got it, thanks 👍
+Got it. Noted 👍
+
+bet
+Okay, deal.
+Sounds good, deal.
+Deal. Consider it done.
+
+ugh fine
+Okay, fine.
+Okay, I'll go along with it.
+Understood. I'll align with that.
+
+nah im good
+No thanks, I'm good.
+No thanks, I'm all set.
+I'm all set, thanks.
+
+on a call
+I'm on a call.
+I'm on a call right now.
+I'm on a call at the moment.
+
+call me
+Call me.
+Can you give me a call?
+Could you give me a call when you have a moment?
+
+5 min
+Five minutes.
+Give me 5 minutes.
+I'll need 5 minutes.
+
+oops my bad
+Oops, my mistake.
+Sorry, that was my mistake.
+Apologies, that one's on me.
+
+lol no
+Ha, no.
+No, that's not happening.
+That's not something I can support.
+
+nice!!
+Nice!
+Great work!
+Excellent work!
+
+👀
+👀
+I'm looking into it 👀
+I'm looking into it 👀
+
+so true
+So true.
+Very true.
+That's spot on.
+
+fair
+Fair point.
+That's a fair point.
+That's a fair point, well taken.
+
+im out
+I'm heading out.
+I'm signing off for the day.
+I'm signing off for the day.
+
+what time
+What time?
+What time works?
+What time works for everyone?
+
+rip
+That's unfortunate.
+That's too bad.
+That's an unfortunate outcome.
+
+pls
+Please.
+Please, if you can.
+Please, if you're able to.
+
+maybe
+Maybe.
+Maybe, I'm not sure yet.
+Possibly. I'll need to assess.
+
+asap
+As soon as possible.
+As soon as possible, please.
+This is time-sensitive, as soon as possible please.
+
+no thanks
+No thanks.
+No thanks, I'll pass.
+Thank you, but I'll pass.
+
+sure thing
+Sure thing.
+Sure, happy to.
+Absolutely, happy to support.
+
+help
+Help, please.
+I could use some help.
+I could use some support here.
+
+yikes
+Yikes.
+That's concerning.
+That's a concerning development.
