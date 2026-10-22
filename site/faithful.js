@@ -102,5 +102,7 @@ export function aiCorporateGate(input, reply, { level = 2 } = {}) {
   if (level === 2 && sameWords(basis, reply) >= 0.999) return { ok: false, reason: "flat", check };
   // Rude but not crude: "Shut up about synergy" is not something to send at work.
   if (RUDE.test(reply)) return { ok: false, reason: "rude", check };
+  // Mild that only fixes spelling ("I'm going to be late sorry.") is a tidy copy, not a rewrite. Instant does it.
+  if (level === 1 && sameWords(basis, reply) >= 0.999) return { ok: false, reason: "flat", check };
   return { ok: true, reason: "ok", check };
 }

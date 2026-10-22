@@ -115,5 +115,5 @@ test("AI mode retrieval: site/examples.js matches the dataset and builds the pro
 
 test("AI gate: Full C-Suite that reads like the input falls back to Instant", () => {
   assert.equal(aiCorporateGate("no more meetings this week please", "No more meetings this week, please!", { level: 3 }).reason, "flat");
-  assert.equal(aiCorporateGate("no more meetings this week please", "No more meetings this week, please.", { level: 1 }).ok, true);
+  assert.equal(aiCorporateGate("no more meetings this week please", "No more meetings this week, please.", { level: 1 }).reason, "flat");
 });

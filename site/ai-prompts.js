@@ -12,8 +12,8 @@ const DECODE_TONE = {
 };
 
 const CORPORATE_TONE = {
-  1: "Make it mildly professional, like a polite work email. Keep it short.",
-  2: "Make it sound like a middle manager: buzzwords like bandwidth, alignment, synergy, flag, action items.",
+  1: "Make it a polite work email: reword it, don't just fix spelling. Turn orders into requests like \"Could you...\", soften opinions with \"I think\", and say sorry as \"Apologies,\". Keep it short.",
+  2: "Make it sound like a middle manager: open with a label like \"Quick flag:\" or \"Heads-up:\", turn verbs into nouns, and use buzzwords like bandwidth, alignment, action items.",
   3: "Make it sound like an over-the-top CEO on LinkedIn: north star, paradigm shift, leverage, unlock value, at scale. Be ridiculous.",
 };
 
@@ -161,15 +161,18 @@ const CORPORATE_SHOTS = {
   1: [["I can't come to lunch, I'm busy.", "I'm a bit tied up, so I can't make lunch."],
       ["The printer is broken again.", "Heads up, the printer is out of order again."],
       ["I don't like the new logo.", "I have a few concerns about the new logo."],
-      ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet is a real mess, and I'm not fixing it again."]],
+      ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet is a real mess, and I'm not fixing it again."],
+      ["send me the deck by friday", "Could you send me the deck by Friday?"]],
   2: [["I can't come to lunch, I'm busy.", "I don't have the bandwidth for lunch, so I can't make it."],
       ["The printer is broken again.", "Flagging that our print capability is down again."],
       ["I don't like the new logo.", "I have some concerns about the new logo direction."],
-      ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet has some serious quality gaps, and I'm not able to fix it again."]],
+      ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet has some serious quality gaps, and I'm not able to fix it again."],
+      ["send me the deck by friday", "Quick ask: could you please send me the deck by Friday?"]],
   3: [["I can't come to lunch, I'm busy.", "Due to unprecedented demand on my bandwidth, I'm unable to join the nourishment alignment initiative."],
       ["The printer is broken again.", "Our document output infrastructure is once again in a strategic pause."],
       ["I don't like the new logo.", "I'm not yet bought in on the new brand identity's ability to unlock value at scale."],
-      ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet is a value-negative asset, and I'm not in a position to own another remediation cycle."]],
+      ["This damn spreadsheet is a shitshow, I'm not fixing it again.", "This spreadsheet is a value-negative asset, and I'm not in a position to own another remediation cycle."],
+      ["send me the deck by friday", "As a top priority, could you kindly surface the deck to me by Friday?"]],
 };
 export const CORPORATE_EXAMPLE_ANSWERS = Object.values(CORPORATE_SHOTS).flat().map(([, a]) => a);
 
