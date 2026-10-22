@@ -9,7 +9,7 @@ import { guardOutput, echoesExample, contradictsThemes, isMetaReply, generationO
 import { softenCrude, toCorporateDetailed, toNormal, detectThemes } from "../site/engine.js";
 import { checkMeaning } from "../site/meaning.js";
 import { hasCrude, addsCrude, lostIdioms } from "../site/profanity.js";
-import { faithfulToCrude, needsFaithCheck } from "../site/faithful.js";
+import { aiCorporateGate } from "../site/faithful.js";
 import { nearestExamples } from "../tests/variations/retrieval.mjs";
 
 const arg = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : d; };
@@ -72,11 +72,9 @@ for (const item of mine) for (const level of levels) {
     const checked = guardOutput(raw, { examples: P.CORPORATE_EXAMPLE_ANSWERS, maxWords: 120 });
     const ai = checked.text;
     const instant = toCorporateDetailed(text, { level, seed: 1 });
-    const crude = Boolean(ai) && hasCrude(ai);
-    const check = ai ? checkMeaning(text, ai) : { ok: false };
-    const lostIdiom = Boolean(ai) && (lostIdioms(text, ai).length > 0 || (needsFaithCheck(text) && !faithfulToCrude(text, ai, { level }).ok));
-    const shownAI = Boolean(ai) && !crude && check.ok && !lostIdiom && !instant.unsafe?.length;
-    const gate = !ai ? (checked.ok ? "empty" : "guard") : crude ? "crude" : !check.ok ? `meaning:${[...(check.lost ?? []), ...(check.added ?? [])].join("+")}` : lostIdiom ? "idiom" : instant.unsafe?.length ? "unsafe" : "ok";
+    const g = aiCorporateGate(text, ai, { level });
+    const shownAI = g.ok && !instant.unsafe?.length;
+    const gate = !ai ? (checked.ok ? "empty" : "guard") : g.reason === "meaning" ? `meaning:${[...(g.check.lost ?? []), ...(g.check.added ?? [])].join("+")}` : !g.ok ? g.reason : instant.unsafe?.length ? "unsafe" : "ok";
     row = { id: item.id, level, model, fewshot, ai_raw: raw, ai_text: ai, gate, shown_engine: shownAI ? "AI" : "Instant (AI fallback)", shown: shownAI ? ai : instant.text };
   } else {
     const instant = toNormal(item.input, { level, seed: 1 });

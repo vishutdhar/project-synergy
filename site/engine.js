@@ -213,7 +213,7 @@ export const crudeEntries = parseSwaps(CRUDE_SWAPS).map((e) => ({ ...e, crude: t
 export const decodeEntries = parseSwaps(DECODE_SWAPS);
 const plainMatcher = buildMatcher(corporateEntries);
 // Sentences with no crude word skip the big crude matcher. A few crude idioms are spelled with clean words.
-const mayBeCrude = (text) => hasCrude(text) || /\b(?:squat|knackered|screwed|crapped|shat|hardass|screw the|dick(?:ing|ed)? around|cockblock\w*|dumpster fire|brown-noser|kiss(?:ing|ed|es)? up)\b/i.test(text);
+export const mayBeCrude = (text) => hasCrude(text) || /\b(?:squat|knackered|screwed|crapped|shat|hardass|screw the|dick(?:ing|ed)? around|cockblock\w*|dumpster fire|brown-noser|kiss(?:ing|ed|es)? up)\b/i.test(text);
 const crudeMatcher = buildMatcher(crudeEntries);
 
 // The input with swearing already swapped for plain, mild wording. AI mode rewrites this

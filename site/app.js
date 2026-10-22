@@ -1,7 +1,7 @@
 import { toCorporateDetailed, toNormal, formatDecode, applySoftCap, LEVELS } from "./engine.js";
-import { checkMeaning, describeProblems } from "./meaning.js";
-import { hasCrude, cleanCrude, lostIdioms } from "./profanity.js";
-import { faithfulToCrude, needsFaithCheck } from "./faithful.js";
+import { describeProblems } from "./meaning.js";
+import { hasCrude, cleanCrude } from "./profanity.js";
+import { aiCorporateGate } from "./faithful.js";
 import { chooseEngine, detectBrowser, micErrorMessage, toMono16k, appendTranscript, SPEECH_FALLBACK_ERRORS, MAX_SECONDS } from "./dictation.js";
 import { xIntentUrl } from "./share.js";
 import { CONFIG } from "./config.js";
@@ -233,17 +233,15 @@ async function run({ reroll = false } = {}) {
     try {
       const res = await askWorker({ type: "toCorporate", text, level, seed: state.seed });
       // The AI reply has to keep the meaning and be safe to say at work. If it fails either check, Instant wins.
-      const crude = Boolean(res.text) && hasCrude(res.text);
-      const check = res.text ? checkMeaning(text, res.text) : null;
-      // Idioms have to keep their meaning too: "fuck all was done" must still say nothing got done.
-      const lostIdiom = Boolean(res.text) && (lostIdioms(text, res.text).length > 0 || (needsFaithCheck(text) && !faithfulToCrude(text, res.text, { level }).ok));
-      const useIt = Boolean(res.text) && !crude && check.ok && !lostIdiom && !instant.unsafe?.length;
+      // The AI reply has to keep the meaning and be safe to say at work. If it fails any check, Instant wins.
+      const gate = aiCorporateGate(text, res.text, { level });
+      const useIt = gate.ok && !instant.unsafe?.length;
       const final = useIt ? res.text : out;
       const why = !res.text
         ? res.rejected ? "AI mode ran, but its reply didn't make sense, so this is the Instant version." : "AI mode ran, but its reply came back empty, so this is the Instant version."
-        : crude ? "AI mode ran, but its reply had wording you can't use at work, so this is the Instant version."
-        : !check.ok ? `AI mode ran, but its reply ${describeProblems(check) || "changed the meaning"}, so this is the Instant version.`
-        : lostIdiom ? "AI mode ran, but its reply changed what you meant, so this is the Instant version."
+        : gate.reason === "crude" ? "AI mode ran, but its reply had wording you can't use at work, so this is the Instant version."
+        : gate.reason === "meaning" ? `AI mode ran, but its reply ${describeProblems(gate.check) || "changed the meaning"}, so this is the Instant version.`
+        : gate.reason === "idiom" || gate.reason === "drift" ? "AI mode ran, but its reply changed what you meant, so this is the Instant version."
         : instant.unsafe?.length ? "AI mode ran, but part of your message has no work-safe rewrite, so this is the Instant version." : "";
       renderCorporate(final);
       setResult({ direction: "toCorporate", copyText: final, shareText: final, engine: useIt ? "AI" : "Instant (AI fallback)", note: [why, useIt ? "" : unsafeNote, capNote].filter(Boolean).join(" ") });
