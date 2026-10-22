@@ -61,10 +61,10 @@ test("swamped sentence: no duplicate 'capacity' and no added commitments, any le
   }
 });
 
-test("Mild adds no opener, so the output starts with the user's own sentence", () => {
+test("Mild adds no strategic opener, only professional framing of the user's own sentence", () => {
   for (let seed = 1; seed <= 25; seed++) {
     const out = toCorporate(SWAMPED, { level: 1, seed });
-    assert.match(out, /^I(?:'m| am| can| don't)\b/, out);
+    assert.match(out, /^(?:Unfortunately, |Apologies, |I think |It looks like )?I(?:'m| am| can| don't| won't)\b/, out);
   }
 });
 

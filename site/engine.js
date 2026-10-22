@@ -1,4 +1,5 @@
 // Project Synergy rewrite engine. Pure functions, no network, runs in the browser and in Node.
+import { restructure, tokenSim } from "./register.js";
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
   DECODE_SWAPS, THEMES, NEGATIVE_CUES, FLUFF_PATTERNS, FLUFF_LINES, PLAIN_LINES, SPECIAL_LINES,
@@ -248,8 +249,8 @@ export function matchCase(source, replacement) {
 
 // Is the match a standalone clause (start or punctuation before, punctuation or end after)?
 function isClause(text, start, end) {
-  const before = text.slice(0, start).trimEnd();
-  const after = text.slice(end).trimStart();
+  const before = text.slice(0, start).replace(/[\u0000\u0001]/g, "").trimEnd();
+  const after = text.slice(end).replace(/[\u0000\u0001]/g, "").trimStart();
   const okBefore = before === "" || /[.!?,;:]$/.test(before);
   const okAfter = after === "" || /^[.!?,;:]/.test(after);
   return okBefore && okAfter;
@@ -431,7 +432,7 @@ export function polishCase(text) {
 
 // ---------- Normal to Corporate ----------
 
-const SWAP_CHANCE = { 1: 0.5, 2: 0.85, 3: 1 };
+const SWAP_CHANCE = { 1: 0.8, 2: 1, 3: 1 };
 // Mild never adds an opener. Openers and closers are tone only (see phrasebook.js).
 // Mild and Middle Manager add nothing. Full C-Suite gets a lead-in and sometimes a neutral sign-off.
 const OPENER_CHANCE = { 1: 0, 2: 0, 3: 1 };
@@ -492,10 +493,12 @@ export function splitUnits(text) {
 
 // Rewrite one sentence. Tries a few random draws and keeps the first one that passes the meaning check.
 // If none pass, the sentence stays as the user wrote it.
-function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true, dropped = [] } = {}) {
+function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true, dropped = [], ctx = null } = {}) {
   const protect = protectedSpans(sentence);
-  for (let attempt = 0; attempt < 4; attempt++) {
+  const label = ctx?.label ?? { used: false };
+  for (let attempt = 0; attempt < 5; attempt++) {
     const trial = new Set(used);
+    const trialLabel = { used: label.used };
     // Crude phrases go first, in their own pass, so a plain swap like "I feel like" can't grab
     // the start of "I feel like shit". Their rewrites are then protected from the plain pass.
     let base = sentence;
@@ -504,11 +507,21 @@ function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true, dropped =
       base = swapPhrases(sentence, crudeMatcher, lvl, rng, 1, trial, protect).text;
       prot = [...protectedSpans(base), ...[...base.matchAll(/\u0000[^\u0001]*\u0001/g)].map((m) => [m.index, m.index + m[0].length])];
     }
+    // Sentence-level register rules (register.js). The last attempt goes without them.
+    if (ctx && attempt < 4) {
+      const r = restructure(base, lvl, { ...ctx, label: trialLabel });
+      if (r.device) {
+        base = r.text;
+        for (const m of base.matchAll(/\u0000([^\u0001]*)\u0001/g)) keyWords(m[1]).forEach((k) => trial.add(k));
+        prot = [...protectedSpans(base.replace(/\u0000[^\u0001]*\u0001/g, (m) => "x".repeat(m.length))), ...[...base.matchAll(/\u0000[^\u0001]*\u0001/g)].map((m) => [m.index, m.index + m[0].length])];
+      }
+    }
     const { text } = swapPhrases(base, plainMatcher, lvl, rng, SWAP_CHANCE[lvl], trial, prot);
     let t = capFirst(tidy(text));
     if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t) && /[A-Za-z0-9]/.test(t)) t += ".";
     if (checkMeaning(sentence, t).ok && !hasCrude(t)) {
       for (const k of trial) used.add(k);
+      label.used = trialLabel.used;
       return t;
     }
   }
@@ -522,17 +535,24 @@ function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true, dropped =
   return t;
 }
 
-function corporateOnce(clean, lvl, rng, { extras = true, dropped = [] } = {}) {
+function corporateOnce(clean, lvl, rng, { extras = true, dropped = [], forceMild = false, register = true } = {}) {
   // Key words already in the input, plus every one we add, so nothing important repeats.
   const used = new Set(keyWords(clean.replace(crudeMatcher.re, " ").replace(plainMatcher.re, " ")));
   const units = splitUnits(clean);
-  const parts = units.map((u) => {
+  const label = { used: false };
+  let sentenceNo = 0;
+  const firstProse = units.findIndex((u) => u.kind === "prose");
+  const parts = units.map((u, ui) => {
     if (u.kind === "item") {
       // List items keep their marker and their own line. No added period, no asides.
       const body = splitSentences(u.text).map((s) => rewriteSentence(s, lvl, rng, used, { addPeriod: false, dropped })).filter(Boolean).join(" ");
       return u.sep + u.mark + body;
     }
-    const sentences = splitSentences(u.text).map((s) => rewriteSentence(s, lvl, rng, used, { dropped })).filter(Boolean);
+    const sents = splitSentences(u.text);
+    const sentences = sents.map((s, si) => {
+      const ctx = register ? { first: ui === firstProse && si === 0 && sentenceNo++ === 0, solo: units.length === 1 && sents.length === 1, label, forceMild, count: sents.length } : null;
+      return rewriteSentence(s, lvl, rng, used, { dropped, ctx });
+    }).filter(Boolean);
     return u.sep + sentences.join(" ");
   });
 
@@ -581,7 +601,17 @@ export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
   for (let k = 0; k < 6; k++) {
     const rng = mulberry32(hashString(clean) ^ Math.imul((seed + k * 7919) >>> 0, 2654435761) ^ (lvl * 97));
     const dropped = [];
-    const text = corporateOnce(clean, lvl, rng, { dropped });
+    let text = corporateOnce(clean, lvl, rng, { dropped });
+    // Mild must read as professional email, not a tidied copy. If it barely moved, allow the Mild framing.
+    if (lvl === 1 && tokenSim(clean, text) >= 0.9) {
+      const d2 = [];
+      const framed = corporateOnce(clean, lvl, rng, { dropped: d2, forceMild: true });
+      if (framed !== text && checkMeaning(without(d2), framed).ok && !hasCrude(framed)) {
+        text = framed;
+        dropped.length = 0;
+        dropped.push(...d2);
+      }
+    }
     const check = checkMeaning(without(dropped), text);
     if (check.ok && !hasCrude(text)) return { text, check, fallback: k ? "reseed" : "", unsafe: [...new Set(dropped)] };
   }

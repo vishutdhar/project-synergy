@@ -4,6 +4,13 @@
 // Matching is case insensitive and whole word. Longer phrases win over shorter ones.
 
 export const CORPORATE_SWAPS = `
+i don't understand = I'm not sure I understand = I'm not fully clear on = I lack clarity on
+i don't agree with = I'm not sure I agree with = I'm not aligned with = I'm not aligned with the strategic direction of
+i'm free = I'm available = I have availability = I have open bandwidth
+if you want to = if you'd like to = if you'd like to = if there's appetite to
+nice catch = good catch = great catch = high-impact catch
+welcome to the team = welcome aboard = welcome to the squad = welcome to the pod
+you're a lifesaver = you're a lifesaver, thank you = you really saved the day = you're a force multiplier
 !^i don't know = I'm not sure yet = I don't have visibility into that yet = that's outside my current line of sight
 i have no idea = I'm not sure yet = I don't have the full picture yet = I lack the data granularity to opine
 !no idea = no clear answer yet = limited visibility = zero line of sight
@@ -21,10 +28,13 @@ my bad = my mistake = I own that = that's a learning I'm taking forward
 i'm leaving = I'm heading out = I'm transitioning out = I'm sunsetting my presence
 out sick = out sick = out sick = offline for health reasons
 ^i'm out = I'm signing off = I'm stepping back = I'm exiting this workstream
+!i'm going to be late = I'm running a bit behind = I'm running behind schedule = I'm operating on a dynamic timeline
+!i'll be late = I'll be running a bit behind = I'll be running behind schedule = I'll be operating on a dynamic timeline
+!i'm running late = I'm running a bit behind = I'm running behind schedule = I'm operating on a dynamic timeline
 i'm late = I'm running behind = I'm slightly off schedule = I'm operating on a dynamic timeline
 i forgot to = I forgot to = I neglected to = I inadvertently failed to
 ^i forgot = it slipped my mind = it fell through the cracks = it was deprioritized by my memory infrastructure
-i forgot = I forgot = I lost track of = I lost track of
+i forgot = I lost track of = I lost track of = I lost track of
 ^i messed up = I made a mistake = I dropped the ball = I generated an unplanned learning moment
 ^i screwed up = I made an error = I dropped the ball = I created a growth opportunity for everyone
 i need help = I could use some support = I need some extra hands on deck = I'm seeking cross-functional resourcing
@@ -50,7 +60,7 @@ calm down = let's slow down a bit = let's reset the temperature = let's recalibr
 ^nope = no = that's a no from me = that's a hard no
 maybe = possibly = potentially = potentially
 probably = likely = likely = directionally
-right now = right now = at the moment = at this time
+right now = at the moment = at the moment = at this time
 !asap = soon = at your earliest convenience = with maximum urgency
 later = later = a bit later = in a later phase
 soon = shortly = in the near term = in the coming cycles
@@ -69,12 +79,12 @@ goals = goals = objectives = north star metrics
 !problems = issues = challenges = pain points
 issue = issue = issue = pain point
 issues = issues = issues = pain points
-made a mistake = made a mistake = made an error = had an unplanned learning moment
+made a mistake = made an error = made an error = had an unplanned learning moment
 a mistake = a slip = an error = a learning opportunity
 mistake = slip = error = learning opportunity
 mistakes = slips = misses = learning opportunities
-bug = bug = defect = defect
-bugs = bugs = defects = defects
+bug = issue = defect = defect
+bugs = issues = defects = defects
 a simple fix = a simple fix = a straightforward fix = a low-lift remediation
 a quick fix = a quick fix = a fast fix = a rapid remediation
 !fixed = repaired = addressed = remediated
@@ -114,8 +124,8 @@ check my email = check my email = check my inbox = triage my inbox
 meeting room = meeting room = meeting room = huddle space
 !meeting = catch-up = sync = alignment session
 !meetings = catch-ups = syncs = alignment sessions
-a chat = a chat = a sync = a huddle
-quick chat = quick chat = quick sync = quick huddle
+a chat = a conversation = a sync = a huddle
+quick chat = quick conversation = quick sync = quick huddle
 talk about = discuss = unpack = double-click on
 talked about = discussed = unpacked = aligned on
 talk later = talk later = circle back = reconnect offline
@@ -143,19 +153,19 @@ using = using = leveraging = leveraging
 done with = done with = finished with = wrapped up with
 halfway done = halfway done = halfway through = halfway through
 done = done = completed = fully actioned
-finish = finish = wrap up = close out
-finished = finished = wrapped up = closed out
+finish = complete = wrap up = close out
+finished = completed = wrapped up = closed out
 stop = stop = stop = put a pause on
 !quit = left = moved on = transitioned out
 change = change = shift = pivot
 changed = changed = shifted = pivoted
 double check = double-check = double-check = validate
 check in = check in = touch base = sync up
-look at = look at = review = take a deep dive into
+look at = take a look at = review = take a deep dive into
 looked at = looked at = reviewed = reviewed
-look into = look into = dig into = investigate holistically
+look into = take a look into = dig into = investigate holistically
 told = told = informed = advised
-tell me = tell me = let me know = let me know
+tell me = let me know = let me know = let me know
 let me know = let me know = keep me posted = keep me in the loop
 send it = send it = send it over = circulate it
 send them = send them = send them over = circulate them
@@ -181,7 +191,7 @@ guessed = guessed = estimated = forecasted
 waiting on = waiting on = waiting on = in a holding pattern on
 waiting for = waiting for = waiting for = in a holding pattern for
 waiting = waiting = waiting = in a holding pattern
-waste = waste = inefficiency = value leakage
+waste = poor use of time = inefficiency = value leakage
 wasted = wasted = spent = inefficiently allocated
 !lazy = low energy = under-engaged = optimizing for rest
 slow = slow = slow = high-latency
