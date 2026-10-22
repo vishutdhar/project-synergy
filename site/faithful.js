@@ -86,6 +86,8 @@ function sameWords(a, b) {
 // True when a reply is close to word for word the input (texting shorthand spelled out).
 export const isFlat = (input, reply) => sameWords(normalizeCasual(normalizeInput(input)) || input, reply) >= FLAT_L3;
 
+const RUDE = /\bshut up\b|\bgo to hell\b|\bscrew (?:you|this|that|off)\b|\b(?:idiot|moron|stupid|dumb|loser|pathetic|useless)\b|\bget lost\b|\bbite me\b/i;
+
 export function aiCorporateGate(input, reply, { level = 2 } = {}) {
   if (!reply) return { ok: false, reason: "empty", check: null };
   if (hasCrude(reply)) return { ok: false, reason: "crude", check: null };
@@ -96,5 +98,9 @@ export function aiCorporateGate(input, reply, { level = 2 } = {}) {
   if (!driftCheck(input, reply, { level }).ok) return { ok: false, reason: "drift", check };
   // Full C-Suite has to sound like it. A reply that is the input with a comma moved loses to Instant.
   if (level === 3 && isFlat(input, reply)) return { ok: false, reason: "flat", check };
+  // Middle Manager that is the input word for word ("Oh great, another reorg.") did no work. Instant rewrites it.
+  if (level === 2 && sameWords(basis, reply) >= 0.999) return { ok: false, reason: "flat", check };
+  // Rude but not crude: "Shut up about synergy" is not something to send at work.
+  if (RUDE.test(reply)) return { ok: false, reason: "rude", check };
   return { ok: true, reason: "ok", check };
 }

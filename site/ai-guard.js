@@ -194,7 +194,7 @@ export function contradictsThemes(text, themeIds = []) {
 
 // Lines that talk about the task instead of doing it.
 export function isMetaReply(text) {
-  return /\b(?:here(?:'s| is) (?:the|a|my)|short sentence|plain english|translation|rewritten|as an ai|the reader)\b|:\s*\.?$/i.test(text);
+  return /\b(?:here(?:'s| is) (?:the|a|my)|short sentence|plain english|translation|rewritten|as an ai|the reader|not sure what you(?:'re| are) (?:talking|asking))\b|^(?:yes|sure|ok(?:ay)?)[,.]? (?:that's|it's|this is) (?:possible|fine|right)\b|^(?:a |an )?(?:polite |brief |short )?thank[- ]you(?: note)?\.?$|^you're welcome\b|:\s*\.?$/i.test(text);
 }
 
 // Strong claims a decode line or summary can make. Each one needs support from the memo: one of the
@@ -212,6 +212,7 @@ const CLAIMS = [
   { re: /\bPIP\b|improvement plan/i, themes: ["pip"], memo: /plan|improvement|expectations/i },
   { re: /\bshut(?:ting)? down\b|\bclosing down\b/i, themes: ["shutdown", "cost-cuts"], memo: /sunset|shut|clos|discontinu|deprecat|end|retir/i },
   { re: /back to the office|return to (?:the )?office|in the office more|office mandate/i, themes: ["rto"], memo: /office|in[- ]person|onsite|on-site/i },
+  { re: /congrat/i, themes: [], memo: /congrat|welcome|pleased|excited|delighted|proud/i },
   { re: /\boffices?\b/i, themes: [], memo: /office|site|building|location|hub|desk|in[- ]person/i },
   { re: /\blocations?\b|\b(?:cheaper|different|new) place\b/i, themes: [], memo: /locat|offshore|nearshore|country|region|city|site|lower-cost|low-cost|move to|relocat|office/i },
 ];

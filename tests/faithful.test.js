@@ -25,3 +25,10 @@ test("only crude input gets the extra check", () => {
   assert.equal(needsFaithCheck("Can we move the 3pm to Friday?"), false);
   assert.equal(needsFaithCheck("fuck all was done in that meeting"), true);
 });
+
+test("AI gate: a Middle Manager reply that is the input word for word, or rude, falls back to Instant", async () => {
+  const { aiCorporateGate } = await import("../site/faithful.js");
+  assert.equal(aiCorporateGate("oh great, another reorg", "Oh great, another reorg.", { level: 2 }).reason, "flat");
+  assert.equal(aiCorporateGate("shut up about synergy already", "Shut up about synergy already.", { level: 1 }).reason, "rude");
+  assert.equal(aiCorporateGate("congrats on the promotion, well deserved", "Congratulations on the promotion, well deserved.", { level: 2 }).ok, true);
+});

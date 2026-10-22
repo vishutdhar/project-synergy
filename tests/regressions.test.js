@@ -192,3 +192,11 @@ test("AI decode checks: made-up offices, numbers, denials and lost 'you' are cau
   assert.equal(decodeTextFails("12% of the staff will be cut.", "We are reducing our workforce by approximately 12%.", ["layoffs"]), false);
   assert.equal(decodeTextFails("Data entry work is moving to a cheaper location.", "We are moving data entry work to lower-cost locations.", ["outsourcing"]), false);
 });
+
+test("AI decode checks: filler and made-up congratulations are caught", async () => {
+  const { decodeTextFails } = await import("../site/ai-guard.js");
+  assert.equal(decodeTextFails("Congratulations on your job offer.", "We have decided to move forward with other candidates.", ["rejection"]), true);
+  assert.equal(decodeTextFails("A polite thank-you.", "Thank you for your service.", []), true);
+  assert.equal(decodeTextFails("Yes, that's possible.", "Employees can relocate or work remotely.", []), true);
+  assert.equal(decodeTextFails("Sorry, I'm not sure what you're talking about.", "Your role is among those impacted.", ["layoff-you"]), true);
+});
