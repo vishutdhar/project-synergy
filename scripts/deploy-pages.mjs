@@ -14,7 +14,8 @@
 //   2. CF_PAGES_UPLOAD_JWT_FILE=/path/to/tmpfile node scripts/deploy-pages.mjs upload
 //   3. node scripts/deploy-pages.mjs manifest > /tmp/manifest.json
 //   4. Through the connector, POST /accounts/{account_id}/pages/projects/project-synergy/deployments
-//      as multipart/form-data with fields: manifest (the JSON), branch=main, _headers (site/_headers).
+//      as multipart/form-data with fields: manifest (the JSON), branch=main, _headers (site/_headers, as a
+//      file part with filename="_headers", or Pages ignores it).
 //   5. Delete the token file.
 //
 // Hashing follows wrangler: blake3(base64(content) + extension), first 32 hex characters.

@@ -105,7 +105,7 @@ How the live site is deployed today: a direct upload with `scripts/deploy-pages.
 1. Get the upload token from `GET /accounts/{account_id}/pages/projects/project-synergy/upload-token` and save it to a temp file only you can read (`chmod 600`).
 2. Upload the files: `CF_PAGES_UPLOAD_JWT_FILE=/path/to/that/file node scripts/deploy-pages.mjs upload`
 3. Print the manifest: `node scripts/deploy-pages.mjs manifest`
-4. Create the deployment with `POST /accounts/{account_id}/pages/projects/project-synergy/deployments` as `multipart/form-data`, with the fields `manifest` (the JSON from step 3), `branch` set to `main`, and `_headers` (the contents of `site/_headers`).
+4. Create the deployment with `POST /accounts/{account_id}/pages/projects/project-synergy/deployments` as `multipart/form-data`, with the fields `manifest` (the JSON from step 3), `branch` set to `main`, and `_headers` (the contents of `site/_headers`, sent as a file part with `filename="_headers"`; as a plain text field Pages ignores it and the site goes out without its CSP and COOP/COEP headers).
 5. Delete the token file.
 
 The token expires after a few minutes. If the upload says 401, get a new one.
