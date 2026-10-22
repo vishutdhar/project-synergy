@@ -108,6 +108,10 @@ export function normalizeCasual(text) {
   t = t.replace(/^(\s*)(no|yes|yeah|ok|okay|sure|nope)\s+(?=(?:I|I'm|I'll|we|we're|you|it|it's|that's|that)\b)/gim, "$1$2, ");
   t = t.replace(/^(\s*)(honestly|frankly|basically|seriously|anyway|actually)\s+(?=[a-z])/gim, "$1$2, ");
   t = t.replace(/\b(\w+) (to be honest|tbh),?\s*$/gim, (m, w, p) => (w === "honest" ? m : `${w}, ${p}`));
+  t = t.replace(/\b(\w+) (by the way|btw)\s*$/gim, (m, w, p) => (/^(?:the|said|asked)$/i.test(w) ? m : `${w}, ${p}`));
+  t = t.replace(/^(\s*)(by the way|btw)\s+(?=[a-z])/gim, "$1$2, ");
+  t = t.replace(/^(\s*)(oops|whoops)\s+(?=(?:my bad|sorry|wrong|typo)\b)/gim, "$1$2, ");
+  t = t.replace(/^(\s*)(wow|whoa|oh wow|yikes)\s+(?=(?:thanks|thank|that|this|so|what|ok|okay|i|we|you|the|great|nice|cool|just)\b)/gim, "$1$2, ");
   t = t.replace(/\blowkey\b/gi, "quietly").replace(/\bslapped\b/gi, "was great");
   t = t.replace(/(^|[.!?]\s+)wait,? what\b[?!.]*/gi, (_m, p) => p + "Wait, what?");
   // "honestly," left at the very end of a sentence loses its comma.
@@ -530,7 +534,10 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [] } = {}) {
     return u.sep + sentences.join(" ");
   });
 
-  let result = parts.join("");
+  // "absolutely, let's operationalize that, I'll..." would be a comma splice, so the lead-in becomes its own sentence.
+  let result = parts.join("").replace(/\b(operationalize that), (?=I\b|I'|we\b|we'|you\b|you')/g, "$1. ")
+    .replace(/(^|[.!?]\s+)(Sorry|Oops) (?=wrong\b|typo\b|ignore\b|meant\b)/g, "$1$2, ")
+    .replace(/(^|[.!?]\s+)(Ok|Okay|Yes|Yeah) (?=but\b|because\b|so\b)/g, "$1$2, ");
   // Openers and closers go on their own line when the message has a list, so the list stays intact.
   const first = units[0];
   const last = units[units.length - 1];
