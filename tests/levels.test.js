@@ -8,6 +8,8 @@ import { distinctness, tokenSim, corporateScore } from "../site/register.js";
 import { checkMeaning } from "../site/meaning.js";
 
 const corp = (text, level) => toCorporate(text, { level, seed: 1 });
+// Round 6 voice adds a short thank-you on direct asks (site/voice.js). These checks are about the ask itself.
+const bare = (t) => t.replace(/ (?:Thanks!|Appreciate it\.|Appreciate the help\.|Thanks in advance, appreciate it\.)$/, "");
 const items = JSON.parse(fs.readFileSync(new URL("./variations/items.json", import.meta.url))).filter((i) => i.direction === "toCorporate");
 
 test("the reported examples now read as corporate at Mild and Middle Manager", () => {
@@ -19,10 +21,11 @@ test("the reported examples now read as corporate at Mild and Middle Manager", (
 });
 
 test("requests become indirect, questions get framed, needs get nominalized", () => {
-  assert.equal(corp("pls send me the deck", 1), "Could you please send me the deck?");
-  assert.equal(corp("who approved this?", 1), "Could you let me know who approved this?");
-  assert.equal(corp("why am I on this thread", 1), "Could you help me understand why I'm on this thread?");
-  assert.equal(corp("can we push the launch to next month?", 2), "Would it be possible to shift the launch to next month?");
+  // Round 6: Mild thanks people on a direct ask.
+  assert.equal(corp("pls send me the deck", 1), "Could you please send me the deck? Thanks!");
+  assert.equal(bare(corp("who approved this?", 1)), "Could you let me know who approved this?");
+  assert.equal(bare(corp("why am I on this thread", 1)), "Could you help me understand why I'm on this thread?");
+  assert.equal(bare(corp("can we push the launch to next month?", 2)), "Would it be possible to shift the launch to next month?");
   assert.equal(corp("let's move the retro to after lunch", 1), "I'd suggest we move the retro to after lunch.");
   assert.equal(corp("dont use the dashboard", 1), "Please don't use the dashboard.");
 });
@@ -91,7 +94,7 @@ test("hand-read #4 fixes: no stray labels on social lines, no misread imperative
   assert.equal(corp("srry wrong chat", 2), "Sincere apologies, that was meant for a different chat.");
   assert.doesNotMatch(corp("stop showing up late to standup", 2), /when you get a chance/i);
   assert.match(corp("no, we can't do a custom build for free", 2), /^That's a no from us: /);
-  assert.equal(corp("when is the deadline again", 1), "Could you let me know when the deadline is again?");
+  assert.equal(corp("when is the deadline again", 1), "Could you let me know when the deadline is again? Thanks!");
   assert.equal(corp("hard pass", 1), "I'll have to pass on this one.");
   assert.match(corp("I loved how you handled that angry customer", 2), /^Kudos: /);
   assert.doesNotMatch(corp("can we stop booking the big room for 2 people", 2), /stakeholders/);

@@ -8,6 +8,7 @@ import {
 import { checkMeaning, setAllowedCaps, isShouting } from "./meaning.js";
 import { prepass, fixCollocations } from "./prepass.js";
 import { composeCSuite } from "./csuite.js";
+import { applyVoice } from "./voice.js";
 import { CRUDE_SWAPS, canonicalizeCrude, hasCrude, cleanCrude } from "./profanity.js";
 
 export const SOFT_CAP = 20000;
@@ -600,12 +601,29 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [], forceMild
  * fallback is "" when the first try passed, "reseed" when a later try passed,
  * and "plain" when only the version without openers, closers and asides passed.
  */
-export function toCorporateDetailed(input, { level = 2, seed = 1, raw = false } = {}) {
+export function toCorporateDetailed(input, opts = {}) {
+  const r = corporateCore(input, opts);
+  const lvl = clampLevel(opts.level ?? 2);
+  if ((lvl !== 1 && lvl !== 2) || opts.voice === false || !r.text || r.fallback === "plain") return r;
+  // Level voice (voice.js): Mild reads as a polished email, Middle Manager as manager-speak. Kept only if
+  // it still passes the meaning check against the same reference the plain version passed.
+  const seed = opts.seed ?? 1;
+  const rng = mulberry32(hashString(r.text) ^ Math.imul((seed >>> 0) + 17, 2654435761) ^ (lvl * 131));
+  const voiced = polishCase(tidy(applyVoice(r.text, lvl, { raw: String(input), rng })));
+  if (voiced === r.text) return r;
+  const ref = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
+  const without = (t) => (r.unsafe ?? []).reduce((x, d) => x.replace(d, " "), t);
+  const check = checkMeaning(without(prepass(ref)), voiced);
+  if (!check.ok || hasCrude(voiced)) return r;
+  return { ...r, text: voiced, check };
+}
+
+function corporateCore(input, { level = 2, seed = 1, raw = false } = {}) {
   const lvl = clampLevel(level);
   // Full C-Suite is composed from the Mild and Middle Manager rewrites (csuite.js): frame + point + closer.
   if (lvl === 3 && !raw) {
-    const mild = toCorporateDetailed(input, { level: 1, seed });
-    const middle = toCorporateDetailed(input, { level: 2, seed });
+    const mild = corporateCore(input, { level: 1, seed });
+    const middle = corporateCore(input, { level: 2, seed });
     if (mild.text && mild.fallback !== "plain") {
       const c0 = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
       const ref = prepass(c0);
@@ -618,7 +636,7 @@ export function toCorporateDetailed(input, { level = 2, seed = 1, raw = false } 
         if (check.ok && !hasCrude(text)) return { text: polishCase(fixCollocations(tidy(text))), check, fallback: k ? "reseed" : "", unsafe: mild.unsafe ?? [] };
       }
     }
-    return toCorporateDetailed(input, { level, seed, raw: true });
+    return corporateCore(input, { level, seed, raw: true });
   }
   // Censored spellings become plain ones (f*ck, wtf) so the crude rewrites can catch them. Slurs never get through.
   // Texting shorthand becomes plain words first.
@@ -716,7 +734,7 @@ function levelFloor(input, clean, text, lvl, seed) {
 }
 
 const NOT_VOCATIVE = /^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|January|February|March|April|May|June|July|August|September|October|November|December|Q[1-4]|Slack|Excel|Python|Postgres|AWS|SVG)$/;
-const vocative = (t) => t.replace(/(^|[.!?]\s+)((?:Huge congratulations|Congratulations|Congrats|Thanks|Thank you|Happy|Great|Nice|Good|Well done|Huge kudos|Kudos|Welcome|Good luck)\b[^.!?,:\n]*?) (everyone|team|folks|[A-Z][a-z]+)([.!?])/g,
+const vocative = (t) => t.replace(/(^|[.!?]\s+)((?:Huge congratulations|Congratulations|Congrats|Thanks|Thank you|Happy|Great|Nice|Good|Well done|Huge kudos|Kudos|Welcome|Good luck|Outstanding|Excellent|Amazing|Fantastic|Stellar|Awesome|Brilliant|Incredible)\b[^.!?,:\n]*?) (everyone|team|folks|[A-Z][a-z]+)([.!?])/g,
   (m, pre, body, who, end) => (NOT_VOCATIVE.test(who) ? m : `${pre}${body}, ${who}${end}`));
 // Runs after the level floor on every level, so labels added there get the same cleanup.
 function postPolish(text, lvl, clean) {
@@ -800,7 +818,7 @@ function levelFloorInner(input, clean, text, lvl, seed) {
   }
   if (lvl === 2 && /^(?:Candidly|Flagging|Apologies|Some candid|Huge kudos|Kudos|My two cents)\b/.test(text)) return text;
   if (lvl === 2) {
-    const mild = toCorporateDetailed(input, { level: 1, seed }).text;
+    const mild = corporateCore(input, { level: 1, seed }).text;
     if (tokenSim(mild, text) >= 0.9 || tokenSim(clean, text) >= 0.9) {
       // Lower the first word when the writer typed it in lower case ("great job" -> "For visibility: great job").
       const w = (text.match(/^[A-Za-z']+/) ?? [""])[0];

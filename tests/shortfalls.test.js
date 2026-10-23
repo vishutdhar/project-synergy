@@ -52,9 +52,9 @@ test("Mild hedges opinions instead of copying them", () => {
 
 test("Middle Manager labels fit the content", () => {
   assert.equal(L("that deadline is impossible", 2), "Flagging that the deadline isn't realistic.");
-  assert.equal(L("no, the answer is still no", 2), "That's a no from me: the answer is still no.");
+  assert.match(L("no, the answer is still no", 2), /^That's a no from me: the answer is still no\.(?: Thanks for understanding\.| Appreciate the understanding\.)?$/);
   assert.match(L("cool cool cool, guess I'll do it myself", 2), /^Understood, and noted\./);
-  assert.match(L("update the ticket please", 2), /could you please update the ticket\?$/);
+  assert.match(L("update the ticket please", 2), /could you please update the ticket\?(?: Appreciate it\.| Appreciate the help\.| Thanks in advance, appreciate it\.)?$/);
   assert.doesNotMatch(L("this needs more work", 2), /heads-up/i);
 });
 

@@ -334,6 +334,8 @@ job done = job done = deliverable shipped = value fully realized
 company = company = organization = enterprise
 in the office = in the office = in the office = in the collaboration hub
 the office = the office = the office = the workplace
+help desk = help desk = help desk = support desk
+front desk = front desk = front desk = front desk
 desk = desk = workspace = productivity station
 chair = chair = seat = ergonomic asset
 book the room = book the room = book the space = book the collaboration zone

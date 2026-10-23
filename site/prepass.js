@@ -23,14 +23,18 @@ const strip = (s) => s.replace(/[.!?]+$/, "").trim();
 
 // Round 4: common first names and tool names written in lowercase ("priya", "jira").
 // Words that are also ordinary English (will, may, mark, bill, grace...) are left out on purpose.
-const NAMES = new Set("aaron abby adam adrian ahmed aisha alex alexa alice amir amit amy ana andre andrea andrew andy angela anil anita ankit anna anne anthony anya arjun ashley ava ben beth bob brad brandon brian bruno carla carlos carmen chen chloe chris claire clara craig dan dana daniel dave david deepa derek diana diego dmitri emily emma eric erik ethan farah fatima felix fiona gabe gary george greg hana hannah hassan helen ian igor isaac jake james jamal jamie jane jason javier jeff jen jenny jess jessica jim joe john jon jonas jordan jose josh juan julia julie kai karen kate katie kayla keith kelly ken kenji kevin kim kyle lara laura lauren leah lena leo liam lily lin linda lisa liz lucas lucy luis luke maria marco marcus maria mario marta matt maya megan mei mia michael mike miguel mohammed nadia nathan neha nina noah nora olga oliver omar oscar paul pedro peter phil priya rachel rahul raj ravi rebecca ria robert ryan sam samir sara sarah scott sean sergei shreya simon sofia sophie steve sunil tara tom tomas tony tyler vanessa vikram vishut wei yuki zach zara zoe".split(" "));
-const TOOLS = { jira: "Jira", jenkins: "Jenkins", api: "API", apis: "APIs", aws: "AWS", gcp: "GCP", ci: "CI", sql: "SQL", ui: "UI", ux: "UX", css: "CSS", html: "HTML", json: "JSON", url: "URL", crm: "CRM", sso: "SSO", okrs: "OKRs", okr: "OKR", kpi: "KPI", kpis: "KPIs", figma: "Figma", salesforce: "Salesforce", hubspot: "HubSpot", confluence: "Confluence", docker: "Docker", kubernetes: "Kubernetes", linux: "Linux", python: "Python", outlook: "Outlook", gmail: "Gmail", stripe: "Stripe", shopify: "Shopify", zendesk: "Zendesk", tableau: "Tableau", sap: "SAP", seo: "SEO", pdf: "PDF", csv: "CSV", qa: "QA" };
+const NAMES = new Set("aaron abby adam adrian ahmed aisha alex alexa alice amir amit amy ana andre andrea andrew andy angela anil anita ankit anna anne anthony anya arjun ashley ava ben beth bob brad brandon brian bruno carla carlos carmen chen chloe chris claire clara craig dan dana daniel dave david deepa derek diana diego dmitri emily emma eric erik ethan farah fatima felix fiona gabe gary george greg hana hannah hassan helen ian igor isaac jake james jamal jamie jane jason javier jeff jen jenny jess jessica jim joe john jon jonas jordan jose josh juan julia julie kai karen kate katie kayla keith kelly ken kenji kevin kim kyle lara laura lauren leah lena leo liam lily lin linda lisa liz lucas lucy luis luke maria marco marcus maria mario marta matt maya megan mei mia michael mike miguel mohammed nadia nathan neha nina noah nora olga oliver omar oscar paul pedro peter phil priya rachel rahul raj ravi rebecca ria robert ryan sam samir sara sarah scott sean sergei shreya simon sofia sophie steve sunil tara tom tomas tony olu jun kwame kofi ngozi chidi tunde femi aditi rohan sanjay anjali pooja deepak kiran arun hiroshi takeshi yusuf mehmet elif ines joao thiago camila valentina mateo santiago sven lars ingrid astrid freya niamh siobhan aoife connor declan nkechi rafael jorge mohamed hamza layla noor yara rania ivan pavel alexei natasha oksana xin ming jin hao priyanka nikhil sunita meera kenta haruto sakura dario luca giulia chiara tyler vanessa vikram vishut wei yuki zach zara zoe".split(" "));
+const TOOLS = { jira: "Jira", jenkins: "Jenkins", api: "API", apis: "APIs", aws: "AWS", gcp: "GCP", ci: "CI", sql: "SQL", ui: "UI", ux: "UX", css: "CSS", html: "HTML", json: "JSON", url: "URL", crm: "CRM", sso: "SSO", okrs: "OKRs", okr: "OKR", kpi: "KPI", kpis: "KPIs", figma: "Figma", salesforce: "Salesforce", hubspot: "HubSpot", confluence: "Confluence", docker: "Docker", kubernetes: "Kubernetes", linux: "Linux", python: "Python", outlook: "Outlook", gmail: "Gmail", stripe: "Stripe", shopify: "Shopify", zendesk: "Zendesk", tableau: "Tableau", sap: "SAP", seo: "SEO", pdf: "PDF", csv: "CSV", qa: "QA", pr: "PR", prs: "PRs", pto: "PTO", vp: "VP", vps: "VPs", svp: "SVP", evp: "EVP", eta: "ETA", eod: "EOD", hr: "HR", ceo: "CEO", cfo: "CFO", cto: "CTO", coo: "COO", sla: "SLA", slas: "SLAs", roi: "ROI", faq: "FAQ", mvp: "MVP", nda: "NDA", ndas: "NDAs", saas: "SaaS", ssh: "SSH", gpu: "GPU", cpu: "CPU", ssd: "SSD", ac: "AC", hvac: "HVAC", safari: "Safari", firefox: "Firefox", gitlab: "GitLab", asana: "Asana", trello: "Trello", airtable: "Airtable", datadog: "Datadog", pagerduty: "PagerDuty", grafana: "Grafana", iphone: "iPhone", ipad: "iPad", macos: "macOS", thanksgiving: "Thanksgiving", christmas: "Christmas", easter: "Easter", halloween: "Halloween", hanukkah: "Hanukkah", diwali: "Diwali", ramadan: "Ramadan", juneteenth: "Juneteenth" };
 export const isKnownName = (w) => NAMES.has(String(w).toLowerCase()) || Boolean(TOOLS[String(w).toLowerCase()]);
 export function fixNamesAndTools(t) {
   t = t.replace(/\b(january|february|april|june|july|august|september|october|november|december)\b/g, (w) => w[0].toUpperCase() + w.slice(1))
+    .replace(/\b(labor|memorial|presidents|veterans|independence|columbus|boxing|new year's) day\b/g, (m) => m.replace(/\b[a-z]/g, (c) => c.toUpperCase()).replace(/'S\b/, "'s"))
+    .replace(/\b(\d+) ?(gb|mb|tb|kb)\b/g, (_m, n, u) => `${n}${u.toUpperCase()}`)
     .replace(/\b(for|in|by|since|until|of|from|on|through|end of|early|late|mid) (march|may)\b/g, (_m, p, w) => `${p} ${w[0].toUpperCase()}${w.slice(1)}`);
   return t.replace(/\b[a-z][a-z']*\b/g, (w, i, str) => {
     if (NAMES.has(w)) return w[0].toUpperCase() + w.slice(1);
+    const poss = w.match(/^([a-z]+)'s$/);
+    if (poss && NAMES.has(poss[1])) return w[0].toUpperCase() + w.slice(1);
     // "ci" and "ui" only as standalone words, never inside paths or code.
     if (TOOLS[w] && !/[\/.@_]$/.test(str.slice(0, i)) && !/^[\/.@_]\w/.test(str.slice(i + w.length))) return TOOLS[w];
     return w;
@@ -80,7 +84,15 @@ export function desarcasm(sentence) {
   if ((m = s.match(/^(?:I )?can't wait for (?:the |a |an )?(.+)$/i))) return `I'm not thrilled about the ${m[1]}.`;
   if ((m = s.match(/^nothing says (?:teamwork|team spirit|culture|work-life balance|fun) like (?:a |an |the )?(.+)$/i))) return `I'm not thrilled about a ${m[1]}.`;
   if ((m = s.match(/^sure,? (?:I'll|I will) just (.+?)(?:,? (?:no problem|no worries|fine|sure|great|then|easy))*$/i))) return `I'm not happy about having to ${m[1]}.`;
-  if ((m = s.match(/^(?:sure,? )?let's just (.+?),? what could (?:possibly )?go wrong$/i))) return `I'm concerned about the risk if we ${m[1]}.`;
+  if ((m = s.match(/^(?:sure,? |yeah,? |great,? |ok,? )?let'?s (?:just )?(.+?),? what could (?:possibly )?go wrong\??$/i))) return `I'm concerned about the risk if we ${m[1]}.`;
+  // Round 6 sarcasm forms.
+  if ((m = s.match(/^(?:wow,? |gee,? |oh,? )?(?:thanks|thank you) (?:so much |a lot )?for the (heads[- ]?up|notice|warning|invite|update|reminder) (\d+ (?:minutes?|mins?|hours?|hrs?|seconds?)|an hour|a day|a minute) before (?:the )?(.+)$/i))) return `I only got the ${m[1].toLowerCase().replace(/^heads[- ]?up$/, "heads-up")} ${m[2]} before the ${m[3]}.`;
+  if ((m = s.match(/^(?:how )?nice of (legal|finance|sales|marketing|engineering|security|procurement|IT|HR|ops|management|leadership|the (?:vendor|client|customer|team|board|agency|contractor)) to finally (\w+)(?: (.+))?$/i))) {
+    const v = IRREGULAR_PAST[m[2].toLowerCase()] ?? m[2].replace(/y$/, "ie").replace(/e?$/, "ed");
+    return `${cap(m[1])} only ${v}${m[3] ? " " + m[3] : ""}.`;
+  }
+  if ((m = s.match(/^(?:yeah|sure|right|oh yeah|ah yes),? because (another|more|one more|a new|a|an) (.+?) (?:will|is going to|are going to) (?:totally |definitely |really |surely |obviously |for sure |absolutely )?(fix|solve|help|change|sort out) (.+)$/i))) return `I don't think ${m[1].toLowerCase()} ${m[2]} will ${m[3].toLowerCase()} ${m[4]}.`;
+  if ((m = s.match(/^(?:(?:cool|great|awesome|perfect|fantastic|wonderful|nice|super|lovely)[,!.]? ?){1,3}so (?:now )?(.+)$/i)) && NEG_CUE.test(m[1]) && !/^(?:we're|they're|you're|he's|she's|I'm|we are|they are)\b/i.test(m[1])) return `Unfortunately, ${lowFirst(m[1])}.`;
   if ((m = s.match(/^just what I needed,? (.+)$/i))) return `I have ${m[1].replace(/^(?:a|an|the) /i, (a) => a.toLowerCase())}, which isn't ideal.`;
   if ((m = s.match(/^(?:how )?nice of (them|him|her|you|leadership|management|IT|HR) to (\w+) (.+)$/i))) {
     const who = /^(?:them|him|her|you)$/i.test(m[1]) ? { them: "they", him: "he", her: "she", you: "you" }[m[1].toLowerCase()] : m[1];
@@ -166,7 +178,7 @@ export function splitApology(sentence) {
 
 // Bare singular subject: "support queue is at 450" -> "The support queue is at 450".
 const FINITE = "didn't|doesn't|hasn't|haven't|signed|quit|handled|approved|rejected|found|joined|fixed|shipped|launched|landed|ordered|booked|moved|pushed|lost|left|won|hit|sold|bought|flagged|reported|emailed|cancelled|canceled|sent|delivered|missed|caught|passed|died|ran|reopens|restored|replied|went|comes|come|goes|paid|works|worked|asked|replied|is|changed|arrived|arrives|arrive|expires|expired|opened|closed|ended|ends|leaked|is|was|isn't|wasn't|has|hasn't|had|got|keeps|kept|looks|looked|went|ran|runs|shows|showed|needs|wants|says|said|finished|failed|starts|started|broke|crashed|died|smells|takes|took|cost|costs|seems|loves|loved|called|calls|hates|doubled|tripled|dropped|went|came|will|won't|can't|should|still|just|keeps|refuses|is still|has been|got moved|is out|is down";
-const BARE_SUBJECT = new RegExp(`^((?:[a-z][a-z0-9-]+ ){0,2}[a-z][a-z-]+(?<!s))(?: (?:on|in|at|from|for|of|with|about|to) (?:the |a |an )?(?:\\d+\\w* )?[a-z][a-z-]+(?: [a-z][a-z-]+)?)? (?=(?:${FINITE})\\b)`);
+const BARE_SUBJECT = new RegExp(`^((?:[a-z][a-z0-9-]+ ){0,2}[a-z][a-z-]+(?<!s)|(?:[a-z][a-z0-9-]+ ){1,2}[A-Z]{2,4})(?: (?:on|in|at|from|for|of|with|about|to) (?:the |a |an )?(?:\\d+\\w* )?[a-z][a-z-]+(?: [a-z][a-z-]+)?)? (?=(?:${FINITE})\\b)`);
 const NOT_HEAD = /^(?:sorry|apologies|oops|my bad|i|we|you|they|he|she|it|this|that|these|those|there|here|everything|everyone|everybody|nobody|nothing|someone|something|anyone|anything|what|who|whose|whom|why|how|where|when|which|my|our|your|their|his|her|its|the|a|an|no|any|some|each|every|all|both|traffic|weather|money|payroll|lunch|dinner|breakfast|coffee|internet|prod|production|staging|email|slack|jira|github|google|everything|stuff|life|work|time|it|today|tonight|tomorrow|yesterday|mom|dad|management|leadership|legal|finance|hr|marketing|sales|engineering|support|security|design|ops|it|qa|sarcasm|food|parking|attendance|morale|pay|rent|tax|stock|revenue|churn|demand|velocity)$/i;
 export function restoreArticle(sentence) {
   const m = sentence.match(BARE_SUBJECT);
@@ -182,12 +194,35 @@ export function restoreArticle(sentence) {
   return `the ${sentence}`;
 }
 
+// Round 6 (fresh7): general fixes that run on each line before anything else.
+function round6(t) {
+  return t
+    // "yo can someone grab the pizza" -> "can someone grab the pizza".
+    .replace(/^(?:yo|oi|sup|ayy|aye)\b,?\s+(?=\S+\s+\S+\s+\S+)/i, "")
+    // "is down since lunch" -> "has been down since lunch".
+    .replace(/\b(is|are) (down|out|offline|broken|red|stuck|closed|unavailable|unreachable|flaky|failing) since\b/gi, (_m, v, s) => `${v.toLowerCase() === "is" ? "has" : "have"} been ${s} since`)
+    // "off by like 40" -> "off by about 40". Not "I'd like 3".
+    .replace(/(?<!\b(?:I'd|we'd|you'd|they'd|would|I|we|you|they|'d|feel|feels|looks|look|seems|seem|sounds|sound)\s)\blike (?=\d)/gi, "about ")
+    // "I got the flu, out today" -> "I got the flu, so I'm out today".
+    .replace(/^((?:I(?:'ve)? (?:got|have|caught)|I'm|I am|feeling|sick|got)\b[^,]{2,40}),\s*(out|off|offline|working from home|logging off|taking the day off)\b( today| tomorrow| this week| for the day| for the rest of the day)?[.!]*$/i, (_m, a, b, c) => `${a}, so I'm ${b.toLowerCase()}${c ?? ""}`)
+    // "out of office tomorrow, dentist" -> "for a dentist appointment".
+    .replace(/,\s*(dentist|doctor|vet|physio|therapist|therapy|optometrist|eye doctor)[.!]*$/i, (_m, w) => `, ${w.toLowerCase().replace("therapist", "therapy")} appointment`)
+    // "sorry missed your message" -> "sorry, I missed your message".
+    .replace(/^(sorry|apologies|my bad|oops),?\s+(missed|forgot|sent|deleted|broke|overslept|lost|misread|double-booked|didn't|haven't|can't|won't)\b/i, (_m, a, v) => `${a}, I ${v}`)
+    // ", been slammed" after an apology -> "I've been slammed".
+    .replace(/([,.;]\s*|\s-\s)been (slammed|busy|swamped|buried|underwater|sick|out|offline|traveling|travelling|heads-down|heads down|in meetings|on calls)\b/gi, (_m, p, w) => `. I've been ${w}`)
+    // "this code is a steaming pile of crap" -> "this code is in really poor shape".
+    .replace(/\b(is|was|are|were) (?:a |an )?(?:total |complete |absolute |steaming |hot |giant |big )*(?:pile|heap|load|bucket)s? of (?:crap|shit|garbage|junk|trash|rubbish|poo|dogshit)\b/gi, (_m, v) => `${v} in really poor shape`)
+    // "a waste of my damn time" keeps "my time" once.
+    .replace(/\ba waste of (my|our|your|everyone's) (?:damn |damned |goddamn |fucking |freaking |bloody )?time\b/gi, (_m, w) => `not a good use of ${w.toLowerCase()} time`);
+}
+
 export function prepass(clean, nested = false) {
   // Line by line so lists keep their shape. Only prose lines are touched.
   return clean.split("\n").map((line) => {
     if (/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s+/.test(line) || !line.trim()) return line;
     const lead = line.match(/^\s*/)[0];
-    let t = fixNamesAndTools(line.trim()).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
+    let t = round6(fixNamesAndTools(line.trim())).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
     const sents = t.split(/(?<=[.!?])\s+(?=[A-Za-z])/);
     t = sents.map((s, i) => {
       const sar = desarcasm(s);
