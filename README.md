@@ -4,7 +4,7 @@ Corporate Speak Translator, a free Freedom Terminal web app.
 
 Live at https://project-synergy.pages.dev.
 
-Paste a CEO memo or a LinkedIn post and get a one-line "What they really mean:" summary plus a sentence-by-sentence plain-English decode. It also works the other way: type or dictate something blunt and get it back in corporate speak at three levels (Mild, Middle Manager, Full C-Suite).
+Paste a CEO memo or a LinkedIn post and get a one-line "What they really mean:" summary plus a sentence-by-sentence plain-English decode. It also works the other way: type or dictate something blunt and get it back in corporate speak at three levels (Mild, Middle Manager, Full C-Suite). Full C-Suite is the default.
 
 It costs nothing to run. There is no server, no API key, no account and no analytics. Text stays in the browser. The only network requests are the site's own static files and, after the user agrees, the AI model files from Hugging Face plus Transformers.js and the ONNX Runtime WebAssembly files from jsDelivr.
 

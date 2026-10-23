@@ -33,6 +33,10 @@ levels: [{ level, ideal_output,
 - Decode summaries in AI mode come from Instant. The 0.5B model's summaries made up offices, locations and denials too often in this round, so the page shows only AI lines that pass `decodeTextFails` in `site/ai-guard.js`. The raw AI summary is still in `ai.output` for training.
 - The grader re-runs the current gates on the stored model text, so a gate change does not need a new model run. Hand labels live in `labels-ai.tsv`, `labels-instant-before.tsv` and `labels-instant-after.tsv` next to the runs.
 
+## Held-out rows, October 2026
+
+`src/normal-holdout-1.txt` to `src/normal-holdout-4.txt` add 566 Normal to Corporate rows that were first written as held-out test sets (`holdout.jsonl`, `fresh.jsonl`, `fresh2.jsonl`, `fresh3.jsonl`) and hand-graded in `project-synergy-research/shortfalls`. They are in `items.json` and `site/examples.js` now, so they are training data and no longer held out. Write a new batch for the next honest measurement. `dataset.jsonl` still covers the original 1,003 inputs.
+
 ## Using it
 
 - Fine-tuning: use `input` plus the level as the prompt and `ideal_output` as the target. Leave out rows whose input you plan to test on.
