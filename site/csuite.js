@@ -1,3 +1,4 @@
+import { isKnownName } from "./prepass.js";
 // Full C-Suite composer (see shortfalls/max-corporate.md).
 // Shape: [strategic frame] + [the user's point, nominalized and buzzworded] + [a closer that fits the intent].
 // The point comes from the Mild rewrite, which already keeps every no, number, name, date and question.
@@ -13,7 +14,7 @@ const lowerFirst = (s) => {
   if (!w || /^I(?:'|$)/.test(w) || /^[A-Z0-9]{2,}$/.test(w) || /^[a-z]/.test(w)) return s;
   // Names the writer capitalized stay capitalized; anything else is a sentence start and gets lowered.
   const base = w.replace(/'s$/, "");
-  if (capsKeep.has(base) && !FUNCTION_START.test(base)) return s;
+  if ((capsKeep.has(base) || isKnownName(base)) && !FUNCTION_START.test(base)) return s;
   return w.toLowerCase() + s.slice(w.length);
 };
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
@@ -123,7 +124,7 @@ export function intentOf(clean, core) {
   if (PERSONAL.test(core) || /^My (?:kid|son|daughter|child)\b/.test(core)) return "personal";
   if (/^(?:I believe|I think|I don't (?:think|believe|agree)|I disagree|I'd prefer|I prefer|I'd rather|I'd suggest|I see|I'm not (?:yet )?aligned)\b/.test(core) || /\bshould\b/.test(core) && !NEG.test(core)) return "opinion";
   if (/^I (?:really |absolutely )?(?:like|love|appreciate)\b/.test(core) && !NEG.test(core)) return "praise";
-  if (/^(?:Great|Outstanding|Huge|Thank|Thanks|Congrat|Happy|Nice|Kudos|Shoutout|A big thank|Well done)/i.test(core) || /^[A-Z][a-z]+(?:'s [a-z]+)? (?:saved|crushed|nailed|rocked|is a game changer|is a lifesaver)\b/.test(core) || /\b(?:is|are|looks|was) (?:awesome|excellent|great|amazing|fantastic|truly best-in-class|really good|really clear)\b/.test(core) && !NEG.test(core) || /\b(?:was|is) an? (?:great|fantastic|excellent|amazing|awesome) \w+/.test(core) && !NEG.test(core)) return "praise";
+  if (/^(?:Great|Outstanding|Huge|Thank|Thanks|Congrat|Happy|Nice|Kudos|Shoutout|A big thank|Well done|Good (?:job|work))/i.test(core) || /^[A-Z][a-z]+(?:'s [a-z]+)? (?:saved|crushed|nailed|rocked|is a game changer|is a lifesaver)\b/.test(core) || /\b(?:is|are|looks|was) (?:awesome|excellent|great|amazing|fantastic|truly best-in-class|really good|really clear)\b/.test(core) && !NEG.test(core) || /\b(?:was|is) an? (?:great|fantastic|excellent|amazing|awesome) \w+/.test(core) && !NEG.test(core)) return "praise";
   if (PROBLEM.test(core) || NEG.test(core)) return "problem";
   if (WIN.test(core)) return "win";
   return "status";

@@ -615,7 +615,7 @@ export function toCorporateDetailed(input, { level = 2, seed = 1, raw = false } 
         const text = composeCSuite({ clean: ref, mild: mild.text, middle: middle.text, rng, raw: String(input) });
         if (!text) break;
         const check = checkMeaning(without(mild.unsafe ?? []), text);
-        if (check.ok && !hasCrude(text)) return { text: polishCase(tidy(text)), check, fallback: k ? "reseed" : "", unsafe: mild.unsafe ?? [] };
+        if (check.ok && !hasCrude(text)) return { text: polishCase(fixCollocations(tidy(text))), check, fallback: k ? "reseed" : "", unsafe: mild.unsafe ?? [] };
       }
     }
     return toCorporateDetailed(input, { level, seed, raw: true });
@@ -743,7 +743,8 @@ function postPolish(text, lvl, clean) {
     .replace(/\b(the (?!issue|defect|bug|feedback|ticket|concern|question|comment)[\w-]+) is addressed\b/g, "$1 is fixed")
     .replace(/\btoo (?:tied up|at capacity|swamped|slammed)\b/g, "too busy")
     .replace(/(^|[.!?]\s+)((?:Can|Could|Would|Will|Should|Is|Are|Do|Does|Did) (?:it|we|you|I|this|that|they|someone|anyone)\b[^.!?]*)\.(?=\s|$)/g, "$1$2?")
-    .replace(/^When you get a chance, (could you .+\bwhen you (?:can|get a chance|have a (?:sec|second|minute|moment))\b.*)$/, (_m, r) => r[0].toUpperCase() + r.slice(1));
+    .replace(/^When you get a chance, (could you .+\bwhen you (?:can|get a chance|have a (?:sec|second|minute|moment))\b.*)$/, (_m, r) => r[0].toUpperCase() + r.slice(1))
+    .replace(/^When you get a chance, (could you .+\b(?:when|once|after) (?:you(?:'re| are) (?:done|finished|free)|it's (?:done|finished|ready)|you get (?:a sec|a second|a minute|a moment|a chance))\b.*)$/, (_m, r) => r[0].toUpperCase() + r.slice(1));
   if (lvl === 1) {
     t = t.replace(/^I disagree with /, "I'm not sure I agree with ")
       .replace(/^Why (is|are|was|were) (the [\w-]+|this|that|it|our [\w-]+|my [\w-]+) (.+)\?$/, "Could you help me understand why $2 $1 $3?")

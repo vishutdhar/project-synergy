@@ -102,6 +102,14 @@ const PHRASES = `
 !{fuck|shit|jack shit|dick|bugger|naff|sod} all = nothing = nothing at all = nothing of substance
 !{fuck|shit|jack shit|dick|bugger|naff|sod} all of = none of = none of = none of
 !jack shit = nothing = nothing at all = nothing of substance
+!saved {our|the team's} {ass|asses|butt|butts|bacon} = really saved us = saved us = rescued us
+!saved my {ass|butt|bacon} = really saved me = saved me = rescued me
+!saved your {ass|butt|bacon} = really saved you = saved you = rescued you
+!{got|get|getting} {screwed|shafted|hosed|fleeced} on = $1 a bad deal on = $1 unfavorable terms on = $1 below-expectation terms on
+!{got|get|getting} {screwed|shafted|hosed} = $1 a bad deal = $1 treated unfairly = $1 significantly disadvantaged
+!no {fucking|freaking|bloody|damn|frickin|effing} way = there's no way = there's realistically no way = there's no feasible path where
+!{is|are|was|were} {total |complete |absolute |utter }{garbage|trash|rubbish|junk} = $1 really not good = $1 in need of significant work = $1 significantly below the bar
+!{is|are|was|were} {garbage|trash|rubbish|junk} = $1 not good = $1 in need of significant work = $1 below the bar
 !{learned|learnt|learn|know|knew|did|done|do|does|got|get|shipped|delivered|achieved|accomplished|contributed|said|heard|fixed|changed} {fuck all|shit all|jack shit|dick all|bugger all|naff all|sod all} = $1 nothing = $1 nothing at all = $1 nothing of substance
 !{diddly |diddly-|jack }squat = nothing = nothing at all = nothing of substance
 !{did|does|do|done|doing|know|knows|knew|mean|means|meant|got|get|gets|worth|achieved|accomplished} squat = $1 nothing = $1 nothing at all = $1 nothing of substance

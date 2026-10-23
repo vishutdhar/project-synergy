@@ -6,7 +6,7 @@ import { corporateFlags } from "../tests/variations/checks.mjs";
 
 const [file, tag = "now", seed = "1"] = process.argv.slice(2);
 const rows = fs.readFileSync(file, "utf8").trim().split("\n").map((l) => JSON.parse(l));
-const dir = "/workspace/project-synergy-research/shortfalls/";
+const dir = process.env.EVAL_DIR || "/workspace/project-synergy-research/shortfalls/";
 const sheet = [];
 const out = [];
 let flagged = 0;
