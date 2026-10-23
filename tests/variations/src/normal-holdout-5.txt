@@ -1,0 +1,945 @@
+# Held-out rows from round 4 (October 2026): fresh4.jsonl (129) and fresh5.jsonl (49). Inputs and ideals written by hand; graded in project-synergy-research/round4.
+
+# cat=status-bare
+staging db is down again
+Unfortunately, the staging database is down again.
+Flagging that the staging database is down again.
+Surfacing a recurring availability headwind: the staging database is down again.
+
+invoice batch failed overnight
+Unfortunately, the invoice batch failed overnight.
+Flagging that the invoice batch failed overnight.
+Surfacing that the overnight invoice batch did not complete as planned.
+
+new hires start monday
+Just to let you know, the new hires start Monday.
+Quick heads-up: the new hires start Monday.
+Excited to share that our new talent joins the journey on Monday.
+
+the projector in room 4 is broken
+Unfortunately, the projector in room 4 is broken.
+Flagging that the projector in room 4 is broken.
+Surfacing an AV headwind: the projector in room 4 is out of service.
+
+shipping costs went up 12%
+Just to let you know, shipping costs went up 12%.
+Flagging that shipping costs went up 12%.
+Surfacing a cost headwind: shipping costs have increased 12%.
+
+we hit 10k users today
+Happy to share that we hit 10k users today!
+Quick win: we hit 10k users today!
+Thrilled to share a key milestone in our growth journey: we hit 10k users today.
+
+the build is green now
+Good news: the build is green now.
+Quick update: the build is green now.
+Pleased to share that the build is green and we're back on track.
+
+marketing pushed the launch to next week
+Just to let you know, marketing pushed the launch to next week.
+Flagging that marketing moved the launch to next week.
+Surfacing a timeline update: marketing has moved the launch to next week.
+
+client signed the renewal
+Good news: the client signed the renewal!
+Quick win: the client signed the renewal!
+Thrilled to share that the client has signed the renewal, a key win for the partnership.
+
+# cat=request
+can someone restart the jenkins box
+Could someone restart the Jenkins box?
+Quick ask: could someone restart the Jenkins box?
+Could we get a volunteer to restart the Jenkins box so we can unblock the pipeline?
+
+need someone to cover my shift friday
+Could someone cover my shift on Friday?
+Quick ask: is anyone able to cover my shift on Friday?
+Looking for a partner to cover my shift on Friday. Grateful for any support.
+
+pls review my PR when u get a sec
+Could you review my PR when you get a moment?
+Quick ask: could you review my PR when you have a moment?
+When bandwidth allows, could you review my PR?
+
+stop cc'ing the whole team on everything
+Could we stop cc'ing the whole team on everything?
+Quick ask: could we keep cc's to the people who need them?
+Let's be intentional about cc's so the whole team isn't copied on everything.
+
+update the ticket when ur done
+Could you update the ticket when you're done?
+Quick ask: could you update the ticket once you're done?
+Once complete, could you update the ticket so we keep visibility?
+
+i need the budget numbers by eod
+Could I get the budget numbers by end of day?
+Quick ask: could I get the budget numbers by end of day?
+Could I get the budget numbers by end of day so we can stay aligned?
+
+someone order more coffee
+Could someone order more coffee?
+Quick ask: could someone order more coffee?
+Could someone replenish our coffee supply?
+
+# cat=crude
+this vendor is a total shitshow
+This vendor is having serious problems.
+Flagging that this vendor has serious problems.
+I have significant concerns about this vendor's ability to deliver.
+
+who the hell approved this
+Who approved this?
+Quick question: who approved this?
+Could we get clarity on who approved this?
+
+the new process is crap
+I don't think the new process works well.
+My two cents: the new process isn't working well.
+I have strategic reservations about the new process.
+
+i'm so fucking tired of these meetings
+I'm really tired of these meetings.
+Being candid: I'm really tired of these meetings.
+I'd like to revisit our meeting cadence; it's draining my bandwidth.
+
+damn the server crashed again
+The server crashed again.
+Flagging that the server crashed again.
+Surfacing a recurring stability headwind: the server crashed again.
+
+we got screwed on the contract
+We got a bad deal on the contract.
+Flagging that the contract terms went badly for us.
+The contract terms landed significantly below our expectations.
+
+the demo was a clusterfuck
+The demo went very badly.
+Flagging that the demo went very badly.
+The demo surfaced significant execution challenges.
+
+piss poor planning on this one
+The planning on this one was very poor.
+Being candid: the planning on this one was very poor.
+There are significant learnings around planning on this one.
+
+no fucking way we ship friday
+There's no way we ship Friday.
+Being candid: there's no way we ship Friday.
+To be transparent, a Friday ship is not feasible.
+
+# cat=sarcasm
+love how nobody read my email
+It seems nobody read my email.
+Flagging that my email doesn't seem to have been read.
+Circling back, as my earlier email may not have landed.
+
+wow super helpful thanks
+That wasn't very helpful.
+Being candid: that wasn't very helpful.
+I'm not sure that fully addressed the need.
+
+cool so we're just ignoring the deadline
+It seems we're ignoring the deadline.
+Flagging that we seem to be ignoring the deadline.
+I want to make sure we're still aligned on the deadline.
+
+fantastic, the wifi is out again
+Unfortunately, the wifi is out again.
+Flagging that the wifi is out again.
+Surfacing a recurring connectivity headwind: the wifi is out again.
+
+nice of them to tell us an hour before
+I wish they'd told us earlier than an hour before.
+Flagging that we only heard an hour before.
+Ideally we'd have had more than an hour's notice.
+
+# cat=praise
+priya crushed the client demo
+Priya did a great job on the client demo.
+Huge shoutout to Priya for the client demo!
+Huge shoutout to Priya for an outstanding client demo that showcased excellence.
+
+thanks for jumping on that bug so fast
+Thanks for jumping on that bug so fast.
+Huge thanks for jumping on that bug so quickly!
+Grateful for your agility in resolving that bug so quickly.
+
+the new dashboard looks amazing
+The new dashboard looks great.
+Kudos on the new dashboard, it looks great!
+The new dashboard is a best-in-class example of great design.
+
+good job everyone, great quarter
+Great job everyone on a great quarter.
+Kudos to everyone on a great quarter!
+Incredibly proud of the team for delivering an outstanding quarter.
+
+marco saved our ass on the migration
+Marco really saved us on the migration.
+Huge shoutout to Marco for saving the migration!
+Huge shoutout to Marco for rescuing the migration.
+
+support team handled the outage like pros
+The support team handled the outage really well.
+Kudos to the support team for handling the outage so well!
+Hats off to the support team for navigating the outage with true professionalism.
+
+# cat=decline
+can't make the offsite
+I can't make the offsite.
+Unfortunately, I won't be able to make the offsite.
+Unfortunately, I'm unable to attend the offsite.
+
+i don't have time for this right now
+I don't have time for this right now.
+Unfortunately, I don't have bandwidth for this right now.
+I don't have the bandwidth to take this on at this time.
+
+not doing another all-nighter
+I'm not doing another all-nighter.
+Being clear: I'm not able to do another all-nighter.
+I won't be able to support another all-nighter.
+
+pass on the happy hour
+I'll pass on the happy hour.
+Thanks, but I'll pass on the happy hour.
+Thanks for including me; I'll sit this happy hour out.
+
+# cat=question
+is the 2pm still on
+Is the 2pm still on?
+Quick check: is the 2pm still on?
+Could we confirm the 2pm is still on?
+
+why is the build taking 40 minutes
+Why is the build taking 40 minutes?
+Quick question: why is the build taking 40 minutes?
+Could we unpack why the build is taking 40 minutes?
+
+did anyone call the customer back
+Did anyone call the customer back?
+Quick check: did anyone call the customer back?
+Could we confirm whether someone has followed up with the customer?
+
+whats the wifi password
+What's the wifi password?
+Quick question: what's the wifi password?
+Could someone share the wifi password?
+
+when do we get the new laptops
+When do we get the new laptops?
+Quick question: when do we get the new laptops?
+Could we get visibility on timing for the new laptops?
+
+# cat=apology-runon
+sorry i missed standup my alarm didnt go off
+Sorry I missed standup. My alarm didn't go off.
+Apologies for missing standup. My alarm didn't go off.
+Apologies for missing standup; my alarm didn't go off.
+
+my bad i deleted the wrong folder restoring it now
+My mistake, I deleted the wrong folder. I'm restoring it now.
+Owning this: I deleted the wrong folder and I'm restoring it now.
+Taking ownership: I deleted the wrong folder and I'm restoring it now.
+
+sorry for the delay been slammed
+Sorry for the delay. I've been very busy.
+Apologies for the delay. I've been at capacity.
+Apologies for the delay; my bandwidth has been fully allocated.
+
+oops wrong channel ignore that
+Oops, wrong channel. Please ignore that.
+Apologies, wrong channel. Please disregard.
+Apologies, that was posted in the wrong channel. Please disregard.
+
+# cat=late-sick
+running 15 late train is delayed
+I'm running 15 minutes late. My train is delayed.
+Quick heads-up: I'm running 15 minutes late because my train is delayed.
+Heads-up: I'm running 15 minutes late due to a train delay.
+
+# cat=scheduling
+can we move our 1:1 to thursday
+Could we move our 1:1 to Thursday?
+Quick ask: could we move our 1:1 to Thursday?
+Could we realign our 1:1 to Thursday?
+
+lets push the review to next week
+Could we push the review to next week?
+Quick ask: could we move the review to next week?
+Let's realign the review to next week.
+
+i'm free after 3 tomorrow
+I'm free after 3 tomorrow.
+Quick heads-up: I'm free after 3 tomorrow.
+I have availability after 3 tomorrow.
+
+cancel the friday sync nothing to discuss
+Let's cancel the Friday sync. There's nothing to discuss.
+Proposing we cancel the Friday sync, as there's nothing to discuss.
+Let's give everyone time back and cancel the Friday sync, as there's nothing to discuss.
+
+# cat=pushback
+that estimate is way too low
+I think that estimate is too low.
+My two cents: that estimate looks too low.
+I'd like to pressure-test that estimate, as it looks too low.
+
+we already tried that and it failed
+We already tried that and it didn't work.
+Flagging that we already tried that and it didn't work.
+Leveraging past learnings: we already tried that approach and it didn't land.
+
+this isn't my job
+I don't think this is my responsibility.
+Being candid: this isn't in my scope.
+I want to align on ownership, as this sits outside my scope.
+
+i disagree with cutting QA
+I disagree with cutting QA.
+Being candid: I disagree with cutting QA.
+I have strategic reservations about cutting QA.
+
+two weeks is not enough for this
+I don't think two weeks is enough for this.
+Flagging that two weeks isn't enough for this.
+To be transparent, two weeks is not a realistic timeline for this.
+
+why are we doing this again
+Why are we doing this again?
+Quick question: why are we doing this again?
+Could we revisit the why behind this?
+
+# cat=feedback
+you need to reply to emails faster
+You need to reply to emails faster.
+Some candid feedback: I need faster replies to emails.
+One growth area: email response times.
+
+the report was good but too long
+The report was good, but too long.
+Some candid feedback: the report was good, but too long.
+Great report, with an opportunity to tighten it up.
+
+stop talking over people
+Please stop talking over people.
+Some candid feedback: please stop talking over people.
+One growth area: making space for others to speak.
+
+# cat=hr
+i want to talk about a raise
+I'd like to talk about a raise.
+Quick ask: could we talk about a raise?
+I'd like to set up time to discuss my compensation.
+
+i'm quitting, last day is the 30th
+I'm resigning. My last day is the 30th.
+Sharing that I'm resigning, and my last day is the 30th.
+After much reflection, I'm resigning. My last day will be the 30th.
+
+need to take next week off
+I need to take next week off.
+Quick heads-up: I need to take next week off.
+I'll be taking PTO next week.
+
+my manager keeps yelling at me
+My manager keeps yelling at me.
+Being candid: my manager keeps yelling at me.
+I need to raise a concern: my manager keeps yelling at me.
+
+# cat=customer
+the customer is threatening to cancel
+The customer is threatening to cancel.
+Flagging that the customer is threatening to cancel.
+Surfacing a churn risk: the customer is threatening to cancel.
+
+refund approved, let the customer know
+The refund is approved. Could you let the customer know?
+Quick update: the refund is approved. Could you let the customer know?
+The refund has been approved. Could you close the loop with the customer?
+
+customer says the app logs them out every 5 min
+The customer says the app logs them out every 5 minutes.
+Flagging that the customer says the app logs them out every 5 minutes.
+Surfacing a customer pain point: the app logs them out every 5 minutes.
+
+this customer asks the same question every day
+This customer asks the same question every day.
+Flagging that this customer asks the same question every day.
+This customer has a recurring need for clarity on the same question.
+
+# cat=money
+we're over budget by 20k
+We're over budget by 20k.
+Flagging that we're over budget by 20k.
+Surfacing a budget headwind: we're 20k over.
+
+expenses need to be in by friday
+Expenses need to be in by Friday.
+Quick reminder: expenses need to be in by Friday.
+A friendly reminder that expenses are due by Friday.
+
+no budget for new hires this year
+There's no budget for new hires this year.
+Flagging that there's no budget for new hires this year.
+To be transparent, there is no budget for new hires this year.
+
+# cat=it-tech
+someone pushed to main without review
+Someone pushed to main without a review.
+Flagging that someone pushed to main without a review.
+Surfacing a process gap: someone pushed to main without a review.
+
+the api returns 500 on login
+The API returns a 500 on login.
+Flagging that the API returns a 500 on login.
+Surfacing a login reliability issue: the API returns a 500.
+
+disk is 95% full on prod
+The disk is 95% full on prod.
+Flagging that the prod disk is 95% full.
+Surfacing a capacity risk: the prod disk is 95% full.
+
+upgraded node to 22 everything still works
+I upgraded Node to 22, and everything still works.
+Quick update: I upgraded Node to 22, and everything still works.
+Pleased to share that we've upgraded Node to 22 with no impact.
+
+# cat=announcement
+office closed monday for the holiday
+The office is closed Monday for the holiday.
+Quick heads-up: the office is closed Monday for the holiday.
+A reminder that the office will be closed Monday for the holiday.
+
+free pizza in the kitchen
+There's free pizza in the kitchen.
+Quick heads-up: there's free pizza in the kitchen!
+Excited to share that there's free pizza in the kitchen.
+
+sarah is now leading the design team
+Sarah is now leading the design team.
+Excited to share that Sarah is now leading the design team!
+Thrilled to announce that Sarah is now leading the design team.
+
+we're moving to a new office in march
+We're moving to a new office in March.
+Quick heads-up: we're moving to a new office in March.
+Excited to share that we're moving into a new office in March.
+
+# cat=one-liner
+no idea
+I'm not sure.
+Good question, I'm not sure.
+I don't have visibility on that yet.
+
+# cat=mixed
+finally got the cert renewed, took forever
+I finally got the certificate renewed. It took a long time.
+Quick win: the certificate is finally renewed, though it took a while.
+Pleased to share that the certificate has been renewed after an extended effort.
+
+jamal is out so i'll run the demo
+Jamal is out, so I'll run the demo.
+Quick heads-up: Jamal is out, so I'll run the demo.
+With Jamal out, I'll lead the demo.
+
+we lost the deal to a cheaper competitor
+We lost the deal to a cheaper competitor.
+Flagging that we lost the deal to a cheaper competitor.
+We were not selected; the client chose a lower-cost competitor.
+
+no clue why the numbers dont match
+I don't know why the numbers don't match.
+Flagging that I don't know why the numbers don't match.
+I'm investigating why the numbers don't reconcile.
+
+got the offer letter today!!
+I got the offer letter today!
+Excited to share that I got the offer letter today!
+Thrilled to share that I received the offer letter today.
+
+still waiting on legal
+I'm still waiting on legal.
+Quick update: still waiting on legal.
+We're currently pending input from legal.
+
+the coffee machine is leaking everywhere
+The coffee machine is leaking everywhere.
+Flagging that the coffee machine is leaking everywhere.
+Surfacing a facilities issue: the coffee machine is leaking.
+
+i fixed it but i dont know how
+I fixed it, but I don't know how.
+Quick update: it's fixed, though I'm not sure how.
+The issue is resolved; root cause analysis is pending.
+
+# cat=list
+todo:\n- fix login\n- email finance\n- book flights
+To do:\n- Fix login\n- Email finance\n- Book flights
+Next steps:\n- Fix login\n- Email finance\n- Book flights
+Key action items:\n- Fix login\n- Email finance\n- Book flights
+
+blockers: no access to the repo, waiting on design
+Blockers: no access to the repo, and waiting on design.
+Current blockers: no access to the repo, and waiting on design.
+Surfacing two blockers: no access to the repo, and pending design input.
+
+# cat=crude
+these specs are bullshit
+I don't think these specs are right.
+Being candid: I have concerns about these specs.
+I have significant concerns about these specs.
+
+that meeting was a waste of fucking time
+That meeting was a waste of time.
+Being candid: that meeting wasn't a good use of time.
+That meeting did not drive meaningful outcomes.
+
+# cat=sarcasm
+sure, i'll just do it all myself then
+It seems I'll be doing it all myself.
+Flagging that I seem to be doing it all myself.
+I want to align on resourcing, as this currently sits with me alone.
+
+great, another meeting that could've been an email
+This meeting could have been an email.
+My two cents: this could have been an email.
+Let's consider whether this could be handled asynchronously.
+
+# cat=request
+can you not schedule meetings at lunch
+Could you avoid scheduling meetings at lunch?
+Quick ask: could we avoid scheduling meetings at lunch?
+Could we protect the lunch hour from meetings?
+
+pls stop pinging me on weekends
+Please stop messaging me on weekends.
+Quick ask: could we keep messages to weekdays?
+Let's respect weekend boundaries and keep messages to weekdays.
+
+# cat=question
+are we still doing the offsite or not
+Are we still doing the offsite?
+Quick check: are we still doing the offsite?
+Could we confirm whether the offsite is still happening?
+
+# cat=decline
+cant help this week, maybe next
+I can't help this week, but maybe next week.
+Unfortunately, I can't help this week, but maybe next.
+I don't have bandwidth this week, but next week may work.
+
+# cat=status-bare
+the report is 80% done
+The report is 80% done.
+Quick update: the report is 80% done.
+The report is 80% complete and on track.
+
+contractor quit without notice
+Unfortunately, the contractor quit without notice.
+Flagging that the contractor quit without notice.
+Surfacing a resourcing headwind: the contractor left without notice.
+
+the badge reader at the side door is busted
+Unfortunately, the badge reader at the side door is broken.
+Flagging that the badge reader at the side door is broken.
+Surfacing a facilities issue: the badge reader at the side door is out of service.
+
+warehouse ran out of medium boxes
+Unfortunately, the warehouse ran out of medium boxes.
+Flagging that the warehouse ran out of medium boxes.
+Surfacing a supply headwind: the warehouse is out of medium boxes.
+
+podcast episode 12 goes live tomorrow
+Just to let you know, podcast episode 12 goes live tomorrow.
+Quick heads-up: podcast episode 12 goes live tomorrow.
+Excited to share that podcast episode 12 goes live tomorrow.
+
+the auditors found two issues in the ledger
+Unfortunately, the auditors found two issues in the ledger.
+Flagging that the auditors found two issues in the ledger.
+Surfacing that the auditors identified two issues in the ledger.
+
+# cat=request
+can u forward me the invoice from acme
+Could you forward me the invoice from Acme?
+Quick ask: could you forward me the invoice from Acme?
+Could you share the Acme invoice with me?
+
+somebody please water the plants while i'm away
+Could someone water the plants while I'm away?
+Quick ask: could someone water the plants while I'm away?
+Could someone take ownership of watering the plants while I'm away?
+
+quit leaving dishes in the sink
+Please stop leaving dishes in the sink.
+Quick ask: could we all stop leaving dishes in the sink?
+Let's all take ownership of our dishes and keep the sink clear.
+
+# cat=crude
+the onboarding docs are garbage
+I don't think the onboarding docs are good.
+Being candid: the onboarding docs need a lot of work.
+The onboarding docs have significant room for improvement.
+
+our printer is a piece of shit
+Our printer is very unreliable.
+Flagging that our printer is very unreliable.
+Our printer presents significant reliability challenges.
+
+he dropped the ball big time on the rollout
+He made a big mistake on the rollout.
+Flagging that the rollout had a big miss on his side.
+There were significant execution gaps on his side of the rollout.
+
+holy shit we closed the deal
+We closed the deal!
+Huge win: we closed the deal!
+Thrilled to share that we've closed the deal.
+
+# cat=sarcasm
+oh good, the printer jammed again
+Unfortunately, the printer jammed again.
+Flagging that the printer jammed again.
+Surfacing a recurring headwind: the printer jammed again.
+
+thanks for the 5pm friday request
+A request at 5pm on Friday is hard to fit in.
+Being candid: 5pm Friday requests are hard to fit in.
+I'd appreciate more lead time than 5pm on a Friday.
+
+lovely, the client changed the scope again
+Unfortunately, the client changed the scope again.
+Flagging that the client changed the scope again.
+Surfacing a scope headwind: the client has changed the scope again.
+
+# cat=praise
+shoutout to lena for the clean handoff
+Thanks to Lena for the clean handoff.
+Huge shoutout to Lena for the clean handoff!
+Huge shoutout to Lena for a seamless handoff.
+
+ops did a killer job on the move
+Ops did a great job on the move.
+Kudos to ops for a great job on the move!
+Hats off to ops for executing the move flawlessly.
+
+# cat=decline
+i'm not going to that conference
+I'm not going to that conference.
+Unfortunately, I won't be attending that conference.
+I'll be sitting that conference out.
+
+nope, can't approve that spend
+No, I can't approve that spend.
+Being clear: I can't approve that spend.
+To be transparent, I'm unable to approve that spend.
+
+# cat=question
+where did we land on the pricing
+Where did we land on the pricing?
+Quick question: where did we land on the pricing?
+Could we align on where we landed on pricing?
+
+does anyone know how to export from jira
+Does anyone know how to export from Jira?
+Quick question: does anyone know how to export from Jira?
+Could someone share how to export from Jira?
+
+# cat=apology-runon
+sorry wrong file attached heres the right one
+Sorry, wrong file. Here's the right one.
+Apologies for attaching the wrong file. Here's the right one.
+Apologies, I attached the wrong file. Please find the correct one here.
+
+sorry i snapped at you earlier i was stressed
+Sorry I snapped at you earlier. I was stressed.
+Apologies for snapping at you earlier. I was stressed.
+I want to apologize for snapping at you earlier; I was under a lot of stress.
+
+# cat=late-sick
+dentist at 10, back by noon
+I have a dentist appointment at 10 and will be back by noon.
+Quick heads-up: dentist appointment at 10, back by noon.
+I'll be at a dentist appointment at 10 and back online by noon.
+
+# cat=money
+the client hasn't paid in 90 days
+The client hasn't paid in 90 days.
+Flagging that the client hasn't paid in 90 days.
+Surfacing a receivables risk: the client hasn't paid in 90 days.
+
+# cat=mixed
+guess who forgot the charger again
+I forgot my charger again.
+Quick heads-up: I forgot my charger again.
+Quick heads-up: I'm without my charger again today.
+
+the fire alarm test is at 2 so ignore it
+The fire alarm test is at 2, so please ignore it.
+Quick heads-up: the fire alarm test is at 2, so please ignore it.
+A reminder that the fire alarm test is at 2; no action needed.
+
+# cat=status-bare
+label printer is out of ink
+Unfortunately, the label printer is out of ink.
+Flagging that the label printer is out of ink.
+Surfacing a supply headwind: the label printer is out of ink.
+
+nightly backup didnt run
+Unfortunately, the nightly backup didn't run.
+Flagging that the nightly backup didn't run.
+Surfacing a resilience gap: the nightly backup didn't run.
+
+beta signups passed 500
+Happy to share that beta signups passed 500!
+Quick win: beta signups passed 500!
+Thrilled to share that beta signups have passed 500.
+
+finance closed the books for q3
+Just to let you know, finance closed the books for Q3.
+Quick update: finance closed the books for Q3.
+Pleased to share that finance has closed the books for Q3.
+
+# cat=request
+somebody grab the mail from reception
+Could someone grab the mail from reception?
+Quick ask: could someone grab the mail from reception?
+Could someone collect the mail from reception?
+
+send the contract to tomas today
+Could you send the contract to Tomas today?
+Quick ask: could you send the contract to Tomas today?
+Could you share the contract with Tomas today?
+
+need someone to proofread the newsletter
+Could someone proofread the newsletter?
+Quick ask: could someone proofread the newsletter?
+Looking for a partner to proofread the newsletter.
+
+quit replying all to the whole company
+Please stop replying all to the whole company.
+Quick ask: could we stop replying all to the whole company?
+Let's be intentional and avoid reply-all to the whole company.
+
+# cat=crude
+the hiring process is a fucking joke
+I don't think the hiring process works.
+Being candid: the hiring process isn't working.
+I have significant concerns about the hiring process.
+
+legal is being a pain in the ass about the logo
+Legal is being difficult about the logo.
+Flagging that legal is pushing back hard on the logo.
+Legal has significant concerns about the logo.
+
+this sprint is fucked
+This sprint is in bad shape.
+Flagging that this sprint is in serious trouble.
+This sprint is facing significant headwinds.
+
+the vendor screwed us on pricing
+The vendor treated us unfairly on pricing.
+Flagging that the vendor treated us unfairly on pricing.
+The vendor put us at a significant disadvantage on pricing.
+
+no damn way i'm working sunday
+There's no way I'm working Sunday.
+Being clear: I won't be working Sunday.
+To be transparent, I won't be available Sunday.
+
+these numbers are total garbage
+I don't think these numbers are right.
+Flagging that these numbers need significant work.
+These numbers are significantly below the bar.
+
+# cat=sarcasm
+love that the meeting got moved again
+The meeting got moved again.
+Flagging that the meeting got moved again.
+Surfacing that the meeting has been rescheduled again.
+
+great so now we're doing weekend releases
+It seems we're now doing weekend releases.
+Flagging that we're now doing weekend releases.
+I want to align on the shift to weekend releases.
+
+oh perfect, the client wants another revision
+Unfortunately, the client wants another revision.
+Flagging that the client wants another revision.
+Surfacing that the client has requested another revision.
+
+guess who broke the build
+I broke the build.
+Owning this: I broke the build.
+Taking ownership: I broke the build.
+
+# cat=praise
+nadia nailed the keynote
+Nadia did a great job on the keynote.
+Kudos to Nadia for the keynote!
+Huge shoutout to Nadia for an outstanding keynote.
+
+finance handled the audit like champs
+Finance handled the audit really well.
+Kudos to finance for handling the audit so well!
+Hats off to finance for navigating the audit so well.
+
+nice work everyone, great launch
+Great work, everyone, on a great launch!
+Kudos to everyone on a great launch!
+Incredibly proud of the team for an outstanding launch.
+
+shoutout to omar for covering the late shift
+Thanks to Omar for covering the late shift.
+Huge shoutout to Omar for covering the late shift!
+Huge shoutout to Omar for stepping up on the late shift.
+
+# cat=decline
+pass on the bowling night
+I'll pass on the bowling night.
+Thanks, but I'll pass on the bowling night.
+Thanks for including me; I'll sit the bowling night out.
+
+nope, can't sign off on that
+No, I can't sign off on that.
+That's a no from me: I can't sign off on that.
+To be transparent, I'm unable to sign off on that.
+
+not taking on more tickets this sprint
+I'm not taking on more tickets this sprint.
+Being clear: I can't take on more tickets this sprint.
+I don't have the bandwidth for more tickets this sprint.
+
+# cat=question
+who broke the staging env
+Who broke the staging environment?
+Quick question: who broke the staging environment?
+Could we get clarity on what broke the staging environment?
+
+is anyone using the big conference room
+Is anyone using the big conference room?
+Quick question: is anyone using the big conference room?
+Could we confirm whether the big conference room is in use?
+
+no clue how this got approved
+I'm not sure how this got approved.
+Quick question: how did this get approved?
+Could we get clarity on how this was approved?
+
+# cat=apology-runon
+sorry missed your call was driving
+Sorry I missed your call. I was driving.
+Apologies for missing your call. I was driving.
+Apologies for missing your call; I was driving.
+
+my bad sent the wrong link heres the correct one
+Sorry, I sent the wrong link. Here's the correct one.
+Apologies for the wrong link. Here's the correct one.
+Apologies, I shared the wrong link. Please find the correct one here.
+
+sorry for the late reply been out sick
+Sorry for the late reply. I've been out sick.
+Apologies for the late reply. I've been out sick.
+Apologies for the delayed reply; I've been out sick.
+
+# cat=late-sick
+running 20 late bus broke down
+I'm running 20 minutes late. My bus broke down.
+Quick heads-up: I'm running 20 minutes late because my bus broke down.
+Heads-up: I'm running 20 minutes late due to a bus breakdown.
+
+migraine, going offline
+I have a migraine, so I'm going offline.
+Quick heads-up: I have a migraine, so I'm going offline.
+I'm dealing with a migraine and will be offline.
+
+# cat=scheduling
+move standup to 10 tomorrow
+Could we move standup to 10 tomorrow?
+Quick ask: could we move standup to 10 tomorrow?
+Let's realign standup to 10 tomorrow.
+
+skip the retro this week nothing new
+Let's skip the retro this week. There's nothing new.
+Proposing we skip the retro this week, as there's nothing new.
+Let's give everyone time back and skip this week's retro, as there's nothing new.
+
+# cat=pushback
+that deadline is not realistic
+I don't think that deadline is realistic.
+Flagging that the deadline isn't realistic.
+To be transparent, that deadline is not realistic.
+
+we can't keep adding scope
+We can't keep adding scope.
+Being candid: we can't keep adding scope.
+We need to protect our scope and stop adding to it.
+
+# cat=feedback
+your status reports are too vague
+Your status reports are too vague.
+Some candid feedback: your status reports are too vague.
+One growth area: more specificity in status reports.
+
+# cat=hr
+thinking about going part time
+I'm thinking about going part-time.
+Quick heads-up: I'm considering going part-time.
+I'd like to explore a part-time arrangement.
+
+# cat=customer
+customer wants a refund for march
+The customer wants a refund for March.
+Flagging that the customer wants a refund for March.
+The customer has requested a refund for March.
+
+# cat=it-tech
+jira is down again
+Unfortunately, Jira is down again.
+Flagging that Jira is down again.
+Surfacing a recurring tooling headwind: Jira is down again.
+
+migrated the db to postgres 16 no issues
+I migrated the database to Postgres 16 with no issues.
+Quick update: the database is migrated to Postgres 16 with no issues.
+Pleased to share that we've migrated to Postgres 16 with no issues.
+
+# cat=announcement
+parking garage closed friday for repairs
+The parking garage is closed Friday for repairs.
+Quick heads-up: the parking garage is closed Friday for repairs.
+A reminder that the parking garage will be closed Friday for repairs.
+
+leo is taking over the mobile team
+Leo is taking over the mobile team.
+Excited to share that Leo is taking over the mobile team!
+Thrilled to announce that Leo is taking over the mobile team.
+
+# cat=one-liner
+no clue
+I'm not sure.
+Good question, I'm not sure.
+I don't have visibility on that yet.
+
+# cat=mixed
+finally fixed the memory leak, took all week
+I finally fixed the memory leak. It took all week.
+Quick win: the memory leak is fixed, though it took all week.
+Pleased to share that the memory leak is resolved after a week-long effort.
+
+hana is sick so the demo moves to monday
+Hana is sick, so the demo moves to Monday.
+Quick heads-up: Hana is sick, so the demo moves to Monday.
+With Hana out sick, the demo will move to Monday.
+
+wifi password changed check your email
+The wifi password changed. Please check your email.
+Quick heads-up: the wifi password changed. Please check your email.
+A reminder that the wifi password has changed; details are in your email.
+
+cant reproduce the bug on my machine
+I can't reproduce the bug on my machine.
+Flagging that I can't reproduce the bug on my machine.
+I'm unable to reproduce the issue on my machine.

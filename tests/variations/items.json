@@ -19177,5 +19177,2141 @@
    "For full visibility, traffic is heavy today."
   ],
   "source": "normal-holdout-4.txt"
+ },
+ {
+  "id": "n1219",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "staging db is down again",
+  "ideal": [
+   "Unfortunately, the staging database is down again.",
+   "Flagging that the staging database is down again.",
+   "Surfacing a recurring availability headwind: the staging database is down again."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1220",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "invoice batch failed overnight",
+  "ideal": [
+   "Unfortunately, the invoice batch failed overnight.",
+   "Flagging that the invoice batch failed overnight.",
+   "Surfacing that the overnight invoice batch did not complete as planned."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1221",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "new hires start monday",
+  "ideal": [
+   "Just to let you know, the new hires start Monday.",
+   "Quick heads-up: the new hires start Monday.",
+   "Excited to share that our new talent joins the journey on Monday."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1222",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "the projector in room 4 is broken",
+  "ideal": [
+   "Unfortunately, the projector in room 4 is broken.",
+   "Flagging that the projector in room 4 is broken.",
+   "Surfacing an AV headwind: the projector in room 4 is out of service."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1223",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "shipping costs went up 12%",
+  "ideal": [
+   "Just to let you know, shipping costs went up 12%.",
+   "Flagging that shipping costs went up 12%.",
+   "Surfacing a cost headwind: shipping costs have increased 12%."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1224",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "we hit 10k users today",
+  "ideal": [
+   "Happy to share that we hit 10k users today!",
+   "Quick win: we hit 10k users today!",
+   "Thrilled to share a key milestone in our growth journey: we hit 10k users today."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1225",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "the build is green now",
+  "ideal": [
+   "Good news: the build is green now.",
+   "Quick update: the build is green now.",
+   "Pleased to share that the build is green and we're back on track."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1226",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "marketing pushed the launch to next week",
+  "ideal": [
+   "Just to let you know, marketing pushed the launch to next week.",
+   "Flagging that marketing moved the launch to next week.",
+   "Surfacing a timeline update: marketing has moved the launch to next week."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1227",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "client signed the renewal",
+  "ideal": [
+   "Good news: the client signed the renewal!",
+   "Quick win: the client signed the renewal!",
+   "Thrilled to share that the client has signed the renewal, a key win for the partnership."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1228",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "can someone restart the jenkins box",
+  "ideal": [
+   "Could someone restart the Jenkins box?",
+   "Quick ask: could someone restart the Jenkins box?",
+   "Could we get a volunteer to restart the Jenkins box so we can unblock the pipeline?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1229",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "need someone to cover my shift friday",
+  "ideal": [
+   "Could someone cover my shift on Friday?",
+   "Quick ask: is anyone able to cover my shift on Friday?",
+   "Looking for a partner to cover my shift on Friday. Grateful for any support."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1230",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "pls review my PR when u get a sec",
+  "ideal": [
+   "Could you review my PR when you get a moment?",
+   "Quick ask: could you review my PR when you have a moment?",
+   "When bandwidth allows, could you review my PR?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1231",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "stop cc'ing the whole team on everything",
+  "ideal": [
+   "Could we stop cc'ing the whole team on everything?",
+   "Quick ask: could we keep cc's to the people who need them?",
+   "Let's be intentional about cc's so the whole team isn't copied on everything."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1232",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "update the ticket when ur done",
+  "ideal": [
+   "Could you update the ticket when you're done?",
+   "Quick ask: could you update the ticket once you're done?",
+   "Once complete, could you update the ticket so we keep visibility?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1233",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "i need the budget numbers by eod",
+  "ideal": [
+   "Could I get the budget numbers by end of day?",
+   "Quick ask: could I get the budget numbers by end of day?",
+   "Could I get the budget numbers by end of day so we can stay aligned?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1234",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "someone order more coffee",
+  "ideal": [
+   "Could someone order more coffee?",
+   "Quick ask: could someone order more coffee?",
+   "Could someone replenish our coffee supply?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1235",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "this vendor is a total shitshow",
+  "ideal": [
+   "This vendor is having serious problems.",
+   "Flagging that this vendor has serious problems.",
+   "I have significant concerns about this vendor's ability to deliver."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1236",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "who the hell approved this",
+  "ideal": [
+   "Who approved this?",
+   "Quick question: who approved this?",
+   "Could we get clarity on who approved this?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1237",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the new process is crap",
+  "ideal": [
+   "I don't think the new process works well.",
+   "My two cents: the new process isn't working well.",
+   "I have strategic reservations about the new process."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1238",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "i'm so fucking tired of these meetings",
+  "ideal": [
+   "I'm really tired of these meetings.",
+   "Being candid: I'm really tired of these meetings.",
+   "I'd like to revisit our meeting cadence; it's draining my bandwidth."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1239",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "damn the server crashed again",
+  "ideal": [
+   "The server crashed again.",
+   "Flagging that the server crashed again.",
+   "Surfacing a recurring stability headwind: the server crashed again."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1240",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "we got screwed on the contract",
+  "ideal": [
+   "We got a bad deal on the contract.",
+   "Flagging that the contract terms went badly for us.",
+   "The contract terms landed significantly below our expectations."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1241",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the demo was a clusterfuck",
+  "ideal": [
+   "The demo went very badly.",
+   "Flagging that the demo went very badly.",
+   "The demo surfaced significant execution challenges."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1242",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "piss poor planning on this one",
+  "ideal": [
+   "The planning on this one was very poor.",
+   "Being candid: the planning on this one was very poor.",
+   "There are significant learnings around planning on this one."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1243",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "no fucking way we ship friday",
+  "ideal": [
+   "There's no way we ship Friday.",
+   "Being candid: there's no way we ship Friday.",
+   "To be transparent, a Friday ship is not feasible."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1244",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "love how nobody read my email",
+  "ideal": [
+   "It seems nobody read my email.",
+   "Flagging that my email doesn't seem to have been read.",
+   "Circling back, as my earlier email may not have landed."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1245",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "wow super helpful thanks",
+  "ideal": [
+   "That wasn't very helpful.",
+   "Being candid: that wasn't very helpful.",
+   "I'm not sure that fully addressed the need."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1246",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "cool so we're just ignoring the deadline",
+  "ideal": [
+   "It seems we're ignoring the deadline.",
+   "Flagging that we seem to be ignoring the deadline.",
+   "I want to make sure we're still aligned on the deadline."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1247",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "fantastic, the wifi is out again",
+  "ideal": [
+   "Unfortunately, the wifi is out again.",
+   "Flagging that the wifi is out again.",
+   "Surfacing a recurring connectivity headwind: the wifi is out again."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1248",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "nice of them to tell us an hour before",
+  "ideal": [
+   "I wish they'd told us earlier than an hour before.",
+   "Flagging that we only heard an hour before.",
+   "Ideally we'd have had more than an hour's notice."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1249",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "priya crushed the client demo",
+  "ideal": [
+   "Priya did a great job on the client demo.",
+   "Huge shoutout to Priya for the client demo!",
+   "Huge shoutout to Priya for an outstanding client demo that showcased excellence."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1250",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "thanks for jumping on that bug so fast",
+  "ideal": [
+   "Thanks for jumping on that bug so fast.",
+   "Huge thanks for jumping on that bug so quickly!",
+   "Grateful for your agility in resolving that bug so quickly."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1251",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "the new dashboard looks amazing",
+  "ideal": [
+   "The new dashboard looks great.",
+   "Kudos on the new dashboard, it looks great!",
+   "The new dashboard is a best-in-class example of great design."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1252",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "good job everyone, great quarter",
+  "ideal": [
+   "Great job everyone on a great quarter.",
+   "Kudos to everyone on a great quarter!",
+   "Incredibly proud of the team for delivering an outstanding quarter."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1253",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "marco saved our ass on the migration",
+  "ideal": [
+   "Marco really saved us on the migration.",
+   "Huge shoutout to Marco for saving the migration!",
+   "Huge shoutout to Marco for rescuing the migration."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1254",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "support team handled the outage like pros",
+  "ideal": [
+   "The support team handled the outage really well.",
+   "Kudos to the support team for handling the outage so well!",
+   "Hats off to the support team for navigating the outage with true professionalism."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1255",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "can't make the offsite",
+  "ideal": [
+   "I can't make the offsite.",
+   "Unfortunately, I won't be able to make the offsite.",
+   "Unfortunately, I'm unable to attend the offsite."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1256",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "i don't have time for this right now",
+  "ideal": [
+   "I don't have time for this right now.",
+   "Unfortunately, I don't have bandwidth for this right now.",
+   "I don't have the bandwidth to take this on at this time."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1257",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "not doing another all-nighter",
+  "ideal": [
+   "I'm not doing another all-nighter.",
+   "Being clear: I'm not able to do another all-nighter.",
+   "I won't be able to support another all-nighter."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1258",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "pass on the happy hour",
+  "ideal": [
+   "I'll pass on the happy hour.",
+   "Thanks, but I'll pass on the happy hour.",
+   "Thanks for including me; I'll sit this happy hour out."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1259",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "is the 2pm still on",
+  "ideal": [
+   "Is the 2pm still on?",
+   "Quick check: is the 2pm still on?",
+   "Could we confirm the 2pm is still on?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1260",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "why is the build taking 40 minutes",
+  "ideal": [
+   "Why is the build taking 40 minutes?",
+   "Quick question: why is the build taking 40 minutes?",
+   "Could we unpack why the build is taking 40 minutes?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1261",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "did anyone call the customer back",
+  "ideal": [
+   "Did anyone call the customer back?",
+   "Quick check: did anyone call the customer back?",
+   "Could we confirm whether someone has followed up with the customer?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1262",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "whats the wifi password",
+  "ideal": [
+   "What's the wifi password?",
+   "Quick question: what's the wifi password?",
+   "Could someone share the wifi password?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1263",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "when do we get the new laptops",
+  "ideal": [
+   "When do we get the new laptops?",
+   "Quick question: when do we get the new laptops?",
+   "Could we get visibility on timing for the new laptops?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1264",
+  "direction": "toCorporate",
+  "category": "apology-runon",
+  "input": "sorry i missed standup my alarm didnt go off",
+  "ideal": [
+   "Sorry I missed standup. My alarm didn't go off.",
+   "Apologies for missing standup. My alarm didn't go off.",
+   "Apologies for missing standup; my alarm didn't go off."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1265",
+  "direction": "toCorporate",
+  "category": "apology-runon",
+  "input": "my bad i deleted the wrong folder restoring it now",
+  "ideal": [
+   "My mistake, I deleted the wrong folder. I'm restoring it now.",
+   "Owning this: I deleted the wrong folder and I'm restoring it now.",
+   "Taking ownership: I deleted the wrong folder and I'm restoring it now."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1266",
+  "direction": "toCorporate",
+  "category": "apology-runon",
+  "input": "sorry for the delay been slammed",
+  "ideal": [
+   "Sorry for the delay. I've been very busy.",
+   "Apologies for the delay. I've been at capacity.",
+   "Apologies for the delay; my bandwidth has been fully allocated."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1267",
+  "direction": "toCorporate",
+  "category": "apology-runon",
+  "input": "oops wrong channel ignore that",
+  "ideal": [
+   "Oops, wrong channel. Please ignore that.",
+   "Apologies, wrong channel. Please disregard.",
+   "Apologies, that was posted in the wrong channel. Please disregard."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1268",
+  "direction": "toCorporate",
+  "category": "late-sick",
+  "input": "running 15 late train is delayed",
+  "ideal": [
+   "I'm running 15 minutes late. My train is delayed.",
+   "Quick heads-up: I'm running 15 minutes late because my train is delayed.",
+   "Heads-up: I'm running 15 minutes late due to a train delay."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1269",
+  "direction": "toCorporate",
+  "category": "scheduling",
+  "input": "can we move our 1:1 to thursday",
+  "ideal": [
+   "Could we move our 1:1 to Thursday?",
+   "Quick ask: could we move our 1:1 to Thursday?",
+   "Could we realign our 1:1 to Thursday?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1270",
+  "direction": "toCorporate",
+  "category": "scheduling",
+  "input": "lets push the review to next week",
+  "ideal": [
+   "Could we push the review to next week?",
+   "Quick ask: could we move the review to next week?",
+   "Let's realign the review to next week."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1271",
+  "direction": "toCorporate",
+  "category": "scheduling",
+  "input": "i'm free after 3 tomorrow",
+  "ideal": [
+   "I'm free after 3 tomorrow.",
+   "Quick heads-up: I'm free after 3 tomorrow.",
+   "I have availability after 3 tomorrow."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1272",
+  "direction": "toCorporate",
+  "category": "scheduling",
+  "input": "cancel the friday sync nothing to discuss",
+  "ideal": [
+   "Let's cancel the Friday sync. There's nothing to discuss.",
+   "Proposing we cancel the Friday sync, as there's nothing to discuss.",
+   "Let's give everyone time back and cancel the Friday sync, as there's nothing to discuss."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1273",
+  "direction": "toCorporate",
+  "category": "pushback",
+  "input": "that estimate is way too low",
+  "ideal": [
+   "I think that estimate is too low.",
+   "My two cents: that estimate looks too low.",
+   "I'd like to pressure-test that estimate, as it looks too low."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1274",
+  "direction": "toCorporate",
+  "category": "pushback",
+  "input": "we already tried that and it failed",
+  "ideal": [
+   "We already tried that and it didn't work.",
+   "Flagging that we already tried that and it didn't work.",
+   "Leveraging past learnings: we already tried that approach and it didn't land."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1275",
+  "direction": "toCorporate",
+  "category": "pushback",
+  "input": "this isn't my job",
+  "ideal": [
+   "I don't think this is my responsibility.",
+   "Being candid: this isn't in my scope.",
+   "I want to align on ownership, as this sits outside my scope."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1276",
+  "direction": "toCorporate",
+  "category": "pushback",
+  "input": "i disagree with cutting QA",
+  "ideal": [
+   "I disagree with cutting QA.",
+   "Being candid: I disagree with cutting QA.",
+   "I have strategic reservations about cutting QA."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1277",
+  "direction": "toCorporate",
+  "category": "pushback",
+  "input": "two weeks is not enough for this",
+  "ideal": [
+   "I don't think two weeks is enough for this.",
+   "Flagging that two weeks isn't enough for this.",
+   "To be transparent, two weeks is not a realistic timeline for this."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1278",
+  "direction": "toCorporate",
+  "category": "pushback",
+  "input": "why are we doing this again",
+  "ideal": [
+   "Why are we doing this again?",
+   "Quick question: why are we doing this again?",
+   "Could we revisit the why behind this?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1279",
+  "direction": "toCorporate",
+  "category": "feedback",
+  "input": "you need to reply to emails faster",
+  "ideal": [
+   "You need to reply to emails faster.",
+   "Some candid feedback: I need faster replies to emails.",
+   "One growth area: email response times."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1280",
+  "direction": "toCorporate",
+  "category": "feedback",
+  "input": "the report was good but too long",
+  "ideal": [
+   "The report was good, but too long.",
+   "Some candid feedback: the report was good, but too long.",
+   "Great report, with an opportunity to tighten it up."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1281",
+  "direction": "toCorporate",
+  "category": "feedback",
+  "input": "stop talking over people",
+  "ideal": [
+   "Please stop talking over people.",
+   "Some candid feedback: please stop talking over people.",
+   "One growth area: making space for others to speak."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1282",
+  "direction": "toCorporate",
+  "category": "hr",
+  "input": "i want to talk about a raise",
+  "ideal": [
+   "I'd like to talk about a raise.",
+   "Quick ask: could we talk about a raise?",
+   "I'd like to set up time to discuss my compensation."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1283",
+  "direction": "toCorporate",
+  "category": "hr",
+  "input": "i'm quitting, last day is the 30th",
+  "ideal": [
+   "I'm resigning. My last day is the 30th.",
+   "Sharing that I'm resigning, and my last day is the 30th.",
+   "After much reflection, I'm resigning. My last day will be the 30th."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1284",
+  "direction": "toCorporate",
+  "category": "hr",
+  "input": "need to take next week off",
+  "ideal": [
+   "I need to take next week off.",
+   "Quick heads-up: I need to take next week off.",
+   "I'll be taking PTO next week."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1285",
+  "direction": "toCorporate",
+  "category": "hr",
+  "input": "my manager keeps yelling at me",
+  "ideal": [
+   "My manager keeps yelling at me.",
+   "Being candid: my manager keeps yelling at me.",
+   "I need to raise a concern: my manager keeps yelling at me."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1286",
+  "direction": "toCorporate",
+  "category": "customer",
+  "input": "the customer is threatening to cancel",
+  "ideal": [
+   "The customer is threatening to cancel.",
+   "Flagging that the customer is threatening to cancel.",
+   "Surfacing a churn risk: the customer is threatening to cancel."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1287",
+  "direction": "toCorporate",
+  "category": "customer",
+  "input": "refund approved, let the customer know",
+  "ideal": [
+   "The refund is approved. Could you let the customer know?",
+   "Quick update: the refund is approved. Could you let the customer know?",
+   "The refund has been approved. Could you close the loop with the customer?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1288",
+  "direction": "toCorporate",
+  "category": "customer",
+  "input": "customer says the app logs them out every 5 min",
+  "ideal": [
+   "The customer says the app logs them out every 5 minutes.",
+   "Flagging that the customer says the app logs them out every 5 minutes.",
+   "Surfacing a customer pain point: the app logs them out every 5 minutes."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1289",
+  "direction": "toCorporate",
+  "category": "customer",
+  "input": "this customer asks the same question every day",
+  "ideal": [
+   "This customer asks the same question every day.",
+   "Flagging that this customer asks the same question every day.",
+   "This customer has a recurring need for clarity on the same question."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1290",
+  "direction": "toCorporate",
+  "category": "money",
+  "input": "we're over budget by 20k",
+  "ideal": [
+   "We're over budget by 20k.",
+   "Flagging that we're over budget by 20k.",
+   "Surfacing a budget headwind: we're 20k over."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1291",
+  "direction": "toCorporate",
+  "category": "money",
+  "input": "expenses need to be in by friday",
+  "ideal": [
+   "Expenses need to be in by Friday.",
+   "Quick reminder: expenses need to be in by Friday.",
+   "A friendly reminder that expenses are due by Friday."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1292",
+  "direction": "toCorporate",
+  "category": "money",
+  "input": "no budget for new hires this year",
+  "ideal": [
+   "There's no budget for new hires this year.",
+   "Flagging that there's no budget for new hires this year.",
+   "To be transparent, there is no budget for new hires this year."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1293",
+  "direction": "toCorporate",
+  "category": "it-tech",
+  "input": "someone pushed to main without review",
+  "ideal": [
+   "Someone pushed to main without a review.",
+   "Flagging that someone pushed to main without a review.",
+   "Surfacing a process gap: someone pushed to main without a review."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1294",
+  "direction": "toCorporate",
+  "category": "it-tech",
+  "input": "the api returns 500 on login",
+  "ideal": [
+   "The API returns a 500 on login.",
+   "Flagging that the API returns a 500 on login.",
+   "Surfacing a login reliability issue: the API returns a 500."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1295",
+  "direction": "toCorporate",
+  "category": "it-tech",
+  "input": "disk is 95% full on prod",
+  "ideal": [
+   "The disk is 95% full on prod.",
+   "Flagging that the prod disk is 95% full.",
+   "Surfacing a capacity risk: the prod disk is 95% full."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1296",
+  "direction": "toCorporate",
+  "category": "it-tech",
+  "input": "upgraded node to 22 everything still works",
+  "ideal": [
+   "I upgraded Node to 22, and everything still works.",
+   "Quick update: I upgraded Node to 22, and everything still works.",
+   "Pleased to share that we've upgraded Node to 22 with no impact."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1297",
+  "direction": "toCorporate",
+  "category": "announcement",
+  "input": "office closed monday for the holiday",
+  "ideal": [
+   "The office is closed Monday for the holiday.",
+   "Quick heads-up: the office is closed Monday for the holiday.",
+   "A reminder that the office will be closed Monday for the holiday."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1298",
+  "direction": "toCorporate",
+  "category": "announcement",
+  "input": "free pizza in the kitchen",
+  "ideal": [
+   "There's free pizza in the kitchen.",
+   "Quick heads-up: there's free pizza in the kitchen!",
+   "Excited to share that there's free pizza in the kitchen."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1299",
+  "direction": "toCorporate",
+  "category": "announcement",
+  "input": "sarah is now leading the design team",
+  "ideal": [
+   "Sarah is now leading the design team.",
+   "Excited to share that Sarah is now leading the design team!",
+   "Thrilled to announce that Sarah is now leading the design team."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1300",
+  "direction": "toCorporate",
+  "category": "announcement",
+  "input": "we're moving to a new office in march",
+  "ideal": [
+   "We're moving to a new office in March.",
+   "Quick heads-up: we're moving to a new office in March.",
+   "Excited to share that we're moving into a new office in March."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1301",
+  "direction": "toCorporate",
+  "category": "one-liner",
+  "input": "no idea",
+  "ideal": [
+   "I'm not sure.",
+   "Good question, I'm not sure.",
+   "I don't have visibility on that yet."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1302",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "finally got the cert renewed, took forever",
+  "ideal": [
+   "I finally got the certificate renewed. It took a long time.",
+   "Quick win: the certificate is finally renewed, though it took a while.",
+   "Pleased to share that the certificate has been renewed after an extended effort."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1303",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "jamal is out so i'll run the demo",
+  "ideal": [
+   "Jamal is out, so I'll run the demo.",
+   "Quick heads-up: Jamal is out, so I'll run the demo.",
+   "With Jamal out, I'll lead the demo."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1304",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "we lost the deal to a cheaper competitor",
+  "ideal": [
+   "We lost the deal to a cheaper competitor.",
+   "Flagging that we lost the deal to a cheaper competitor.",
+   "We were not selected; the client chose a lower-cost competitor."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1305",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "no clue why the numbers dont match",
+  "ideal": [
+   "I don't know why the numbers don't match.",
+   "Flagging that I don't know why the numbers don't match.",
+   "I'm investigating why the numbers don't reconcile."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1306",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "got the offer letter today!!",
+  "ideal": [
+   "I got the offer letter today!",
+   "Excited to share that I got the offer letter today!",
+   "Thrilled to share that I received the offer letter today."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1307",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "still waiting on legal",
+  "ideal": [
+   "I'm still waiting on legal.",
+   "Quick update: still waiting on legal.",
+   "We're currently pending input from legal."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1308",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "the coffee machine is leaking everywhere",
+  "ideal": [
+   "The coffee machine is leaking everywhere.",
+   "Flagging that the coffee machine is leaking everywhere.",
+   "Surfacing a facilities issue: the coffee machine is leaking."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1309",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "i fixed it but i dont know how",
+  "ideal": [
+   "I fixed it, but I don't know how.",
+   "Quick update: it's fixed, though I'm not sure how.",
+   "The issue is resolved; root cause analysis is pending."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1310",
+  "direction": "toCorporate",
+  "category": "list",
+  "input": "todo:\n- fix login\n- email finance\n- book flights",
+  "ideal": [
+   "To do:\n- Fix login\n- Email finance\n- Book flights",
+   "Next steps:\n- Fix login\n- Email finance\n- Book flights",
+   "Key action items:\n- Fix login\n- Email finance\n- Book flights"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1311",
+  "direction": "toCorporate",
+  "category": "list",
+  "input": "blockers: no access to the repo, waiting on design",
+  "ideal": [
+   "Blockers: no access to the repo, and waiting on design.",
+   "Current blockers: no access to the repo, and waiting on design.",
+   "Surfacing two blockers: no access to the repo, and pending design input."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1312",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "these specs are bullshit",
+  "ideal": [
+   "I don't think these specs are right.",
+   "Being candid: I have concerns about these specs.",
+   "I have significant concerns about these specs."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1313",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "that meeting was a waste of fucking time",
+  "ideal": [
+   "That meeting was a waste of time.",
+   "Being candid: that meeting wasn't a good use of time.",
+   "That meeting did not drive meaningful outcomes."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1314",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "sure, i'll just do it all myself then",
+  "ideal": [
+   "It seems I'll be doing it all myself.",
+   "Flagging that I seem to be doing it all myself.",
+   "I want to align on resourcing, as this currently sits with me alone."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1315",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "great, another meeting that could've been an email",
+  "ideal": [
+   "This meeting could have been an email.",
+   "My two cents: this could have been an email.",
+   "Let's consider whether this could be handled asynchronously."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1316",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "can you not schedule meetings at lunch",
+  "ideal": [
+   "Could you avoid scheduling meetings at lunch?",
+   "Quick ask: could we avoid scheduling meetings at lunch?",
+   "Could we protect the lunch hour from meetings?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1317",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "pls stop pinging me on weekends",
+  "ideal": [
+   "Please stop messaging me on weekends.",
+   "Quick ask: could we keep messages to weekdays?",
+   "Let's respect weekend boundaries and keep messages to weekdays."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1318",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "are we still doing the offsite or not",
+  "ideal": [
+   "Are we still doing the offsite?",
+   "Quick check: are we still doing the offsite?",
+   "Could we confirm whether the offsite is still happening?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1319",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "cant help this week, maybe next",
+  "ideal": [
+   "I can't help this week, but maybe next week.",
+   "Unfortunately, I can't help this week, but maybe next.",
+   "I don't have bandwidth this week, but next week may work."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1320",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "the report is 80% done",
+  "ideal": [
+   "The report is 80% done.",
+   "Quick update: the report is 80% done.",
+   "The report is 80% complete and on track."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1321",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "contractor quit without notice",
+  "ideal": [
+   "Unfortunately, the contractor quit without notice.",
+   "Flagging that the contractor quit without notice.",
+   "Surfacing a resourcing headwind: the contractor left without notice."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1322",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "the badge reader at the side door is busted",
+  "ideal": [
+   "Unfortunately, the badge reader at the side door is broken.",
+   "Flagging that the badge reader at the side door is broken.",
+   "Surfacing a facilities issue: the badge reader at the side door is out of service."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1323",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "warehouse ran out of medium boxes",
+  "ideal": [
+   "Unfortunately, the warehouse ran out of medium boxes.",
+   "Flagging that the warehouse ran out of medium boxes.",
+   "Surfacing a supply headwind: the warehouse is out of medium boxes."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1324",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "podcast episode 12 goes live tomorrow",
+  "ideal": [
+   "Just to let you know, podcast episode 12 goes live tomorrow.",
+   "Quick heads-up: podcast episode 12 goes live tomorrow.",
+   "Excited to share that podcast episode 12 goes live tomorrow."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1325",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "the auditors found two issues in the ledger",
+  "ideal": [
+   "Unfortunately, the auditors found two issues in the ledger.",
+   "Flagging that the auditors found two issues in the ledger.",
+   "Surfacing that the auditors identified two issues in the ledger."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1326",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "can u forward me the invoice from acme",
+  "ideal": [
+   "Could you forward me the invoice from Acme?",
+   "Quick ask: could you forward me the invoice from Acme?",
+   "Could you share the Acme invoice with me?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1327",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "somebody please water the plants while i'm away",
+  "ideal": [
+   "Could someone water the plants while I'm away?",
+   "Quick ask: could someone water the plants while I'm away?",
+   "Could someone take ownership of watering the plants while I'm away?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1328",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "quit leaving dishes in the sink",
+  "ideal": [
+   "Please stop leaving dishes in the sink.",
+   "Quick ask: could we all stop leaving dishes in the sink?",
+   "Let's all take ownership of our dishes and keep the sink clear."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1329",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the onboarding docs are garbage",
+  "ideal": [
+   "I don't think the onboarding docs are good.",
+   "Being candid: the onboarding docs need a lot of work.",
+   "The onboarding docs have significant room for improvement."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1330",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "our printer is a piece of shit",
+  "ideal": [
+   "Our printer is very unreliable.",
+   "Flagging that our printer is very unreliable.",
+   "Our printer presents significant reliability challenges."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1331",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "he dropped the ball big time on the rollout",
+  "ideal": [
+   "He made a big mistake on the rollout.",
+   "Flagging that the rollout had a big miss on his side.",
+   "There were significant execution gaps on his side of the rollout."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1332",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "holy shit we closed the deal",
+  "ideal": [
+   "We closed the deal!",
+   "Huge win: we closed the deal!",
+   "Thrilled to share that we've closed the deal."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1333",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "oh good, the printer jammed again",
+  "ideal": [
+   "Unfortunately, the printer jammed again.",
+   "Flagging that the printer jammed again.",
+   "Surfacing a recurring headwind: the printer jammed again."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1334",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "thanks for the 5pm friday request",
+  "ideal": [
+   "A request at 5pm on Friday is hard to fit in.",
+   "Being candid: 5pm Friday requests are hard to fit in.",
+   "I'd appreciate more lead time than 5pm on a Friday."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1335",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "lovely, the client changed the scope again",
+  "ideal": [
+   "Unfortunately, the client changed the scope again.",
+   "Flagging that the client changed the scope again.",
+   "Surfacing a scope headwind: the client has changed the scope again."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1336",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "shoutout to lena for the clean handoff",
+  "ideal": [
+   "Thanks to Lena for the clean handoff.",
+   "Huge shoutout to Lena for the clean handoff!",
+   "Huge shoutout to Lena for a seamless handoff."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1337",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "ops did a killer job on the move",
+  "ideal": [
+   "Ops did a great job on the move.",
+   "Kudos to ops for a great job on the move!",
+   "Hats off to ops for executing the move flawlessly."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1338",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "i'm not going to that conference",
+  "ideal": [
+   "I'm not going to that conference.",
+   "Unfortunately, I won't be attending that conference.",
+   "I'll be sitting that conference out."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1339",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "nope, can't approve that spend",
+  "ideal": [
+   "No, I can't approve that spend.",
+   "Being clear: I can't approve that spend.",
+   "To be transparent, I'm unable to approve that spend."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1340",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "where did we land on the pricing",
+  "ideal": [
+   "Where did we land on the pricing?",
+   "Quick question: where did we land on the pricing?",
+   "Could we align on where we landed on pricing?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1341",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "does anyone know how to export from jira",
+  "ideal": [
+   "Does anyone know how to export from Jira?",
+   "Quick question: does anyone know how to export from Jira?",
+   "Could someone share how to export from Jira?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1342",
+  "direction": "toCorporate",
+  "category": "apology-runon",
+  "input": "sorry wrong file attached heres the right one",
+  "ideal": [
+   "Sorry, wrong file. Here's the right one.",
+   "Apologies for attaching the wrong file. Here's the right one.",
+   "Apologies, I attached the wrong file. Please find the correct one here."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1343",
+  "direction": "toCorporate",
+  "category": "apology-runon",
+  "input": "sorry i snapped at you earlier i was stressed",
+  "ideal": [
+   "Sorry I snapped at you earlier. I was stressed.",
+   "Apologies for snapping at you earlier. I was stressed.",
+   "I want to apologize for snapping at you earlier; I was under a lot of stress."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1344",
+  "direction": "toCorporate",
+  "category": "late-sick",
+  "input": "dentist at 10, back by noon",
+  "ideal": [
+   "I have a dentist appointment at 10 and will be back by noon.",
+   "Quick heads-up: dentist appointment at 10, back by noon.",
+   "I'll be at a dentist appointment at 10 and back online by noon."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1345",
+  "direction": "toCorporate",
+  "category": "money",
+  "input": "the client hasn't paid in 90 days",
+  "ideal": [
+   "The client hasn't paid in 90 days.",
+   "Flagging that the client hasn't paid in 90 days.",
+   "Surfacing a receivables risk: the client hasn't paid in 90 days."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1346",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "guess who forgot the charger again",
+  "ideal": [
+   "I forgot my charger again.",
+   "Quick heads-up: I forgot my charger again.",
+   "Quick heads-up: I'm without my charger again today."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1347",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "the fire alarm test is at 2 so ignore it",
+  "ideal": [
+   "The fire alarm test is at 2, so please ignore it.",
+   "Quick heads-up: the fire alarm test is at 2, so please ignore it.",
+   "A reminder that the fire alarm test is at 2; no action needed."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1348",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "label printer is out of ink",
+  "ideal": [
+   "Unfortunately, the label printer is out of ink.",
+   "Flagging that the label printer is out of ink.",
+   "Surfacing a supply headwind: the label printer is out of ink."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1349",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "nightly backup didnt run",
+  "ideal": [
+   "Unfortunately, the nightly backup didn't run.",
+   "Flagging that the nightly backup didn't run.",
+   "Surfacing a resilience gap: the nightly backup didn't run."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1350",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "beta signups passed 500",
+  "ideal": [
+   "Happy to share that beta signups passed 500!",
+   "Quick win: beta signups passed 500!",
+   "Thrilled to share that beta signups have passed 500."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1351",
+  "direction": "toCorporate",
+  "category": "status-bare",
+  "input": "finance closed the books for q3",
+  "ideal": [
+   "Just to let you know, finance closed the books for Q3.",
+   "Quick update: finance closed the books for Q3.",
+   "Pleased to share that finance has closed the books for Q3."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1352",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "somebody grab the mail from reception",
+  "ideal": [
+   "Could someone grab the mail from reception?",
+   "Quick ask: could someone grab the mail from reception?",
+   "Could someone collect the mail from reception?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1353",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "send the contract to tomas today",
+  "ideal": [
+   "Could you send the contract to Tomas today?",
+   "Quick ask: could you send the contract to Tomas today?",
+   "Could you share the contract with Tomas today?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1354",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "need someone to proofread the newsletter",
+  "ideal": [
+   "Could someone proofread the newsletter?",
+   "Quick ask: could someone proofread the newsletter?",
+   "Looking for a partner to proofread the newsletter."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1355",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "quit replying all to the whole company",
+  "ideal": [
+   "Please stop replying all to the whole company.",
+   "Quick ask: could we stop replying all to the whole company?",
+   "Let's be intentional and avoid reply-all to the whole company."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1356",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the hiring process is a fucking joke",
+  "ideal": [
+   "I don't think the hiring process works.",
+   "Being candid: the hiring process isn't working.",
+   "I have significant concerns about the hiring process."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1357",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "legal is being a pain in the ass about the logo",
+  "ideal": [
+   "Legal is being difficult about the logo.",
+   "Flagging that legal is pushing back hard on the logo.",
+   "Legal has significant concerns about the logo."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1358",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "this sprint is fucked",
+  "ideal": [
+   "This sprint is in bad shape.",
+   "Flagging that this sprint is in serious trouble.",
+   "This sprint is facing significant headwinds."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1359",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the vendor screwed us on pricing",
+  "ideal": [
+   "The vendor treated us unfairly on pricing.",
+   "Flagging that the vendor treated us unfairly on pricing.",
+   "The vendor put us at a significant disadvantage on pricing."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1360",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "no damn way i'm working sunday",
+  "ideal": [
+   "There's no way I'm working Sunday.",
+   "Being clear: I won't be working Sunday.",
+   "To be transparent, I won't be available Sunday."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1361",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "these numbers are total garbage",
+  "ideal": [
+   "I don't think these numbers are right.",
+   "Flagging that these numbers need significant work.",
+   "These numbers are significantly below the bar."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1362",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "love that the meeting got moved again",
+  "ideal": [
+   "The meeting got moved again.",
+   "Flagging that the meeting got moved again.",
+   "Surfacing that the meeting has been rescheduled again."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1363",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "great so now we're doing weekend releases",
+  "ideal": [
+   "It seems we're now doing weekend releases.",
+   "Flagging that we're now doing weekend releases.",
+   "I want to align on the shift to weekend releases."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1364",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "oh perfect, the client wants another revision",
+  "ideal": [
+   "Unfortunately, the client wants another revision.",
+   "Flagging that the client wants another revision.",
+   "Surfacing that the client has requested another revision."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1365",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "guess who broke the build",
+  "ideal": [
+   "I broke the build.",
+   "Owning this: I broke the build.",
+   "Taking ownership: I broke the build."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1366",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "nadia nailed the keynote",
+  "ideal": [
+   "Nadia did a great job on the keynote.",
+   "Kudos to Nadia for the keynote!",
+   "Huge shoutout to Nadia for an outstanding keynote."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1367",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "finance handled the audit like champs",
+  "ideal": [
+   "Finance handled the audit really well.",
+   "Kudos to finance for handling the audit so well!",
+   "Hats off to finance for navigating the audit so well."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1368",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "nice work everyone, great launch",
+  "ideal": [
+   "Great work, everyone, on a great launch!",
+   "Kudos to everyone on a great launch!",
+   "Incredibly proud of the team for an outstanding launch."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1369",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "shoutout to omar for covering the late shift",
+  "ideal": [
+   "Thanks to Omar for covering the late shift.",
+   "Huge shoutout to Omar for covering the late shift!",
+   "Huge shoutout to Omar for stepping up on the late shift."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1370",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "pass on the bowling night",
+  "ideal": [
+   "I'll pass on the bowling night.",
+   "Thanks, but I'll pass on the bowling night.",
+   "Thanks for including me; I'll sit the bowling night out."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1371",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "nope, can't sign off on that",
+  "ideal": [
+   "No, I can't sign off on that.",
+   "That's a no from me: I can't sign off on that.",
+   "To be transparent, I'm unable to sign off on that."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1372",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "not taking on more tickets this sprint",
+  "ideal": [
+   "I'm not taking on more tickets this sprint.",
+   "Being clear: I can't take on more tickets this sprint.",
+   "I don't have the bandwidth for more tickets this sprint."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1373",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "who broke the staging env",
+  "ideal": [
+   "Who broke the staging environment?",
+   "Quick question: who broke the staging environment?",
+   "Could we get clarity on what broke the staging environment?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1374",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "is anyone using the big conference room",
+  "ideal": [
+   "Is anyone using the big conference room?",
+   "Quick question: is anyone using the big conference room?",
+   "Could we confirm whether the big conference room is in use?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1375",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "no clue how this got approved",
+  "ideal": [
+   "I'm not sure how this got approved.",
+   "Quick question: how did this get approved?",
+   "Could we get clarity on how this was approved?"
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1376",
+  "direction": "toCorporate",
+  "category": "apology-runon",
+  "input": "sorry missed your call was driving",
+  "ideal": [
+   "Sorry I missed your call. I was driving.",
+   "Apologies for missing your call. I was driving.",
+   "Apologies for missing your call; I was driving."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1377",
+  "direction": "toCorporate",
+  "category": "apology-runon",
+  "input": "my bad sent the wrong link heres the correct one",
+  "ideal": [
+   "Sorry, I sent the wrong link. Here's the correct one.",
+   "Apologies for the wrong link. Here's the correct one.",
+   "Apologies, I shared the wrong link. Please find the correct one here."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1378",
+  "direction": "toCorporate",
+  "category": "apology-runon",
+  "input": "sorry for the late reply been out sick",
+  "ideal": [
+   "Sorry for the late reply. I've been out sick.",
+   "Apologies for the late reply. I've been out sick.",
+   "Apologies for the delayed reply; I've been out sick."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1379",
+  "direction": "toCorporate",
+  "category": "late-sick",
+  "input": "running 20 late bus broke down",
+  "ideal": [
+   "I'm running 20 minutes late. My bus broke down.",
+   "Quick heads-up: I'm running 20 minutes late because my bus broke down.",
+   "Heads-up: I'm running 20 minutes late due to a bus breakdown."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1380",
+  "direction": "toCorporate",
+  "category": "late-sick",
+  "input": "migraine, going offline",
+  "ideal": [
+   "I have a migraine, so I'm going offline.",
+   "Quick heads-up: I have a migraine, so I'm going offline.",
+   "I'm dealing with a migraine and will be offline."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1381",
+  "direction": "toCorporate",
+  "category": "scheduling",
+  "input": "move standup to 10 tomorrow",
+  "ideal": [
+   "Could we move standup to 10 tomorrow?",
+   "Quick ask: could we move standup to 10 tomorrow?",
+   "Let's realign standup to 10 tomorrow."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1382",
+  "direction": "toCorporate",
+  "category": "scheduling",
+  "input": "skip the retro this week nothing new",
+  "ideal": [
+   "Let's skip the retro this week. There's nothing new.",
+   "Proposing we skip the retro this week, as there's nothing new.",
+   "Let's give everyone time back and skip this week's retro, as there's nothing new."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1383",
+  "direction": "toCorporate",
+  "category": "pushback",
+  "input": "that deadline is not realistic",
+  "ideal": [
+   "I don't think that deadline is realistic.",
+   "Flagging that the deadline isn't realistic.",
+   "To be transparent, that deadline is not realistic."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1384",
+  "direction": "toCorporate",
+  "category": "pushback",
+  "input": "we can't keep adding scope",
+  "ideal": [
+   "We can't keep adding scope.",
+   "Being candid: we can't keep adding scope.",
+   "We need to protect our scope and stop adding to it."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1385",
+  "direction": "toCorporate",
+  "category": "feedback",
+  "input": "your status reports are too vague",
+  "ideal": [
+   "Your status reports are too vague.",
+   "Some candid feedback: your status reports are too vague.",
+   "One growth area: more specificity in status reports."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1386",
+  "direction": "toCorporate",
+  "category": "hr",
+  "input": "thinking about going part time",
+  "ideal": [
+   "I'm thinking about going part-time.",
+   "Quick heads-up: I'm considering going part-time.",
+   "I'd like to explore a part-time arrangement."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1387",
+  "direction": "toCorporate",
+  "category": "customer",
+  "input": "customer wants a refund for march",
+  "ideal": [
+   "The customer wants a refund for March.",
+   "Flagging that the customer wants a refund for March.",
+   "The customer has requested a refund for March."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1388",
+  "direction": "toCorporate",
+  "category": "it-tech",
+  "input": "jira is down again",
+  "ideal": [
+   "Unfortunately, Jira is down again.",
+   "Flagging that Jira is down again.",
+   "Surfacing a recurring tooling headwind: Jira is down again."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1389",
+  "direction": "toCorporate",
+  "category": "it-tech",
+  "input": "migrated the db to postgres 16 no issues",
+  "ideal": [
+   "I migrated the database to Postgres 16 with no issues.",
+   "Quick update: the database is migrated to Postgres 16 with no issues.",
+   "Pleased to share that we've migrated to Postgres 16 with no issues."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1390",
+  "direction": "toCorporate",
+  "category": "announcement",
+  "input": "parking garage closed friday for repairs",
+  "ideal": [
+   "The parking garage is closed Friday for repairs.",
+   "Quick heads-up: the parking garage is closed Friday for repairs.",
+   "A reminder that the parking garage will be closed Friday for repairs."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1391",
+  "direction": "toCorporate",
+  "category": "announcement",
+  "input": "leo is taking over the mobile team",
+  "ideal": [
+   "Leo is taking over the mobile team.",
+   "Excited to share that Leo is taking over the mobile team!",
+   "Thrilled to announce that Leo is taking over the mobile team."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1392",
+  "direction": "toCorporate",
+  "category": "one-liner",
+  "input": "no clue",
+  "ideal": [
+   "I'm not sure.",
+   "Good question, I'm not sure.",
+   "I don't have visibility on that yet."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1393",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "finally fixed the memory leak, took all week",
+  "ideal": [
+   "I finally fixed the memory leak. It took all week.",
+   "Quick win: the memory leak is fixed, though it took all week.",
+   "Pleased to share that the memory leak is resolved after a week-long effort."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1394",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "hana is sick so the demo moves to monday",
+  "ideal": [
+   "Hana is sick, so the demo moves to Monday.",
+   "Quick heads-up: Hana is sick, so the demo moves to Monday.",
+   "With Hana out sick, the demo will move to Monday."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1395",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "wifi password changed check your email",
+  "ideal": [
+   "The wifi password changed. Please check your email.",
+   "Quick heads-up: the wifi password changed. Please check your email.",
+   "A reminder that the wifi password has changed; details are in your email."
+  ],
+  "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1396",
+  "direction": "toCorporate",
+  "category": "mixed",
+  "input": "cant reproduce the bug on my machine",
+  "ideal": [
+   "I can't reproduce the bug on my machine.",
+   "Flagging that I can't reproduce the bug on my machine.",
+   "I'm unable to reproduce the issue on my machine."
+  ],
+  "source": "normal-holdout-5.txt"
  }
 ]

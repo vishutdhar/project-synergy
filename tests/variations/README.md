@@ -37,6 +37,8 @@ levels: [{ level, ideal_output,
 
 `src/normal-holdout-1.txt` to `src/normal-holdout-4.txt` add 566 Normal to Corporate rows that were first written as held-out test sets (`holdout.jsonl`, `fresh.jsonl`, `fresh2.jsonl`, `fresh3.jsonl`) and hand-graded in `project-synergy-research/shortfalls`. They are in `items.json` and `site/examples.js` now, so they are training data and no longer held out. Write a new batch for the next honest measurement. `dataset.jsonl` still covers the original 1,003 inputs.
 
+`src/normal-holdout-5.txt` adds 178 more rows from round 4 (`fresh4.jsonl`, 129 rows, and `fresh5.jsonl`, 49 rows), graded in `project-synergy-research/round4`. They are training data now too, so the next honest measure needs a new batch.
+
 ## Using it
 
 - Fine-tuning: use `input` plus the level as the prompt and `ideal_output` as the target. Leave out rows whose input you plan to test on.
