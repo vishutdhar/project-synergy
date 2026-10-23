@@ -107,6 +107,7 @@ export function normalizeCasual(text) {
   t = t.replace(/\bdon'?t @ me,? but\b/gi, "unpopular opinion, but");
   t = t.replace(/\blma+o+\b|\blo+l+\b/gi, "");
   t = t.replace(/^(\s*)(?:ok|okay),?\s+so,?\s+(?=[a-z])/gim, "$1");
+  t = t.replace(/^(\s*)so,?\s+(?=(?:i|we)\s+(?:was|were|had|tried|thought)\b)/gim, "$1");
   t = t.replace(/^(\s*)([^\n?]+?),?\s+fyi\s*[.!]*\s*$/gim, "$1$2.");
   t = t.replace(/,\s+(?:please\s+)?(don't|do not)\s+(?=[a-z])/gi, ". Please $1 ");
   t = t.replace(/^(\s*)(no|yes|yeah|ok|okay|sure|nope)\s+(?=(?:I|I'm|I'll|we|we're|you|it|it's|that's|that)\b)/gim, "$1$2, ");
@@ -644,6 +645,7 @@ export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
 const HAS_LABEL = /^[A-Z][\w' ,-]{1,32}:\s/;
 const INTERJECTION = /^(?:everyone|team|folks|all|really|truly|wow|oh|ah|yeah|yes|yay|ugh|lol|haha|so glad|love|amazing|sure|great|cool|nice|thanks|thank you|hi|hey|hello|happy|welcome|congrat|hmm|ok|okay|fine|same|no|nope|yep)\b/i;
 function levelFloor(input, clean, text, lvl, seed) {
+  text = text.replace(/^(That's a no from) me, (?=we\b|we're\b|we are\b|we can|we won't|our\b)/i, "$1 us: ").replace(/^(That's a no from me), (?=I\b|I'm\b)/i, "$1: ");
   const words = text.split(/\s+/).filter(Boolean).length;
   if (words < 3 || /\n/.test(text) || HAS_LABEL.test(text)) return text;
   if (lvl === 1 && words < 4) return text;
@@ -662,6 +664,15 @@ function levelFloor(input, clean, text, lvl, seed) {
       // Lower the first word when the writer typed it in lower case ("great job" -> "For visibility: great job").
       const w = (text.match(/^[A-Za-z']+/) ?? [""])[0];
       const typedLower = w && new RegExp(`(?:^|[^A-Za-z'])${w.toLowerCase()}\\b`).test(String(input));
+      if (/^[^.!?]+\?$/.test(text)) return `Quick question: ${lowerFirst(text, { force: true })}`;
+      if (/^(?:Thank you|Thanks)\b/.test(text)) return text.replace(/^(?:Thank you|Thanks)\b,?\s*/, "Huge thanks, ");
+      if (/^(?:Good|Best of) luck\b/.test(text)) return text.replace(/^(?:Good|Best of) luck\b/, "Wishing you the best of luck");
+      const gw = text.match(/^Great (?:work|job), but please (.+?)\.?$/i);
+      if (gw) return `Great work. Quick ask: could you ${gw[1]}?`;
+      if (/^(?:Great|Nice) (?:work|job)\b/.test(text)) return text.replace(/^(?:Great|Nice) (?:work|job)\b/, "Huge kudos");
+      const st = text.match(/^Sorry to (bother|interrupt|disturb) you\b/);
+      if (st) return text.replace(st[0], `Apologies for ${st[1] === "bother" ? "bothering" : st[1] + "ing"} you`);
+      if (/^(?:Ah yes|Oh great|Oh good|Wow|Cool|Sure)\b/i.test(text)) return text;
       return `For visibility: ${typedLower && !/^I(?:'|$)/.test(w) ? w.toLowerCase() + text.slice(w.length) : lowerFirst(text)}`;
     }
   }

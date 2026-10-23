@@ -32,7 +32,7 @@ const REQUEST_VERBS = "restock|refill|replace|water|empty|unjam|send|call|check|
 const DECISION_VERBS = "pick|choose|go|skip|drop|cut|kill|stick|ditch|scrap|pause|postpone|delay|push back|wait|just";
 const REQ_RE0 = new RegExp(`^(?:just )?(?:${REQUEST_VERBS})\\b`, "i");
 // "Call with the Tokyo office at 7am" is a noun, not an instruction.
-const REQ_RE = { test: (s) => REQ_RE0.test(s) && !/^(?:just )?\w+(?:'s)?\s+(?:with|at|is|was|went|for|from|in|on|about|starts|ends|tomorrow|today|moved|got|has|had)\b/i.test(s) };
+const REQ_RE = { test: (s) => REQ_RE0.test(s) && !/^\w+ [\w-]+ (?:is|are|was|were)\b/i.test(s) && !/^(?:just )?\w+(?:'s)?\s+(?:with|at|is|was|went|for|from|in|on|about|starts|ends|tomorrow|today|moved|got|has|had)\b/i.test(s) };
 const DEC_RE = new RegExp(`^(?:${DECISION_VERBS})\\b`, "i");
 const REQ_ME = /^(?:skip|drop|count|leave|take|put|keep|add|remove|sign) (?:me|my)\b/i;
 // Opening words that are not instructions even though they look like verbs.
@@ -213,6 +213,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       const restEnd = end && end !== "!" ? end : ".";
       if (lvl === 1) return done(`${M("Apologies,")} ${r}${restEnd}`, "apology");
       if (lvl === 2 && !had && lead && /^(?:this|it) (?!is\b|was\b)/i.test(r)) return done(`${M("Sincere apologies that")} ${r}${restEnd}`, "apology");
+      if (lvl === 2 && !had && !/^(?:I'm|I am|I'll|I won't|I can't|I'm unable|we're|we'll|we won't|we can't)\b/i.test(r)) return done(`${M("Sincere apologies,")} ${r}${restEnd}`, "apology");
       if (lvl === 2 && !had) return done(`${useLabel("Quick heads-up, and apologies:")} ${r}${restEnd}`, "apology+label");
       if (lvl === 2) return done(`${M("Apologies:")} ${r}${restEnd}`, "apology");
       return done(`${M("Apologies for the disruption.")} ${capWord(r)}${restEnd}`, "apology");
@@ -433,7 +434,7 @@ function restructureAt(marked, lvl, ctx = {}) {
           return done(`${M("Please")} ${r}.`, "polite-request");
         }
         if (lvl === 1) return done(`${M("Could you")} ${r}?`, "indirect-request");
-        if (lvl === 2) return done(`${had ? M("Could you") : useLabel(urgent ? "Quick ask:" : "When you get a chance,") + " " + M("could you")} ${r}?`, "indirect-request");
+        if (lvl === 2) return done(`${had ? M("Could you") : useLabel(urgent || /^(?:stop|skip|quit|never|don't)\b/i.test(body) ? "Quick ask:" : "When you get a chance,") + " " + M("could you")} ${r}?`, "indirect-request");
         return done(`${M(urgent ? "As a top priority, could you" : "When bandwidth allows, could you")} ${r}?`, "indirect-request");
       }
       if (/^let me know\b/i.test(body)) {
@@ -550,7 +551,7 @@ function restructureAt(marked, lvl, ctx = {}) {
     // "when is the demo?" -> "Could you let me know when the demo is?"
     if ((m = body.match(/^(what|when|where|who|what time)(?:'s| is| are) ((?:the|our|my|your|this|that|their|his|her|[A-Z][\w-]*'s) [\w'-]+(?: [\w'-]+){0,6})$/i)) && !/\b(?:going|happening|up|with|deal|point|plan here)\b/i.test(m[2])) {
       const verb = /\bare\b/i.test(body.split(" ").slice(0, 3).join(" ")) ? "are" : "is";
-      if (lvl === 1) return done(`${M("Could you let me know")} ${m[1].toLowerCase()} ${m[2]} ${verb}?`, "embedded-question");
+      if (lvl === 1) return done(`${M("Could you let me know")} ${m[1].toLowerCase()} ${m[2].replace(/ again$/i, "")} ${verb}${/ again$/i.test(m[2]) ? " again" : ""}?`, "embedded-question");
       if (lvl === 2 && !had) return done(`${useLabel("Quick question:")} ${lowerFirst(markedBody, { force: true })}?`, "label");
       return none;
     }
@@ -617,14 +618,14 @@ function restructureAt(marked, lvl, ctx = {}) {
   }
 
   // Praise gets a kudos label at Middle Manager, never a heads-up.
-  const PRAISE = /\b(?:lifesaver|saved|nailed|crushed|killed it|thoughtful|great job|great work|amazing|awesome|rock|rocks|star|legend|the best|well done|kudos|shout-?out|proud of|impressive|brilliant|fantastic|stellar)\b/i;
-  if (PRAISE.test(body) && !isQ && !/"|^another\b|\bhow\b/i.test(body) && !/\b(?:not|no|never|n't)\b/i.test(body)) {
+  const PRAISE = /\b(?:loved? how|lifesaver|saved|nailed|crushed|killed it|thoughtful|great job|great work|amazing|awesome|rock|rocks|star|legend|the best|well done|kudos|shout-?out|proud of|impressive|brilliant|fantastic|stellar)\b/i;
+  if (PRAISE.test(body) && !isQ && (!/"|^another\b|\bhow\b/i.test(body) || /^I loved? how\b/i.test(body)) && !/\b(?:not|no|never|n't)\b/i.test(body)) {
     if (lvl === 2 && !had && ctx.first) return done(`${useLabel("Kudos:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "praise");
     return none;
   }
 
   // F. Framing for plain updates (Middle Manager always for the first one; Mild only when nothing else changed).
-  const update = ctx.first && words >= 2 && words <= 30 && !REQ_RE.test(body) && !DEC_RE.test(body) && !/\b(?:to be honest|be honest|honestly)\b/i.test(body) && !/^(?:I think|honestly|frankly|unpopular opinion|imo|I'd|I would|I'm happy|I'm glad|happy to|glad to)\b/i.test(body) && !/^(?:and|but|or|so|because)\b/i.test(body) && !/^[\w']+(?: [\w']+)?,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body);
+  const update = ctx.first && words >= 2 && words <= 30 && !SOCIAL.test(body) && !/^(?:sorry to|that's unfortunate|not today|hard pass|whatever)\b/i.test(body) && !/^\d+ ?(?:min|mins|minutes|sec|secs|hours?)\.?$/i.test(body) && !REQ_RE.test(body) && !DEC_RE.test(body) && !/\b(?:to be honest|be honest|honestly)\b/i.test(body) && !/^(?:I think|honestly|frankly|unpopular opinion|imo|I'd|I would|I'm happy|I'm glad|happy to|glad to)\b/i.test(body) && !/^(?:and|but|or|so|because)\b/i.test(body) && !/^[\w']+(?: [\w']+)?,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body);
   if (update) {
     const personal = /^(?:I|I'm|I've|I'll|I'd|my)\b/.test(body);
     if (lvl === 2 && !had) return done(`${useLabel(/^I hope\b/.test(body) ? "Warm wishes:" : personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
@@ -658,6 +659,10 @@ const ONE_LINERS = {
   "sounds like a plan": ["That sounds like a good plan.", "Sounds like a plan, and I'm aligned.", "That's a strategic plan I can fully get behind."],
   "looks good to me": ["This looks good to me.", "This looks good from my side.", "This has my full sign-off from a strategic standpoint."],
   "can't talk driving": ["I can't talk right now, I'm driving.", "Heads-up: I'm driving, so I'm unable to talk at the moment.", "I'm in transit and offline from comms at the moment."],
+  "hard pass": ["I'll have to pass on this one.", "I'm going to have to pass on this one.", "I'll be respectfully declining this one."],
+  "whatever works": ["I'm flexible.", "I'm flexible on this.", "I'm fully outcome-agnostic here."],
+  "wait what": ["Wait, what?", "Sorry, could you clarify?", "Could you double-click on that for me?"],
+  "that's unfortunate": ["That's unfortunate.", "That's a tough break.", "That's a material setback."],
   "got it": ["Got it, thanks.", "Got it, noted on my end.", "Understood, fully aligned."],
   "thanks": ["Thank you so much.", "Thanks, much appreciated.", "Deeply appreciate the partnership."],
   "thank you": ["Thank you so much.", "Thanks, much appreciated.", "Deeply appreciate the partnership."],

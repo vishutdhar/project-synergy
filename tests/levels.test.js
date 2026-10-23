@@ -82,3 +82,17 @@ test("hand-read #3 fixes: no swaps that shift meaning, habits framed as observat
   assert.doesNotMatch(corp("meeting's moved to 3 fyi", 2), /fyi|FYI/);
   assert.doesNotMatch(corp("fuck, I deleted the prod database", 2), /frustrating/);
 });
+
+test("hand-read #4 fixes: no stray labels on social lines, no misread imperatives", () => {
+  assert.doesNotMatch(corp("thanks everyone, great quarter", 2), /visibility|heads-up/i);
+  assert.doesNotMatch(corp("good luck on your last day, we'll miss you", 2), /visibility/i);
+  assert.equal(corp("same time next week?", 2), "Quick question: same time next week?");
+  assert.doesNotMatch(corp("open office is so loud I can't think", 1), /^Could you/);
+  assert.equal(corp("srry wrong chat", 2), "Sincere apologies, wrong chat.");
+  assert.doesNotMatch(corp("stop showing up late to standup", 2), /when you get a chance/i);
+  assert.match(corp("no, we can't do a custom build for free", 2), /^That's a no from us: /);
+  assert.equal(corp("when is the deadline again", 1), "Could you let me know when the deadline is again?");
+  assert.equal(corp("hard pass", 1), "I'll have to pass on this one.");
+  assert.match(corp("I loved how you handled that angry customer", 2), /^Kudos: /);
+  assert.doesNotMatch(corp("can we stop booking the big room for 2 people", 2), /stakeholders/);
+});

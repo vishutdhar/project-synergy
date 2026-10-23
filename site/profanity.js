@@ -326,6 +326,7 @@ const PHRASES = `
 !{kick|kicking|kicked|kicks} ass = {do|doing|did|does} great = {deliver|delivering|delivered|delivers} strong results = {drive|driving|drove|drives} best-in-class outcomes
 !badass = impressive = high-impact = best-in-class
 !is a joke and a half-assed one = is rushed and isn't working = is under-baked and isn't landing = is an MVP-grade experience with room to grow
+!he's a lazy bastard = he's not pulling his weight = he isn't pulling his weight = he's under-indexing on contribution
 !half-assed = rushed = incomplete = MVP-grade
 !cover {my|your|our|his|her|their} {ass|asses|butt} = protect {myself|yourself|ourselves|himself|herself|themselves} = document {my|your|our|his|her|their} position = build a robust paper trail
 !{work|working|worked|works|bust|busting|busted|busts} {my|our|your|his|her|their} {ass|asses|butt} off = {work|working|worked|works|work|working|worked|works} really hard = {work|working|worked|works|work|working|worked|works} very hard = {operate|operating|operated|operates|operate|operating|operated|operates} at maximum output

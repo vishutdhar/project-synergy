@@ -137,7 +137,7 @@ team = team = squad = pod
 teams = teams = squads = cross-functional pods
 coworker = colleague = teammate = valued stakeholder
 coworkers = colleagues = teammates = valued stakeholders
-people = folks = stakeholders = team members
+people = folks = folks = team members
 customer = customer = client = end user
 customers = customers = clients = end users
 users = users = end users = end-user ecosystem
@@ -174,6 +174,7 @@ kind of = somewhat = partially = directionally
 sort of = somewhat = loosely = directionally
 lots of = plenty of = a significant amount of = a robust volume of
 a little = a bit = slightly = incrementally
+!the wrong problem = the wrong problem = the wrong problem = the wrong problem space
 !don't use = don't use = don't rely on = don't leverage
 use = use = leverage = leverage
 using = using = leveraging = leveraging
@@ -181,7 +182,7 @@ done with = done with = finished with = wrapped up with
 halfway done = halfway done = halfway through = halfway through
 done = done = completed = fully actioned
 finish = complete = wrap up = close out
-finished = completed = wrapped up = closed out
+finished = finished = wrapped up = closed out
 stop = stop = stop = put a pause on
 !quit = left = moved on = transitioned out
 change = change = shift = pivot
@@ -474,7 +475,7 @@ wants them to = wants them to = would like them to = is asking them to
 !wants = wants = would like = is requesting
 !>messed up = made a mess of = dropped the ball on = had a learning moment with
 !lost customers = lost some customers = saw customer churn = experienced customer attrition headwinds
-!sending = forwarding = circulating = cascading
+!sending = sending = circulating = cascading
 !>i need a = I could use a = I'd like a = I have a critical need for a
 !doc = doc = document = working doc
 quick update = quick update = quick refresh = rapid status download
