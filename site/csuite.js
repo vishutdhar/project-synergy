@@ -307,6 +307,8 @@ export function composeCSuite({ clean, mild, middle, rng, raw = clean }) {
   }
   // "Wow, we hit our target" -> the frame already carries the excitement.
   core = core.replace(/^(?:Oh|Ha|Good news),\s+(?=[a-z])/, "");
+  // The frame already says "in the spirit of radical transparency", so "Frankly," doesn't stack on it.
+  core = core.replace(/^(?:Frankly|Candidly|Honestly|To be honest|Truthfully),\s+(?=[a-z])/, "");
   core = core[0].toUpperCase() + core.slice(1);
   // A statement followed by a question ("I finished the draft. Could you review it?") is framed as the statement.
   let closerIntent = intent;

@@ -603,7 +603,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       if (lvl === 2 && !had) return done(`${useLabel("My two cents:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "label");
       return none;
     }
-    if (problem && subjectOk && (ctx.first || lvl !== 2) && !/^(?:it looks like|looks like|fyi|heads up|flagging|(?:huge |big |many |special )?(?:thanks|thank you|kudos|shout-?out|props)\b)/i.test(body)) {
+    if (problem && subjectOk && (ctx.first || lvl !== 2) && !/\b(?:hilarious|funny|lol|haha|joke)\b/i.test(body) && !/^(?:it looks like|looks like|fyi|heads up|flagging|(?:huge |big |many |special )?(?:thanks|thank you|kudos|shout-?out|props)\b)/i.test(body)) {
       if (lvl === 1 && ctx.first && !/^(?:we|they)\b/i.test(body) && !hasNeg) return done(`${M("It looks like")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "hedge-problem");
       if (lvl === 1 && ctx.forceMild && ctx.first && !/\bbe honest\b/i.test(body)) return done(`${M("Unfortunately,")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "frame");
       if (lvl === 2 && !had) return done(`${useLabel(/^that\b/i.test(body) ? "Quick flag:" : "Flagging that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "label");

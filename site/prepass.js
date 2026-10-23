@@ -91,7 +91,7 @@ export function desarcasm(sentence) {
     const v = IRREGULAR_PAST[m[2].toLowerCase()] ?? m[2].replace(/y$/, "ie").replace(/e?$/, "ed");
     return `${cap(m[1])} only ${v}${m[3] ? " " + m[3] : ""}.`;
   }
-  if ((m = s.match(/^(?:yeah|sure|right|oh yeah|ah yes),? because (another|more|one more|a new|a|an) (.+?) (?:will|is going to|are going to) (?:totally |definitely |really |surely |obviously |for sure |absolutely )?(fix|solve|help|change|sort out) (.+)$/i))) return `I don't think ${m[1].toLowerCase()} ${m[2]} will ${m[3].toLowerCase()} ${m[4]}.`;
+  if ((m = s.match(/^(?:yeah|yes|sure|right|oh yeah|ah yes),? because (another|more|one more|a new|a|an) (.+?) (?:will|is going to|are going to) (?:totally |definitely |really |surely |obviously |for sure |absolutely )?(fix|solve|help|change|sort out) (.+)$/i))) return `I don't think ${m[1].toLowerCase()} ${m[2]} will ${m[3].toLowerCase()} ${m[4]}.`;
   if ((m = s.match(/^(?:(?:cool|great|awesome|perfect|fantastic|wonderful|nice|super|lovely)[,!.]? ?){1,3}so (?:now )?(.+)$/i)) && NEG_CUE.test(m[1]) && !/^(?:we're|they're|you're|he's|she's|I'm|we are|they are)\b/i.test(m[1])) return `Unfortunately, ${lowFirst(m[1])}.`;
   if ((m = s.match(/^just what I needed,? (.+)$/i))) return `I have ${m[1].replace(/^(?:a|an|the) /i, (a) => a.toLowerCase())}, which isn't ideal.`;
   if ((m = s.match(/^(?:how )?nice of (them|him|her|you|leadership|management|IT|HR) to (\w+) (.+)$/i))) {

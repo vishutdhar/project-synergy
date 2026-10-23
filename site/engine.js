@@ -744,7 +744,7 @@ function postPolish(text, lvl, clean) {
   t = t.replace(/(^|[.!?]\s+)((?:Huge congratulations|Congratulations|Congrats|Thanks|Thank you|Happy|Great|Nice|Good|Well done|Huge kudos|Kudos|Welcome|Good luck)\b[^.!?,\n]*?) (everyone|team|folks|[A-Z][a-z]+)([.!?])/g,
     (m, pre, body, who, end) => (NOT_VOCATIVE.test(who) ? m : `${pre}${body}, ${who}${end}`))
     .replace(/\b(\d+(?:st|nd|rd|th)?) not (the )?(\d+(?:st|nd|rd|th)?)\b/g, "$1, not $2$3")
-    .replace(/\bloading slow\b/g, "loading slowly")
+    .replace(/\bloading (really |very |super |so )?slow\b/g, "loading $1slowly")
     .replace(/\bwork remote\b/g, "work remotely")
     .replace(/, (it|this|that) should (have|be)\b/g, (_m, w, v) => `. ${w === "it" ? "It" : w[0].toUpperCase() + w.slice(1)} should ${v}`)
     .replace(/\b(Could|Would|could|would) you (?!please)([^?]+?),? please\?$/, "$1 you please $2?")
@@ -755,6 +755,8 @@ function postPolish(text, lvl, clean) {
     .replace(/\b(these|those|the|a|an) not very useful\b/gi, "$1 unproductive")
     .replace(/\bis a disorganized situation\b/g, "is disorganized")
     .replace(/\b(front|help|service|reception) workspace\b/g, "$1 desk")
+    .replace(/\bsupport workspace\b/g, "help desk")
+    .replace(/\b([Hh]uge|[Bb]ig|[Ss]pecial) thank you to\b/g, "$1 thanks to")
     .replace(/\bshifted (their|his|her|my|our|your) mind\b/g, "changed $1 mind")
     .replace(/\b(?:pick up|grab) the door\b/g, "get the door")
     .replace(/\btruly clear\b/g, "very clear")
