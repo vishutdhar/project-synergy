@@ -591,7 +591,7 @@ function restructureAt(marked, lvl, ctx = {}) {
     }
   }
   // Praise gets a kudos label at Middle Manager, never a heads-up.
-  const PRAISE = /\b(?:loved? how|lifesaver|saved|nailed|crushed|killed it|thoughtful|great job|great work|amazing|awesome|rock|rocks|star|legend|the best|well done|kudos|shout-?out|proud of|impressive|brilliant|fantastic|stellar|great catch|did a (?:great|fantastic|excellent) job|(?:really|super|very|so) (?:helpful|useful|clear)|handled [\w' -]{1,30} (?:really |very |so )?well)\b/i;
+  const PRAISE = /\b(?:loved? how|lifesaver|saved|nailed|crushed|killed it|thoughtful|great job|great work|amazing|awesome|rock|rocks|star|legend|the best|well done|kudos|shout-?out|proud of|impressive|brilliant|fantastic|stellar|great catch|really sharp|so sharp|did a (?:great|fantastic|excellent) job|(?:really|super|very|so) (?:helpful|useful|clear)|handled [\w' -]{1,30} (?:really |very |so )?well)\b/i;
   if (PRAISE.test(body) && !isQ && (!/"|^another\b|\bhow\b/i.test(body) || /^I loved? how\b/i.test(body)) && !/\b(?:not|no|never|n't)\b/i.test(body)) {
     if (lvl === 2 && !had && ctx.first) return done(`${useLabel("Kudos:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "praise");
     return none;
@@ -649,6 +649,8 @@ function splitSplice(rest) {
 
 const ONE_LINERS = {
   "i'll take a look": ["I'll take a look.", "I'll take a look and dig in.", "I'll double-click on this."],
+  "ok cool": ["Sounds good.", "Sounds good, I'm aligned.", "Fully aligned on this."],
+  "ack": ["Acknowledged.", "Acknowledged, noted on my end.", "Acknowledged and fully aligned."],
   "not this quarter": ["Unfortunately, not this quarter.", "Not this quarter, I'm afraid.", "After careful prioritization, not this quarter."],
   "not this week": ["Unfortunately, not this week.", "Not this week, I'm afraid.", "After careful prioritization, not this week."],
   "not this year": ["Unfortunately, not this year.", "Not this year, I'm afraid.", "After careful prioritization, not this year."],
@@ -755,7 +757,10 @@ function genericHeader(h) {
   if (tw) { const w = h.toLowerCase(); const poss = /^(?:today|yesterday|tomorrow)$/.test(w) ? `${w}'s` : `${w}'s`; return [`Here's ${poss} update`, `${poss[0].toUpperCase()}${poss.slice(1)} highlights`, `Strategic overview of ${poss} progress`]; }
   if (/^my\b/i.test(h)) return [`Here's ${low}`, `${h.replace(/^my/i, "My")} at a glance`, `Strategic overview of ${low}`];
   if (/^(?:for|by|before|after)\b/i.test(h)) return [`Here's the checklist ${low}`, `Action items ${low}`, `Key deliverables ${low}`];
-  const plural = /s$/i.test(h.split(/\s+/).pop());
+  const dn = h.match(/^(?:done|completed|finished|shipped)( today| this week| yesterday)?$/i);
+  if (dn) { const w = (dn[1] ?? "").trim().toLowerCase(); return [`Completed${w ? " " + w : ""}`, `Delivered${w ? " " + w : ""}`, `Wins${w ? " " + w : ""}`]; }
+  const headWord = (h.match(/^([\w-]+)(?= (?:for|from|about|on|in|with|to)\b)/) ?? [null, h.split(/\s+/).pop()])[1];
+  const plural = /s$/i.test(headWord);
   return [`Here ${plural ? "are" : "is"} the ${low}`, `${h[0].toUpperCase()}${h.slice(1)} at a glance`, `Strategic overview of the ${low}`];
 }
 

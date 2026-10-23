@@ -748,6 +748,8 @@ function postPolish(text, lvl, clean) {
     t = t.replace(/^I disagree with /, "I'm not sure I agree with ")
       .replace(/^Why (is|are|was|were) (the [\w-]+|this|that|it|our [\w-]+|my [\w-]+) (.+)\?$/, "Could you help me understand why $2 $1 $3?")
       .replace(/^([A-Z][a-z]+) (paid|signed|renewed|approved|accepted) (.+)\.$/, (m, n, v, r) => (/^(?:The|This|That|We|They|It|There|Our|My|Your|I)$/.test(n) ? m : `I'm happy to share that ${n} ${v} ${r}.`))
+      .replace(/^We (overspent|missed|lost|blew) (.+)\.$/, "Unfortunately, we $1 $2.")
+      .replace(/^Just to let you know, (the new hire is (?:really |so )?sharp)\.$/, "$1. Great to have them on board.")
       .replace(/^No, (I'm|we're) not ([a-z]+ing)\b/, (_m, w, v) => `No, ${w === "I'm" ? "I" : "we"} won't be ${v}`)
       .replace(/^I'll pass on (.+)$/, "Thanks, but I'll pass on $1")
       .replace(/^I'm out (next week|tomorrow|today|this (?:week|afternoon)|on [A-Z][a-z]+day|[A-Z][a-z]+day|until [A-Z]?[a-z]+)\.$/, "I'll be out of office $1.")
@@ -763,6 +765,9 @@ function postPolish(text, lvl, clean) {
   if (lvl === 2) {
     t = t.replace(/^For visibility: Understood\./, "Understood, and noted.")
       .replace(/^For visibility: no, (we're|I'm) not ([a-z]+ing)\b/, (_m, w, v) => `That's a no from ${w === "I'm" ? "me" : "us"}: ${w === "I'm" ? "I" : "we"} won't be ${v}`)
+      .replace(/^For visibility: I'd like to (.+)$/, "Heads-up: I'd like to $1")
+      .replace(/^(?:Quick heads-up|Heads-up): ((?:the|our) [\w ]*team (?:caught|fixed|solved|shipped) .+)$/, "Kudos: $1")
+      .replace(/^(?:Quick heads-up|Heads-up): (the new hire is (?:really |so )?sharp.*)$/, "Kudos: $1")
       .replace(/^For visibility: I'll pass on (.+)$/, "Thanks, but I'll have to pass on $1")
       .replace(/^Quick heads-up: ([A-Z][a-z]+ (?:paid|signed|renewed|approved|accepted) )/, "Quick win: $1")
       .replace(/^For visibility: I'd like (feedback|some feedback|input|your input|advice|your thoughts)\b/, "Quick ask: I'd love $1")
