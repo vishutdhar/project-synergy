@@ -6,6 +6,7 @@ import {
   LAYOFF_HINTS, LAYOFF_CONTEXT_SWAPS, SIGNALS,
 } from "./phrasebook.js";
 import { checkMeaning, setAllowedCaps, isShouting } from "./meaning.js";
+import { prepass } from "./prepass.js";
 import { CRUDE_SWAPS, canonicalizeCrude, hasCrude, cleanCrude } from "./profanity.js";
 
 export const SOFT_CAP = 20000;
@@ -602,11 +603,13 @@ export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
   const lvl = clampLevel(level);
   // Censored spellings become plain ones (f*ck, wtf) so the crude rewrites can catch them. Slurs never get through.
   // Texting shorthand becomes plain words first.
-  const clean = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim()
+  const clean0 = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim()
     // "Jesus Christ" is an exclamation here, not a name to keep.
     .replace(/\bjesus(?: h\.?)? christ\b/gi, "jesus christ")
     // Run-on "a call with Northwind they want a demo" -> "a call with Northwind. They want a demo".
     .replace(/\b(with|from|to|at|for) ([A-Z][a-z]+) (they|she|he) (?=\w)/g, (_m, p, n, w) => `${p} ${n}. ${w[0].toUpperCase()}${w.slice(1)} `);
+  // Sarcasm becomes the sincere complaint, run-on apologies are split, dropped articles come back (prepass.js).
+  const clean = prepass(clean0);
   const empty = { text: "", check: { ok: true, lost: [], added: [] }, fallback: "", unsafe: [] };
   if (!clean) return empty;
   // A sentence with no safe rewrite is left out, so the meaning check skips it too.
@@ -655,9 +658,7 @@ function levelFloor(input, clean, text, lvl, seed) {
     if (/^[^.!?]*\?/.test(text)) return text;
     const lets = text.match(/^Let's (.+)$/);
     if (lets) return `I'd suggest we ${lets[1]}`;
-    if (/^(?:I|I'm|I've|I'd|I'll)\b/.test(text) && !/\?/.test(text)) return `I wanted to let you know that ${text}`;
-    const lf = lowerFirst(text);
-    if (/^[a-z]/.test(lf) || /^I\b/.test(lf)) return `Just so you know, ${lf}`;
+    // Statements stay as polished statements: "I wanted to let you know that ..." read as a padded copy.
   }
   if (lvl === 2) {
     const mild = toCorporateDetailed(input, { level: 1, seed }).text;

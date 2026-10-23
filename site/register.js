@@ -40,6 +40,8 @@ const NOT_IMPERATIVE = /^(?:thanks|thank|welcome|congrats|cheers|love|hate|hope|
 
 const AUX = /^(?:is|are|was|were|do|does|did|can|could|will|would|should|has|have|had|am|may|might|shall|must|isn't|aren't|wasn't|weren't|don't|doesn't|didn't|can't|won't|wouldn't|shouldn't|hasn't|haven't)$/i;
 
+// Good news: "we hit 10k users", "the demo went great", "migration finished overnight".
+const WIN_RE = /\b(?:went (?:great|well|really well)|hit|closed|shipped|launched|finished|landed|signed|won|record|loved|saved|done|fixed|green|passed|approved|resolved|nailed|crushed)\b/i;
 // Problem words for "Flagging that" and "It looks like".
 const PROBLEM = /\b(?:broke|broken|down|failing|failed|fails|wrong|bug|bugs|issue|issues|error|errors|crash\w*|outage|blocked|blocker|stuck|missing|lost|late|behind|delayed|overdue|over budget|ran out|out of|slipp\w*|leak\w*|corrupt\w*|not working|doesn't work|isn't working|won't work|can't|cannot|no longer|incorrect|inaccurate|mistake|problem|problems|risk|risky|expired|overrun|underwater|drowning|in trouble|exceeded)\b/i;
 const OPINION_ADJ = /^(?:this|that|it|the [\w-]+(?: [\w-]+)?|our [\w-]+(?: [\w-]+)?|his [\w-]+|her [\w-]+|their [\w-]+)(?:'s| is| was| are| were| feels| seems| looks)\s+(?:so |really |totally |completely |kind of |kinda |pretty |way |super |just |a bit |too )?(?:a |an )?(?:bad|terrible|awful|horrible|useless|pointless|ridiculous|confusing|messy|mess|disaster|joke|waste|unrealistic|impossible|unclear|vague|weak|wrong|off|questionable|overkill|overcomplicated|complicated|too \w+|way too \w+|not (?:great|good|ideal|realistic|clear|enough|ready|worth \w+)|risky|dumb|stupid|silly|insane|crazy|nuts|absurd|meh|mid|underwhelming|great|good|amazing|awesome|fantastic|excellent|solid|brilliant|perfect|nice|cool|smart|clever|ugly|slow|expensive|cheap|hard|easy|tight|aggressive|ambitious|idea|plan|call)\b/i;
@@ -595,7 +597,7 @@ function restructureAt(marked, lvl, ctx = {}) {
     }
     if (problem && subjectOk && !/^(?:it looks like|looks like|fyi|heads up|flagging)\b/i.test(body)) {
       if (lvl === 1 && ctx.first && !/^(?:we|they)\b/i.test(body) && !hasNeg) return done(`${M("It looks like")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "hedge-problem");
-      if (lvl === 1 && ctx.forceMild && ctx.first && !/\bbe honest\b/i.test(body)) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "frame");
+      if (lvl === 1 && ctx.forceMild && ctx.first && !/\bbe honest\b/i.test(body)) return done(`${M("Unfortunately,")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "frame");
       if (lvl === 2 && !had) return done(`${useLabel(/^that\b/i.test(body) ? "Quick flag:" : "Flagging that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "label");
       return none;
     }
@@ -628,8 +630,13 @@ function restructureAt(marked, lvl, ctx = {}) {
   const update = ctx.first && words >= 2 && words <= 30 && !SOCIAL.test(body) && !/^(?:sorry to|that's unfortunate|not today|hard pass|whatever)\b/i.test(body) && !/^\d+ ?(?:min|mins|minutes|sec|secs|hours?)\.?$/i.test(body) && !REQ_RE.test(body) && !DEC_RE.test(body) && !/\b(?:to be honest|be honest|honestly)\b/i.test(body) && !/^(?:I think|honestly|frankly|unpopular opinion|imo|I'd|I would|I'm happy|I'm glad|happy to|glad to)\b/i.test(body) && !/^(?:and|but|or|so|because)\b/i.test(body) && !/^[\w']+(?: [\w']+)?,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body);
   if (update) {
     const personal = /^(?:I|I'm|I've|I'll|I'd|my)\b/.test(body);
-    if (lvl === 2 && !had) return done(`${useLabel(/^I hope\b/.test(body) ? "Warm wishes:" : personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
-    if (lvl === 1 && ctx.forceMild && (ctx.count ?? 1) <= 2 && (subjectOk || iStatement) && !/^that\b/i.test(body) && !/\bbe honest\b/i.test(body)) return done(`${M("I wanted to let you know that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "frame");
+    if (lvl === 2 && !had) return done(`${useLabel(/^I hope\b/.test(body) ? "Warm wishes:" : WIN_RE.test(body) && !/\b(?:not|no|never|n't)\b/i.test(body) ? "Quick win:" : personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
+    if (lvl === 1 && ctx.forceMild && (ctx.count ?? 1) <= 2 && (subjectOk || iStatement) && !/^that\b/i.test(body) && !/\bbe honest\b/i.test(body)) {
+      // Good news gets "I'm happy to share that"; a plain update gets "Just to let you know," (never the padded "I wanted to let you know that").
+      const win = WIN_RE.test(body) && !/\b(?:not|no|never|n't)\b/i.test(body);
+      if (/^I\b|^I'/.test(body) && !win) return none;
+      return done(`${M(win ? "I'm happy to share that" : "Just to let you know,")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "frame");
+    }
   }
   return none;
 }
