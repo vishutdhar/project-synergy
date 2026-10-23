@@ -590,13 +590,20 @@ function restructureAt(marked, lvl, ctx = {}) {
       return none;
     }
   }
+  // Praise gets a kudos label at Middle Manager, never a heads-up.
+  const PRAISE = /\b(?:loved? how|lifesaver|saved|nailed|crushed|killed it|thoughtful|great job|great work|amazing|awesome|rock|rocks|star|legend|the best|well done|kudos|shout-?out|proud of|impressive|brilliant|fantastic|stellar|great catch|did a (?:great|fantastic|excellent) job|(?:really|super|very|so) (?:helpful|useful|clear)|handled [\w' -]{1,30} (?:really |very |so )?well)\b/i;
+  if (PRAISE.test(body) && !isQ && (!/"|^another\b|\bhow\b/i.test(body) || /^I loved? how\b/i.test(body)) && !/\b(?:not|no|never|n't)\b/i.test(body)) {
+    if (lvl === 2 && !had && ctx.first) return done(`${useLabel("Kudos:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "praise");
+    return none;
+  }
+
   if (words <= 24 && words >= 2) {
-    if (opinion && !hasNeg && /\b(?:bad|terrible|awful|horrible|useless|pointless|ridiculous|confusing|messy|mess|disaster|joke|waste|unrealistic|impossible|unclear|vague|weak|wrong|off|questionable|overkill|overcomplicated|complicated|too|risky|dumb|stupid|silly|insane|crazy|nuts|absurd|meh|mid|underwhelming|ugly|slow|expensive|hard|tight|aggressive|ambitious|idea|plan)\b/i.test(body)) {
+    if (opinion && ctx.first && !hasNeg && /\b(?:bad|terrible|awful|horrible|useless|pointless|ridiculous|confusing|messy|mess|disaster|joke|waste|unrealistic|impossible|unclear|vague|weak|wrong|off|questionable|overkill|overcomplicated|complicated|too|risky|dumb|stupid|silly|insane|crazy|nuts|absurd|meh|mid|underwhelming|ugly|slow|expensive|hard|tight|aggressive|ambitious|idea|plan)\b/i.test(body)) {
       if (lvl === 1) return done(`${M("I think")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "hedge-opinion");
       if (lvl === 2 && !had) return done(`${useLabel("My two cents:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "label");
       return none;
     }
-    if (problem && subjectOk && !/^(?:it looks like|looks like|fyi|heads up|flagging)\b/i.test(body)) {
+    if (problem && subjectOk && (ctx.first || lvl !== 2) && !/^(?:it looks like|looks like|fyi|heads up|flagging)\b/i.test(body)) {
       if (lvl === 1 && ctx.first && !/^(?:we|they)\b/i.test(body) && !hasNeg) return done(`${M("It looks like")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "hedge-problem");
       if (lvl === 1 && ctx.forceMild && ctx.first && !/\bbe honest\b/i.test(body)) return done(`${M("Unfortunately,")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "frame");
       if (lvl === 2 && !had) return done(`${useLabel(/^that\b/i.test(body) ? "Quick flag:" : "Flagging that")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}.`, "label");
@@ -618,13 +625,6 @@ function restructureAt(marked, lvl, ctx = {}) {
       if (lvl === 1) return done(`${M("I've noticed you keep")} ${rest}.`, "feedback");
       if (lvl === 2) return done(`${M("Some candid feedback: I've noticed you keep")} ${rest}.`, "feedback");
     }
-  }
-
-  // Praise gets a kudos label at Middle Manager, never a heads-up.
-  const PRAISE = /\b(?:loved? how|lifesaver|saved|nailed|crushed|killed it|thoughtful|great job|great work|amazing|awesome|rock|rocks|star|legend|the best|well done|kudos|shout-?out|proud of|impressive|brilliant|fantastic|stellar)\b/i;
-  if (PRAISE.test(body) && !isQ && (!/"|^another\b|\bhow\b/i.test(body) || /^I loved? how\b/i.test(body)) && !/\b(?:not|no|never|n't)\b/i.test(body)) {
-    if (lvl === 2 && !had && ctx.first) return done(`${useLabel("Kudos:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "praise");
-    return none;
   }
 
   // F. Framing for plain updates (Middle Manager always for the first one; Mild only when nothing else changed).
@@ -654,6 +654,8 @@ const ONE_LINERS = {
   "back online": ["I'm back online.", "Heads-up: I'm back online.", "I'm back online and ready to add value."],
   "nvm": ["Never mind.", "Please disregard.", "Please disregard my previous message."],
   "never mind": ["Never mind.", "Please disregard.", "Please disregard my previous message."],
+  "lol": ["Ha, that's funny.", "Ha, love that.", "Love the energy here."],
+  "haha": ["Ha, that's funny.", "Ha, love that.", "Love the energy here."],
   "ugh": ["That's frustrating.", "Candidly, that's frustrating.", "That's a moment of genuine frustration."],
   "ok thanks": ["Okay, thank you.", "Noted, huge thanks.", "Fully aligned, and deeply grateful."],
   "okay thank you": ["Okay, thank you.", "Noted, huge thanks.", "Fully aligned, and deeply grateful."],
@@ -746,6 +748,8 @@ function genericHeader(h) {
   const td = h.match(/^(?:todo|to-do|to do)(?: list)?( today| this week| tomorrow)?$/i);
   if (td) { const when = (td[1] ?? "").trim().toLowerCase(); return [`My plan for ${when || "today"}`, `${when ? when[0].toUpperCase() + when.slice(1) + "'s" : "Today's"} action items`.replace("This week's", "This week's"), `${when ? when[0].toUpperCase() + when.slice(1) + "'s" : "Today's"} strategic priorities`]; }
   const low = h.replace(/^\w/, (c) => (/^[A-Z][a-z]/.test(h) ? c.toLowerCase() : c));
+  const tw = h.match(/^(this|last|next) (week|month|quarter|sprint)$|^(today|yesterday|tomorrow)$/i);
+  if (tw) { const w = h.toLowerCase(); const poss = /^(?:today|yesterday|tomorrow)$/.test(w) ? `${w}'s` : `${w}'s`; return [`Here's ${poss} update`, `${poss[0].toUpperCase()}${poss.slice(1)} highlights`, `Strategic overview of ${poss} progress`]; }
   if (/^my\b/i.test(h)) return [`Here's ${low}`, `${h.replace(/^my/i, "My")} at a glance`, `Strategic overview of ${low}`];
   if (/^(?:for|by|before|after)\b/i.test(h)) return [`Here's the checklist ${low}`, `Action items ${low}`, `Key deliverables ${low}`];
   const plural = /s$/i.test(h.split(/\s+/).pop());

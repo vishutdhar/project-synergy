@@ -28,6 +28,7 @@ const UPGRADES = [
   [/\b(is|are) (?:broken|not working)\b/g, (_m, v) => `${v} experiencing ${v === "is" ? "a reliability headwind" : "reliability headwinds"}`],
   [/\b(is|are) (?:slow|loading slowly|really slow)\b/g, (_m, v) => `${v} experiencing latency headwinds`],
   [/\bis too slow to\b/g, "lacks the velocity to"],
+  [/\b(?:got|was|has been) cut in half\b/g, "has been strategically halved"],
   [/\b(?:got|was|has been) cut by\b/g, "has been strategically right-sized by"],
   [/\b(?:got|was|has been) cut\b/g, "has been strategically right-sized"],
   [/\b(?:got|was|has been) moved to\b/g, "has been strategically realigned to"],
@@ -95,12 +96,13 @@ export function upgrade(text) {
 }
 
 const NEG = /\b(?:not|no|never|nothing|nobody|can't|won't|don't|didn't|isn't|aren't|wasn't|unable|unfortunately)\b|n't\b/i;
-const PROBLEM = /\b(?:down|broken|broke|fail\w*|late|behind|slow\w*|stuck|wrong|error\w*|bug\w*|blocked|blocker|cut|over budget|short|lost|missed|jammed|outage|crash\w*|concern\w*|not thrilled|not ideal|not happy|not looking forward|frustrat\w*|exhausted|burnt out|burned out|headwind\w*|risk\w*|flaky|out of date|smells|ghost\w*|rejected|unread|double[- ]booked|thin|expired|dropping|red|impossible|unrealistic|annoyed|difficult|waste|too long|too busy|too much|out of service|sick|over our|right-sized|rough shape|freeze|stuck|ghosted|nobody|no one|keeps? dropping|can't log in|locked out|upset|mad|angry|confus\w*|mess\w*|worse|declin\w*|dropped|doubled|garbage|halt\w*|delay\w*|stopped responding|gone quiet|no budget|no designer|nothing (?:got|was)|out again|out of \w+)\b|\b0 [a-z]+/i;
+const PROBLEM = /\b(?:down|broken|broke|fail\w*|late|behind|slow\w*|stuck|wrong|error\w*|bug\w*|blocked|blocker|cut|over budget|short|lost|missed|jammed|outage|crash\w*|concern\w*|not thrilled|not ideal|not happy|not looking forward|frustrat\w*|exhausted|burnt out|burned out|headwind\w*|risk\w*|flaky|out of date|smells|ghost\w*|rejected|unread|double[- ]booked|thin|expired|dropping|red|impossible|unrealistic|annoyed|difficult|waste|too long|too busy|too much|out of service|sick|over our|right-sized|rough shape|freeze|stuck|ghosted|nobody|no one|keeps? dropping|can't log in|locked out|upset|mad|angry|confus\w*|mess\w*|worse|declin\w*|dropped|doubled|garbage|halt\w*|delay\w*|stopped responding|gone quiet|no budget|no designer|nothing (?:got|was)|out again|out of \w+|full|overdue|freez\w*|threaten\w*|longer than|flopp\w*|didn't work|halved|cancel\w*|refund|rais\w+ prices|swamped|buried|at capacity)\b|\b0 [a-z]+/i;
 const WIN = /\b(?:closed (?:the|a|an|our) [\w-]+ (?:deal|round|sale|contract)|closed the [\w-]+ deal|shipped|launched|landed|achieved|reached|hit|record|signed|won|went (?:great|well|really well)|loved|finished|done|fixed|saved|passed|approved|resolved|milestone|congrat\w*|promotion|anniversary|kudos|great work|great job|outstanding|excellent|game changer|awesome|lifesaver|shoutout|shout-out|thank)\b/i;
 const PERSONAL = /^(?:I'm|I am|I'll|I will|I've|I have|I was|My)\b.*\b(?:late|behind|sick|PTO|out|off|leaving|back|working remotely|working from home|on my way|dentist|doctor|appointment|free|booked|available|burnt out|exhausted|break|online)\b/i;
 
 export function intentOf(clean, core) {
   const c = clean.trim();
+  if (/^Thanks, but I'll (?:have to )?pass\b/.test(core)) return "decline";
   if (/^(?:sorry|apologies|my bad|oops|so sorry|my apologies)\b/i.test(c) || /^(?:Sorry|Apologies|Very sorry|So sorry)\b/.test(core)) return "apology";
   if (/^(?:who|who's|whose|what|what's|when|where|why|how|which)\b/i.test(c)) return "question";
   if (/^(?:can|could|would|will) (?:you|someone|anyone|somebody|we|I get)\b/i.test(c) && !/^can I\b/i.test(c) || /^(?:Could|Would|Can) (?:you|someone|I get|we)\b/.test(core) || /^Please\b/.test(core)) return "request";
@@ -108,6 +110,8 @@ export function intentOf(clean, core) {
   if (/^(?:I'm concerned|I'm not thrilled|I'm not looking forward|I'm not happy|That's not ideal|The timing isn't ideal|Unfortunately|I have \d+)\b/.test(core)) return "problem";
   const DOING = /\b(?:make|do|doing|take|attend|join|help|commit|support|offer|be at|be there|sign|signing|cover|go|come|work|working|approve|give|move|fit)\b/i;
   if (/^(?:no|nope|not interested|hard pass|not this)\b/i.test(c) || /^(?:I|we)(?:'m| am|'re| are)? (?:not|can't|won't|cannot|will not)\b/i.test(c) && DOING.test(c) && !/\b(?:not sure|no idea)\b/i.test(c) || /^(?:I'll have to pass|I won't|We won't|We can't|I can't|We're not|I'm not|I'm unable|We're unable)\b/.test(core) && DOING.test(core)) return "decline";
+  if (/^(?:Welcome|A warm welcome)\b/.test(core)) return "welcome";
+  if (/\b(?:did an? (?:great|fantastic|excellent|outstanding) job|great catch|handled [\w' -]{1,30} (?:really |very |so )?well|(?:really|super|very|so) (?:helpful|useful)|[Ww]elcome (?:to|aboard)|nailed|crushed|knocked it out|shout-?out|big thank-you)\b/.test(core) && !NEG.test(core)) return "praise";
   if (/^(?:You|Your)\b/.test(core) && /\b(?:is|are|was|looks) (?:really |very |so )?(?:clear|great|good|excellent|amazing|fantastic|awesome|helpful|thoughtful)\b/.test(core)) return "praise";
   if (/^(?:You|Your)\b/.test(core) && !/\?/.test(core) && !WIN.test(core)) return "feedback";
   if (/^I(?:'ve)? noticed\b/.test(core)) return "feedback";
@@ -133,6 +137,10 @@ const FRAMES = {
     (s) => `Humbled and thrilled to share that ${lowerFirst(s)}`,
     (s) => `Excited to share a key win for the ecosystem: ${lowerFirst(s)}`,
     (s) => `Taking a moment to celebrate a north-star win: ${lowerFirst(s)}`,
+  ],
+  welcome: [
+    (s) => `In the spirit of our people-first culture: ${lowerFirst(s)}`,
+    (s) => `Thrilled to grow our ecosystem of talent: ${lowerFirst(s)}`,
   ],
   thanks: [
     (s) => `Leading with gratitude: ${lowerFirst(s)}`,
@@ -193,6 +201,7 @@ const CLOSERS = {
   personal: ["Grateful for your patience.", "Sustainable performance is how we win.", "Wellbeing is our north star."],
   feedback: ["Growth is a journey we're on together.", "Psychological safety and high standards go hand in hand.", "Feedback is a gift."],
   social: ["Fully aligned.", "Appreciate the alignment.", "Onward."],
+  welcome: ["Excited for the journey ahead.", "The future is bright."],
   thanks: ["Deeply grateful for the partnership.", "Gratitude is a core value.", "Appreciate you."],
   status: ["Let's keep the momentum going.", "Clarity is our north star.", "Onward."],
 };
@@ -236,7 +245,7 @@ export function composeCSuite({ clean, mild, middle, rng }) {
   let intent = isList ? "list" : intentOf(clean, core);
   // Mild already judged it a problem ("Unfortunately, ..."), so no upbeat closer.
   if (/^Unfortunately,/.test(sents[0]) && /^(?:status|win|social)$/.test(intent)) intent = "problem";
-  if (/^(?:social|praise)$/.test(intent) && /^(?:Okay, thank you|Thank you|Thanks)\b/.test(core)) intent = "thanks";
+  if (/^(?:social|praise|status)$/.test(intent) && (/^(?:Okay, thank you|Thank you|Thanks)\b(?!,? but)/.test(core) || /\b(?:thanks|thank you)(?: all| everyone| team)?[.!]$/i.test(core) && core.split(/\s+/).length <= 8)) intent = "thanks";
   if (isList) {
     const lines = mild.split("\n");
     const head = lines[0].replace(/:$/, "");

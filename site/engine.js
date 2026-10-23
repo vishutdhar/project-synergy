@@ -675,7 +675,7 @@ function levelPolish(text, lvl, clean) {
     t = t.replace(/^(That|This|The) ([\w-]+(?: [\w-]+)?) is (?:impossible|unrealistic)\.$/, (_m, d, n) => `I don't think ${d.toLowerCase()} ${n} is realistic.`)
       .replace(/^(?:Just to let you know, )?(this|that|it) needs more work\.$/i, (_m, w) => `I think ${w.toLowerCase()} needs more work.`)
       .replace(/^I see (it|this|that|the [\w-]+) differently\.$/, "I see $1 a bit differently.")
-      .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z]+) (.+)\.$/, "I've noticed you $1 $2.")
+      .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z]+) (.+)\.$/, (m, v, r) => (/\bThank you\b/.test(r) ? m : /\b(?:great|excellent|amazing|fantastic|awesome|well|outstanding|brilliant)\b/.test(r) ? `You ${v} ${r}. Thank you.` : `I've noticed you ${v} ${r}.`))
       .replace(/^Just to let you know, your (.+)\.$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Your ${r}. Great work.` : `I noticed that your ${r}.`))
       .replace(/^It looks like (the [\w-]+ (?:says|said|reports|reported|mentioned)) /, (_m, r) => `${r[0].toUpperCase()}${r.slice(1)} `)
       .replace(/^Be (on time|there|ready|prepared|careful)\b/, "Please be $1")
@@ -725,23 +725,33 @@ function postPolish(text, lvl, clean) {
   t = vocative(t);
   t = t.replace(/(^|[.!?]\s+)((?:Huge congratulations|Congratulations|Congrats|Thanks|Thank you|Happy|Great|Nice|Good|Well done|Huge kudos|Kudos|Welcome|Good luck)\b[^.!?,\n]*?) (everyone|team|folks|[A-Z][a-z]+)([.!?])/g,
     (m, pre, body, who, end) => (NOT_VOCATIVE.test(who) ? m : `${pre}${body}, ${who}${end}`))
-    .replace(/\b(\d+(?:st|nd|rd|th)) not the (\d+(?:st|nd|rd|th))\b/g, "$1, not the $2")
+    .replace(/\b(\d+(?:st|nd|rd|th)?) not (the )?(\d+(?:st|nd|rd|th)?)\b/g, "$1, not $2$3")
     .replace(/\bloading slow\b/g, "loading slowly")
     .replace(/\bwork remote\b/g, "work remotely")
     .replace(/, (it|this|that) should (have|be)\b/g, (_m, w, v) => `. ${w === "it" ? "It" : w[0].toUpperCase() + w.slice(1)} should ${v}`)
     .replace(/\b(Could|Would|could|would) you (?!please)([^?]+?),? please\?$/, "$1 you please $2?")
-    .replace(/\bnow would like\b/g, "would now like");
+    .replace(/\bnow would like\b/g, "would now like")
+    .replace(/(^|[.!?]\s+)((?:Can|Could|Would|Will|Should|Is|Are|Do|Does|Did) (?:it|we|you|I|this|that|they|someone|anyone)\b[^.!?]*)\.(?=\s|$)/g, "$1$2?")
+    .replace(/^When you get a chance, (could you .+\bwhen you (?:can|get a chance|have a (?:sec|second|minute|moment))\b.*)$/, (_m, r) => r[0].toUpperCase() + r.slice(1));
   if (lvl === 1) {
     t = t.replace(/^I disagree with /, "I'm not sure I agree with ")
+      .replace(/^No, (I'm|we're) not ([a-z]+ing)\b/, (_m, w, v) => `No, ${w === "I'm" ? "I" : "we"} won't be ${v}`)
+      .replace(/^I'll pass on (.+)$/, "Thanks, but I'll pass on $1")
+      .replace(/^I'm out (next week|tomorrow|today|this (?:week|afternoon)|on [A-Z][a-z]+day|[A-Z][a-z]+day|until [A-Z]?[a-z]+)\.$/, "I'll be out of office $1.")
+      .replace(/^I'd like (feedback|some feedback|input|your input|advice|your thoughts)\b/, "I'd welcome $1")
       .replace(/^Unfortunately, (that|this) (idea|plan|approach|proposal) won't work\.$/, "I don't think $1 $2 will work.")
       .replace(/^I prefer /, "I'd prefer ")
       .replace(/^I'd rather ([a-z]+) /, "I'd prefer to $1 ")
       .replace(/^(?:Nice|Great|Good) (?:work|job), (everyone|team)\.$/, "Great work, $1. Thank you.")
       .replace(/^Just to let you know, ((?:the|your|this|that) [^.]*?\b(?:looks|is|was|are) (?:really |very |so )?(?:good|great|excellent|clear|amazing|awesome|fantastic)\b[^.]*)\.$/, (m, r) => (/\b(?:not|no|too)\b|n't/.test(r) ? m : `${r[0].toUpperCase()}${r.slice(1)}. Great work.`))
+      .replace(/^((?:The|Your|This|Our) [^.]*\b(?:(?:is|are|was|were|looks|look) (?:really |very |super |so )?(?:helpful|useful|clear|great|excellent|amazing|fantastic|awesome)|handled [\w' -]{1,30} (?:really |very |so )?well))\.$/, (m, r) => (/\b(?:not|too|never)\b|n't/.test(r) ? m : `${r}. Great work.`))
       .replace(/^(They|He|She) (want|wants|need|needs|asked|said|think|thinks) /, (_m, w, v) => `Just to let you know, ${w.toLowerCase()} ${v} `);
   }
   if (lvl === 2) {
     t = t.replace(/^For visibility: Understood\./, "Understood, and noted.")
+      .replace(/^For visibility: no, (we're|I'm) not ([a-z]+ing)\b/, (_m, w, v) => `That's a no from ${w === "I'm" ? "me" : "us"}: ${w === "I'm" ? "I" : "we"} won't be ${v}`)
+      .replace(/^For visibility: I'll pass on (.+)$/, "Thanks, but I'll have to pass on $1")
+      .replace(/^For visibility: I'd like (feedback|some feedback|input|your input|advice|your thoughts)\b/, "Quick ask: I'd love $1")
       .replace(/^For visibility: no, (the answer is (?:still )?no\b.*)$/, "That's a no from me: $1")
       .replace(/^That's a no from me, (the answer is (?:still )?no\b.*)$/, "That's a no from me: $1")
       .replace(/^(That's a no from (?:me|us)), /, "$1: ")
