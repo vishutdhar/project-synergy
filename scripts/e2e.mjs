@@ -45,12 +45,12 @@ const toDirection = async (p, want) => {
   await p.click("#swap");
 };
 
-await check("page loads as Normal to Corporate with Middle Manager picked and an empty result", async () => {
+await check("page loads as Normal to Corporate with Full C-Suite picked and an empty result", async () => {
   assert.match(await page.title(), /Project Synergy/);
   assert.equal(await text(page, "#run"), "Corporatize");
   assert.equal(await dir(page), "toCorporate");
   assert.deepEqual([await text(page, "#src-lang"), await text(page, "#dst-lang")], ["Normal", "Corporate"]);
-  assert.equal(await page.$eval("#level-2", (el) => el.checked), true);
+  assert.equal(await page.$eval("#level-3", (el) => el.checked), true);
   assert.deepEqual(await page.$$eval(".chip-row label", (ls) => ls.map((l) => l.textContent.trim())), ["Mild", "Middle Manager", "Full C-Suite"]);
   assert.equal(await page.$eval("#empty", (el) => el.hidden), false);
   assert.equal(await page.$eval("#result-tools", (el) => el.hidden), true);
@@ -300,7 +300,7 @@ await check("keyboard: Tab reaches the swap button, level chips, settings, text 
     await p.keyboard.press("Tab");
     seen.push(await p.evaluate(() => document.activeElement.id || document.activeElement.name || document.activeElement.tagName));
   }
-  for (const id of ["swap", "level-2", "SUMMARY", "input", "run"]) assert.ok(seen.includes(id), `${id} not reachable: ${seen}`);
+  for (const id of ["swap", "level-3", "SUMMARY", "input", "run"]) assert.ok(seen.includes(id), `${id} not reachable: ${seen}`);
   await p.close();
 });
 

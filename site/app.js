@@ -73,7 +73,7 @@ function setDirection(dir) {
   els.reroll.disabled = true;
 }
 
-const getLevel = () => Number(els.form.elements.level.value || 2);
+const getLevel = () => Number(els.form.elements.level.value || 3);
 
 function updateCount() {
   const n = els.input.value.length;
@@ -672,7 +672,8 @@ function hideResult() {
 }
 
 // Browsers can restore old form state on reload, so reset the direction, level and engine together.
-els.form.elements.level.value = "2";
+// Full C-Suite is the default: the product is maximum corporate.
+els.form.elements.level.value = "3";
 setEngine("instant");
 setDirection("toCorporate");
 updateCount();
