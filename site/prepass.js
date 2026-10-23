@@ -1,3 +1,5 @@
+import { hasCrude } from "./profanity.js";
+
 // Input pre-pass for Normal to corporate (see shortfalls/research.md).
 // Runs on the cleaned input before the level rules, so every level starts from a sincere, well-formed message:
 // 1. sarcasm becomes the sincere complaint underneath it ("great, another meeting" -> "I'm concerned about another meeting"),
@@ -23,6 +25,7 @@ export function desarcasm(sentence) {
   const s = strip(sentence);
   let m;
   if (/^love that for (?:us|me|you)$/i.test(s)) return "That's not ideal for us.";
+  if ((m = s.match(/^(?:sorry|oops|my bad)(?:,? sorry)?,? wrong (channel|chat|thread|person|window|room|link|file)$/i))) return `Sorry, that was meant for a different ${m[1]}.`;
   if (/^(?:perfect|great) timing(?: as usual| again)?$/i.test(s)) return "The timing isn't ideal.";
   if ((m = s.match(/^(?:cool,? )+(?:I )?guess I'll (?:just )?(.+?)(?: myself)?$/i)) || (m = s.match(/^(?:cool cool cool|cool cool|great|fine),? (?:I )?guess I'll (?:just )?(.+?)(?: myself)?$/i))) {
     const v = m[1].replace(/^do it$/i, "take care of it");
@@ -84,7 +87,7 @@ export function splitApology(sentence) {
   parts.push(cur.trim());
   const clauses = parts.map((p) => p.replace(/^(?:but|and|so),?\s+/i, "").replace(/,$/, "").replace(/^(?:was|got|am) /i, "I $&").replace(/^should be /i, "It should be ")).filter((p) => p && !/^(?:but|and|so)$/i.test(p));
   if (!clauses.length) return null;
-  if (clauses.length === 1 && !/^I\b|^I'/.test(clauses[0])) return null;
+  if (clauses.length === 1 && !/^I\b|^I'/.test(clauses[0]) && !/\b(?:for|about|to)\b/i.test(apology)) return null;
   apology = apology.replace(/^my bad\b/i, "sorry");
   const out = [];
   const isQ = (c) => /^(?:can|could|would|will|what|when|where|who|how|is|are|do|does)\b(?!')/i.test(c);
@@ -110,6 +113,7 @@ export function restoreArticle(sentence) {
   if (/ing$|ly$/i.test(words[words.length - 1]) && words.length === 1) return sentence;
   // A head that is a known mass noun or team name keeps no article.
   if (NOT_HEAD.test(words[words.length - 1])) return sentence;
+  if (/^(?:kid|son|daughter|wife|husband|partner|dog|cat|car|laptop|phone|flight|train|mom|dad|internet|power)$/i.test(words[words.length - 1]) && words.length === 1) return `my ${sentence}`;
   return `the ${sentence}`;
 }
 
@@ -125,7 +129,9 @@ export function prepass(clean) {
       if (sar) return sar;
       const ap = splitApology(s);
       if (ap) return ap;
-      const startsLower = /^[a-z]/.test(s);
+      // "closed the Acme deal!!!" -> "We closed the Acme deal!!!" (a team win with the subject dropped).
+      if (/^(?:closed|shipped|launched|signed|landed|won|hit|crushed|nailed) (?:the|a|an|our|\d)/i.test(s)) return `we ${s}`;
+      const startsLower = /^[a-z]/.test(s) && !hasCrude(s) && !/\b(?:shit|fuck\w*|crap|damn|hell)\b/i.test(s);
       if (startsLower) {
         const r = restoreArticle(s);
         if (r !== s) return r;
@@ -134,4 +140,24 @@ export function prepass(clean) {
     }).join(" ");
     return lead + t;
   }).join("\n");
+}
+
+// Collocation and slot checks after the phrase swaps (shortfalls/research.md, item 4).
+// A swap is only right if it fits its neighbors: "smells rough", "the design is too tied up",
+// "400 end-user ecosystem" and "incrementally differently" are swaps that landed in the wrong slot.
+const PERSON = /^(?:I|I'm|we|we're|you|you're|he|she|they|they're|the team|everyone|[A-Z][a-z]+)$/;
+const COLLOCATIONS = [
+  [/\bsmells? (?:rough|suboptimal|challenging|not great)\b/g, (m) => m.replace(/\S+$/, "unpleasant")],
+  [/\b(\d[\d,.]*k?) (?:end-user ecosystem|end-user base|user ecosystem)\b/g, "$1 users"],
+  [/\b(\d[\d,.]*k?) end users\b/g, "$1 users"],
+  [/\b(?:incrementally|slightly|materially) differently\b/g, "differently"],
+  [/\bsee (the [\w-]+|it|this|that) (?:incrementally|materially) differently\b/g, "see $1 differently"],
+  [/\bstrategic pathway ([A-Z])\b/g, "option $1"],
+];
+export function fixCollocations(text) {
+  let t = text;
+  for (const [re, rep] of COLLOCATIONS) t = t.replace(re, rep);
+  // "busy" means "occupied" only for people: "the design is too tied up" -> "the design is too busy".
+  t = t.replace(/\b((?:the|this|that|your|our|my) [\w-]+|it|this|that) (is|looks|feels|seems) (too |very |really |so |a bit )?(?:tied up|at capacity|fully leveraged|swamped|slammed|underwater)\b/gi, (m, subj, v, adv) => (PERSON.test(subj) || /\b(?:team|manager|lead|engineer|designer|person|folks|staff|crew)\b/i.test(subj) ? m : `${subj} ${v} ${adv ?? ""}busy`.replace(/\s{2,}/g, " ")));
+  return t;
 }

@@ -725,6 +725,10 @@ export function past(v) {
 
 function genericHeader(h) {
   if (!h || h.split(/\s+/).length > 4 || /[,.!?]/.test(h)) return null;
+  // Headers that are a clause or a to-do label, not a noun: "need from you", "todo today".
+  if (/^(?:i )?need from you$/i.test(h)) return ["Here's what I need from you", "Quick ask, here's what I need from you", "Here's what I need from you"];
+  const td = h.match(/^(?:todo|to-do|to do)(?: list)?( today| this week| tomorrow)?$/i);
+  if (td) { const when = (td[1] ?? "").trim().toLowerCase(); return [`My plan for ${when || "today"}`, `${when ? when[0].toUpperCase() + when.slice(1) + "'s" : "Today's"} action items`.replace("This week's", "This week's"), `${when ? when[0].toUpperCase() + when.slice(1) + "'s" : "Today's"} strategic priorities`]; }
   const low = h.replace(/^\w/, (c) => (/^[A-Z][a-z]/.test(h) ? c.toLowerCase() : c));
   if (/^my\b/i.test(h)) return [`Here's ${low}`, `${h.replace(/^my/i, "My")} at a glance`, `Strategic overview of ${low}`];
   if (/^(?:for|by|before|after)\b/i.test(h)) return [`Here's the checklist ${low}`, `Action items ${low}`, `Key deliverables ${low}`];

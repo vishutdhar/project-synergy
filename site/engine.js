@@ -6,7 +6,8 @@ import {
   LAYOFF_HINTS, LAYOFF_CONTEXT_SWAPS, SIGNALS,
 } from "./phrasebook.js";
 import { checkMeaning, setAllowedCaps, isShouting } from "./meaning.js";
-import { prepass } from "./prepass.js";
+import { prepass, fixCollocations } from "./prepass.js";
+import { composeCSuite } from "./csuite.js";
 import { CRUDE_SWAPS, canonicalizeCrude, hasCrude, cleanCrude } from "./profanity.js";
 
 export const SOFT_CAP = 20000;
@@ -525,7 +526,7 @@ function rewriteSentence(sentence, lvl, rng, used, { addPeriod = true, dropped =
       }
     }
     const { text } = swapPhrases(base, plainMatcher, lvl, rng, SWAP_CHANCE[lvl], trial, prot);
-    let t = capFirst(polishRegister(tidy(text)));
+    let t = capFirst(fixCollocations(polishRegister(tidy(text))));
     if (addPeriod && !endsWithPunct(t) && !/[,:;]$/.test(t) && /[A-Za-z0-9]/.test(t)) t += ".";
     if (checkMeaning(sentence, t).ok && !hasCrude(t)) {
       for (const k of trial) used.add(k);
@@ -599,8 +600,26 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [], forceMild
  * fallback is "" when the first try passed, "reseed" when a later try passed,
  * and "plain" when only the version without openers, closers and asides passed.
  */
-export function toCorporateDetailed(input, { level = 2, seed = 1 } = {}) {
+export function toCorporateDetailed(input, { level = 2, seed = 1, raw = false } = {}) {
   const lvl = clampLevel(level);
+  // Full C-Suite is composed from the Mild and Middle Manager rewrites (csuite.js): frame + point + closer.
+  if (lvl === 3 && !raw) {
+    const mild = toCorporateDetailed(input, { level: 1, seed });
+    const middle = toCorporateDetailed(input, { level: 2, seed });
+    if (mild.text && mild.fallback !== "plain") {
+      const c0 = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
+      const ref = prepass(c0);
+      const without = (dropped) => dropped.reduce((t, d) => t.replace(d, " "), ref);
+      for (let k = 0; k < 4; k++) {
+        const rng = mulberry32(hashString(ref) ^ Math.imul((seed + k * 7919) >>> 0, 2654435761) ^ 0x5eed);
+        const text = composeCSuite({ clean: ref, mild: mild.text, middle: middle.text, rng });
+        if (!text) break;
+        const check = checkMeaning(without(mild.unsafe ?? []), text);
+        if (check.ok && !hasCrude(text)) return { text: polishCase(tidy(text)), check, fallback: k ? "reseed" : "", unsafe: mild.unsafe ?? [] };
+      }
+    }
+    return toCorporateDetailed(input, { level, seed, raw: true });
+  }
   // Censored spellings become plain ones (f*ck, wtf) so the crude rewrites can catch them. Slurs never get through.
   // Texting shorthand becomes plain words first.
   const clean0 = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim()
