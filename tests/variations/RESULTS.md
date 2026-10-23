@@ -3,6 +3,13 @@
 Dataset: 1,003 inputs (652 plain-to-corporate, 351 corporate-to-plain), 3 levels each, 3,009 outputs per engine, every level has an ideal_output.
 Production: deployment 4a66a68c, live check 60/60 pass (Instant both directions plus 15 AI-mode runs; on N>C the AI text often falls back to Instant, labeled).
 
+## Corporate levels round (Oct 22, 2026, evening)
+Mild and Middle Manager used to read like tidied copies of the input. They now follow the level spec in the research notes: Mild is a polished work email (indirect asks, hedged opinions, softer refusals), and Middle Manager adds labels, nominalization and mid-tier jargon. Every level still keeps every no, question, number, name and date, and adds no facts.
+- Hand reads of Mild and Middle Manager (150 rows, 300 outputs each, graded strictly for sense, meaning, work safety, level register and nothing invented): 87.3%, 89.3%, 84.3%, 86.7%, 90.3%. Round 3 used a stricter reader than rounds 1 and 2. Round 5 used the last 52 unread rows plus 98 earlier rows at reroll seed 3, because the fresh rows ran out. The 95% target was not reached.
+- After each round, the failure classes were fixed and covered by tests in tests/levels.test.js.
+- Spot checks: 50 Full C-Suite outputs had no regressions, and 0 of 1,053 decode outputs changed.
+- Production: deployment 34d5bf20, live check 60/60.
+
 ## Instant
 - Before, hand-read sample: 41.8% of 423 outputs. Automated checks on all rows: 51.3% of 3,009.
 - After (run r20): automated checks 100% of 3,009. Every flagged/hand-failed row was fixed and re-read.
