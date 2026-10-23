@@ -78,13 +78,14 @@ test("AI gate: drift and lost facts fall back to Instant", () => {
 });
 
 test("interjections and tags get their comma", () => {
-  assert.equal(corp("srry wrong chat", 1), "Apologies, wrong chat.");
+  assert.equal(corp("srry wrong chat", 1), "Apologies, that was meant for a different chat.");
   assert.equal(corp("the new laptop is great btw", 1), "The new laptop is great, by the way.");
   assert.equal(corp("btw the deploy is done", 1), "By the way, the deploy is done.");
   assert.equal(corp("wow thanks for telling me at 4:55 on a friday", 1), "Wow, thanks for telling me at 4:55 on a Friday.");
   assert.equal(corp("ok but why", 1), "Okay, but could you help me understand why?");
   assert.equal(corp("ok so the api is borked again", 1), "It looks like the api is down again.");
-  assert.match(corp("sure, I'll just work 3 jobs, no problem", 3), /operationalize that\. I'll just work 3 jobs/);
+  // Sarcasm becomes the sincere complaint underneath it (shortfalls round).
+  assert.match(corp("sure, I'll just work 3 jobs, no problem", 3), /not happy about having to work 3 jobs\./);
 });
 
 test("slang found in the live check gets swapped at every level", () => {

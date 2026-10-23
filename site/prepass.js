@@ -33,7 +33,7 @@ export function desarcasm(sentence) {
   }
   if ((m = s.match(/^(?:I )?can't wait for (?:the |a |an )?(.+)$/i))) return `I'm not thrilled about the ${m[1]}.`;
   if ((m = s.match(/^nothing says (?:teamwork|team spirit|culture|work-life balance|fun) like (?:a |an |the )?(.+)$/i))) return `I'm not thrilled about a ${m[1]}.`;
-  if ((m = s.match(/^sure,? (?:I'll|I will) just (.+?)(?: then)?$/i))) return `I'm not happy about having to ${m[1]}.`;
+  if ((m = s.match(/^sure,? (?:I'll|I will) just (.+?)(?:,? (?:no problem|no worries|fine|sure|great|then|easy))*$/i))) return `I'm not happy about having to ${m[1]}.`;
   if ((m = s.match(/^(?:sure,? )?let's just (.+?),? what could (?:possibly )?go wrong$/i))) return `I'm concerned about the risk if we ${m[1]}.`;
   if ((m = s.match(/^just what I needed,? (.+)$/i))) return `I have ${m[1].replace(/^(?:a|an|the) /i, (a) => a.toLowerCase())}, which isn't ideal.`;
   if ((m = s.match(/^(?:how )?nice of (them|him|her|you|leadership|management|IT|HR) to (\w+) (.+)$/i))) {
@@ -185,6 +185,6 @@ export function fixCollocations(text) {
   let t = text;
   for (const [re, rep] of COLLOCATIONS) t = t.replace(re, rep);
   // "busy" means "occupied" only for people: "the design is too tied up" -> "the design is too busy".
-  t = t.replace(/\b((?:the|this|that|your|our|my) [\w-]+|it|this|that) (is|looks|feels|seems) (too |very |really |so |a bit )?(?:tied up|at capacity|fully leveraged|swamped|slammed|underwater)\b/gi, (m, subj, v, adv) => (PERSON.test(subj) || /\b(?:team|manager|lead|engineer|designer|person|folks|staff|crew)\b/i.test(subj) ? m : `${subj} ${v} ${adv ?? ""}busy`.replace(/\s{2,}/g, " ")));
+  t = t.replace(/\b((?:the|this|that|your|our|my) [\w-]+|it|this|that) (is|looks|feels|seems) (too |very |really |so |a bit )?(?:tied up|at capacity|fully leveraged|swamped|slammed|underwater)\b/gi, (m, subj, v, adv) => (PERSON.test(subj) || /\b(?:team|squad|pod|manager|lead|engineer|designer|person|folks|staff|crew|group|department|everyone|people)\b/i.test(subj) ? m : `${subj} ${v} ${adv ?? ""}busy`.replace(/\s{2,}/g, " ")));
   return t;
 }

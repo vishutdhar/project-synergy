@@ -3,6 +3,7 @@
 // The point comes from the Mild rewrite, which already keeps every no, number, name, date and question.
 // Frames and closers carry tone only: no new people, numbers, dates, meetings or promises.
 
+const STOP = new Set(["looks", "there", "about", "which", "would", "could", "their", "thing", "thanks", "going"]);
 const pick = (rng, xs) => xs[Math.floor(rng() * xs.length)];
 let srcWords = new Set();
 const FUNCTION_START = /^(?:The|A|An|This|That|These|Those|My|Our|Your|Their|We|We're|We've|We'll|They|They're|He|She|It|It's|There|There's|Here's|Nothing|Nobody|Everyone|Someone|Anyone|Unfortunately|Could|Would|Can|Will|Is|Are|Do|Does|Did|What|What's|Who|Who's|When|Where|Why|How|Which|Whose|Please|Thank|Thanks|Great|Huge|Sorry|Apologies|Not|No|Yes|Hard|Sounds|Understood|You|You're|Today|Tomorrow|Happy|Outstanding|Congratulations|Lunch|Payroll|Traffic|Just|So|Very|Let's|Let|Here|If|To|Is|In|On|At|For|By|With|Some|All|Any|Every|Each|Both|Over|Under|After|Before|Server|Printer|Invoice|Closed|New)$/;
@@ -74,8 +75,7 @@ const UPGRADES = [
   [/\bfolks\b/g, "team members"],
   [/\bI'm (?:really |very |so )?busy\b/g, "I'm at capacity"],
   [/\bI'm quitting\b/g, "I've decided to embark on my next chapter"],
-  [/\b(?:is|was) (?:garbage|trash|junk|rubbish|a mess)\b/g, (m) => `${m.split(" ")[0]} not yet at the quality bar we hold ourselves to`],
-  [/\b(?:is|was) nonsense\b/g, (m) => `${m.split(" ")[0]} not driving meaningful value`],
+  [/\b(?:is|was) (?:garbage|trash|junk|rubbish)\b/g, (m) => `${m.split(" ")[0]} not yet at the quality bar we hold ourselves to`],
   [/\bmessed up\b/g, "mishandled"],
   [/\b(?:a good|the best) use of (?:our|my|your) time\b/g, (m) => m.replace(/a good|the best/, "the highest-leverage")],
   [/\bGreat (?:work|job)\b/g, "Outstanding impact"],
@@ -138,7 +138,8 @@ const FRAMES = {
     (s) => `Calling out best-in-class execution: ${lowerFirst(s)}`,
   ],
   request: [
-    (s) => s,
+    (s) => `To unlock velocity on our shared priorities, a quick ask: ${lowerFirst(s)}`,
+    (s) => `In the spirit of cross-functional partnership: ${lowerFirst(s)}`,
   ],
   question: [
     (s) => `Seeking clarity on a key alignment point: ${lowerFirst(s)}`,
@@ -245,17 +246,30 @@ export function composeCSuite({ clean, mild, middle, rng }) {
     if (/\?$/.test(m) && !/\n/.test(m)) core = cap(m);
   }
   const keepQ = /\?/.test(clean);
-  if (intent === "request") core = lumbergh(core, keepQ);
+  let framedRequest = false;
+  if (intent === "request") {
+    const parts0 = core.split(/(?<=[.!?])\s+(?=[A-Z])/);
+    const l = lumbergh(parts0[0].replace(/\bplease /, ""), keepQ && /\?/.test(parts0[0]));
+    framedRequest = l !== parts0[0].replace(/\bplease /, "");
+    core = [framedRequest ? l : parts0[0], ...parts0.slice(1)].join(" ");
+  }
   core = upgrade(core);
   // Short one-word answers ("Sounds good.") read as a strategic stance.
-  let frame = pick(rng, FRAMES[intent] ?? FRAMES.status);
+  const lowCore = core.toLowerCase();
+  const framePool = (FRAMES[intent] ?? FRAMES.status).filter((f) => !f("x").toLowerCase().split(/\W+/).some((w) => w.length >= 5 && !STOP.has(w) && lowCore.includes(w)));
+  let frame = pick(rng, framePool.length ? framePool : FRAMES[intent] ?? FRAMES.status);
+  if (framedRequest) frame = (x) => x;
   const firstWords = core.split(/(?<=[.!?])\s+/)[0].split(/\s+/).length;
   if (firstWords <= 2 || /^(?:Okay|OK|Sure|Understood|Noted|Got it|Sounds good|No problem|Never mind|Thank you|Thanks)\b/.test(core)) frame = pick(rng, [(x) => `Net-net: ${x}`, (x) => `Bottom line, from a strategic lens: ${x}`, (x) => `Level-setting for full alignment: ${x}`]);
+  // A greeting stays first: "Hi team, <frame> ...".
+  let greeting = "";
+  const gm = core.match(/^((?:Hi|Hey|Hello|Good morning|Good afternoon)(?: [A-Za-z]+(?: [a-z]+)?)?,)\s+(?=\S)/);
+  if (gm) { greeting = gm[1].replace(/ team members,$/, " team,") + " "; core = core.slice(gm[0].length); }
   const parts = core.split(/(?<=[.!?])\s+(?=[A-Z])/);
-  let head = frame(parts[0]);
+  let head = greeting + frame(parts[0]);
   let text = [head, ...parts.slice(1)].join(" ");
   if (!/[.!?]$/.test(text)) text += ".";
-  const closers = (CLOSERS[intent] ?? CLOSERS.status).filter((c) => !c.toLowerCase().split(/\W+/).some((w) => w.length > 5 && text.toLowerCase().includes(w)));
+  const closers = (CLOSERS[intent] ?? CLOSERS.status).filter((c) => !c.toLowerCase().split(/\W+/).some((w) => w.length >= 5 && !STOP.has(w) && text.toLowerCase().includes(w)));
   if (closers.length) text += " " + pick(rng, closers);
   return text.replace(/\bthat that\b/g, "that").replace(/\s{2,}/g, " ").replace(/\.\./g, ".").replace(/!\./g, "!");
 }
