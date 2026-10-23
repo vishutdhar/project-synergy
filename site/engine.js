@@ -106,6 +106,7 @@ export function normalizeCasual(text) {
   t = t.replace(/^(\s*)(?:y'?all|you all)(?=\s+(?:the|we|i|it|this|that|there|guess|check|look|our)\b)/gim, "$1everyone,");
   t = t.replace(/\bdon'?t @ me,? but\b/gi, "unpopular opinion, but");
   t = t.replace(/\blma+o+\b|\blo+l+\b/gi, "");
+  t = t.replace(/!{2,}/g, "!");
   t = t.replace(/^(\s*)(?:ok|okay),?\s+so,?\s+(?=[a-z])/gim, "$1");
   t = t.replace(/^(\s*)so,?\s+(?=(?:i|we)\s+(?:was|were|had|tried|thought)\b)/gim, "$1");
   t = t.replace(/^(\s*)([^\n?]+?),?\s+fyi\s*[.!]*\s*$/gim, "$1$2.");
@@ -672,6 +673,9 @@ function levelFloor(input, clean, text, lvl, seed) {
       if (/^(?:Great|Nice) (?:work|job)\b/.test(text)) return text.replace(/^(?:Great|Nice) (?:work|job)\b/, "Huge kudos");
       const st = text.match(/^Sorry to (bother|interrupt|disturb) you\b/);
       if (st) return text.replace(st[0], `Apologies for ${st[1] === "bother" ? "bothering" : st[1] + "ing"} you`);
+      if (/^Oh no,\s/.test(text)) return text.replace(/^Oh no,\s*/, "Unfortunately, ");
+      if (/^Happy Friday\b/i.test(text)) return text.replace(/^Happy Friday,?\s*(everyone|all|team)?\b/i, (_m, w) => `Wishing ${w ? (w.toLowerCase() === "everyone" ? "everyone" : "the " + w.toLowerCase()) : "you"} a happy Friday`);
+      if (/^I(?:'m| am) (?:so|really|very) /.test(text)) return `Candidly, ${text}`;
       if (/^Ah yes\b/i.test(text)) return text.replace(/^Ah yes,?\s*/i, "Love that for us: ");
       return `For visibility: ${typedLower && !/^I(?:'|$)/.test(w) ? w.toLowerCase() + text.slice(w.length) : lowerFirst(text)}`;
     }

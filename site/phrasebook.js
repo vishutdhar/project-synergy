@@ -12,6 +12,7 @@ export const CORPORATE_SWAPS = `
 !so glad we = really glad we = thrilled that we = truly energized that we
 !oh look, = well, look: = interesting development: = a fun development:
 !my brain is fried = I'm mentally drained = I'm running low on bandwidth = my cognitive bandwidth is fully depleted
+!^no thanks = no, thank you = no, but thank you so much = no, but I sincerely appreciate it
 !happy friday everyone = happy Friday, everyone = wishing everyone a happy Friday = wishing the whole team a high-impact Friday
 !jesus christ = wow = yikes = what a development
 i don't understand = I'm not sure I understand = I'm not fully clear on = I lack clarity on

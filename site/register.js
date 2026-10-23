@@ -663,6 +663,8 @@ const ONE_LINERS = {
   "whatever works": ["I'm flexible.", "I'm flexible on this.", "I'm fully outcome-agnostic here."],
   "wait what": ["Wait, what?", "Sorry, could you clarify?", "Could you double-click on that for me?"],
   "that's unfortunate": ["That's unfortunate.", "That's a tough break.", "That's a material setback."],
+  "no thanks": ["No, thank you.", "I'll pass, but thank you.", "I'll respectfully pass, but thank you."],
+  "love that for us": ["Love that for us.", "Love that for us, truly.", "What a win for the team."],
   "got it": ["Got it, thanks.", "Got it, noted on my end.", "Understood, fully aligned."],
   "thanks": ["Thank you so much.", "Thanks, much appreciated.", "Deeply appreciate the partnership."],
   "thank you": ["Thank you so much.", "Thanks, much appreciated.", "Deeply appreciate the partnership."],

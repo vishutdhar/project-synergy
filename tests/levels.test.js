@@ -96,3 +96,10 @@ test("hand-read #4 fixes: no stray labels on social lines, no misread imperative
   assert.match(corp("I loved how you handled that angry customer", 2), /^Kudos: /);
   assert.doesNotMatch(corp("can we stop booking the big room for 2 people", 2), /stakeholders/);
 });
+
+test("hand-read #5 fixes: social and emotive lines get a real Middle Manager register", () => {
+  assert.equal(corp("happy friday everyone", 2), "Wishing everyone a happy Friday.");
+  assert.equal(corp("god damn it, I left my badge at home", 2), "Unfortunately, I left my badge at home.");
+  assert.equal(corp("no thanks", 1), "No, thank you.");
+  assert.equal(corp("sorry!!", 1), "Apologies!");
+});
