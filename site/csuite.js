@@ -153,7 +153,8 @@ export function intentOf(clean, core) {
   if (PERSONAL.test(core) || /^My (?:kid|son|daughter|child)\b/.test(core)) return "personal";
   if (/^(?:I believe|I think|I don't (?:think|believe|agree)|I disagree|I'd prefer|I prefer|I'd rather|I'd suggest|I see|I'm not (?:yet )?aligned)\b/.test(core) || /\bshould\b/.test(core) && !NEG.test(core)) return "opinion";
   if (/^I (?:really |absolutely )?(?:like|love|appreciate)\b/.test(core) && !NEG.test(core)) return "praise";
-  if (/^(?:Great|Outstanding|Huge|Thank|Thanks|Congrat|Happy|Nice|Kudos|Shoutout|A big thank|Well done|Good (?:job|work))/i.test(core) || /^[A-Z][a-z]+(?:'s [a-z]+)? (?:saved|crushed|nailed|rocked|is a game changer|is a lifesaver)\b/.test(core) || /\b(?:is|are|looks|was) (?:awesome|excellent|great|amazing|fantastic|truly best-in-class|really good|really clear)\b/.test(core) && !NEG.test(core) || /\b(?:was|is) an? (?:great|fantastic|excellent|amazing|awesome) \w+/.test(core) && !NEG.test(core)) return "praise";
+  if (/^(?:Great|Outstanding|Huge|Big thanks|Big thank|Really (?:good|great|strong|nice) (?:work|job)|Amazing (?:work|job)|Awesome (?:work|job)|Excellent (?:work|job)|Fantastic (?:work|job)|Thank|Thanks|Congrat|Happy|Nice|Kudos|Shoutout|A big thank|Well done|Good (?:job|work))/i.test(core) || /^[A-Z][a-z]+(?:'s [a-z]+)? (?:saved|crushed|nailed|rocked|is a game changer|is a lifesaver)\b/.test(core) || /\b(?:is|are|looks|was) (?:awesome|excellent|great|amazing|fantastic|truly best-in-class|really good|really clear)\b/.test(core) && !NEG.test(core) || /\b(?:was|is) an? (?:great|fantastic|excellent|amazing|awesome) \w+/.test(core) && !NEG.test(core)) return "praise";
+  if (/\b(?:is live|went live|is back up|(?:dropped|down|fell) to (?:zero|0))\b/.test(core) && !/\b(?:not|still|again|but)\b|n't\b/.test(core)) return "win";
   if (PROBLEM.test(core) || NEG.test(core)) return "problem";
   if (WIN.test(core)) return "win";
   return "status";
@@ -323,6 +324,8 @@ export function composeCSuite({ clean, mild, middle, rng, raw = clean }) {
   const lowCore = core.toLowerCase();
   const framePool = (FRAMES[intent] ?? FRAMES.status).filter((f) => !f("x").toLowerCase().split(/\W+/).some((w) => w.length >= 5 && !STOP.has(w) && lowCore.includes(w)));
   let pool = framePool.length ? framePool : FRAMES[intent] ?? FRAMES.status;
+  // "flag that that call was" and "surface that stop messing around" don't parse: drop the "that" frames.
+  if (/^(?:That|Those|Stop|Please|Let's|Don't|Quit|Keep|Make|Get|Go|Send|Fix|Check|Ask|Tell)\b/.test(core) && pool.some((f) => !/that x$/.test(f("x")))) pool = pool.filter((f) => !/that x$/.test(f("x")));
   // An exclamation ("Wow, ...") only follows a colon, never "share that".
   if (/^(?:Wow|Whoa),/.test(core)) pool = pool.filter((f) => /: x$/.test(f("x"))).concat([(x) => `Excited to share a key win: ${lowerFirst(x)}`]).slice(0, 3);
   let frame = pick(rng, pool);

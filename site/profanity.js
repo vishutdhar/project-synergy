@@ -108,7 +108,7 @@ const PHRASES = `
 !{got|get|getting} {screwed|shafted|hosed|fleeced} on = $1 a bad deal on = $1 unfavorable terms on = $1 below-expectation terms on
 !{got|get|getting} {screwed|shafted|hosed} = $1 a bad deal = $1 treated unfairly = $1 significantly disadvantaged
 !no {fucking|freaking|bloody|damn|frickin|effing} way = there's no way = there's realistically no way = there's no feasible path where
-!{is|are|was|were} {total |complete |absolute |utter }{garbage|trash|rubbish|junk} = $1 really not good = $1 in need of significant work = $1 significantly below the bar
+!{is|are|was|were} {total |complete |absolute |utter |pure }{garbage|trash|rubbish|junk} = $1 really not good = $1 in need of significant work = $1 significantly below the bar
 !{is|are|was|were} {garbage|trash|rubbish|junk} = $1 not good = $1 in need of significant work = $1 below the bar
 !{learned|learnt|learn|know|knew|did|done|do|does|got|get|shipped|delivered|achieved|accomplished|contributed|said|heard|fixed|changed} {fuck all|shit all|jack shit|dick all|bugger all|naff all|sod all} = $1 nothing = $1 nothing at all = $1 nothing of substance
 !{diddly |diddly-|jack }squat = nothing = nothing at all = nothing of substance
@@ -465,7 +465,7 @@ export const IDIOM_MEANINGS = [
   {
     id: "not-true",
     re: /\b(?:bullshit|bollocks)\b|\bfull of (?:shit|crap)\b/i,
-    must: /nonsense|credible|right|agree|concern|reservation|data|true|accurate|use of (?:our |my |your )?time|driving (?:meaningful )?value|worthwhile|pointless|wrong|mislead|straight|making things up|exaggerat|push(?:ing|ed|es)? back|challeng|transparen|doubt|skeptic|unsupported|needs significant work|runway for improvement/i,
+    must: /nonsense|credible|right|agree|concern|reservation|data|true|accurate|use of (?:our |my |your )?time|driving (?:meaningful )?value|worthwhile|pointless|wrong|mislead|straight|making things up|exaggerat|push(?:ing|ed|es)? back|challeng|transparen|doubt|skeptic|unsupported|needs significant work|runway for improvement|questionable/i,
   },
   {
     id: "bad",

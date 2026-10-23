@@ -36,7 +36,7 @@ i'm bored = I'm looking for a new challenge = I'm seeking more strategic stretch
 !^sorry = apologies = apologies for the friction = I own that misalignment
 my bad = my mistake = I own that = that's a learning I'm taking forward
 !^i quit = I'm moving on = I'm transitioning to my next chapter = I'm exploring opportunities outside the org
-i'm leaving = I'm heading out = I'm transitioning out = I'm sunsetting my presence
+i'm leaving = I'm heading out = I'll be heading out = I'm sunsetting my presence
 out sick = out sick = out sick = offline for health reasons
 !so done with = really fed up with = at my limit with = fully at capacity on
 !crushed it = did a fantastic job = knocked it out of the park = delivered outsized impact
@@ -1054,7 +1054,7 @@ const MORE_PATTERNS = {
     /\b(?:managed|handled|run|operated|provided|performed) by (?:an? )?(?:external|third[- ]party|outside) (?:\w+ )?(?:provider|vendor|firm|company|partner)\b/i,
     /\bmanaged service partner\b/i, /\bthird[- ]party (?:\w+ )?provider\b/i, /\bsigned with [A-Z]\w*(?: [A-Z]\w*)? to (?:run|handle|manage|provide)\b/,
     /\bpartnership with [A-Z][^.]{0,80}(?:take on|take over|will handle|will run)\b/, /\bwill be provided by [A-Z]/],
-  rejection: [/\bnot (?:able|in a position) to (?:support|approve|accommodate) (?:it|this|that|your)\b/i, /\bposition has been filled\b/i, /\boriginal decision will stand\b|\bdecision will stand\b/i,
+  rejection: [/\b(?:per|according to) (?:legal|compliance|counsel|our lawyers)\b[^.]{0,30}\b(?:unable|can't|cannot|not able|not permitted|not allowed)\b/i, /\b(?:legal|compliance|counsel) (?:says|said|has said|confirmed|has confirmed)\b[^.]{0,30}\b(?:can't|cannot|unable|not)\b/i, /\bnot (?:able|in a position) to (?:support|approve|accommodate) (?:it|this|that|your)\b/i, /\bposition has been filled\b/i, /\boriginal decision will stand\b|\bdecision will stand\b/i,
     /\bnot quite (?:a|the right) (?:fit|match)\b/i, /\b(?:cannot|can't|can not) be approved\b|\bcan(?:'t|not) approve\b/i, /\bbetter match your background\b/i,
     /\bdoes(?:n't| not) fit our (?:current )?\w+(?: needs)?\b/i, /\bcan(?:'t|not) offer\b/i, /\b(?:legal|finance|they|she|he) said no\b/i, /\bfalls outside (?:current |our )?(?:guidelines|policy)\b/i],
   "stack-rank": [/\b(?:\d+%|percent) of (?:each|every|the) team will be rated\b/i, /\bnot everyone can be (?:exceeding|rated)\b/i, /\bcaps? the number of (?:top )?ratings\b/i,
@@ -1068,7 +1068,7 @@ const MORE_PATTERNS = {
   deflection: [/\bdon't want to speculate\b|\brather not (?:speculate|commit)\b/i, /\bsomething we'll look into\b|\bwe'll look into (?:it|that|this)\b/i,
     /\bdon't have anything (?:more )?to share\b|\bnothing (?:more )?to share\b/i, /\bwhen there is something to share\b/i, /\bstill working through\b/i,
     /\bas previously mentioned\b|\bper my last email\b/i, /\bout of scope for now\b/i, /\baware of the concerns\b/i, /\brest assured\b/i, /\bparking lot\b/i],
-  delay: [/\btaking longer than (?:anticipated|expected|planned)\b/i, /\bno longer (?:tracking|realistic|feasible)\b/i, /\bmoved from \w+ to \w+\b/i, /\bin a later (?:sprint|release|phase)\b/i,
+  delay: [/\b(?:revised|updated|adjusted|moved|pushed|shifted|changed) the (?:[\w-]+ )?(?:go-live|launch|target|delivery|release|ship|completion) (?:date|timeline)\b[^.]{0,60}\bto (?:late|early|mid|Q[1-4]|next|the (?:second|back) half|a later)\b/i, /\btaking longer than (?:anticipated|expected|planned)\b/i, /\bno longer (?:tracking|realistic|feasible)\b/i, /\bmoved from \w+ to \w+\b/i, /\bin a later (?:sprint|release|phase)\b/i,
     /\bnow targeting\b/i, /\bdelivery will move\b/i, /\bmove (?:our |the )?(?:\w+ )?date from\b/i, /\bwill now take effect in\b/i, /\badjust\w* the timeline\b/i],
   departure: [/\bno longer with the company\b/i, /\btransitions? to an advisory role\b|\btransitioning to the role of\b/i, /\b(?:[A-Z][a-z]+|he|she) will be leaving (?:us|the company)\b/,
     /\bwill be departing\b/i, /\bsearch for (?:our|a) next (?:CEO|CFO|COO|CTO|leader)\b/i],
@@ -1095,7 +1095,7 @@ const MORE_PATTERNS = {
 const MORE_NEGATIVE = {
   "no-raises": /\b(?:smaller|capped|postpone\w*|of target|on hold)\b/i,
   // Round 6: "keep our benefits sustainable ... match from 6% to 3%" is a cut too.
-  benefits: { test: (s) => /\b(?:replac\w*|lower\w*|no longer|will end|stop covering|high-deductible|instead of|sustainab\w*)\b|\bpremiums? (?:will )?(?:increase|rise|go up)/i.test(s) || [...s.matchAll(/\bfrom (\d+(?:\.\d+)?)% to (\d+(?:\.\d+)?)%/g)].some((m) => +m[2] < +m[1]) },
+  benefits: { test: (s) => /\b(?:replac\w*|lower\w*|no longer|will end|stop covering|high-deductible|instead of|sustainab\w*)\b|\b(?:premiums?|contributions?|deductibles?|copays?)\b[^.]{0,50}\b(?:increase|rise|go up|higher)\b/i.test(s) || [...s.matchAll(/\bfrom (\d+(?:\.\d+)?)% to (\d+(?:\.\d+)?)%/g)].some((m) => +m[2] < +m[1]) },
 };
 for (const t of THEMES) {
   t.patterns.push(...(MORE_PATTERNS[t.id] ?? []));
@@ -1189,6 +1189,10 @@ export const PLAIN_LINES = [
 // Sentence-level decodes that beat theme lines. Checked in order, first match wins.
 export const SPECIAL_LINES = [
   // Round 6 (fresh7): lines that carry the specific fact instead of repeating the theme line.
+  { pattern: /\b(?:premiums?|contributions?|deductibles?|copays?)\b[^.]{0,50}\b(?:will )?(?:increase|rise|go up)\b/i,
+    lines: ["You'll pay more for your health plan.", "Your health plan will cost you more.", "Same health plan, bigger bill."], asSummary: true },
+  { pattern: /\b(?:per|according to) (?:legal|compliance|counsel)\b[^.]{0,30}\b(?:unable|can't|cannot|not able|not permitted|not allowed)\b/i,
+    lines: ["Legal said no.", "Legal blocked it.", "Legal said no. That's the end of it."], asSummary: true },
   { pattern: /\b(?:impacted|affected) (?:team members|employees|colleagues|staff|people|individuals)\b[^.]{0,30}\b(?:will be|are being|have been) (?:notified|informed|contacted)\b/i,
     lines: ["The people affected will be told {when}.", "The people being cut will hear {when}.", "The people being fired find out {when}."] },
   { pattern: /\b(?:we'll|we will) (?:share|provide|have) more (?:details |information |to share )?(?:when|once|as soon as) (?:we're|we are|we can|we're able|able|possible|appropriate)\b/i,
