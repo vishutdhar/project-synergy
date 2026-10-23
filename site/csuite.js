@@ -12,7 +12,8 @@ const lowerFirst = (s) => {
   const w = (s.match(/^[A-Za-z][\w'-]*/) ?? [""])[0];
   if (!w || /^I(?:'|$)/.test(w) || /^[A-Z0-9]{2,}$/.test(w) || /^[a-z]/.test(w)) return s;
   // Names the writer capitalized stay capitalized; anything else is a sentence start and gets lowered.
-  if (capsKeep.has(w) && !FUNCTION_START.test(w)) return s;
+  const base = w.replace(/'s$/, "");
+  if (capsKeep.has(base) && !FUNCTION_START.test(base)) return s;
   return w.toLowerCase() + s.slice(w.length);
 };
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
@@ -39,7 +40,7 @@ const UPGRADES = [
   [/\bwe already tried that\b/gi, (m) => (m[0] === "W" ? "We" : "we") + " have already explored that path"],
   [/\bneeds more work\b/g, "has meaningful runway for further iteration"],
   [/\bis due\b/g, "is due to land"],
-  [/\bI'm not sure\b/g, "I don't yet have full visibility on this"],
+  [/\bI'm not sure(?=[.!])/g, "I don't yet have full visibility on this"], [/\bI'm not sure I agree\b/g, "I'm not yet fully aligned"],
   [/\bneeds significant work\b/g, "has substantial runway for improvement"],
   [/\bdiscuss (tomorrow|later|next week|on [A-Z]\w+)\b/g, "drive alignment on this $1"],
   [/\bwent up (\d+%)/g, "increased by $1"],
@@ -94,7 +95,7 @@ export function upgrade(text) {
 }
 
 const NEG = /\b(?:not|no|never|nothing|nobody|can't|won't|don't|didn't|isn't|aren't|wasn't|unable|unfortunately)\b|n't\b/i;
-const PROBLEM = /\b(?:down|broken|broke|fail\w*|late|behind|slow|stuck|wrong|error\w*|bug\w*|blocked|blocker|cut|over budget|short|lost|missed|jammed|outage|crash\w*|concern\w*|not thrilled|not ideal|not happy|not looking forward|frustrat\w*|exhausted|burnt out|burned out|headwind\w*|risk\w*|flaky|out of date|smells|ghost\w*|rejected|unread|double[- ]booked|thin|expired|dropping|red|impossible|unrealistic|annoyed|difficult|waste|too long|too busy|too much|out of service|sick|over our|right-sized|rough shape|freeze|stuck|ghosted|nobody|no one|keeps? dropping|can't log in|locked out|upset|mad|angry|confus\w*|mess\w*|worse|declin\w*|dropped|doubled|garbage|halt\w*|delay\w*|stopped responding|gone quiet|no budget|no designer|nothing (?:got|was))\b/i;
+const PROBLEM = /\b(?:down|broken|broke|fail\w*|late|behind|slow\w*|stuck|wrong|error\w*|bug\w*|blocked|blocker|cut|over budget|short|lost|missed|jammed|outage|crash\w*|concern\w*|not thrilled|not ideal|not happy|not looking forward|frustrat\w*|exhausted|burnt out|burned out|headwind\w*|risk\w*|flaky|out of date|smells|ghost\w*|rejected|unread|double[- ]booked|thin|expired|dropping|red|impossible|unrealistic|annoyed|difficult|waste|too long|too busy|too much|out of service|sick|over our|right-sized|rough shape|freeze|stuck|ghosted|nobody|no one|keeps? dropping|can't log in|locked out|upset|mad|angry|confus\w*|mess\w*|worse|declin\w*|dropped|doubled|garbage|halt\w*|delay\w*|stopped responding|gone quiet|no budget|no designer|nothing (?:got|was)|out again|out of \w+)\b|\b0 [a-z]+/i;
 const WIN = /\b(?:closed (?:the|a|an|our) [\w-]+ (?:deal|round|sale|contract)|closed the [\w-]+ deal|shipped|launched|landed|achieved|reached|hit|record|signed|won|went (?:great|well|really well)|loved|finished|done|fixed|saved|passed|approved|resolved|milestone|congrat\w*|promotion|anniversary|kudos|great work|great job|outstanding|excellent|game changer|awesome|lifesaver|shoutout|shout-out|thank)\b/i;
 const PERSONAL = /^(?:I'm|I am|I'll|I will|I've|I have|I was|My)\b.*\b(?:late|behind|sick|PTO|out|off|leaving|back|working remotely|working from home|on my way|dentist|doctor|appointment|free|booked|available|burnt out|exhausted|break|online)\b/i;
 
@@ -114,7 +115,8 @@ export function intentOf(clean, core) {
   if (/\bI'm not sure\b/.test(core)) return "opinion";
   if (PERSONAL.test(core) || /^My (?:kid|son|daughter|child)\b/.test(core)) return "personal";
   if (/^(?:I believe|I think|I don't (?:think|believe|agree)|I disagree|I'd prefer|I prefer|I'd rather|I'd suggest|I see|I'm not (?:yet )?aligned)\b/.test(core) || /\bshould\b/.test(core) && !NEG.test(core)) return "opinion";
-  if (/^(?:Great|Outstanding|Huge|Thank|Thanks|Congrat|Happy|Nice|Kudos|Shoutout|A big thank|Well done)/i.test(core) || /^[A-Z][a-z]+(?:'s [a-z]+)? (?:saved|crushed|nailed|rocked|is a game changer|is a lifesaver)\b/.test(core) || /\b(?:is|are|looks|was) (?:awesome|excellent|great|amazing|fantastic|truly best-in-class|really good|really clear)\b/.test(core) && !NEG.test(core)) return "praise";
+  if (/^I (?:really |absolutely )?(?:like|love|appreciate)\b/.test(core) && !NEG.test(core)) return "praise";
+  if (/^(?:Great|Outstanding|Huge|Thank|Thanks|Congrat|Happy|Nice|Kudos|Shoutout|A big thank|Well done)/i.test(core) || /^[A-Z][a-z]+(?:'s [a-z]+)? (?:saved|crushed|nailed|rocked|is a game changer|is a lifesaver)\b/.test(core) || /\b(?:is|are|looks|was) (?:awesome|excellent|great|amazing|fantastic|truly best-in-class|really good|really clear)\b/.test(core) && !NEG.test(core) || /\b(?:was|is) an? (?:great|fantastic|excellent|amazing|awesome) \w+/.test(core) && !NEG.test(core)) return "praise";
   if (PROBLEM.test(core) || NEG.test(core)) return "problem";
   if (WIN.test(core)) return "win";
   return "status";
@@ -131,6 +133,10 @@ const FRAMES = {
     (s) => `Humbled and thrilled to share that ${lowerFirst(s)}`,
     (s) => `Excited to share a key win for the ecosystem: ${lowerFirst(s)}`,
     (s) => `Taking a moment to celebrate a north-star win: ${lowerFirst(s)}`,
+  ],
+  thanks: [
+    (s) => `Leading with gratitude: ${lowerFirst(s)}`,
+    (s) => `In the spirit of a gratitude-first culture: ${lowerFirst(s)}`,
   ],
   praise: [
     (s) => `Taking a beat to recognize exceptional impact: ${lowerFirst(s)}`,
@@ -186,7 +192,8 @@ const CLOSERS = {
   opinion: ["Healthy debate is how we win.", "Diversity of thought is our competitive advantage.", "Keen to align on the path forward."],
   personal: ["Grateful for your patience.", "Sustainable performance is how we win.", "Wellbeing is our north star."],
   feedback: ["Growth is a journey we're on together.", "Psychological safety and high standards go hand in hand.", "Feedback is a gift."],
-  social: ["Deeply grateful for the partnership.", "Gratitude is a core value.", "Fully aligned."],
+  social: ["Fully aligned.", "Appreciate the alignment.", "Onward."],
+  thanks: ["Deeply grateful for the partnership.", "Gratitude is a core value.", "Appreciate you."],
   status: ["Let's keep the momentum going.", "Clarity is our north star.", "Onward."],
 };
 
@@ -226,7 +233,10 @@ export function composeCSuite({ clean, mild, middle, rng }) {
   let first = sents[0].replace(MILD_FRAMES, "");
   first = cap(first);
   let core = [first, ...sents.slice(1)].join(" ");
-  const intent = isList ? "list" : intentOf(clean, core);
+  let intent = isList ? "list" : intentOf(clean, core);
+  // Mild already judged it a problem ("Unfortunately, ..."), so no upbeat closer.
+  if (/^Unfortunately,/.test(sents[0]) && /^(?:status|win|social)$/.test(intent)) intent = "problem";
+  if (/^(?:social|praise)$/.test(intent) && /^(?:Okay, thank you|Thank you|Thanks)\b/.test(core)) intent = "thanks";
   if (isList) {
     const lines = mild.split("\n");
     const head = lines[0].replace(/:$/, "");
@@ -260,16 +270,18 @@ export function composeCSuite({ clean, mild, middle, rng }) {
   let frame = pick(rng, framePool.length ? framePool : FRAMES[intent] ?? FRAMES.status);
   if (framedRequest) frame = (x) => x;
   const firstWords = core.split(/(?<=[.!?])\s+/)[0].split(/\s+/).length;
-  if (firstWords <= 2 || /^(?:Okay|OK|Sure|Understood|Noted|Got it|Sounds good|No problem|Never mind|Thank you|Thanks)\b/.test(core)) frame = pick(rng, [(x) => `Net-net: ${x}`, (x) => `Bottom line, from a strategic lens: ${x}`, (x) => `Level-setting for full alignment: ${x}`]);
+  if (intent !== "thanks" && (firstWords <= 2 || /^(?:Okay|OK|Sure|Understood|Noted|Got it|Sounds good|No problem|Never mind)\b/.test(core))) frame = pick(rng, [(x) => `Net-net: ${x}`, (x) => `Bottom line, from a strategic lens: ${x}`, (x) => `Level-setting for full alignment: ${x}`]);
   // A greeting stays first: "Hi team, <frame> ...".
   let greeting = "";
   const gm = core.match(/^((?:Hi|Hey|Hello|Good morning|Good afternoon)(?: [A-Za-z]+(?: [a-z]+)?)?,)\s+(?=\S)/);
   if (gm) { greeting = gm[1].replace(/ team members,$/, " team,") + " "; core = core.slice(gm[0].length); }
   const parts = core.split(/(?<=[.!?])\s+(?=[A-Z])/);
   let head = greeting + frame(parts[0]);
+  // A frame ending in a colon never stacks on a core that has its own ("agenda: here's the agenda:").
+  if (/:\s/.test(parts[0]) && /:\s/.test(head.slice(0, head.length - parts[0].length + 2))) head = head.replace(/:\s/, ", ");
   let text = [head, ...parts.slice(1)].join(" ");
   if (!/[.!?]$/.test(text)) text += ".";
   const closers = (CLOSERS[intent] ?? CLOSERS.status).filter((c) => !c.toLowerCase().split(/\W+/).some((w) => w.length >= 5 && !STOP.has(w) && text.toLowerCase().includes(w)));
   if (closers.length) text += " " + pick(rng, closers);
-  return text.replace(/\bthat that\b/g, "that").replace(/\s{2,}/g, " ").replace(/\.\./g, ".").replace(/!\./g, "!");
+  return text.replace(/\bthat that\b/g, "that").replace(/\b([a-z]{3,}) \1\b/g, (m, w) => (w === "had" ? m : w)).replace(/\s{2,}/g, " ").replace(/\.\./g, ".").replace(/!\./g, "!");
 }

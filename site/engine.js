@@ -712,6 +712,50 @@ function levelPolish(text, lvl, clean) {
 }
 
 function levelFloor(input, clean, text, lvl, seed) {
+  return postPolish(levelFloorInner(input, clean, text, lvl, seed), lvl, clean);
+}
+
+const NOT_VOCATIVE = /^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|January|February|March|April|May|June|July|August|September|October|November|December|Q[1-4]|Slack|Excel|Python|Postgres|AWS|SVG)$/;
+const vocative = (t) => t.replace(/(^|[.!?]\s+)((?:Huge congratulations|Congratulations|Congrats|Thanks|Thank you|Happy|Great|Nice|Good|Well done|Huge kudos|Kudos|Welcome|Good luck)\b[^.!?,:\n]*?) (everyone|team|folks|[A-Z][a-z]+)([.!?])/g,
+  (m, pre, body, who, end) => (NOT_VOCATIVE.test(who) ? m : `${pre}${body}, ${who}${end}`));
+// Runs after the level floor on every level, so labels added there get the same cleanup.
+function postPolish(text, lvl, clean) {
+  let t = levelPolish(text, lvl, clean);
+  // Vocative comma: "Happy work anniversary Tom!" -> "Happy work anniversary, Tom!"
+  t = vocative(t);
+  t = t.replace(/(^|[.!?]\s+)((?:Huge congratulations|Congratulations|Congrats|Thanks|Thank you|Happy|Great|Nice|Good|Well done|Huge kudos|Kudos|Welcome|Good luck)\b[^.!?,\n]*?) (everyone|team|folks|[A-Z][a-z]+)([.!?])/g,
+    (m, pre, body, who, end) => (NOT_VOCATIVE.test(who) ? m : `${pre}${body}, ${who}${end}`))
+    .replace(/\b(\d+(?:st|nd|rd|th)) not the (\d+(?:st|nd|rd|th))\b/g, "$1, not the $2")
+    .replace(/\bloading slow\b/g, "loading slowly")
+    .replace(/\bwork remote\b/g, "work remotely")
+    .replace(/, (it|this|that) should (have|be)\b/g, (_m, w, v) => `. ${w === "it" ? "It" : w[0].toUpperCase() + w.slice(1)} should ${v}`)
+    .replace(/\b(Could|Would|could|would) you (?!please)([^?]+?),? please\?$/, "$1 you please $2?")
+    .replace(/\bnow would like\b/g, "would now like");
+  if (lvl === 1) {
+    t = t.replace(/^I disagree with /, "I'm not sure I agree with ")
+      .replace(/^Unfortunately, (that|this) (idea|plan|approach|proposal) won't work\.$/, "I don't think $1 $2 will work.")
+      .replace(/^I prefer /, "I'd prefer ")
+      .replace(/^I'd rather ([a-z]+) /, "I'd prefer to $1 ")
+      .replace(/^(?:Nice|Great|Good) (?:work|job), (everyone|team)\.$/, "Great work, $1. Thank you.")
+      .replace(/^Just to let you know, ((?:the|your|this|that) [^.]*?\b(?:looks|is|was|are) (?:really |very |so )?(?:good|great|excellent|clear|amazing|awesome|fantastic)\b[^.]*)\.$/, (m, r) => (/\b(?:not|no|too)\b|n't/.test(r) ? m : `${r[0].toUpperCase()}${r.slice(1)}. Great work.`))
+      .replace(/^(They|He|She) (want|wants|need|needs|asked|said|think|thinks) /, (_m, w, v) => `Just to let you know, ${w.toLowerCase()} ${v} `);
+  }
+  if (lvl === 2) {
+    t = t.replace(/^For visibility: Understood\./, "Understood, and noted.")
+      .replace(/^For visibility: no, (the answer is (?:still )?no\b.*)$/, "That's a no from me: $1")
+      .replace(/^That's a no from me, (the answer is (?:still )?no\b.*)$/, "That's a no from me: $1")
+      .replace(/^(That's a no from (?:me|us)), /, "$1: ")
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): (that|this|the) (deadline|timeline|date|target|estimate) is (?:impossible|unrealistic)\.$/, "Flagging that $1 $2 isn't realistic.")
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): (this|it|that) needs more work/, "My two cents: $1 needs more work")
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): ((?:the|this|that) [^.]*?\b(?:looks|is|was) )(?:really |truly |very |so )?(good|great|excellent|clear|amazing|awesome)\b/, (_m, a, b) => `Kudos: ${a}${b === "good" ? "great" : b}`)
+      .replace(/^(?:For visibility|Heads-up|Quick heads-up): (happy|congrat\w*|welcome|huge congrat\w*|sincere apologies|apologies)\b/i, (_m, w) => w[0].toUpperCase() + w.slice(1))
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): that's a great question\. I'm not sure\./i, "Great question. Candidly, I'm not sure.")
+      .replace(/^(?:For visibility|Heads-up|Quick heads-up): (I'd rather|I prefer|I'd prefer|I see)\b/, "My two cents: $1");
+  }
+  return vocative(t.replace(/^Flagging that that /, "Flagging that the "));
+}
+
+function levelFloorInner(input, clean, text, lvl, seed) {
   text = levelPolish(text, lvl, clean);
   text = text.replace(/^(That's a no from) me, (?=we\b|we're\b|we are\b|we can|we won't|our\b)/i, "$1 us: ").replace(/^(That's a no from me), (?=I\b|I'm\b)/i, "$1: ");
   const words = text.split(/\s+/).filter(Boolean).length;

@@ -123,7 +123,7 @@ export function prepass(clean) {
   return clean.split("\n").map((line) => {
     if (/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s+/.test(line) || !line.trim()) return line;
     const lead = line.match(/^\s*/)[0];
-    let t = line.trim();
+    let t = line.trim().replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
     const sents = t.split(/(?<=[.!?])\s+(?=[A-Za-z])/);
     t = sents.map((s, i) => {
       const sar = desarcasm(s);
