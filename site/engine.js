@@ -667,7 +667,45 @@ export function toCorporateDetailed(input, { level = 2, seed = 1, raw = false } 
 // Middle Manager that reads the same as Mild gets a label. Sarcasm and interjections are left alone at Mild.
 const HAS_LABEL = /^[A-Z][\w' ,-]{1,32}:\s/;
 const INTERJECTION = /^(?:everyone|team|folks|all|really|truly|wow|oh|ah|yeah|yes|yay|ugh|lol|haha|so glad|love|amazing|sure|great|cool|nice|thanks|thank you|hi|hey|hello|happy|welcome|congrat|hmm|ok|okay|fine|same|no|nope|yep)\b/i;
+// Level polish for the shortfall classes (shortfalls/research.md): stacked labels, feedback framing,
+// hedging an opinion at Mild, recognition for praise.
+function levelPolish(text, lvl, clean) {
+  let t = text;
+  if (lvl === 1) {
+    t = t.replace(/^(That|This|The) ([\w-]+(?: [\w-]+)?) is (?:impossible|unrealistic)\.$/, (_m, d, n) => `I don't think ${d.toLowerCase()} ${n} is realistic.`)
+      .replace(/^(?:Just to let you know, )?(this|that|it) needs more work\.$/i, (_m, w) => `I think ${w.toLowerCase()} needs more work.`)
+      .replace(/^I see (it|this|that|the [\w-]+) differently\.$/, "I see $1 a bit differently.")
+      .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z]+) (.+)\.$/, "I've noticed you $1 $2.")
+      .replace(/^Just to let you know, your (.+)\.$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Your ${r}. Great work.` : `I noticed that your ${r}.`))
+      .replace(/^Great (presentation|talk|demo|session|pitch|deck|write-up|meeting|catch-up|call)( today| yesterday)?\.$/i, (_m, n, w) => `That was a great ${n.toLowerCase()}${w ?? ""}.`)
+      .replace(/^Just to let you know, ([A-Z][a-z]+)'s ([\w ]+) is a game changer\.$/, "$1's $2 is excellent. Great work, $1.");
+    // Praise that names someone gets a thank-you ("Marco saved the demo today. Thank you, Marco.").
+    const nm = t.match(/^([A-Z][a-z]+) (saved|crushed|nailed|rescued|fixed|closed|shipped|landed|did) /);
+    if (nm && !/\bthank/i.test(t) && !/^(?:The|This|That|We|They|It|There|Our|My|Your|I)$/.test(nm[1])) t = `${t} Thank you, ${nm[1]}.`;
+  }
+  if (lvl === 2) {
+    t = t.replace(/^(?:For visibility|Heads-up|Quick heads-up|Quick flag): Unfortunately, /, "Flagging that ")
+      .replace(/^Unfortunately, (?!I |I'm |we can't|we won't)/, "Flagging that ")
+      .replace(/^(?:For visibility|Heads-up|Quick heads-up): I'm concerned about /, "Flagging some concern about ")
+      .replace(/^(?:For visibility|Heads-up|Quick heads-up): I'm not (thrilled|happy|looking forward)/, "Candidly, I'm not $1")
+      .replace(/^(I'm not (?:thrilled|happy|looking forward))/, "Candidly, $1")
+      .replace(/^(?:For visibility|Heads-up|Quick heads-up): (?:my apologies|apologies|sorry)\b,?\s*/i, "Apologies ")
+      .replace(/^Apologies (for|about)\b/, "Apologies $1").replace(/^Apologies (?!for|about)/, "Apologies, ")
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): you (?!could|can|should)([a-z]+) /, "Some candid feedback: I've noticed you $1 ")
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): your (.+)$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Kudos, your ${r}` : `Some candid feedback: your ${r}`))
+      .replace(/^(?:For visibility|Heads-up): I(?:'m| am) (burnt out|burned out|exhausted|tired|frustrated|stressed|overwhelmed)/, "Candidly, I'm $1")
+      .replace(/^(?:For visibility|Heads-up): (I'd rather|I prefer|I'd prefer|I see)\b/, "My two cents: $1")
+      .replace(/^(?:For visibility|Quick heads-up): great (presentation|talk|demo|session|pitch|deck|write-up)/i, "Kudos on a great $1")
+      .replace(/^I really (?:value|like|love) (the .+)\.$/, "Huge kudos on $1.")
+      .replace(/^Quick heads-up: ([A-Z][a-z]+'s .+ is a game changer)/, "Huge kudos: $1")
+      .replace(/^When you get a chance, (could you .+ when you(?:'re| are) free\?)$/, (_m, r) => r[0].toUpperCase() + r.slice(1))
+      .replace(/^Engaging\. /, "");
+  }
+  return t;
+}
+
 function levelFloor(input, clean, text, lvl, seed) {
+  text = levelPolish(text, lvl, clean);
   text = text.replace(/^(That's a no from) me, (?=we\b|we're\b|we are\b|we can|we won't|our\b)/i, "$1 us: ").replace(/^(That's a no from me), (?=I\b|I'm\b)/i, "$1: ");
   const words = text.split(/\s+/).filter(Boolean).length;
   if (words < 3 || /\n/.test(text) || HAS_LABEL.test(text)) return text;
@@ -679,6 +717,7 @@ function levelFloor(input, clean, text, lvl, seed) {
     if (lets) return `I'd suggest we ${lets[1]}`;
     // Statements stay as polished statements: "I wanted to let you know that ..." read as a padded copy.
   }
+  if (lvl === 2 && /^(?:Candidly|Flagging|Apologies|Some candid|Huge kudos|Kudos|My two cents)\b/.test(text)) return text;
   if (lvl === 2) {
     const mild = toCorporateDetailed(input, { level: 1, seed }).text;
     if (tokenSim(mild, text) >= 0.9 || tokenSim(clean, text) >= 0.9) {

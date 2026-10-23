@@ -44,15 +44,15 @@ const UPGRADES = [
   [/\b(?:back to back|back-to-back) (?:meetings|catch-ups|alignment sessions)\b/g, "back-to-back alignment sessions"],
   [/(?<!alignment |-)\bmeetings\b/g, "alignment sessions"],
   [/(?<!alignment |-)\bmeeting\b(?! room| rooms)/g, "alignment session"],
-  [/\b(?:problems|issues)\b/g, "headwinds"],
-  [/\b(?:a problem|an issue)\b/g, "a headwind"],
+  [/\bproblems\b/g, "headwinds"],
+  [/\ba problem\b/g, "a headwind"],
   [/\bI think\b/g, "I believe"],
   [/\bI don't think\b/g, "I don't believe"],
   [/\bI disagree with\b/g, "I'm not yet aligned with"],
   [/\bI don't agree with\b/g, "I'm not yet aligned with"],
   [/\bthe plan\b/g, "the roadmap"],
-  [/\b(we|I|to|let's|Let's) use\b/g, "$1 leverage"],
-  [/\b(?:talk about|discuss)\b/g, "drive alignment on"],
+  [/\b([Ww]e|I|to|[Ll]et's) use\b/g, "$1 leverage"],
+  [/\b(?:talk about|discuss)(?= (?:the|this|that|it|my|our|your|a|an)\b)/g, "drive alignment on"],
   [/\bI'm fixing\b/g, "I'm actively remediating"],
   [/\bfix the\b/g, "remediate the"],
   [/\bwe(?:'ll| will)? need (\d+) more (days|weeks|months|people|engineers)\b/gi, (_m, n, u) => `we will require an additional ${n} ${u}${/days|weeks|months/.test(u) ? " of runway" : " of capacity"}`],
@@ -66,7 +66,11 @@ const UPGRADES = [
   [/\bTraffic was (?:awful|bad|terrible|a nightmare|rough)\b/g, "Traffic was a significant headwind"],
   [/\bworking from home\b/g, "working remotely"],
   [/\bfolks\b/g, "team members"],
-  [/\bbusy\b/g, "at capacity"],
+  [/\bI'm (?:really |very |so )?busy\b/g, "I'm at capacity"],
+  [/\bI'm quitting\b/g, "I've decided to embark on my next chapter"],
+  [/\b(?:is|was) (?:garbage|trash|junk|rubbish|a mess)\b/g, (m) => `${m.split(" ")[0]} not yet at the quality bar we hold ourselves to`],
+  [/\b(?:is|was) nonsense\b/g, (m) => `${m.split(" ")[0]} not driving meaningful value`],
+  [/\bmessed up\b/g, "mishandled"],
   [/\b(?:a good|the best) use of (?:our|my|your) time\b/g, (m) => m.replace(/a good|the best/, "the highest-leverage")],
   [/\bGreat (?:work|job)\b/g, "Outstanding impact"],
   [/\bNice (?:work|job)\b/g, "Outstanding execution"],
@@ -74,7 +78,6 @@ const UPGRADES = [
   [/\bI've decided to resign\b/g, "I've decided to embark on my next chapter"],
   [/\bgoals\b/g, "strategic objectives"],
   [/\bideas\b/g, "strategic proposals"],
-  [/\bcustomer(s)? (?:says?|reports?)\b/g, "customer$1 surfaced"],
   [/\bdeadline\b(?! is)/g, "delivery deadline"],
 ];
 
@@ -92,10 +95,13 @@ const PERSONAL = /^(?:I'm|I am|I'll|I will|I've|I have|I was|My)\b.*\b(?:late|be
 export function intentOf(clean, core) {
   const c = clean.trim();
   if (/^(?:sorry|apologies|my bad|oops|so sorry|my apologies)\b/i.test(c) || /^(?:Sorry|Apologies|Very sorry|So sorry)\b/.test(core)) return "apology";
+  if (/^(?:who|who's|whose|what|what's|when|where|why|how|which)\b/i.test(c)) return "question";
   if (/^(?:can|could|would|will) (?:you|someone|anyone|somebody|we|I get)\b/i.test(c) && !/^can I\b/i.test(c) || /^(?:Could|Would|Can) (?:you|someone|I get|we)\b/.test(core) || /^Please\b/.test(core)) return "request";
   if (/\?\s*$/.test(c) || /\?$/.test(core) && /^(?:Who|What|When|Where|Why|How|Which|Is|Are|Does|Do|Did|Can I|Has|Have|Could you let me know|Could you help me understand)\b/.test(core)) return "question";
   if (/^(?:I'm concerned|I'm not thrilled|I'm not looking forward|I'm not happy|That's not ideal|The timing isn't ideal|Unfortunately|I have \d+)\b/.test(core)) return "problem";
-  if (/^(?:no|nope|not interested|hard pass|not this)\b/i.test(c) || /^(?:I|we)(?:'m| am|'re| are)? (?:not|can't|won't|cannot|will not)\b/i.test(c) && !/\b(?:not sure|no idea)\b/i.test(c) || /^(?:I'll have to pass|I won't|We won't|We can't|I can't|We're not|I'm not)\b/.test(core)) return "decline";
+  const DOING = /\b(?:make|do|doing|take|attend|join|help|commit|support|offer|be at|be there|sign|signing|cover|go|come|work|working|approve|give|move|fit)\b/i;
+  if (/^(?:no|nope|not interested|hard pass|not this)\b/i.test(c) || /^(?:I|we)(?:'m| am|'re| are)? (?:not|can't|won't|cannot|will not)\b/i.test(c) && DOING.test(c) && !/\b(?:not sure|no idea)\b/i.test(c) || /^(?:I'll have to pass|I won't|We won't|We can't|I can't|We're not|I'm not|I'm unable|We're unable)\b/.test(core) && DOING.test(core)) return "decline";
+  if (/^(?:You|Your)\b/.test(core) && /\b(?:is|are|was|looks) (?:really |very |so )?(?:clear|great|good|excellent|amazing|fantastic|awesome|helpful|thoughtful)\b/.test(core)) return "praise";
   if (/^(?:You|Your)\b/.test(core) && !/\?/.test(core) && !WIN.test(core)) return "feedback";
   if (/^I've noticed\b/.test(core)) return "feedback";
   if (PERSONAL.test(core) || /^My (?:kid|son|daughter|child)\b/.test(core)) return "personal";
@@ -224,12 +230,14 @@ export function composeCSuite({ clean, mild, middle, rng }) {
   if (intent === "request") core = lumbergh(core, keepQ);
   core = upgrade(core);
   // Short one-word answers ("Sounds good.") read as a strategic stance.
-  const frame = pick(rng, FRAMES[intent] ?? FRAMES.status);
+  let frame = pick(rng, FRAMES[intent] ?? FRAMES.status);
+  const firstWords = core.split(/(?<=[.!?])\s+/)[0].split(/\s+/).length;
+  if (firstWords <= 2 || /^(?:Okay|OK|Sure|Understood|Noted|Got it|Sounds good|No problem|Never mind|Thank you|Thanks)\b/.test(core)) frame = pick(rng, [(x) => `Net-net: ${x}`, (x) => `Bottom line, from a strategic lens: ${x}`, (x) => `Level-setting for full alignment: ${x}`]);
   const parts = core.split(/(?<=[.!?])\s+(?=[A-Z])/);
   let head = frame(parts[0]);
   let text = [head, ...parts.slice(1)].join(" ");
   if (!/[.!?]$/.test(text)) text += ".";
-  const closers = (CLOSERS[intent] ?? CLOSERS.status).filter((c) => !c.toLowerCase().split(/\W+/).some((w) => w.length > 4 && text.toLowerCase().includes(w)));
+  const closers = (CLOSERS[intent] ?? CLOSERS.status).filter((c) => !c.toLowerCase().split(/\W+/).some((w) => w.length > 5 && text.toLowerCase().includes(w)));
   if (closers.length) text += " " + pick(rng, closers);
-  return text.replace(/\s{2,}/g, " ").replace(/\.\./g, ".").replace(/!\./g, "!");
+  return text.replace(/\bthat that\b/g, "that").replace(/\s{2,}/g, " ").replace(/\.\./g, ".").replace(/!\./g, "!");
 }

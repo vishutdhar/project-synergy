@@ -21,7 +21,7 @@ i'm free = I'm available = I have availability = I have open bandwidth
 if you want to = if you'd like to = if you'd like to = if there's appetite to
 nice catch = good catch = great catch = high-impact catch
 welcome to the team = welcome aboard = welcome to the squad = welcome to the pod
-you're a lifesaver = you're a lifesaver, thank you = you really saved the day = you're a force multiplier
+you're a lifesaver = you're a lifesaver = you really saved the day = you're a force multiplier
 !^i don't know = I'm not sure yet = I don't have visibility into that yet = that's outside my current line of sight
 i have no idea = I'm not sure yet = I don't have the full picture yet = I lack the data granularity to opine
 !no idea = no clear answer yet = limited visibility = zero line of sight
@@ -40,6 +40,7 @@ i'm leaving = I'm heading out = I'm transitioning out = I'm sunsetting my presen
 out sick = out sick = out sick = offline for health reasons
 !so done with = really fed up with = at my limit with = fully at capacity on
 !crushed it = did a fantastic job = knocked it out of the park = delivered outsized impact
+!crushed the = did a great job on the = knocked it out of the park on the = delivered outsized impact on the
 !shoutout to = a big thank-you to = huge kudos to = a massive shoutout to
 !shout-out to = a big thank-you to = huge kudos to = a massive shoutout to
 !my laptop died = my laptop stopped working = my laptop is out of commission = my hardware endpoint is offline
@@ -480,7 +481,6 @@ wants them to = wants them to = would like them to = is asking them to
 !>i need a = I could use a = I'd like a = I have a critical need for a
 !doc = doc = document = working doc
 quick update = quick update = quick refresh = rapid status download
-!>update = refresh = refresh = refresh
 !i need a raise = I could use a pay bump = I'd like a compensation adjustment = I'm seeking a total rewards recalibration
 !won't be able to = won't manage to = won't have the bandwidth to = won't be resourced to
 !quick question = quick query = quick ask = quick alignment ask

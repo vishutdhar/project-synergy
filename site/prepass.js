@@ -31,7 +31,7 @@ export function desarcasm(sentence) {
     const v = m[1].replace(/^do it$/i, "take care of it");
     return `Understood. I'll ${v} myself.`;
   }
-  if ((m = s.match(/^can't wait for (?:the |a |an )?(.+)$/i))) return `I'm not looking forward to the ${m[1]}.`;
+  if ((m = s.match(/^(?:I )?can't wait for (?:the |a |an )?(.+)$/i))) return `I'm not thrilled about the ${m[1]}.`;
   if ((m = s.match(/^nothing says (?:teamwork|team spirit|culture|work-life balance|fun) like (?:a |an |the )?(.+)$/i))) return `I'm not thrilled about a ${m[1]}.`;
   if ((m = s.match(/^sure,? (?:I'll|I will) just (.+?)(?: then)?$/i))) return `I'm not happy about having to ${m[1]}.`;
   if ((m = s.match(/^(?:sure,? )?let's just (.+?),? what could (?:possibly )?go wrong$/i))) return `I'm concerned about the risk if we ${m[1]}.`;
@@ -52,6 +52,7 @@ export function desarcasm(sentence) {
     const am = rest.match(/^(?:another|more|yet another) (.+)$/i);
     if (am) return `I'm concerned about ${/^more\b/i.test(rest) ? "the extra" : "yet another"} ${am[1]}.`;
     // A clause (has a verb) is a complaint; a bare noun phrase is something they're not keen on.
+    if (/^(?:nobody|no one)\b/i.test(rest)) return `It looks like ${rest}.`;
     if (/\b(?:is|are|was|were|has|have|had|got|went|moved|changed|broke|failed|cancel\w*|ghosted|ate|lost|crashed|wants?|needs?|read|said|did|didn't|won't|can't|doesn't|isn't|aren't|keeps?|missed|forgot|left|added|dropped|pushed|shipped|took|died|stopped|deleted)\b/i.test(rest)) {
       return `Unfortunately, ${lowFirst(rest)}.`;
     }
@@ -101,8 +102,8 @@ export function splitApology(sentence) {
 
 // Bare singular subject: "support queue is at 450" -> "The support queue is at 450".
 const FINITE = "is|was|isn't|wasn't|has|hasn't|had|got|keeps|kept|looks|looked|went|ran|runs|shows|showed|needs|wants|says|said|finished|failed|starts|started|broke|crashed|died|smells|takes|took|cost|costs|seems|loves|loved|called|calls|hates|doubled|tripled|dropped|went|came|will|won't|can't|should|still|just|keeps|refuses|is still|has been|got moved|is out|is down";
-const BARE_SUBJECT = new RegExp(`^((?:[a-z][a-z-]+ ){0,2}[a-z][a-z-]+(?<!s)) (?=(?:${FINITE})\\b)`);
-const NOT_HEAD = /^(?:i|we|you|they|he|she|it|this|that|these|those|there|here|everything|everyone|everybody|nobody|nothing|someone|something|anyone|anything|what|who|why|how|where|when|which|my|our|your|their|his|her|its|the|a|an|no|any|some|each|every|all|both|traffic|weather|money|payroll|lunch|dinner|breakfast|coffee|wifi|internet|prod|production|staging|email|slack|jira|github|google|everything|stuff|life|work|time|it|today|tonight|tomorrow|yesterday|mom|dad|management|leadership|legal|finance|hr|marketing|sales|engineering|support|security|design|ops|it|qa|sarcasm|food|parking|attendance|morale|pay|rent|tax|stock|revenue|churn|demand|velocity)$/i;
+const BARE_SUBJECT = new RegExp(`^((?:[a-z][a-z-]+ ){0,2}[a-z][a-z-]+(?<!s))(?: (?:on|in|at|from|for|of) (?:the )?(?:\\d+\\w* )?[a-z][a-z-]+)? (?=(?:${FINITE})\\b)`);
+const NOT_HEAD = /^(?:i|we|you|they|he|she|it|this|that|these|those|there|here|everything|everyone|everybody|nobody|nothing|someone|something|anyone|anything|what|who|whose|whom|why|how|where|when|which|my|our|your|their|his|her|its|the|a|an|no|any|some|each|every|all|both|traffic|weather|money|payroll|lunch|dinner|breakfast|coffee|wifi|internet|prod|production|staging|email|slack|jira|github|google|everything|stuff|life|work|time|it|today|tonight|tomorrow|yesterday|mom|dad|management|leadership|legal|finance|hr|marketing|sales|engineering|support|security|design|ops|it|qa|sarcasm|food|parking|attendance|morale|pay|rent|tax|stock|revenue|churn|demand|velocity)$/i;
 export function restoreArticle(sentence) {
   const m = sentence.match(BARE_SUBJECT);
   if (!m) return sentence;
@@ -129,6 +130,17 @@ export function prepass(clean) {
       if (sar) return sar;
       const ap = splitApology(s);
       if (ap) return ap;
+      s = s.replace(/^(?:heads up|heads-up|fyi|psa)[,:-]?\s+/i, "");
+      let mm;
+      if ((mm = s.match(/^(?:I'll )?hard pass on (.+?)[.!]?$/i))) return `I'll have to pass on ${mm[1]}.`;
+      if ((mm = s.match(/^no (raises|bonuses|hiring|offsite|budget|merit increases|promotions) (this|next) (year|quarter|month|cycle)[.!]?$/i))) return `There won't be ${mm[1].toLowerCase() === "hiring" ? "any hiring" : mm[1].toLowerCase()} ${mm[2].toLowerCase()} ${mm[3].toLowerCase()}.`;
+      if ((mm = s.match(/^(?:oops|whoops|my bad),? (?:I )?(sent|forgot|missed|deleted|broke|posted|replied|forwarded) (.+)$/i))) return `Sorry, I ${mm[1].toLowerCase()} ${mm[2].replace(/[.!]+$/, "")}.`;
+      if ((mm = s.match(/^thanks,? ([A-Z][a-z]+),? you're (?:a |an )?(lifesaver|legend|star|hero|the best)[.!]*$/))) return `Thanks, ${mm[1]}. You're a ${mm[2] === "the best" ? "star" : mm[2]}.`;
+      s = s.replace(/,? (doctor's|dentist|dental|doctor) appointment$/i, (_m, w) => ` for a ${w.toLowerCase()} appointment`).replace(/\bbudget's gone\b/i, "the budget is gone");
+      if ((mm = s.match(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(.+)$/i))) s = `${mm[1]}, ${mm[2]}`;
+      if (/^(?:sorry,? )?(?:I )?can't talk,? (?:I'm )?(?:in a meeting|driving|on a call)$/i.test(s)) return `Sorry, I can't talk right now. I'm ${s.match(/(in a meeting|driving|on a call)$/i)[1]}.`;
+      if (/^(?:I'm )?stuck in traffic,? (\d+) ?min(?:s|utes)?$/i.test(s)) return `I'm stuck in traffic and running about ${s.match(/(\d+)/)[1]} minutes late.`;
+      if (/^(?:give me|gimme) (\d+)$/i.test(s)) return `Could you give me ${s.match(/(\d+)/)[1]} minutes?`;
       // "closed the Acme deal!!!" -> "We closed the Acme deal!!!" (a team win with the subject dropped).
       if (/^(?:closed|shipped|launched|signed|landed|won|hit|crushed|nailed) (?:the|a|an|our|\d)/i.test(s)) return `we ${s}`;
       const startsLower = /^[a-z]/.test(s) && !hasCrude(s) && !/\b(?:shit|fuck\w*|crap|damn|hell)\b/i.test(s);
@@ -153,6 +165,11 @@ const COLLOCATIONS = [
   [/\b(?:incrementally|slightly|materially) differently\b/g, "differently"],
   [/\bsee (the [\w-]+|it|this|that) (?:incrementally|materially) differently\b/g, "see $1 differently"],
   [/\bstrategic pathway ([A-Z])\b/g, "option $1"],
+  [/\b(wrap up|close out|button up) (it|this|that|them)\b/g, (_m, v, o) => `${v.split(" ")[0]} ${o} ${v.split(" ")[1]}`],
+  [/\bdo a discount\b/g, "offer a discount"],
+  [/\b(?:excel)\b/g, "Excel"], [/\bsvg\b/g, "SVG"], [/\bpostgres\b/g, "Postgres"], [/\bandroid\b/g, "Android"], [/\bvpn\b/g, "VPN"], [/\bios\b/g, "iOS"],
+  [/^(Could you) (.+?) please\?$/, "$1 please $2?"],
+  [/\b(Congratulations|Congrats|Thanks|Thank you|Happy [\w ]+?) ([A-Z][a-z]+)([.!?]|$)/g, "$1, $2$3"],
 ];
 export function fixCollocations(text) {
   let t = text;

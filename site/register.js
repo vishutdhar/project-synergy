@@ -41,7 +41,8 @@ const NOT_IMPERATIVE = /^(?:thanks|thank|welcome|congrats|cheers|love|hate|hope|
 const AUX = /^(?:is|are|was|were|do|does|did|can|could|will|would|should|has|have|had|am|may|might|shall|must|isn't|aren't|wasn't|weren't|don't|doesn't|didn't|can't|won't|wouldn't|shouldn't|hasn't|haven't)$/i;
 
 // Good news: "we hit 10k users", "the demo went great", "migration finished overnight".
-const WIN_RE = /\b(?:went (?:great|well|really well)|hit|closed|shipped|launched|finished|landed|signed|won|record|loved|saved|done|fixed|green|passed|approved|resolved|nailed|crushed)\b/i;
+const WIN_RE = /\b(?:went (?:great|well|really well)|hit|closed (?:the|a|an|our) [\w-]+ (?:deal|round|sale|contract)|shipped|launched|finished|landed|signed|won(?!')|record|loved|saved|done|fixed|green|passed|approved|resolved|nailed|crushed)\b/i;
+const NOT_WIN = /n't\b|\b(?:not|no|never|nothing|nobody|no one)\b/i;
 // Problem words for "Flagging that" and "It looks like".
 const PROBLEM = /\b(?:broke|broken|down|failing|failed|fails|wrong|bug|bugs|issue|issues|error|errors|crash\w*|outage|blocked|blocker|stuck|missing|lost|late|behind|delayed|overdue|over budget|ran out|out of|slipp\w*|leak\w*|corrupt\w*|not working|doesn't work|isn't working|won't work|can't|cannot|no longer|incorrect|inaccurate|mistake|problem|problems|risk|risky|expired|overrun|underwater|drowning|in trouble|exceeded)\b/i;
 const OPINION_ADJ = /^(?:this|that|it|the [\w-]+(?: [\w-]+)?|our [\w-]+(?: [\w-]+)?|his [\w-]+|her [\w-]+|their [\w-]+)(?:'s| is| was| are| were| feels| seems| looks)\s+(?:so |really |totally |completely |kind of |kinda |pretty |way |super |just |a bit |too )?(?:a |an )?(?:bad|terrible|awful|horrible|useless|pointless|ridiculous|confusing|messy|mess|disaster|joke|waste|unrealistic|impossible|unclear|vague|weak|wrong|off|questionable|overkill|overcomplicated|complicated|too \w+|way too \w+|not (?:great|good|ideal|realistic|clear|enough|ready|worth \w+)|risky|dumb|stupid|silly|insane|crazy|nuts|absurd|meh|mid|underwhelming|great|good|amazing|awesome|fantastic|excellent|solid|brilliant|perfect|nice|cool|smart|clever|ugly|slow|expensive|cheap|hard|easy|tight|aggressive|ambitious|idea|plan|call)\b/i;
@@ -630,10 +631,10 @@ function restructureAt(marked, lvl, ctx = {}) {
   const update = ctx.first && words >= 2 && words <= 30 && !SOCIAL.test(body) && !/^(?:sorry to|that's unfortunate|not today|hard pass|whatever)\b/i.test(body) && !/^\d+ ?(?:min|mins|minutes|sec|secs|hours?)\.?$/i.test(body) && !REQ_RE.test(body) && !DEC_RE.test(body) && !/\b(?:to be honest|be honest|honestly)\b/i.test(body) && !/^(?:I think|honestly|frankly|unpopular opinion|imo|I'd|I would|I'm happy|I'm glad|happy to|glad to)\b/i.test(body) && !/^(?:and|but|or|so|because)\b/i.test(body) && !/^[\w']+(?: [\w']+)?,/.test(body) && !/:(?:\s|$)/.test(body) && !/^(?:running|heading|working|going|looking|waiting|leaving|grabbing|feeling|taking|getting|trying|doing|coming|logging|wrapping|finishing|checking)\b/i.test(body);
   if (update) {
     const personal = /^(?:I|I'm|I've|I'll|I'd|my)\b/.test(body);
-    if (lvl === 2 && !had) return done(`${useLabel(/^I hope\b/.test(body) ? "Warm wishes:" : WIN_RE.test(body) && !/\b(?:not|no|never|n't)\b/i.test(body) ? "Quick win:" : personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
+    if (lvl === 2 && !had) return done(`${useLabel(/^I hope\b/.test(body) ? "Warm wishes:" : WIN_RE.test(body) && !NOT_WIN.test(body) ? "Quick win:" : personal ? "Heads-up:" : "Quick heads-up:")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "label");
     if (lvl === 1 && ctx.forceMild && (ctx.count ?? 1) <= 2 && (subjectOk || iStatement) && !/^that\b/i.test(body) && !/\bbe honest\b/i.test(body)) {
       // Good news gets "I'm happy to share that"; a plain update gets "Just to let you know," (never the padded "I wanted to let you know that").
-      const win = WIN_RE.test(body) && !/\b(?:not|no|never|n't)\b/i.test(body);
+      const win = WIN_RE.test(body) && !NOT_WIN.test(body);
       if (/^I\b|^I'/.test(body) && !win) return none;
       return done(`${M(win ? "I'm happy to share that" : "Just to let you know,")} ${lowerFirst(marked.trim().replace(/[.!]+$/, ""))}${end === "!" ? "!" : "."}`, "frame");
     }
@@ -647,6 +648,20 @@ function splitSplice(rest) {
 }
 
 const ONE_LINERS = {
+  "not this sprint": ["Not this sprint, unfortunately.", "That won't fit into this sprint.", "This is out of scope for this sprint."],
+  "not interested": ["Thanks, but I'm not interested.", "Not interested, so I'll pass on this one.", "This isn't a fit for our current priorities."],
+  "back online": ["I'm back online.", "Heads-up: I'm back online.", "I'm back online and ready to add value."],
+  "nvm": ["Never mind.", "Please disregard.", "Please disregard my previous message."],
+  "never mind": ["Never mind.", "Please disregard.", "Please disregard my previous message."],
+  "ugh": ["That's frustrating.", "Candidly, that's frustrating.", "That's a moment of genuine frustration."],
+  "ok thanks": ["Okay, thank you.", "Noted, huge thanks.", "Fully aligned, and deeply grateful."],
+  "okay thank you": ["Okay, thank you.", "Noted, huge thanks.", "Fully aligned, and deeply grateful."],
+  "sure thing": ["Sure, happy to.", "Absolutely, happy to take this on.", "Absolutely, always happy to add value."],
+  "done": ["It's done.", "Quick win: it's done.", "This has been delivered end to end."],
+  "I fixed it": ["I've fixed it.", "Quick win: I've fixed it.", "I've remediated this end to end."],
+  "i fixed it": ["I've fixed it.", "Quick win: I've fixed it.", "I've remediated this end to end."],
+  "i'm burnt out": ["I'm feeling burnt out.", "Candidly, I'm running on empty.", "I'm navigating significant burnout."],
+  "i'm quitting": ["I've decided to resign.", "Heads-up: I've decided to move on.", "I've decided to embark on my next chapter."],
   "no": ["No, I'm not able to do that.", "I'm going to have to say no on this one.", "That's a hard no from a strategic standpoint."],
   "nope": ["No, I'm not able to do that.", "I'm going to have to say no on this one.", "That's a hard no from a strategic standpoint."],
   "on it": ["I'm on it.", "On it, and taking ownership of this.", "I'm owning this end to end."],
