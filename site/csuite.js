@@ -6,11 +6,13 @@
 const pick = (rng, xs) => xs[Math.floor(rng() * xs.length)];
 let srcWords = new Set();
 const FUNCTION_START = /^(?:The|A|An|This|That|These|Those|My|Our|Your|Their|We|We're|We've|We'll|They|They're|He|She|It|It's|There|There's|Here's|Nothing|Nobody|Everyone|Someone|Anyone|Unfortunately|Could|Would|Can|Will|Is|Are|Do|Does|Did|What|What's|Who|Who's|When|Where|Why|How|Which|Whose|Please|Thank|Thanks|Great|Huge|Sorry|Apologies|Not|No|Yes|Hard|Sounds|Understood|You|You're|Today|Tomorrow|Happy|Outstanding|Congratulations|Lunch|Payroll|Traffic|Just|So|Very|Let's|Let|Here|If|To|Is|In|On|At|For|By|With|Some|All|Any|Every|Each|Both|Over|Under|After|Before|Server|Printer|Invoice|Closed|New)$/;
+let capsKeep = new Set();
 const lowerFirst = (s) => {
   const w = (s.match(/^[A-Za-z][\w'-]*/) ?? [""])[0];
   if (!w || /^I(?:'|$)/.test(w) || /^[A-Z0-9]{2,}$/.test(w) || /^[a-z]/.test(w)) return s;
-  if (FUNCTION_START.test(w) || srcWords.has(w.toLowerCase())) return w.toLowerCase() + s.slice(w.length);
-  return s;
+  // Names the writer capitalized stay capitalized; anything else is a sentence start and gets lowered.
+  if (capsKeep.has(w) && !FUNCTION_START.test(w)) return s;
+  return w.toLowerCase() + s.slice(w.length);
 };
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
@@ -36,6 +38,10 @@ const UPGRADES = [
   [/\bwe already tried that\b/gi, (m) => (m[0] === "W" ? "We" : "we") + " have already explored that path"],
   [/\bneeds more work\b/g, "has meaningful runway for further iteration"],
   [/\bis due\b/g, "is due to land"],
+  [/\bI'm not sure\b/g, "I don't yet have full visibility on this"],
+  [/\bneeds significant work\b/g, "has substantial runway for improvement"],
+  [/\bdiscuss (tomorrow|later|next week|on [A-Z]\w+)\b/g, "drive alignment on this $1"],
+  [/\bwent up (\d+%)/g, "increased by $1"],
   [/\bthe customer\b/g, "the customer"],
   [/\bwants a discount\b/g, "is seeking a pricing realignment"],
   [/\bwe hit\b/gi, "we have achieved"],
@@ -103,7 +109,9 @@ export function intentOf(clean, core) {
   if (/^(?:no|nope|not interested|hard pass|not this)\b/i.test(c) || /^(?:I|we)(?:'m| am|'re| are)? (?:not|can't|won't|cannot|will not)\b/i.test(c) && DOING.test(c) && !/\b(?:not sure|no idea)\b/i.test(c) || /^(?:I'll have to pass|I won't|We won't|We can't|I can't|We're not|I'm not|I'm unable|We're unable)\b/.test(core) && DOING.test(core)) return "decline";
   if (/^(?:You|Your)\b/.test(core) && /\b(?:is|are|was|looks) (?:really |very |so )?(?:clear|great|good|excellent|amazing|fantastic|awesome|helpful|thoughtful)\b/.test(core)) return "praise";
   if (/^(?:You|Your)\b/.test(core) && !/\?/.test(core) && !WIN.test(core)) return "feedback";
-  if (/^I've noticed\b/.test(core)) return "feedback";
+  if (/^I(?:'ve)? noticed\b/.test(core)) return "feedback";
+  if (/^(?:Okay, thank you|Thank you|Thanks|Noted|Never mind|Please disregard|That makes sense|That sounds|Sounds good|Got it)\b/.test(core) && core.split(/\s+/).length <= 6) return "social";
+  if (/\bI'm not sure\b/.test(core)) return "opinion";
   if (PERSONAL.test(core) || /^My (?:kid|son|daughter|child)\b/.test(core)) return "personal";
   if (/^(?:I believe|I think|I don't (?:think|believe|agree)|I disagree|I'd prefer|I prefer|I'd rather|I'd suggest|I see|I'm not (?:yet )?aligned)\b/.test(core) || /\bshould\b/.test(core) && !NEG.test(core)) return "opinion";
   if (/^(?:Great|Outstanding|Huge|Thank|Thanks|Congrat|Happy|Nice|Kudos|Shoutout|A big thank|Well done)/i.test(core) || /^[A-Z][a-z]+(?:'s [a-z]+)? (?:saved|crushed|nailed|rocked|is a game changer|is a lifesaver)\b/.test(core) || /\b(?:is|are|looks|was) (?:awesome|excellent|great|amazing|fantastic|truly best-in-class|really good|really clear)\b/.test(core) && !NEG.test(core)) return "praise";
@@ -177,6 +185,7 @@ const CLOSERS = {
   opinion: ["Healthy debate is how we win.", "Diversity of thought is our competitive advantage.", "Keen to align on the path forward."],
   personal: ["Grateful for your patience.", "Sustainable performance is how we win.", "Wellbeing is our north star."],
   feedback: ["Growth is a journey we're on together.", "Psychological safety and high standards go hand in hand.", "Feedback is a gift."],
+  social: ["Deeply grateful for the partnership.", "Gratitude is a core value.", "Fully aligned."],
   status: ["Let's keep the momentum going.", "Clarity is our north star.", "Onward."],
 };
 
@@ -205,6 +214,11 @@ function lumbergh(core, keepQuestion) {
 export function composeCSuite({ clean, mild, middle, rng }) {
   // Words the writer typed in lower case may be lowered after a frame; names they capitalized stay.
   srcWords = new Set((clean.match(/(?<![\w'])[a-z][\w'-]*/g) ?? []));
+  capsKeep = new Set();
+  clean.split(/\n/).forEach((line) => line.replace(/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s+/, "").split(/(?<=[.!?:])\s+/).forEach((sent) => sent.split(/\s+/).forEach((tok, i) => {
+    const w = tok.replace(/^[^A-Za-z]+|[^\w'-]+$/g, "").replace(/'s$/, "");
+    if (/^[A-Z][a-z]/.test(w) && (i > 0 || !FUNCTION_START.test(w))) capsKeep.add(w);
+  })));
   if (!mild || !/[A-Za-z]/.test(mild)) return null;
   const isList = /\n/.test(mild);
   const sents = mild.split(/(?<=[.!?])\s+(?=[A-Z])/);
@@ -219,7 +233,11 @@ export function composeCSuite({ clean, mild, middle, rng }) {
     const hasHead = !/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s/.test(lines[0]);
     const lead = pick(rng, ["To drive alignment on our key deliverables", "In the spirit of radical transparency and focus", "Zooming out to the strategic big picture"]);
     const out = hasHead ? `${lead}, ${lowerFirst(head)}:\n${body}` : `${lead}:\n${mild}`;
-    return `${out}\n\n${pick(rng, ["Focus is how we win.", "Let's keep the momentum going.", "Grateful for your partnership on this."])}`;
+    const closer = /block|issue|risk|broken|problem|concern|bug/i.test(head) ? ["We remain laser-focused on the path forward.", "Every headwind is a learning opportunity."]
+      : /need|ask|request|from you|question/i.test(head) ? ["Grateful for your partnership on this.", "Appreciate you leaning in on this."]
+      : /done|complete|shipped|win/i.test(head) ? ["This is what velocity looks like.", "Onward and upward."]
+      : ["Focus is how we win.", "Let's keep the momentum going."];
+    return `${out}\n\n${pick(rng, closer)}`;
   }
   // Questions keep the direct question from Middle Manager ("Who owns this?").
   if (intent === "question" && middle) {

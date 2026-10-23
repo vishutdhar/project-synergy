@@ -648,6 +648,7 @@ function splitSplice(rest) {
 }
 
 const ONE_LINERS = {
+  "i'll take a look": ["I'll take a look.", "I'll take a look and dig in.", "I'll double-click on this."],
   "not this sprint": ["Not this sprint, unfortunately.", "That won't fit into this sprint.", "This is out of scope for this sprint."],
   "not interested": ["Thanks, but I'm not interested.", "Not interested, so I'll pass on this one.", "This isn't a fit for our current priorities."],
   "back online": ["I'm back online.", "Heads-up: I'm back online.", "I'm back online and ready to add value."],

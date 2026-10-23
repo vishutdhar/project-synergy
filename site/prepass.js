@@ -109,7 +109,7 @@ export function restoreArticle(sentence) {
   if (!m) return sentence;
   const words = m[1].split(" ");
   if (NOT_HEAD.test(words[0]) && words.length === 1) return sentence;
-  if (/^(?:i|we|you|they|he|she|it|this|that|there|my|our|your|their|the|a|an|no|any|some|every|all|what|who|why|how|where|when|which|just|so|and|but|also|still|maybe|please|let's|lets|pls)$/i.test(words[0])) return sentence;
+  if (/^(?:i|we|you|they|he|she|it|this|that|there|my|our|your|their|the|a|an|no|any|some|every|all|what|who|whose|whom|why|how|where|when|which|just|so|and|but|also|still|maybe|please|let's|lets|pls)$/i.test(words[0])) return sentence;
   // Gerunds and adverbs are not count nouns ("testing is slow", "really is").
   if (/ing$|ly$/i.test(words[words.length - 1]) && words.length === 1) return sentence;
   // A head that is a known mass noun or team name keeps no article.
@@ -132,6 +132,13 @@ export function prepass(clean) {
       if (ap) return ap;
       s = s.replace(/^(?:heads up|heads-up|fyi|psa)[,:-]?\s+/i, "");
       let mm;
+      if ((mm = s.match(/^(this|that|the) (meeting|call|sync|plan|process|policy|idea|decision|code|doc|deck|report|design|email|update|review) is (?:total |complete |absolute )?(?:bullshit|bs|garbage|trash|junk|rubbish|crap|pointless|useless)[.!]*$/i))) {
+        const n = mm[2].toLowerCase();
+        return /^(?:meeting|call|sync|review)$/.test(n) ? `I don't think ${mm[1].toLowerCase()} ${n} is a good use of our time.` : `I think ${mm[1].toLowerCase()} ${n} needs significant work.`;
+      }
+      if ((mm = s.match(/^(?:screw it|fuck it|whatever|eh),? (ship|send|merge|launch|post|push|publish|release) it[.!]*$/i))) return `Let's go ahead and ${mm[1].toLowerCase()} it.`;
+      if ((mm = s.match(/^no idea,? ask ([A-Z][a-z]+)[.!]*$/))) return `I'm not sure. ${mm[1]} may know.`;
+      s = s.replace(/,\s*no idea[.!]*$/i, ". I'm not sure.").replace(/^(that's a (?:great|good) question)[.!]?$/i, "$1.");
       if ((mm = s.match(/^(?:I'll )?hard pass on (.+?)[.!]?$/i))) return `I'll have to pass on ${mm[1]}.`;
       if ((mm = s.match(/^no (raises|bonuses|hiring|offsite|budget|merit increases|promotions) (this|next) (year|quarter|month|cycle)[.!]?$/i))) return `There won't be ${mm[1].toLowerCase() === "hiring" ? "any hiring" : mm[1].toLowerCase()} ${mm[2].toLowerCase()} ${mm[3].toLowerCase()}.`;
       if ((mm = s.match(/^(?:oops|whoops|my bad),? (?:I )?(sent|forgot|missed|deleted|broke|posted|replied|forwarded) (.+)$/i))) return `Sorry, I ${mm[1].toLowerCase()} ${mm[2].replace(/[.!]+$/, "")}.`;
@@ -167,8 +174,11 @@ const COLLOCATIONS = [
   [/\bstrategic pathway ([A-Z])\b/g, "option $1"],
   [/\b(wrap up|close out|button up) (it|this|that|them)\b/g, (_m, v, o) => `${v.split(" ")[0]} ${o} ${v.split(" ")[1]}`],
   [/\bdo a discount\b/g, "offer a discount"],
+  [/\b(good|best|better|great|poor|wise|effective) leverage of\b/g, "$1 use of"],
+  [/\bon (\d+(?:st|nd|rd|th)) floor\b/g, "on the $1 floor"],
   [/\b(?:excel)\b/g, "Excel"], [/\bsvg\b/g, "SVG"], [/\bpostgres\b/g, "Postgres"], [/\bandroid\b/g, "Android"], [/\bvpn\b/g, "VPN"], [/\bios\b/g, "iOS"],
   [/^(Could you) (.+?) please\?$/, "$1 please $2?"],
+  [/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)s\b/g, (m) => m[0].toUpperCase() + m.slice(1)],
   [/\b(Congratulations|Congrats|Thanks|Thank you|Happy [\w ]+?) ([A-Z][a-z]+)([.!?]|$)/g, "$1, $2$3"],
 ];
 export function fixCollocations(text) {

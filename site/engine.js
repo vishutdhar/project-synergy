@@ -677,6 +677,8 @@ function levelPolish(text, lvl, clean) {
       .replace(/^I see (it|this|that|the [\w-]+) differently\.$/, "I see $1 a bit differently.")
       .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z]+) (.+)\.$/, "I've noticed you $1 $2.")
       .replace(/^Just to let you know, your (.+)\.$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Your ${r}. Great work.` : `I noticed that your ${r}.`))
+      .replace(/^It looks like (the [\w-]+ (?:says|said|reports|reported|mentioned)) /, (_m, r) => `${r[0].toUpperCase()}${r.slice(1)} `)
+      .replace(/^Be (on time|there|ready|prepared|careful)\b/, "Please be $1")
       .replace(/^Great (presentation|talk|demo|session|pitch|deck|write-up|meeting|catch-up|call)( today| yesterday)?\.$/i, (_m, n, w) => `That was a great ${n.toLowerCase()}${w ?? ""}.`)
       .replace(/^Just to let you know, ([A-Z][a-z]+)'s ([\w ]+) is a game changer\.$/, "$1's $2 is excellent. Great work, $1.");
     // Praise that names someone gets a thank-you ("Marco saved the demo today. Thank you, Marco.").
@@ -699,7 +701,12 @@ function levelPolish(text, lvl, clean) {
       .replace(/^I really (?:value|like|love) (the .+)\.$/, "Huge kudos on $1.")
       .replace(/^Quick heads-up: ([A-Z][a-z]+'s .+ is a game changer)/, "Huge kudos: $1")
       .replace(/^When you get a chance, (could you .+ when you(?:'re| are) free\?)$/, (_m, r) => r[0].toUpperCase() + r.slice(1))
-      .replace(/^Engaging\. /, "");
+      .replace(/^Engaging\. /, "")
+      .replace(/^Quick heads-up, and apologies: /, "Apologies, ")
+      .replace(/^(?:Quick heads-up|Heads-up): Let's /, "Proposal: let's ")
+      .replace(/^Quick question: could you /, "Quick ask: could you ")
+      .replace(/^(?:Quick heads-up|Heads-up): be (on time|there|ready|prepared|careful)\b/, "Quick ask: please be $1")
+      .replace(/^Heads-up: I won't be able to (log in|access|connect|see|open|find|sign in|get in)\b/, "Flagging that I'm unable to $1");
   }
   return t;
 }
