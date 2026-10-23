@@ -860,6 +860,9 @@ export const THEMES = [
       /\bunable to (?:approve|accommodate|support|offer|fund)/i, /(?:will|would|could) not be (?:approved|funded|pursued|prioritized)/i, /we regret to inform/i,
       /keep your (?:resume|application|details|information) on file/i, /wish you (?:the best|success|luck) (?:in|with) your (?:search|future|job)/i,
       /\bnot (?:something we can|in a position to) (?:approve|support|fund|prioritize)/i, /\bnot (?:at|right) (?:this time|now)\b/i,
+      // Round 6: "Legal has advised that we are not in a position to use the customer's logo".
+      /\bnot in a position to (?:use|move forward|proceed|offer|include|publish|run|launch|go ahead|accept|sign|grant|extend|provide|share (?:the|their|this|that|our)|feature|mention|reference)\b/i,
+      /\b(?:legal|compliance|counsel|our lawyers)\b[^.]{0,30}\badvised\b[^.]{0,40}\b(?:not|cannot|can't|unable|against)\b/i,
     ],
     summary: ["The answer is no, said kindly.", "It's a no.", "No. They're just being polite about it."],
     line: ["This is a no.", "It's a no.", "No."],
@@ -884,6 +887,18 @@ export const THEMES = [
     line: ["Spending is on hold.", "Budgets are frozen.", "No money for anything."],
   },
   {
+    // Round 6: a post that announces a new job is not a layoff post.
+    id: "new-job",
+    weight: 8,
+    firstPerson: true,
+    patterns: [
+      /\bI(?:'m| am)? (?:excited|thrilled|happy|proud|delighted) to (?:share|announce) (?:that )?I(?:'m| am| have|'ve)? (?:joining|joined|accepted (?:a|an|the) (?:role|position|offer))\b/i,
+      /\bI(?:'m| am| have|'ve) (?:officially )?(?:joining|joined|accepted (?:a|an|the) (?:role|position|offer))\b/i, /\bmy new role as\b/i, /\bstarting (?:a |my )?new (?:role|position|job) (?:as|at)\b/i,
+    ],
+    summary: ["They're moving to a new job.", "They're leaving for a new job and want you to see it.", "New job. This post is the victory lap."],
+    line: ["They're starting a new job.", "They're leaving for a new job.", "New job, new title, big post."],
+  },
+  {
     id: "new-chapter",
     weight: 7,
     firstPerson: true,
@@ -902,7 +917,7 @@ export const THEMES = [
       /\bdelay(?:ed|ing|s)?\b/i, /\bslip(?:ped|ping|s)?\b/i, /\bpush(?:ed|ing)? (?:out|back)\b/i, /\breschedul/i, /\bbehind schedule\b/i,
       /(?:moved|pushed|shifted|moving|pushing|shifting) (?:the \w+ )?(?:to|into) (?:Q[1-4]|next (?:quarter|year|month|sprint)|(?:early|mid|late)[ -]\w+|the (?:second|back) half)/i,
       /(?:revised|updated|new|adjusted|realistic) (?:timeline|target date|launch date|ETA|delivery date|go-live)/i, /timelines? (?:has |have )?(?:shifted|moved|changed|slipped)/i,
-      /\brebaselin/i, /later than (?:planned|expected|originally|anticipated)/i, /(?:no longer|not) (?:on track|going to make|hitting)/i, /\bre-?phas/i,
+      /\bre-?baselin/i, /later than (?:planned|expected|originally|anticipated)/i, /(?:no longer|not) (?:on track|going to make|hitting)/i, /\bre-?phas/i,
     ],
     summary: ["It's going to be late.", "It's late. The date moved.", "It's late, and the new date will slip too."],
     line: ["This is running late.", "It's delayed.", "It's late. Again."],
@@ -916,6 +931,7 @@ export const THEMES = [
       /(?:can't|cannot|won't|don't) (?:get into|go into|speak to|comment on) (?:the )?(?:specifics|details|individual|rumors|speculation)/i,
       /\bpark (?:that|this)\b/i, /let me get back to you/i, /\bno (?:final )?decisions? (?:has|have) been made\b/i, /nothing to (?:share|announce) (?:at this time|right now|yet)/i,
       /(?:a lot of|many) moving (?:parts|pieces)/i, /\bwe hear you\b/i,
+      /\b(?:share|tell you|update you|provide) more (?:details |information |context )?(?:when|once|as soon as) (?:we're|we are|we can|we're able|able|possible|appropriate|we have)/i,
     ],
     summary: ["They didn't really answer.", "That's a non-answer.", "They dodged it. Assume the worst."],
     line: ["They're avoiding a direct answer.", "Non-answer.", "Dodged."],
@@ -1026,7 +1042,9 @@ const MORE_PATTERNS = {
   "layoff-you": [/\b(?:your )?contract will not be renewed\b|\bnot (?:be )?renew(?:ing)? your contract\b/i, /\brelieved of (?:your|his|her|their) duties\b/i],
   pip: [/\bfurther (?:disciplinary )?action (?:may|will|could) be taken\b/i, /\bperformance plan\b/i, /\breview progress against the goals\b/i, /\bmay result in (?:further|disciplinary|additional) action\b/i, /\bformal step in (?:our|the) performance process\b/i,
     /\btargets outlined in the attached plan\b/i, /\bconsistent improvement by\b/i, /\bgaps? between your performance and\b/i, /\breset expectations and demonstrate\b/i,
-    /\bnext (?:30|45|60|90) days (?:are|will be) (?:important|critical)\b/i],
+    /\bnext (?:30|45|60|90) days (?:are|will be) (?:important|critical)\b/i,
+    // Round 6: "a structured development plan with clear expectations and check-ins over the next 30 days".
+    /\bstructured (?:development|performance|improvement|success|growth) plan\b/i, /\bclear expectations and (?:regular |weekly |frequent )?check-?ins\b/i],
   shutdown: [/\b(?:office|site|plant|store|location|facility|studio|branch|warehouse) will close\b/i, /\bceas\w* (?:development|operations|production|support)\b/i,
     /\bretir(?:e|ing|ed) the (?:\w+ )?(?:portal|product|app|tool|system|platform|service|site|program|wiki|dashboard)\b/i, /\b(?:indefinite )?hiatus\b/i,
     /\bbring(?:ing)? (?:the |our )?[\w -]{0,30} to a close\b/i, /\bgoes read-only\b|\bwill be (?:deleted|decommissioned|turned off)\b|\bdecommission/i,
@@ -1076,7 +1094,8 @@ const MORE_PATTERNS = {
 // Extra cues that make a raise or benefits sentence bad news.
 const MORE_NEGATIVE = {
   "no-raises": /\b(?:smaller|capped|postpone\w*|of target|on hold)\b/i,
-  benefits: /\b(?:replac\w*|lower\w*|no longer|will end|stop covering|high-deductible|instead of)\b|\bpremiums? (?:will )?(?:increase|rise|go up)/i,
+  // Round 6: "keep our benefits sustainable ... match from 6% to 3%" is a cut too.
+  benefits: { test: (s) => /\b(?:replac\w*|lower\w*|no longer|will end|stop covering|high-deductible|instead of|sustainab\w*)\b|\bpremiums? (?:will )?(?:increase|rise|go up)/i.test(s) || [...s.matchAll(/\bfrom (\d+(?:\.\d+)?)% to (\d+(?:\.\d+)?)%/g)].some((m) => +m[2] < +m[1]) },
 };
 for (const t of THEMES) {
   t.patterns.push(...(MORE_PATTERNS[t.id] ?? []));
@@ -1111,6 +1130,7 @@ export const SIGNALS = {
   rto: { label: "Back to the office", tone: "warn" },
   "budget-freeze": { label: "Budget freeze", tone: "warn" },
   "hiring-freeze": { label: "Hiring freeze", tone: "warn" },
+  "new-job": { label: "New job post", tone: "warn" },
   "new-chapter": { label: "New chapter post", tone: "warn" },
   delay: { label: "Delay", tone: "warn" },
   reorg: { label: "Reorg", tone: "warn" },
@@ -1168,6 +1188,13 @@ export const PLAIN_LINES = [
 
 // Sentence-level decodes that beat theme lines. Checked in order, first match wins.
 export const SPECIAL_LINES = [
+  // Round 6 (fresh7): lines that carry the specific fact instead of repeating the theme line.
+  { pattern: /\b(?:impacted|affected) (?:team members|employees|colleagues|staff|people|individuals)\b[^.]{0,30}\b(?:will be|are being|have been) (?:notified|informed|contacted)\b/i,
+    lines: ["The people affected will be told {when}.", "The people being cut will hear {when}.", "The people being fired find out {when}."] },
+  { pattern: /\b(?:we'll|we will) (?:share|provide|have) more (?:details |information |to share )?(?:when|once|as soon as) (?:we're|we are|we can|we're able|able|possible|appropriate)\b/i,
+    lines: ["They'll share more later.", "They'll tell you when they decide to.", "Don't hold your breath."] },
+  { pattern: /\bI(?:'ve| have)? decided (?:that )?it's time for (?:my )?(?:next|a new) chapter\b/i,
+    lines: ["They decided to leave.", "They're leaving, and they say it's their choice.", "They're out, by their own telling."] },
   { pattern: /\bbonus(?:es)?(?: payouts?| payments?)?\b[^.]{0,40}\b(?:delayed|pushed|postponed|deferred|moved)\b|\b(?:delay|postpon|defer)\w* (?:the |all |your |our )?(?:annual )?bonus/i,
     lines: ["Bonuses are coming later.", "Bonuses are delayed.", "Your bonus is late. Maybe smaller."], asSummary: true },
   { pattern: /\bper my last email\b[^.]*\b(?:circle back|offline|parking lot)\b/i,

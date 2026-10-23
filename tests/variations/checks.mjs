@@ -8,12 +8,14 @@ const GARBLED_I = /\bto all day\b|\bthe up\b|[ \t]{2,}|\b(?:an?|the) (?:about|of
 const LOWER_AFTER_STOP = /(?<!\b(?:e\.g|i\.e|etc|vs|v\d+(?:\.\d+)*))[.!?]\s+[a-z]/;
 export const GARBLED = { test: (t) => GARBLED_I.test(t) || LOWER_AFTER_STOP.test(t) };
 // The openers and closers the engine used to add at Mild and Middle Manager (before this round).
+// Round 6 policy change: Mild and Middle Manager may carry the short, content-free sign-offs and labels in
+// site/voice.js ("Flagging for visibility:", "Thanks!", "Appreciate it."). Everything else here still counts as added.
 const ADDED = [
   "Quick note:", "Hope you're well.", "Hope your week is going well.", "Hi there.", "Small flag:", "Hi all.",
   "Wanted to flag something:", "Hope this finds you well.", "Bubbling this up:", "Putting this on your radar:",
-  "Quick level set:", "Adding some color here:", "Flagging for visibility:", "For awareness:", "Raising this for visibility:",
-  "Thanks!", "Thanks in advance.", "Let me know your thoughts.", "Let me know if you have questions.", "Appreciate it.", "Cheers.",
-  "Thoughts?", "Thanks for understanding.", "Open to thoughts.", "Thanks for your patience.", "Let me know if anything's unclear.", "Appreciate you.",
+  "Quick level set:", "Adding some color here:", "For awareness:", "Raising this for visibility:",
+  "Let me know your thoughts.", "Let me know if you have questions.", "Cheers.",
+  "Thoughts?", "Open to thoughts.", "Thanks for your patience.", "Let me know if anything's unclear.", "Appreciate you.",
   "This is about synergy.", "Let's be bold here.", "Think big picture.", "This is very on brand for us.", "We are a family here.", "This is table stakes.",
 ].map((s) => s.toLowerCase());
 
@@ -55,7 +57,7 @@ export function decodeFlags(item, res) {
   const flags = [];
   const want = item.signal;
   const got = res.signal?.id;
-  if (want && want !== got && !(want === "fluff" && got === "none") && !(item.category === "mixed" && res.themes?.includes(want))) flags.push(`signal:${got}`);
+  if (want && want !== got && !(want === "fluff" && got === "none") && !(want === "new-chapter" && got === "new-job") && !(item.category === "mixed" && res.themes?.includes(want))) flags.push(`signal:${got}`);
   for (const l of res.lines) if (overlap(l.original, l.plain) > 0.6 && words(l.original).size > 5) flags.push("echo");
   if (findCrude(res.summary).length) flags.push("crude");
   return [...new Set(flags)];

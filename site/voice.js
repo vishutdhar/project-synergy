@@ -30,8 +30,8 @@ const L2_FRAME = /^(?:Quick heads-up|Heads-up|For visibility|Quick flag|Quick wi
 // A body that can take a new lead-in: it starts with a subject, not a label, an interjection or an instruction.
 const SUBJECT_START = /^(?:The|This|That|These|Those|Our|My|Your|Their|His|Her|We|We're|We've|We'll|I|I've|I'm|I'll|It|It's|Its|There|There's|Nobody|No one|Everyone|Someone|Q[1-4]|[A-Z][A-Za-z]+(?:'s)? (?:is|are|was|were|has|have|had|went|got|keeps|moved|starts|said|wants|needs|finished|shipped|signed|doubled|went|will|can't|won't|isn't|aren't|didn't|hasn't)|[A-Z][a-z]+ (?:[a-z]+ ){1,3}(?:is|are|was|were|has|have|had|went|got|keeps|moved|doubled|went up|went down|dropped|passed|takes|ran|will))\b/;
 const FEELING = /^(?:I'm|I am|I feel|I'm feeling) (?:so |really |very |a bit |pretty |quite |extremely )?(?:annoyed|frustrated|upset|irritated|disappointed|angry|tired|exhausted|stressed|overwhelmed|worried|concerned|nervous|excited|thrilled|happy|glad|sad|bored)\b/;
-const PROBLEM = /\b(?:broke|broken|down|failing|failed|fails|wrong|bug|bugs|error|errors|crash\w*|outage|blocked|stuck|missing|lost|late|behind|delayed|overdue|over budget|ran out|out of (?:ink|paper|stock|space|toner|coffee|budget)|leak\w*|jam\w*|not working|isn't working|doesn't work|won't work|can't|cannot|unable|no longer|incorrect|mistake|problem|issue|issues|risk|expired|red|slow|slowly|latency|headwind|worse|off by|rough|nobody|no one|hasn't|haven't|didn't|won't|not hit|threatening|annoyed|frustrated|cancel+ed|full by|too slow|too long|over\b)/i;
-const WIN = /\b(?:shipped|launched|finished|completed|wrapped up|closed|signed|won|passed|hit \d|record|approved|resolved|fixed|went live|live now|is live|landed|exceeded|ahead of)\b/i;
+const PROBLEM = /\b(?:broke|broken|down|failing|failed|fails|wrong|bug|bugs|error|errors|crash\w*|outage|blocked|stuck|missing|lost|late|behind|delayed|overdue|over budget|ran out|out of (?:ink|paper|stock|space|toner|coffee|budget)|leak\w*|jam\w*|not working|isn't working|doesn't work|won't work|can't|cannot|unable|no longer|incorrect|mistake|problem|issue|issues|risk|expired|red|slow|slowly|latency|headwind|worse|off by|rough|nobody|no one|hasn't|haven't|didn't|won't|not hit|threatening|annoyed|frustrated|cancel+ed|full by|too slow|too long|ran \d+ \w+ over|closed|rejected|expires?|quit|leaving|raising prices)\b/i;
+const WIN = /\b(?:shipped|launched|finished|completed|wrapped up|closed (?:the|a|an|our) (?:[\w-]+ )?(?:deal|round|sale|contract|account)|signed|won|passed \d|hit \d|record|approved|resolved|fixed|went live|live now|is live|landed|exceeded|ahead of)\b/i;
 const PERSONAL = /\b(?:sick|flu|ill|unwell|out of office|ooo|working remotely|working from home|wfh|mental health|burnt out|burned out|dentist|doctor|appointment|day off|pto|vacation|out today|out tomorrow|out the week|out next week|my kid|my son|my daughter|family|personal)\b/i;
 const OPINION = /^(?:I think|I believe|I don't think|I don't believe|I'm not sure|I'd suggest|My recommendation|I'd recommend|I feel|In my view)\b/;
 
@@ -59,7 +59,7 @@ function intentOf(t, l1, l2) {
 // Middle Manager word upgrades inside the sentence. Each keeps its grammatical slot and its meaning.
 const L2_UPGRADES = [
   [/\b(?:nobody|no one) (?:has )?(?:fixed|addressed|resolved) (it|this|that)\b/g, "$1 still hasn't been resolved"],
-  [/\b(is|are) (?:broken|down)\b(?! (?:to|by|from)\b)/g, (m, v) => `${v} currently down`],
+  [/\b(is|are) (broken|down)\b(?! (?:to|by|from)\b)/g, "$1 currently $2"],
   [/\b(isn't|aren't) working\b/g, "$1 working as expected"],
   [/\bdoesn't work\b/g, "isn't working as expected"],
   [/\b(?:fixed|addressed)\b(?= (?:the|it|this|that|a|an|our|my)\b)/g, "resolved"],
@@ -89,7 +89,7 @@ export const L2_CLOSERS = {
   opinion: ["Open to other perspectives.", "Happy to discuss.", "Curious what others think."],
   suggest: ["Open to other ideas.", "Happy to discuss."],
   question: [],
-  request: ["Appreciate it.", "Appreciate the help.", "Thanks in advance, appreciate it."],
+  request: ["Appreciate it.", "Appreciate the help.", "Thanks in advance."],
   decline: ["Appreciate the understanding.", "Thanks for understanding."],
   apology: ["Owning this one.", "That's on me."],
   thanks: ["Really appreciate it.", "Much appreciated."],
@@ -121,7 +121,8 @@ export function applyVoice(t, lvl, { raw = "", rng = Math.random } = {}) {
   if (lvl === 1) {
     // Mild: vary the soft lead-in, and thank people on a direct ask.
     const pool = L1_POOLS[intent];
-    if (frame && pool) return pick(rng, pool) + low(body, raw);
+    // Good news gets "Happy to share" only when it clearly is good news.
+    if (frame && pool && !(intent === "win" && PROBLEM.test(body))) return pick(rng, pool) + low(body, raw);
     if (intent === "request" && sentences === 1 && /\?$/.test(t) && !/\b(?:thank|thanks|appreciate)\b/i.test(t)) return `${t} Thanks!`;
     return t;
   }
@@ -130,12 +131,13 @@ export function applyVoice(t, lvl, { raw = "", rng = Math.random } = {}) {
   const pool = L2_POOLS[intent];
   let out;
   // "Flagging that" already reads as manager-speak, so it stays; the flat labels get varied.
-  const canLead = SUBJECT_START.test(body) && !/^(?:Quick ask|Kudos|Flagging that|My two cents)/.test(frame);
+  const canLead = SUBJECT_START.test(body) && !/^(?:That's|That is|It's|It is|This is|There's) /.test(body) && !/^(?:Quick ask|Kudos|Flagging that|My two cents)/.test(frame);
   const aboutMe0 = /^(?:Unfortunately, )?(?:I|I'm|I've|I'll|I'd|My)\b/.test(body);
-  if (pool && canLead && !(aboutMe0 && /^(?:status|problem)$/.test(intent)) && (frame || /^(?:status|problem|win)$/.test(intent))) {
+  const tail = frame ? t.slice(frame.length) : t;
+  if (pool && frame && canLead && !(aboutMe0 && /^(?:status|problem)$/.test(intent)) && !(intent === "question" && sentences > 1)) {
     const lead = (/^(?:Quick question|Quick ask)/.test(frame) && intent === "question") || /^Quick win:/.test(frame) && rng() < 0.3 ? frame : pick(rng, pool);
     out = lead + low(body, raw);
-  } else out = frame ? frame + (frame === "Flagging that " ? body[0].toLowerCase() === body[0] ? body : low(body, raw) : low(body, raw)) : body;
+  } else out = frame ? frame + tail : body;
   // A sign-off never repeats a word from the lead-in ("Raising a flag: ... Raising it for visibility.").
   const KEY = /\b(?:radar|visibility|loop\w*|raising|flag\w*|sharing|awareness|heads-up|update)\b/gi;
   const usedKeys = new Set((out.match(KEY) ?? []).map((w) => w.toLowerCase().replace(/^(loop|flag)\w*/, "$1")));
@@ -143,8 +145,12 @@ export function applyVoice(t, lvl, { raw = "", rng = Math.random } = {}) {
   // and an apology only gets one when it owns a real mistake.
   const aboutMe = /^(?:Unfortunately, )?(?:I|I'm|I've|I'll|I'd|My)\b/.test(body) && /^(?:status|problem|win)$/.test(intent);
   const smallSorry = intent === "apology" && !/\b(?:broke|forgot|missed|sent the wrong|deleted|lost|mistake|error|wrong file|wrong version|neglected|dropped the ball)\b/i.test(body);
-  const noLead = /^(?:status|problem|win)$/.test(intent) && !canLead;
-  const closers = aboutMe || smallSorry || noLead ? [] : (L2_CLOSERS[intent] ?? []).filter((c) => !(c.match(KEY) ?? []).some((w) => usedKeys.has(w.toLowerCase().replace(/^(loop|flag)\w*/, "$1"))));
+  const noLead = /^(?:status|problem|win)$/.test(intent) && (!canLead || !frame);
+  const askNoQ = intent === "request" && !/\?$/.test(body);
+  const softNo = intent === "decline" && (/^That's a no\b/.test(out) || !/\b(?:won't|will not|can't|cannot|unable|not able)\b/.test(body));
+  const excuse = intent === "apology" && sentences > 1;
+  const feedback = intent === "opinion" && !OPINION.test(body) && !/^My two cents/.test(frame);
+  const closers = aboutMe || smallSorry || noLead || askNoQ || softNo || excuse || feedback ? [] : (L2_CLOSERS[intent] ?? []).filter((c) => !(c.match(KEY) ?? []).some((w) => usedKeys.has(w.toLowerCase().replace(/^(loop|flag)\w*/, "$1"))));
   if (closers.length && sentences <= 3 && !/\b(?:thank|thanks|appreciate)\b/i.test(out) || closers.length && !/^(?:request|question|thanks)$/.test(intent) && sentences <= 3) {
     const c = pick(rng, closers);
     if (!/\b(?:thank|thanks|appreciate)\b/i.test(c) || !/\b(?:thank|thanks|appreciate)\b/i.test(out)) out = `${out} ${c}`;

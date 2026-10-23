@@ -864,7 +864,7 @@ export function detectThemes(sentence) {
 const themeById = Object.fromEntries(THEMES.map((t) => [t.id, t]));
 
 // Themes that say the same thing as a stronger one are left out of the summary.
-const COVERED_BY = { "layoff-you": ["layoffs", "new-chapter"], pip: ["performance"], "stack-rank": ["performance"] };
+const COVERED_BY = { "new-job": ["new-chapter"], "layoff-you": ["layoffs", "new-chapter"], pip: ["performance"], "stack-rank": ["performance"] };
 
 function summaryThemes(themeIds) {
   const drop = new Set(themeIds.flatMap((id) => COVERED_BY[id] ?? []));
@@ -972,6 +972,7 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       if (special) {
         if (isFluff) fluff++;
         plain = ((layoffContext && special.layoffLines) || special.lines)[lvl - 1];
+        if (plain.includes("{when}")) plain = plain.replace("{when}", (sentence.match(/\b(today|tomorrow|this week|next week|shortly|by (?:end of day|Friday|Monday|tomorrow|[A-Z][a-z]+ \d{1,2}))\b/i)?.[1] ?? "soon").replace(/^shortly$/i, "soon"));
         const rest = special.keepRest && special.keepRest.test(sentence) ? sentence.replace(special.keepRest, "").trim() : "";
         if (rest.split(/\s+/).length >= 3) {
           let tail = capFirst(tidy(swapPhrases(rest, matcher, lvl, rng, 1).text));
@@ -990,6 +991,10 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
         if (!endsWithPunct(plain)) plain += ".";
       } else {
         plain = pick(rng, PLAIN_LINES)[lvl - 1];
+      }
+      // Round 6: two sentences on the same theme don't get the same line twice.
+      if (lines.length && plain === lines[lines.length - 1].plain && themes.length && !special) {
+        plain = changed > 0 && !echoes(sentence, swapped) ? capFirst(tidy(swapped)) + (endsWithPunct(tidy(swapped)) ? "" : ".") : ["Same point as above.", "Same point.", "Same again."][lvl - 1];
       }
       lines.push({ original: sentence, plain });
     }

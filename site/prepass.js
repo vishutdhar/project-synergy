@@ -208,7 +208,7 @@ function round6(t) {
     // "out of office tomorrow, dentist" -> "for a dentist appointment".
     .replace(/,\s*(dentist|doctor|vet|physio|therapist|therapy|optometrist|eye doctor)[.!]*$/i, (_m, w) => `, ${w.toLowerCase().replace("therapist", "therapy")} appointment`)
     // "sorry missed your message" -> "sorry, I missed your message".
-    .replace(/^(sorry|apologies|my bad|oops),?\s+(missed|forgot|sent|deleted|broke|overslept|lost|misread|double-booked|didn't|haven't|can't|won't)\b/i, (_m, a, v) => `${a}, I ${v}`)
+    .replace(/^(sorry|apologies),?\s+(missed|forgot|sent|deleted|broke|overslept|lost|misread|double-booked|didn't|haven't)\b/i, (_m, a, v) => `${a}, I ${v}`)
     // ", been slammed" after an apology -> "I've been slammed".
     .replace(/([,.;]\s*|\s-\s)been (slammed|busy|swamped|buried|underwater|sick|out|offline|traveling|travelling|heads-down|heads down|in meetings|on calls)\b/gi, (_m, p, w) => `. I've been ${w}`)
     // "this code is a steaming pile of crap" -> "this code is in really poor shape".
