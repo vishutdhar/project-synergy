@@ -457,7 +457,7 @@ export const IDIOM_MEANINGS = [
   {
     id: "not-true",
     re: /\b(?:bullshit|bollocks)\b|\bfull of (?:shit|crap)\b/i,
-    must: /nonsense|credible|right|agree|concern|reservation|data|true|accurate|use of (?:our |my |your )?time|driving (?:meaningful )?value|worthwhile|pointless|wrong|mislead|straight|making things up|exaggerat|push(?:ing|ed|es)? back|challeng|transparen|doubt|skeptic|unsupported/i,
+    must: /nonsense|credible|right|agree|concern|reservation|data|true|accurate|use of (?:our |my |your )?time|driving (?:meaningful )?value|worthwhile|pointless|wrong|mislead|straight|making things up|exaggerat|push(?:ing|ed|es)? back|challeng|transparen|doubt|skeptic|unsupported|needs significant work|runway for improvement/i,
   },
   {
     id: "bad",
