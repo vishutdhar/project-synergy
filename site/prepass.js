@@ -43,7 +43,7 @@ export function splitGlued(sentence) {
   const s = strip(sentence);
   if (/[.!?;]\s/.test(s) || s.split(/\s+/).length < 4) return null;
   const m = GLUE.exec(s);
-  if (!m || m.index < 6 || /\b(?:there's|there is|I've|I have|here's)$/i.test(s.slice(0, m.index))) return null;
+  if (!m || m.index < 6 || /\b(?:there's|there is|I've|I have|here's|so|and|but|then|or|just|to|please)$/i.test(s.slice(0, m.index))) return null;
   const left = s.slice(0, m.index).replace(/,$/, "").trim();
   let right = s.slice(m.index + 1).trim();
   right = right
