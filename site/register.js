@@ -41,7 +41,7 @@ const NOT_IMPERATIVE = /^(?:thanks|thank|welcome|congrats|cheers|love|hate|hope|
 const AUX = /^(?:is|are|was|were|do|does|did|can|could|will|would|should|has|have|had|am|may|might|shall|must|isn't|aren't|wasn't|weren't|don't|doesn't|didn't|can't|won't|wouldn't|shouldn't|hasn't|haven't)$/i;
 
 // Good news: "we hit 10k users", "the demo went great", "migration finished overnight".
-const WIN_RE = /\b(?:went (?:great|well|really well)|hit|closed (?:the|a|an|our) [\w-]+ (?:deal|round|sale|contract)|shipped|launched|finished|landed|signed|won(?!')|record|loved|saved|done|fixed|green|passed|approved|resolved|nailed|crushed)\b/i;
+const WIN_RE = /\b(?:paid|renewed|under budget|ahead of schedule|went (?:great|well|really well)|hit|closed (?:the|a|an|our) [\w-]+ (?:deal|round|sale|contract)|shipped|launched|finished|landed|signed|won(?!')|record|loved|saved|done|fixed|green|passed|approved|resolved|nailed|crushed)\b/i;
 const NOT_WIN = /n't\b|\b(?:not|no|never|nothing|nobody|no one)\b/i;
 // Problem words for "Flagging that" and "It looks like".
 const PROBLEM = /\b(?:broke|broken|down|failing|failed|fails|wrong|bug|bugs|issue|issues|error|errors|crash\w*|outage|blocked|blocker|stuck|missing|lost|late|behind|delayed|overdue|over budget|ran out|out of|slipp\w*|leak\w*|corrupt\w*|not working|doesn't work|isn't working|won't work|can't|cannot|no longer|incorrect|inaccurate|mistake|problem|problems|risk|risky|expired|overrun|underwater|drowning|in trouble|exceeded)\b/i;
@@ -649,6 +649,9 @@ function splitSplice(rest) {
 
 const ONE_LINERS = {
   "i'll take a look": ["I'll take a look.", "I'll take a look and dig in.", "I'll double-click on this."],
+  "not this quarter": ["Unfortunately, not this quarter.", "Not this quarter, I'm afraid.", "After careful prioritization, not this quarter."],
+  "not this week": ["Unfortunately, not this week.", "Not this week, I'm afraid.", "After careful prioritization, not this week."],
+  "not this year": ["Unfortunately, not this year.", "Not this year, I'm afraid.", "After careful prioritization, not this year."],
   "not this sprint": ["Not this sprint, unfortunately.", "That won't fit into this sprint.", "This is out of scope for this sprint."],
   "not interested": ["Thanks, but I'm not interested.", "Not interested, so I'll pass on this one.", "This isn't a fit for our current priorities."],
   "back online": ["I'm back online.", "Heads-up: I'm back online.", "I'm back online and ready to add value."],

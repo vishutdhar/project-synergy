@@ -119,15 +119,15 @@ export function splitApology(sentence) {
 }
 
 // Bare singular subject: "support queue is at 450" -> "The support queue is at 450".
-const FINITE = "moved|changed|arrived|arrives|arrive|expires|expired|opened|closed|ended|ends|leaked|is|was|isn't|wasn't|has|hasn't|had|got|keeps|kept|looks|looked|went|ran|runs|shows|showed|needs|wants|says|said|finished|failed|starts|started|broke|crashed|died|smells|takes|took|cost|costs|seems|loves|loved|called|calls|hates|doubled|tripled|dropped|went|came|will|won't|can't|should|still|just|keeps|refuses|is still|has been|got moved|is out|is down";
-const BARE_SUBJECT = new RegExp(`^((?:[a-z][a-z-]+ ){0,2}[a-z][a-z-]+(?<!s))(?: (?:on|in|at|from|for|of) (?:the )?(?:\\d+\\w* )?[a-z][a-z-]+)? (?=(?:${FINITE})\\b)`);
+const FINITE = "comes|come|goes|paid|works|worked|asked|replied|is|changed|arrived|arrives|arrive|expires|expired|opened|closed|ended|ends|leaked|is|was|isn't|wasn't|has|hasn't|had|got|keeps|kept|looks|looked|went|ran|runs|shows|showed|needs|wants|says|said|finished|failed|starts|started|broke|crashed|died|smells|takes|took|cost|costs|seems|loves|loved|called|calls|hates|doubled|tripled|dropped|went|came|will|won't|can't|should|still|just|keeps|refuses|is still|has been|got moved|is out|is down";
+const BARE_SUBJECT = new RegExp(`^((?:[a-z][a-z0-9-]+ ){0,2}[a-z][a-z-]+(?<!s))(?: (?:on|in|at|from|for|of|with|about|to) (?:the |a |an )?(?:\\d+\\w* )?[a-z][a-z-]+(?: [a-z][a-z-]+)?)? (?=(?:${FINITE})\\b)`);
 const NOT_HEAD = /^(?:sorry|apologies|oops|my bad|i|we|you|they|he|she|it|this|that|these|those|there|here|everything|everyone|everybody|nobody|nothing|someone|something|anyone|anything|what|who|whose|whom|why|how|where|when|which|my|our|your|their|his|her|its|the|a|an|no|any|some|each|every|all|both|traffic|weather|money|payroll|lunch|dinner|breakfast|coffee|internet|prod|production|staging|email|slack|jira|github|google|everything|stuff|life|work|time|it|today|tonight|tomorrow|yesterday|mom|dad|management|leadership|legal|finance|hr|marketing|sales|engineering|support|security|design|ops|it|qa|sarcasm|food|parking|attendance|morale|pay|rent|tax|stock|revenue|churn|demand|velocity)$/i;
 export function restoreArticle(sentence) {
   const m = sentence.match(BARE_SUBJECT);
   if (!m) return sentence;
   const words = m[1].split(" ");
   if (NOT_HEAD.test(words[0]) && words.length === 1) return sentence;
-  if (/^(?:i|we|you|they|he|she|it|this|that|there|my|our|your|their|the|a|an|no|any|some|every|all|what|who|whose|whom|why|how|where|when|which|just|so|and|but|also|still|maybe|please|let's|lets|pls)$/i.test(words[0])) return sentence;
+  if (/^(?:is|are|was|were|do|does|did|can|could|will|would|should|has|have|had|am|i|we|you|they|he|she|it|this|that|there|my|our|your|their|the|a|an|no|any|some|every|all|what|who|whose|whom|why|how|where|when|which|just|so|and|but|also|still|maybe|please|let's|lets|pls)$/i.test(words[0])) return sentence;
   // Gerunds and adverbs are not count nouns ("testing is slow", "really is").
   if (/ing$|ly$/i.test(words[words.length - 1]) && words.length === 1) return sentence;
   // A head that is a known mass noun or team name keeps no article.
@@ -173,6 +173,10 @@ export function prepass(clean) {
       }
       if ((mm = s.match(/^why is (this|that|it) my (problem|job|responsibility|issue|fault)[?!.]*$/i))) return `Could you clarify why ${mm[1].toLowerCase()} falls to me?`;
       s = s.replace(/\b(thank you|thanks|ty|thx) sm\b/i, "$1 so much");
+      if ((mm = s.match(/^(?:I'm )?running late,? (?:my )?(car|bus|train|flight|alarm|babysitter|kid|dog|ride|uber|taxi) (.+?)[.!]*$/i))) return `I'm running late because my ${mm[1].toLowerCase()} ${mm[2]}.`;
+      if ((mm = s.match(/^(?:I )?(can't|cannot) (make|do|join|attend) (.+?),? too (busy|swamped|slammed)[.!]*$/i))) return `I can't ${mm[2].toLowerCase()} ${mm[3]}. I'm too busy.`;
+      if ((mm = s.match(/^(this|that|the)( new| old| latest| current)? (meeting|call|sync|plan|process|policy|idea|decision|code|doc|deck|report|design|email|update|review|rule|strategy|spreadsheet) is (?:total |complete |absolute )?(?:bullshit|bs|garbage|trash|junk|rubbish|crap)[.!]*$/i))) return `I think ${mm[1].toLowerCase()}${mm[2] ?? ""} ${mm[3].toLowerCase()} needs significant work.`;
+      if ((mm = s.match(/^(?:sorry|oops|my bad),? wrong (file|link|doc|version|attachment|one),? (here's|here is|this is) (.+?)[.!]*$/i))) return `Sorry, that was the wrong ${mm[1].toLowerCase()}. ${mm[2][0].toUpperCase()}${mm[2].slice(1)} ${mm[3]}.`;
       if (/^(?:give me|gimme) (\d+)$/i.test(s)) return `Could you give me ${s.match(/(\d+)/)[1]} minutes?`;
       // "closed the Acme deal!!!" -> "We closed the Acme deal!!!" (a team win with the subject dropped).
       if (/^(?:closed|shipped|launched|signed|landed|won|hit|crushed|nailed) (?:the|a|an|our|\d)/i.test(s)) return `we ${s}`;
@@ -202,7 +206,7 @@ const COLLOCATIONS = [
   [/\bdo a discount\b/g, "offer a discount"],
   [/\b(good|best|better|great|poor|wise|effective) leverage of\b/g, "$1 use of"],
   [/\bon (\d+(?:st|nd|rd|th)) floor\b/g, "on the $1 floor"],
-  [/\b(?:excel)\b/g, "Excel"], [/\bsvg\b/g, "SVG"], [/\bpostgres\b/g, "Postgres"], [/\bandroid\b/g, "Android"], [/\bvpn\b/g, "VPN"], [/\bios\b/g, "iOS"], [/\b(upgrade|update|install|downgrade) node\b/g, "$1 Node"], [/\bnode (\d+)\b/g, "Node $1"], [/\bdouble booked\b/g, "double-booked"],
+  [/\b(?:excel)\b/g, "Excel"], [/\bsvg\b/g, "SVG"], [/\bpostgres\b/g, "Postgres"], [/\bandroid\b/g, "Android"], [/\bvpn\b/g, "VPN"], [/\bios\b/g, "iOS"], [/\bq([1-4])\b/g, "Q$1"], [/\b(upgrade|update|install|downgrade) node\b/g, "$1 Node"], [/\bnode (\d+)\b/g, "Node $1"], [/\bdouble booked\b/g, "double-booked"],
   [/^(Could you) (.+?) please\?$/, "$1 please $2?"],
   [/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)s\b/g, (m) => m[0].toUpperCase() + m.slice(1)],
   [/\b(Congratulations|Congrats|Thanks|Thank you|Happy [\w ]+?) ([A-Z][a-z]+)([.!?]|$)/g, "$1, $2$3"],

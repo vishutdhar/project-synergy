@@ -91,7 +91,7 @@ test("interjections and tags get their comma", () => {
 test("slang found in the live check gets swapped at every level", () => {
   assert.equal(corp("the wifi is trash today", 1), "The wifi is terrible today.");
   assert.equal(corp("that meeting was mid", 1), "That catch-up was underwhelming.");
-  assert.equal(corp("thx for the help today ur the best 🙏", 1), "Thank you for the assist today, you're the best.");
+  assert.equal(corp("thx for the help today ur the best 🙏", 1), "Thank you for the help today, you're the best.");
   assert.match(corp("this bug is driving me insane", 2), /^This (?:bug|issue|defect) is really frustrating me\.$/);
 });
 

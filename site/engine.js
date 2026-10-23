@@ -612,7 +612,7 @@ export function toCorporateDetailed(input, { level = 2, seed = 1, raw = false } 
       const without = (dropped) => dropped.reduce((t, d) => t.replace(d, " "), ref);
       for (let k = 0; k < 4; k++) {
         const rng = mulberry32(hashString(ref) ^ Math.imul((seed + k * 7919) >>> 0, 2654435761) ^ 0x5eed);
-        const text = composeCSuite({ clean: ref, mild: mild.text, middle: middle.text, rng });
+        const text = composeCSuite({ clean: ref, mild: mild.text, middle: middle.text, rng, raw: String(input) });
         if (!text) break;
         const check = checkMeaning(without(mild.unsafe ?? []), text);
         if (check.ok && !hasCrude(text)) return { text: polishCase(tidy(text)), check, fallback: k ? "reseed" : "", unsafe: mild.unsafe ?? [] };
@@ -675,7 +675,7 @@ function levelPolish(text, lvl, clean) {
     t = t.replace(/^(That|This|The) ([\w-]+(?: [\w-]+)?) is (?:impossible|unrealistic)\.$/, (_m, d, n) => `I don't think ${d.toLowerCase()} ${n} is realistic.`)
       .replace(/^(?:Just to let you know, )?(this|that|it) needs more work\.$/i, (_m, w) => `I think ${w.toLowerCase()} needs more work.`)
       .replace(/^I see (it|this|that|the [\w-]+) differently\.$/, "I see $1 a bit differently.")
-      .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z]+) (.+)\.$/, (m, v, r) => (/\bThank you\b/.test(r) ? m : /\b(?:great|excellent|amazing|fantastic|awesome|well|outstanding|brilliant)\b/.test(r) ? `You ${v} ${r}. Thank you.` : `I've noticed you ${v} ${r}.`))
+      .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z']+) (.+)\.$/, (m, v, r) => (/\bThank you\b/.test(r) ? m : /\b(?:great|excellent|amazing|fantastic|awesome|well|outstanding|brilliant)\b/.test(r) ? `You ${v} ${r}. Thank you.` : `I've noticed you ${v} ${r}.`))
       .replace(/^Just to let you know, your (.+)\.$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Your ${r}. Great work.` : `I noticed that your ${r}.`))
       .replace(/^It looks like (the [\w-]+ (?:says|said|reports|reported|mentioned)) /, (_m, r) => `${r[0].toUpperCase()}${r.slice(1)} `)
       .replace(/^Be (on time|there|ready|prepared|careful)\b/, "Please be $1")
@@ -693,7 +693,7 @@ function levelPolish(text, lvl, clean) {
       .replace(/^(I'm not (?:thrilled|happy|looking forward))/, "Candidly, $1")
       .replace(/^(?:For visibility|Heads-up|Quick heads-up): (?:my apologies|apologies|sorry)\b,?\s*/i, "Apologies ")
       .replace(/^Apologies (for|about)\b/, "Apologies $1").replace(/^Apologies (?!for|about)/, "Apologies, ")
-      .replace(/^(?:Quick heads-up|Heads-up|For visibility): you (?!could|can|should)([a-z]+) /, "Some candid feedback: I've noticed you $1 ")
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): you (?!could|can|should)([a-z']+) /, "Some candid feedback: I've noticed you $1 ")
       .replace(/^(?:Quick heads-up|Heads-up|For visibility): your (.+)$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Kudos, your ${r}` : `Some candid feedback: your ${r}`))
       .replace(/^(?:For visibility|Heads-up): I(?:'m| am) (burnt out|burned out|exhausted|tired|frustrated|stressed|overwhelmed)/, "Candidly, I'm $1")
       .replace(/^(?:For visibility|Heads-up): (I'd rather|I prefer|I'd prefer|I see)\b/, "My two cents: $1")
@@ -731,10 +731,23 @@ function postPolish(text, lvl, clean) {
     .replace(/, (it|this|that) should (have|be)\b/g, (_m, w, v) => `. ${w === "it" ? "It" : w[0].toUpperCase() + w.slice(1)} should ${v}`)
     .replace(/\b(Could|Would|could|would) you (?!please)([^?]+?),? please\?$/, "$1 you please $2?")
     .replace(/\bnow would like\b/g, "would now like")
+    .replace(/^Just to let you know, it looks like /, "It looks like ")
+    .replace(/^(?:Quick heads-up|Heads-up): it looks like /, "Flagging that ")
+    .replace(/\bthe assist\b/g, "the help")
+    .replace(/\b(these|those|the|a|an) not very useful\b/gi, "$1 unproductive")
+    .replace(/\bis a disorganized situation\b/g, "is disorganized")
+    .replace(/\b(front|help|service|reception) workspace\b/g, "$1 desk")
+    .replace(/\bshifted (their|his|her|my|our|your) mind\b/g, "changed $1 mind")
+    .replace(/\b(?:pick up|grab) the door\b/g, "get the door")
+    .replace(/\btruly clear\b/g, "very clear")
+    .replace(/\b(the (?!issue|defect|bug|feedback|ticket|concern|question|comment)[\w-]+) is addressed\b/g, "$1 is fixed")
+    .replace(/\btoo (?:tied up|at capacity|swamped|slammed)\b/g, "too busy")
     .replace(/(^|[.!?]\s+)((?:Can|Could|Would|Will|Should|Is|Are|Do|Does|Did) (?:it|we|you|I|this|that|they|someone|anyone)\b[^.!?]*)\.(?=\s|$)/g, "$1$2?")
     .replace(/^When you get a chance, (could you .+\bwhen you (?:can|get a chance|have a (?:sec|second|minute|moment))\b.*)$/, (_m, r) => r[0].toUpperCase() + r.slice(1));
   if (lvl === 1) {
     t = t.replace(/^I disagree with /, "I'm not sure I agree with ")
+      .replace(/^Why (is|are|was|were) (the [\w-]+|this|that|it|our [\w-]+|my [\w-]+) (.+)\?$/, "Could you help me understand why $2 $1 $3?")
+      .replace(/^([A-Z][a-z]+) (paid|signed|renewed|approved|accepted) (.+)\.$/, (m, n, v, r) => (/^(?:The|This|That|We|They|It|There|Our|My|Your|I)$/.test(n) ? m : `I'm happy to share that ${n} ${v} ${r}.`))
       .replace(/^No, (I'm|we're) not ([a-z]+ing)\b/, (_m, w, v) => `No, ${w === "I'm" ? "I" : "we"} won't be ${v}`)
       .replace(/^I'll pass on (.+)$/, "Thanks, but I'll pass on $1")
       .replace(/^I'm out (next week|tomorrow|today|this (?:week|afternoon)|on [A-Z][a-z]+day|[A-Z][a-z]+day|until [A-Z]?[a-z]+)\.$/, "I'll be out of office $1.")
@@ -751,6 +764,7 @@ function postPolish(text, lvl, clean) {
     t = t.replace(/^For visibility: Understood\./, "Understood, and noted.")
       .replace(/^For visibility: no, (we're|I'm) not ([a-z]+ing)\b/, (_m, w, v) => `That's a no from ${w === "I'm" ? "me" : "us"}: ${w === "I'm" ? "I" : "we"} won't be ${v}`)
       .replace(/^For visibility: I'll pass on (.+)$/, "Thanks, but I'll have to pass on $1")
+      .replace(/^Quick heads-up: ([A-Z][a-z]+ (?:paid|signed|renewed|approved|accepted) )/, "Quick win: $1")
       .replace(/^For visibility: I'd like (feedback|some feedback|input|your input|advice|your thoughts)\b/, "Quick ask: I'd love $1")
       .replace(/^For visibility: no, (the answer is (?:still )?no\b.*)$/, "That's a no from me: $1")
       .replace(/^That's a no from me, (the answer is (?:still )?no\b.*)$/, "That's a no from me: $1")
