@@ -1,0 +1,3 @@
+{"_doc":"Hand labels: outputs (id.level) whose MEANING is wrong or unsafe (flip, invented/altered name, changed day/unit/number, request turned into a statement, key content dropped, crude kept). Everything else in exp-t5small / exp-smol135-lora is labeled meaning-OK (grammar issues not counted).",
+"T":["05.3","06.1","06.2","06.3","08.1","08.2","08.3","10.1","11.1","11.2","11.3","12.1","19.1","20.3","23.1","23.2","23.3","30.1","33.1","34.2","34.3","35.1","35.2","35.3","47.1","48.2"],
+"S":["10.3","12.3","13.3","14.2","18.2","18.3","23.3","28.2","29.1","29.2","29.3","30.3","31.3","32.1","32.2","32.3","34.2","34.3","35.1","35.2","35.3","41.3","42.2","43.1","46.3"]}

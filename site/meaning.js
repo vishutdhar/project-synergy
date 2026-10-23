@@ -133,3 +133,82 @@ export function describeProblems({ lost = [], added = [] }) {
   if (lost.includes("list")) parts.push("broke the list");
   return parts.join(" and ");
 }
+
+// ---- Stricter checks for model rewrites (fine-tuned model and AI mode). Instant never needs these. ----
+
+// Sentiment words. A rewrite of a complaint must not come out as praise, and praise must not come out as bad news.
+const NEG_SENT = /\b(?:screw\w*|broke\w*|broken|down|garbage|trash|junk|joke|pain|fuck\w*|suck\w*|sick|ill|late|mess\w*|fail\w*|wrong|miss\w*|vague|unrealistic|bad|worse|worst|terrible|awful|horrible|crap\w*|shit\w*|bullshit|disaster|nightmare|ridiculous|annoy\w*|frustrat\w*|angry|pissed|hate|useless|slow|stuck|crash\w*|bug\w*|outage|problem\w*|issue\w*|delay\w*|behind|overdue|blocked|cancel\w*|lost|lose|losing|can't|cannot|won't|ripped|overcharg\w*|rip-?off|tank\w*|dumpster|tired|exhausted|swamped|burn\w*|quit\w*|leaving|layoff\w*|laid off|cut\w*|over budget|jammed|leak\w*|again)\b/i;
+const POS_SENT = /\b(?:great|good|excellent|well|nice|love\w*|lovely|competitive|success\w*|win|wins|winning|thrill\w*|happy|pleased|proud|amazing|fantastic|awesome|best-in-class|outstanding|kudos|congrat\w*|nail\w*|delight\w*|strong|stellar|superb|brilliant|impressive|champ\w*|shout-?out|thank\w*|grateful|appreciat\w*|perfect|smooth\w*|ahead|crushed it|killed it|rock\w*|celebrat\w*|milestone|excit\w*|recogni\w*|excellence|wonderful|terrific|fair|favorable|generous)\b/i;
+// "Unfortunately" style markers that frame something as bad news.
+const BAD_FRAME = /\b(?:unfortunately|sadly|regrettably|concern\w*|headwind\w*|risk\w*|issue\w*|problem\w*|apolog\w*|sorry|challenge\w*|setback|gap|disappoint\w*|mishandl\w*|not ideal|pain point|friction|flag a concern)\b/i;
+const NEGATED = /\b(?:not|no|never|n't|hardly|isn't|wasn't|aren't|weren't)\s+(?:\w+\s+){0,2}$/i;
+function sentWords(text, re) {
+  const out = [];
+  const g = new RegExp(re.source, "gi");
+  let m;
+  while ((m = g.exec(text))) if (!NEGATED.test(text.slice(Math.max(0, m.index - 30), m.index))) out.push(m[0].toLowerCase());
+  return out;
+}
+/**
+ * Polarity flip: complaint input that comes out with new praise words, or praise input that comes out framed as bad news.
+ * Sarcasm ("love that the meeting moved again") has both kinds of words in the input, so it is never judged a flip by praise.
+ */
+export function polarityFlip(input, output) {
+  const inp = String(input), out = String(output);
+  const inNeg = sentWords(inp, NEG_SENT), inPos = sentWords(inp, POS_SENT);
+  const inSet = new Set(inp.toLowerCase().match(/[a-z'-]+/g) ?? []);
+  const newPos = sentWords(out, POS_SENT).filter((w) => !inSet.has(w));
+  const goodNews = /\b(?:fix\w*|resolv\w*|solv\w*|finally|shipped|recover\w*|back up|back online|patched|closed|done|finished|passed|hit|beat)\b/i.test(inp);
+  const sarcasm = /\b(?:another|again|yet|so now|now we're|of course|oh (?:great|perfect|good|nice|wonderful)|love that|just what|thanks a lot|great,? so)\b/i.test(inp);
+  if (inNeg.length && !inPos.length && !goodNews && newPos.some((w) => !/^(?:thank|appreciat|recogni|well)/.test(w))) return "praise";
+  if (inPos.length && !inNeg.length && !sarcasm && !BAD_FRAME.test(inp) && BAD_FRAME.test(out)) return "bad-news";
+  return "";
+}
+
+// Units next to numbers. "20 late" may become "20 minutes late" (the only reading), but never "20 miles".
+const UNIT = "(?:minutes?|mins?|hours?|hrs?|days?|weeks?|months?|years?|miles?|mi|km|kilometers?|meters?|feet|ft|kg|kilos?|lbs?|pounds?|grams?|percent|%|dollars?|bucks|euros?|k|thousand|million|m|gb|mb|tb|people|users|tickets|seats|times|x)";
+const UNIT_RE = new RegExp(`(\\$?\\d[\\d,.]*)(?:\\s|-)?(${UNIT})\\b`, "gi");
+const UNIT_SYN = [["minute", "min", "mins", "minutes"], ["hour", "hours", "hr", "hrs"], ["mile", "miles", "mi"], ["k", "thousand"], ["percent", "%"], ["dollar", "dollars", "bucks", "$"], ["pound", "pounds", "lb", "lbs"]];
+const unitKey = (u) => { const l = u.toLowerCase().replace(/s$/, ""); const g = UNIT_SYN.find((s) => s.some((x) => x.replace(/s$/, "") === l)); return g ? g[0] : l; };
+function unitPairs(text) {
+  const out = [];
+  for (const m of String(text).matchAll(UNIT_RE)) out.push(`${m[1].replace(/[$,]/g, "").replace(/\.$/, "")}|${unitKey(m[2])}`);
+  if (/\$\d/.test(text)) for (const m of String(text).matchAll(/\$(\d[\d,.]*)/g)) out.push(`${m[1].replace(/,/g, "").replace(/\.$/, "")}|dollar`);
+  return out;
+}
+export function unitChanged(input, output) {
+  const a = unitPairs(input), b = unitPairs(output);
+  const lostU = a.filter((p) => !b.includes(p));
+  const addedU = b.filter((p) => !a.includes(p) && !(/\|minute$/.test(p) && new RegExp(`\\b${p.split("|")[0]}\\s*(?:late|behind|out|away|early)\\b`, "i").test(input)));
+  return [...lostU.map((p) => `lost ${p}`), ...addedU.map((p) => `added ${p}`)];
+}
+
+// Days of the week, including short forms the main date check skips (sat, sun).
+const DAY_FULL = { mon: "monday", tue: "tuesday", tues: "tuesday", wed: "wednesday", thu: "thursday", thur: "thursday", thurs: "thursday", fri: "friday", sat: "saturday", sun: "sunday" };
+function days(text) {
+  return (String(text).toLowerCase().match(/\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon|tues?|wed|thu(?:rs?)?|fri|sat)\b/g) ?? []).map((d) => DAY_FULL[d] ?? d);
+}
+export function dayChanged(input, output) {
+  const a = new Set(days(input)), b = new Set(days(output));
+  return [...a].some((d) => !b.has(d)) || [...b].some((d) => !a.has(d));
+}
+
+// Requests have to stay requests. "move standup to 10" is not "I'll move standup to 10".
+const IMPERATIVE = /^(?:(?:hey|ok|okay|so|also|and|pls|please|plz|guys|team|folks|everyone|all)[,!]?\s+)*(?:send|move|skip|quit|stop|grab|check|fix|update|review|add|remove|cancel|book|call|email|ping|schedule|push|merge|ship|submit|sign|approve|reply|respond|read|look|take|bring|get|make|put|keep|let|tell|ask|share|post|upload|delete|clean|turn|close|open|join|come|use|try|order|print|file|fill|finish|wrap|drop|loop|cc|forward|resend|restart|reboot|rerun|revert|deploy|test|confirm|double-check|stand|hold|wait|don't|dont|do not|never|someone|somebody|anyone|anybody|need someone|can someone|can somebody|can you|could you|can u|would you|will you)\b/i;
+const SELF_FUTURE = /\b(?:i'll|i will|i'm going to|i am going to|i'm gonna|we'll|we will|we're going to|we're moving|we'll be|i'll be|i'm (?:moving|sending|skipping|taking|quitting|stopping))\b/i;
+const ASKY = /\?|\b(?:please|could|would|can|kindly|need|needs|ask|request\w*|let's|let us|propos\w*|suggest\w*|recommend\w*|appreciate|seeking|looking for|if someone|if anyone|reminder|remember|make sure|ensure|stop|avoid|refrain|hold off|pause|must|should|encourage|invite|time to)\b/i;
+export function requestBroken(input, output) {
+  const sents = String(input).split(/(?<=[.!?])\s+|\n+/).map((s) => s.trim()).filter(Boolean);
+  const req = sents.some((s) => IMPERATIVE.test(s) && !/^pass on\b/i.test(s));
+  if (!req) return "";
+  if (SELF_FUTURE.test(output) && !SELF_FUTURE.test(input)) return "became-statement";
+  if (!ASKY.test(output) && !/^(?:[A-Z][^.:!?]*:\s*)?(?:send|move|skip|grab|check|fix|update|review|add|remove|cancel|book|call|email|ping|schedule|push|merge|ship|submit|sign|approve|reply|respond|read|look|take|bring|get|make|put|keep|tell|share|post|upload|delete|clean|turn|close|open|join|come|use|try|order|print|file|fill|finish|wrap|drop|loop|forward|resend|restart|reboot|rerun|revert|deploy|test|confirm|double-check|hold|wait|don't|do not)\b/i.test(output.replace(/^[^:]{0,60}:\s*/, "").trim()) ) return "lost-ask";
+  // "quit doing X" must keep the stop. "Let's keep replying all" is the opposite.
+  if (/\b(?:quit|stop|don't|dont|do not|no more|never)\b/i.test(input) && !/(?:\b(?:quit|stop\w*|not|no longer|no more|refrain|avoid|pause|hold off|cease|never|less|fewer|limit|minimi[sz]e|cut back)\b|n't\b)/i.test(output)) return "lost-stop";
+  return "";
+}
+// "pass on X" is a polite no from the writer, not a request to others.
+export function declineBroken(input, output) {
+  if (!/^\s*(?:i'?ll\s+)?pass on\b/i.test(input)) return false;
+  return /\b(?:please|could you|let's|share|go ahead)\b/i.test(output) || !/\b(?:pass|sit\b.*\bout|skip|decline|not|n't|bow out|opt out|join another|another time)\b/i.test(output);
+}

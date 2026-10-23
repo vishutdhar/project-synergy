@@ -1,0 +1,16 @@
+# fresh6 model (flan-t5-base r5, q8, greedy) strict hand-grade. id: failing levels | notes. D = meaning error that PASSED the gate
+001:3 L3 repeated headwind | 002:3 weak L3 | 004:13 thursday casing, L3 plain | 005:23 plain | 006:3 | 007:23 plain | 008:23 eu casing/plain
+009:3 | 010:23 plain | 011:123 D drops "b" (L1,L2 passed gate) | 012:2 "Quick win" for churn | 015:23 grammar/plain | 016:3 | 017:3 | 018:3 update->revisit
+019:3 | 020:3 | 021:123 DVD/Dan (caught) | 022:123 drops Priya (caught) | 023:23 | 024:23 | 025:3 | 026:23 | 027:3 cover my call | 028:3 | 029:3
+030:23 L3 nonsense (caught) | 031:2 | 032:123 D L2 "Kudos" for insult (gate passed, not picked) | 033:23 D L3 "fully committed" flip (gate passed, not picked)
+034:3 | 035:123 crude (caught) | 036:23 | 037:123 caught | 038:123 caught | 040:23 | 042:23 | 043:123 D L2/L3 "handled my own expenses" invented (gate passed, not picked)
+044:23 | 045:13 D L1 "I'll take care of it" drift (gate passed, not picked) | 046:1 caught | 047:123 sarcasm literal (caught) | 048:3 | 049:3 praise frame on a budget cut (PICKED)
+050:3 | 051:1 sarcasm kept (PICKED) | 052:123 caught | 053:123 sarcasm kept | 054:3 "SAM...clarity and clarity" (PICKED) | 055:23 | 056:3 | 057:3 | 058:3 | 059:23
+060:23 | 061:13 D L1 softened no (gate passed) | 062:3 | 063:3 | 064:123 softened no L1/L2
+065:123 wrong conjunction | 066:123 caught | 067:123 caught | 068:3 | 069:123 | 070:3 | 071:3 | 072:3 | 073:3 | 074:13 caught
+075:23 | 076:3 | 077:3 | 079:23 | 080:3 | 081:3 plain L3 (PICKED) | 082:3 | 083:123 figma casing (L1,L3 PICKED) | 084:3 | 086:3 | 087:3 (L3 PICKED)
+088:23 | 089:3 | 091:3 | 093:23 | 094:3 | 095:123 caught | 097:123 D L1/L3 "not sure I'll ask Kim" | 098:23 | 099:123 D L1/L2 "That's great!" for thanks
+100:123 caught | 101:123 caught | 102:3 | 104:23 | 105:123 D L1/L2 "I'd suggest we take a mental health day" (L1 PICKED) | 106:23 | 107:3 | 108:3
+109:123 caught | 110:23 | 111:123 | 112:3 D L3 "re-writing" | 113:123 caught | 114:123 caught | 115:123 caught | 116:2 | 117:123 caught | 118:123 caught
+119:123 2gb | 120:3 | 121:13 D L1 "Unfortunately"/L3 "headwind" for a speedup | 122:123 D L2 "now processed" | 123:23 | 124:3 D L3 invented sprint | 125:3 | 126:13 | 127:23
+128:3 | 129:23 caught | 130:123 D L3 "isn't a priority"

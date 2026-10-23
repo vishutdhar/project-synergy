@@ -1,0 +1,12 @@
+# fresh6 Instant strict hand-grade (graded before seeing any model output). Format: id: failing levels  reason
+001:123 no article | 005:123 comma splice | 008:123 eu casing | 011:123 no article, "developing b" | 015:123 comma splice
+017:123 pr casing | 021:123 nda casing | 023:123 reason glued into question | 028:123 slack casing | 032:123 "was high" kept
+033:2 Quick win frame | 037:123 blunt imperative kept | 038:123 garbled | 040:123 "what." | 041:3 "flag that oh no" | 044:2 "poor use"
+045:123 comma splice | 047:123 sarcasm kept | 049:123 sarcasm read as praise | 052:123 sarcasm | 053:123 sarcasm | 055:123 push->move, heads-up
+056:23 heads-up for praise | 059:2 lena casing | 060:123 killed it kept | 062:123 fragment
+065:123 comma splice | 069:123 garbled | 070:123 comma splice | 071:123 fragment | 073:123 fragment | 076:3 frame+fragment
+080:123 may casing | 091:2 "partially harsh" | 094:123 splice | 095:123 splice | 097:123 garbled | 098:13 no comma
+100:123 garbled | 101:123 splice | 103:123 splice | 107:123 no subject | 110:123 no subject | 111:123 added question
+112:123 no subject | 113:123 jorge casing | 116:123 "the nkechi" | 117:123 rafael casing | 118:12 olga casing | 119:123 2gb casing
+122:123 garbled | 124:123 splice
+## Totals (128 rows): Mild 83/128 64.8% | Middle 79/128 61.7% | C-Suite 81/128 63.3%

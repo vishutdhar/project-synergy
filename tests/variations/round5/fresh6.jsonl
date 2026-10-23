@@ -1,0 +1,128 @@
+{"id": "f6001", "category": "status", "input": "coffee machine on 3 is leaking again"}
+{"id": "f6002", "category": "status", "input": "the vpn keeps dropping every 15 minutes"}
+{"id": "f6003", "category": "status", "input": "payroll went out a day late"}
+{"id": "f6004", "category": "status", "input": "new laptops arrive thursday"}
+{"id": "f6005", "category": "status", "input": "staging is green, prod deploy at 4"}
+{"id": "f6006", "category": "status", "input": "the dashboard shows 0 orders since noon"}
+{"id": "f6007", "category": "status", "input": "we hit 1200 paying customers this week"}
+{"id": "f6008", "category": "status", "input": "the api is returning 500s for eu users"}
+{"id": "f6009", "category": "status", "input": "finished the onboarding docs"}
+{"id": "f6010", "category": "status", "input": "marco is out til wednesday"}
+{"id": "f6011", "category": "status", "input": "elevator in building b is out of service"}
+{"id": "f6012", "category": "status", "input": "q2 churn came in at 4 percent"}
+{"id": "f6013", "category": "status", "input": "the conference rooms are double booked all day"}
+{"id": "f6014", "category": "status", "input": "server costs jumped 30% last month"}
+{"id": "f6015", "category": "status", "input": "cleaned up the backlog, 40 tickets closed"}
+{"id": "f6016", "category": "request", "input": "can someone restart the build agent"}
+{"id": "f6017", "category": "request", "input": "pls review my pr before lunch"}
+{"id": "f6018", "category": "request", "input": "update the roadmap slide with the new dates"}
+{"id": "f6019", "category": "request", "input": "book a room for 8 people on friday"}
+{"id": "f6020", "category": "request", "input": "somebody order more printer paper"}
+{"id": "f6021", "category": "request", "input": "need the signed nda back by monday"}
+{"id": "f6022", "category": "request", "input": "ping priya about the invoice"}
+{"id": "f6023", "category": "request", "input": "cancel my 3pm, something came up"}
+{"id": "f6024", "category": "request", "input": "dont merge anything until the freeze lifts"}
+{"id": "f6025", "category": "request", "input": "stop scheduling meetings over lunch"}
+{"id": "f6026", "category": "request", "input": "send me the raw data not the summary"}
+{"id": "f6027", "category": "request", "input": "can u cover my on call saturday"}
+{"id": "f6028", "category": "request", "input": "add the new hires to the slack channel"}
+{"id": "f6029", "category": "request", "input": "fill out the survey by end of week"}
+{"id": "f6030", "category": "request", "input": "quit pushing straight to main"}
+{"id": "f6031", "category": "crude", "input": "this release is a total shitshow"}
+{"id": "f6032", "category": "crude", "input": "whoever wrote this code was high"}
+{"id": "f6033", "category": "crude", "input": "i'm so fucking done with this client"}
+{"id": "f6034", "category": "crude", "input": "the new policy is complete bullshit"}
+{"id": "f6035", "category": "crude", "input": "our competitor is eating our lunch and nobody gives a shit"}
+{"id": "f6036", "category": "crude", "input": "that demo was a fucking disaster"}
+{"id": "f6037", "category": "crude", "input": "stop dicking around with the font and ship it"}
+{"id": "f6038", "category": "crude", "input": "finance can piss off with their new expense rules"}
+{"id": "f6039", "category": "crude", "input": "the printer is a piece of shit"}
+{"id": "f6040", "category": "crude", "input": "sales promised features we don't have, what the hell"}
+{"id": "f6041", "category": "crude", "input": "damn, the build broke again"}
+{"id": "f6042", "category": "crude", "input": "this vendor is fucking useless"}
+{"id": "f6043", "category": "crude", "input": "i busted my ass on that report and got zero credit"}
+{"id": "f6044", "category": "crude", "input": "the meeting was a colossal waste of fucking time"}
+{"id": "f6045", "category": "crude", "input": "screw it, we ship tomorrow"}
+{"id": "f6046", "category": "sarcasm", "input": "oh good, another all hands"}
+{"id": "f6047", "category": "sarcasm", "input": "wow love getting paged at 3am"}
+{"id": "f6048", "category": "sarcasm", "input": "fantastic, the client changed the scope again"}
+{"id": "f6049", "category": "sarcasm", "input": "great, so the budget got cut in half"}
+{"id": "f6050", "category": "sarcasm", "input": "can't wait for the 4th reorg this year"}
+{"id": "f6051", "category": "sarcasm", "input": "nothing says teamwork like a friday 6pm meeting"}
+{"id": "f6052", "category": "sarcasm", "input": "super helpful feedback, \"make it pop\""}
+{"id": "f6053", "category": "sarcasm", "input": "thrilled to be maintaining legacy perl"}
+{"id": "f6054", "category": "praise", "input": "sam crushed the client pitch"}
+{"id": "f6055", "category": "praise", "input": "huge thanks to the support team for the weekend push"}
+{"id": "f6056", "category": "praise", "input": "the new onboarding flow is so smooth"}
+{"id": "f6057", "category": "praise", "input": "shoutout to dev for catching that bug before release"}
+{"id": "f6058", "category": "praise", "input": "great job on the q3 numbers everyone"}
+{"id": "f6059", "category": "praise", "input": "lena's spreadsheet saved me hours"}
+{"id": "f6060", "category": "praise", "input": "design team killed it on the rebrand"}
+{"id": "f6061", "category": "decline", "input": "can't take on the migration this quarter"}
+{"id": "f6062", "category": "decline", "input": "not joining the offsite, family stuff"}
+{"id": "f6063", "category": "decline", "input": "no, we're not discounting below 20%"}
+{"id": "f6064", "category": "decline", "input": "i won't be able to make the 9am"}
+{"id": "f6065", "category": "decline", "input": "not doing the extra slides, they add nothing"}
+{"id": "f6066", "category": "decline", "input": "pass on the karaoke thing"}
+{"id": "f6067", "category": "decline", "input": "no budget for new tools until july"}
+{"id": "f6068", "category": "apology", "input": "sorry, forgot to attach the file"}
+{"id": "f6069", "category": "apology", "input": "my fault the report had the wrong totals"}
+{"id": "f6070", "category": "apology", "input": "sorry im late, train was delayed 25 min"}
+{"id": "f6071", "category": "apology", "input": "apologies, double booked myself"}
+{"id": "f6072", "category": "apology", "input": "oops sent that to the wrong channel"}
+{"id": "f6073", "category": "apology", "input": "sorry for the slow reply, swamped this week"}
+{"id": "f6074", "category": "schedule", "input": "push the review to next tuesday"}
+{"id": "f6075", "category": "schedule", "input": "can we do 2:30 instead of 2"}
+{"id": "f6076", "category": "schedule", "input": "moving our 1:1 to thursday"}
+{"id": "f6077", "category": "schedule", "input": "the launch slipped to august 12"}
+{"id": "f6078", "category": "schedule", "input": "standup is cancelled tomorrow"}
+{"id": "f6079", "category": "schedule", "input": "lets do the retro async this time"}
+{"id": "f6080", "category": "schedule", "input": "offsite moved from may 5 to may 19"}
+{"id": "f6081", "category": "question", "input": "who owns the billing service now"}
+{"id": "f6082", "category": "question", "input": "why is the deploy taking 2 hours"}
+{"id": "f6083", "category": "question", "input": "does anyone have the figma link"}
+{"id": "f6084", "category": "question", "input": "are we still doing the hackathon"}
+{"id": "f6085", "category": "question", "input": "what's the budget for the party"}
+{"id": "f6086", "category": "question", "input": "when is the contract up for renewal"}
+{"id": "f6087", "category": "question", "input": "how many seats do we have left"}
+{"id": "f6088", "category": "feedback", "input": "your emails are way too long"}
+{"id": "f6089", "category": "feedback", "input": "the deck has too many slides"}
+{"id": "f6091", "category": "feedback", "input": "the code review comments were kinda harsh"}
+{"id": "f6092", "category": "feedback", "input": "this proposal doesn't answer the main question"}
+{"id": "f6093", "category": "feedback", "input": "your estimates keep being way off"}
+{"id": "f6094", "category": "casual", "input": "brb grabbing lunch"}
+{"id": "f6095", "category": "casual", "input": "omw, 10 min"}
+{"id": "f6097", "category": "casual", "input": "idk ask kim"}
+{"id": "f6098", "category": "casual", "input": "k sounds good"}
+{"id": "f6099", "category": "casual", "input": "ty!!"}
+{"id": "f6100", "category": "casual", "input": "heads down today, slack only"}
+{"id": "f6101", "category": "casual", "input": "wfh tomorrow, plumber coming"}
+{"id": "f6102", "category": "personal", "input": "taking friday off for my sister's wedding"}
+{"id": "f6103", "category": "personal", "input": "kid is sick, leaving early"}
+{"id": "f6104", "category": "personal", "input": "dentist at 11, back by 1"}
+{"id": "f6105", "category": "personal", "input": "need a mental health day"}
+{"id": "f6106", "category": "personal", "input": "i'm burnt out and need a break"}
+{"id": "f6107", "category": "personal", "input": "going on parental leave in june"}
+{"id": "f6108", "category": "multi", "input": "the client called. they want the report today. can someone help me finish it"}
+{"id": "f6109", "category": "multi", "input": "tests are failing on main. i'm looking into it. don't merge for now"}
+{"id": "f6110", "category": "multi", "input": "ran the numbers again. we're 15k over budget. need to cut something"}
+{"id": "f6111", "category": "multi", "input": "got the offer from acme. still deciding. will let you know by friday"}
+{"id": "f6112", "category": "multi", "input": "server's back up. root cause was a full disk. writing the postmortem now"}
+{"id": "f6113", "category": "names", "input": "tell jorge the demo is moved to 3"}
+{"id": "f6114", "category": "names", "input": "aisha and ben are leading the audit"}
+{"id": "f6115", "category": "names", "input": "ask wei if the contract is signed"}
+{"id": "f6116", "category": "names", "input": "nkechi is our new head of design"}
+{"id": "f6117", "category": "names", "input": "thanks rafael for the quick turnaround"}
+{"id": "f6118", "category": "names", "input": "olga's team missed the deadline again"}
+{"id": "f6119", "category": "numbers", "input": "the file is 2gb so email won't work"}
+{"id": "f6120", "category": "numbers", "input": "we need 3 more engineers to hit the date"}
+{"id": "f6121", "category": "numbers", "input": "page load went from 4s to 1.2s"}
+{"id": "f6122", "category": "numbers", "input": "refund of $85 approved for order 4471"}
+{"id": "f6123", "category": "numbers", "input": "the survey got 312 responses"}
+{"id": "f6124", "category": "numbers", "input": "ran 5 miles at lunch, back now"}
+{"id": "f6125", "category": "complaint", "input": "the new ticketing system is slow as hell"}
+{"id": "f6126", "category": "complaint", "input": "nobody reads the docs"}
+{"id": "f6127", "category": "complaint", "input": "this is the third outage this month"}
+{"id": "f6128", "category": "complaint", "input": "the onsite badge reader never works"}
+{"id": "f6129", "category": "complaint", "input": "we keep getting last minute requests from marketing"}
+{"id": "f6130", "category": "complaint", "input": "the parking situation is a joke"}
