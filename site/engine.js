@@ -672,7 +672,7 @@ function levelFloor(input, clean, text, lvl, seed) {
       if (/^(?:Great|Nice) (?:work|job)\b/.test(text)) return text.replace(/^(?:Great|Nice) (?:work|job)\b/, "Huge kudos");
       const st = text.match(/^Sorry to (bother|interrupt|disturb) you\b/);
       if (st) return text.replace(st[0], `Apologies for ${st[1] === "bother" ? "bothering" : st[1] + "ing"} you`);
-      if (/^(?:Ah yes|Oh great|Oh good|Wow|Cool|Sure)\b/i.test(text)) return text;
+      if (/^Ah yes\b/i.test(text)) return text.replace(/^Ah yes,?\s*/i, "Love that for us: ");
       return `For visibility: ${typedLower && !/^I(?:'|$)/.test(w) ? w.toLowerCase() + text.slice(w.length) : lowerFirst(text)}`;
     }
   }
