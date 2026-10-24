@@ -99,7 +99,7 @@ function restructureOne(marked, lvl, ctx) {
   return fixed !== marked ? { text: fixed, device: "fragment" } : { text: marked, device: "" };
 }
 
-const SPLICE_START = "(?:let's|start|go ahead|feel free|ping|text|email|nobody|no one|it's|it is|I'm|I am|we're|we are|they're|that's|I've|I have|there's|he's|she's|my|her|his|our|their|can|could|should|which|what|who|where|when|why|how|is|are|do|does|did|will|would|pack|please|send|call|let me know|(?:cut|trim|shorten|fix|move|add|remove|drop|update|change|make|rewrite|review|check|split|push|tighten|simplify|rename|resend|delete) (?:it|them|this|that|the|down|back|out))";
+const SPLICE_START = "(?:let's|start|go ahead|feel free|ping|text|email|nobody|no one|it's|it is|I'm|I am|we're|we are|they're|that's|I've|I have|there's|he's|she's|my|her|his|our|their|can|could|should|which|what|who|where|when|why|how|is|are|do|does|did|will|would|pack|please|send|call|let me know|(?:cut|trim|shorten|fix|move|add|remove|drop|update|change|make|rewrite|review|check|split|push|tighten|simplify|rename|resend|delete|get|skip|focus|keep) (?:it|them|this|that|the|down|back|out|half|to|some|a|more|less|most|all|on))";
 export function splitClauses(text) {
   const t = String(text).trim();
   if (/["\n]/.test(t) || t.split(/\s+/).length > 30) return [t];

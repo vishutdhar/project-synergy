@@ -757,6 +757,7 @@ function postPolish(text, lvl, clean) {
     .replace(/\b(front|help|service|reception) workspace\b/g, "$1 desk")
     .replace(/\bsupport workspace\b/g, "help desk")
     .replace(/(:\s)ok\b/g, "$1OK")
+    .replace(/:,\s/g, ": ")
     // "No problem, happy to help" can come out of the swaps as "Happy to help, happy to help."
     .replace(/\b([A-Za-z][a-z']+(?: [a-z']+){1,5}), \1\b/gi, (m, a) => (m.slice(a.length + 2).toLowerCase() === a.toLowerCase() ? a : m))
     .replace(/\b([Hh]uge|[Bb]ig|[Ss]pecial) thank you to\b/g, "$1 thanks to")

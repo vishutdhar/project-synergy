@@ -250,6 +250,7 @@ nap = rest = recharge = strategic recharge
 sleep = rest = recharge = restorative downtime
 ^fun = fun = engaging = culture-additive
 drinks = drinks = happy hour = team bonding initiative
+phone call = phone call = phone call = phone call
 phone = phone = device = mobile endpoint
 computer = computer = laptop = workstation
 internet = internet = network = connectivity layer
@@ -1191,7 +1192,9 @@ export const SPECIAL_LINES = [
   // Round 6 (fresh7): lines that carry the specific fact instead of repeating the theme line.
   { pattern: /\b(?:premiums?|contributions?|deductibles?|copays?)\b[^.]{0,50}\b(?:will )?(?:increase|rise|go up)\b/i,
     lines: ["You'll pay more for your health plan.", "Your health plan will cost you more.", "Same health plan, bigger bill."], asSummary: true },
-  { pattern: /\b(?:per|according to) (?:legal|compliance|counsel)\b[^.]{0,30}\b(?:unable|can't|cannot|not able|not permitted|not allowed)\b/i,
+  { pattern: /\b(?:per|according to) compliance\b[^.]{0,30}\b(?:unable|can't|cannot|not able|not permitted|not allowed)\b/i,
+    lines: ["Compliance said no.", "Compliance blocked it.", "Compliance said no. That's the end of it."], asSummary: true },
+  { pattern: /\b(?:per|according to) (?:legal|counsel|our lawyers)\b[^.]{0,30}\b(?:unable|can't|cannot|not able|not permitted|not allowed)\b/i,
     lines: ["Legal said no.", "Legal blocked it.", "Legal said no. That's the end of it."], asSummary: true },
   { pattern: /\b(?:impacted|affected) (?:team members|employees|colleagues|staff|people|individuals)\b[^.]{0,30}\b(?:will be|are being|have been) (?:notified|informed|contacted)\b/i,
     lines: ["The people affected will be told {when}.", "The people being cut will hear {when}.", "The people being fired find out {when}."] },
