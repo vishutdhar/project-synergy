@@ -31,7 +31,7 @@ test("casual openers and tails get cleaned up", () => {
 });
 
 test("questions keep their question mark", () => {
-  assert.equal(corp("Can we move standup, we're slammed today", 1), "Could we move standup? We're buried today.");
+  assert.equal(corp("Can we move standup, we're slammed today", 1), "Could we move standup? We're very busy today.");
   assert.equal(corp("finna grab lunch, want anything", 1), "I'm about to get lunch, want anything?");
   assert.equal(corp("is there any way we can push the deadline", 1), "Is there any way we can move the deadline?");
 });

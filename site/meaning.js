@@ -105,7 +105,9 @@ export function checkMeaning(input, output, { checkNames = true } = {}) {
   const outDates = dateWords(out);
   if (inDates.some((d) => !outDates.includes(d))) lost.push("dates");
   if (outDates.some((d) => !inDates.includes(d))) added.push("date");
-  if (count(out, MEETING) > 0 && count(inp, MEETING) === 0) added.push("meeting");
+  // "ask ops" -> "loop in ops" brings in the same people, so it is not a new meeting.
+  const loopOnly = count(out, MEETING) === count(out, /\bloop(?:ing)? in\b/gi) && /\b(?:ask|tell|cc|include|check with)\b/i.test(inp);
+  if (count(out, MEETING) > 0 && count(inp, MEETING) === 0 && !loopOnly) added.push("meeting");
   if (count(out, SCOPE) > count(inp, SCOPE)) added.push("scope");
   if (listLines(out) !== listLines(inp)) lost.push("list");
   if (checkNames) {

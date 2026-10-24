@@ -633,7 +633,7 @@ function corporateCore(input, { level = 2, seed = 1, raw = false } = {}) {
         const text = composeCSuite({ clean: ref, mild: mild.text, middle: middle.text, rng, raw: String(input) });
         if (!text) break;
         const check = checkMeaning(without(mild.unsafe ?? []), text);
-        if (check.ok && !hasCrude(text)) return { text: polishCase(fixCollocations(tidy(text))), check, fallback: k ? "reseed" : "", unsafe: mild.unsafe ?? [] };
+        if (check.ok && !hasCrude(text)) return { text: polishCase(fixCollocations(tidy(text.replace(/\b(that) (?:oh no|oh|yikes|ugh), /gi, "$1 ")))), check, fallback: k ? "reseed" : "", unsafe: mild.unsafe ?? [] };
       }
     }
     return corporateCore(input, { level, seed, raw: true });
@@ -841,6 +841,9 @@ function levelFloorInner(input, clean, text, lvl, seed) {
       if (/^Happy Friday\b/i.test(text)) return text.replace(/^Happy Friday,?\s*(everyone|all|team)?\b/i, (_m, w) => `Wishing ${w ? (w.toLowerCase() === "everyone" ? "everyone" : "the " + w.toLowerCase()) : "you"} a happy Friday`);
       if (/^I(?:'m| am) (?:so|really|very) /.test(text)) return `Candidly, ${text}`;
       if (/^Ah yes\b/i.test(text)) return text.replace(/^Ah yes,?\s*/i, "Love that for us: ");
+      // Round 7: an ask or a quick correction gets a label that fits it, in lower case after the colon.
+      if (/^(?:Please )?(?:let me know|keep me posted|send me|ping me)\b/i.test(text)) return `Quick ask: ${lowerFirst(text.replace(/^Please /, ""), { force: true })}`;
+      if (/^Never mind\b/.test(text)) return `Quick update: ${lowerFirst(text, { force: true })}`;
       return `For visibility: ${typedLower && !/^I(?:'|$)/.test(w) ? w.toLowerCase() + text.slice(w.length) : lowerFirst(text)}`;
     }
   }
@@ -942,6 +945,12 @@ export function bluntNo(text) {
   const who = /^(?:hr|ceo|cfo)$/i.test(m[1].replace(/^the /i, "")) ? m[1].replace(/\b(hr|ceo|cfo)\b/i, (x) => x.toUpperCase()) : m[1];
   const Who = /^(?:legal|finance|security|procurement|compliance|management|leadership)$/i.test(who) ? who[0].toUpperCase() + who.slice(1).toLowerCase() : who.replace(/^the /i, "the ");
   const lead = Who[0].toUpperCase() + Who.slice(1);
+  // Round 7: keep what they said no to ("on using the customer logo").
+  const obj = t.slice(m.index + m[0].length).match(/^\s+(?:on|to|about|for)\s+(?:the idea of\s+)?([^.!?]{3,80}?)\s*[.!]*$/i)?.[1];
+  if (obj) {
+    const o = obj.replace(/^(use|share|include|run|launch|ship|publish|post|add|hire|buy|sign|extend|offer|move)\b/i, (v) => (/[^aeiou]e$/i.test(v) ? v.slice(0, -1) : v) + "ing");
+    return [`${lead} said no to ${o}.`, `${lead} said no to ${o}. It's a flat no.`, `${lead} said no to ${o}. Not a maybe, a no.`];
+  }
   return [`It's a no from ${Who}.`, `${lead} said no. It's a flat no.`, `${lead} said no. Not a maybe, a no.`];
 }
 
@@ -978,6 +987,8 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       if (special) {
         if (isFluff) fluff++;
         plain = ((layoffContext && special.layoffLines) || special.lines)[lvl - 1];
+        // Round 7: a line can be built from the sentence, so it carries the specific fact.
+        if (typeof plain === "function") plain = plain(sentence);
         if (plain.includes("{when}")) plain = plain.replace("{when}", (sentence.match(/\b(today|tomorrow|this week|next week|shortly|by (?:end of day|Friday|Monday|tomorrow|[A-Z][a-z]+ \d{1,2}))\b/i)?.[1] ?? "soon").replace(/^shortly$/i, "soon"));
         const rest = special.keepRest && special.keepRest.test(sentence) ? sentence.replace(special.keepRest, "").trim() : "";
         if (rest.split(/\s+/).length >= 3) {

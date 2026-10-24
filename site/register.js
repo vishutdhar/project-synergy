@@ -99,7 +99,7 @@ function restructureOne(marked, lvl, ctx) {
   return fixed !== marked ? { text: fixed, device: "fragment" } : { text: marked, device: "" };
 }
 
-const SPLICE_START = "(?:let's|start|go ahead|feel free|ping|text|email|nobody|no one|it's|it is|I'm|I am|we're|we are|they're|that's|I've|I have|there's|he's|she's|my|her|his|our|their|can|could|should|which|what|who|where|when|why|how|is|are|do|does|did|will|would|pack|please|send|call|let me know|(?:cut|trim|shorten|fix|move|add|remove|drop|update|change|make|rewrite|review|check|split|push|tighten|simplify|rename|resend|delete|get|skip|focus|keep) (?:it|them|this|that|the|down|back|out|half|to|some|a|more|less|most|all|on))";
+const SPLICE_START = "(?:let's|start|go ahead|feel free|ping|text|email|nobody|no one|it's|it is|I'm|I am|we're|we are|they're|that's|I've|I have|there's|he's|she's|my|her|his|our|their|can|could|should|which|what|who|where|when|why|how|is|are|do|does|did|will|would|pack|please|send|call|let me know|(?:cut|trim|shorten|fix|move|add|remove|drop|update|change|make|rewrite|review|check|split|push|tighten|simplify|rename|resend|delete|get|skip|focus|keep|use|try|reuse|switch|go with) (?:it|them|this|that|the|our|my|your|a|an|down|back|out|half|to|some|a|more|less|most|all|on))";
 export function splitClauses(text) {
   const t = String(text).trim();
   if (/["\n]/.test(t) || t.split(/\s+/).length > 30) return [t];
@@ -558,7 +558,7 @@ function restructureAt(marked, lvl, ctx = {}) {
       if (lvl === 2 && !had) return done(`${useLabel("Quick question:")} ${lowerFirst(markedBody, { force: true })}?`, "label");
       return none;
     }
-    if ((m = body.match(/^(is|are|was|were|does|do|has|have|did|should|could|would|will|isn't|aren't|doesn't|don't|didn't|shouldn't) (.+)$/i)) && !/^(?:is there any way|is it possible|would it be possible|could we|could you|would you|could I|would it|would that)\b/i.test(body)) {
+    if ((m = body.match(/^(is|are|was|were|does|do|has|have|did|should|could|would|will|isn't|aren't|doesn't|don't|didn't|shouldn't) (.+)$/i)) && !/^(?:is there any way|is it possible|would it be possible|could we|could you|would you|could I|would it|would that|could (?:someone|somebody|anyone|anybody)|would (?:someone|somebody|anyone|anybody))\b/i.test(body)) {
       if (lvl === 1) return done(`${M("Just to check,")} ${m[1].toLowerCase()} ${m[2]}?`, "check-question");
       if (lvl === 2 && !had) return done(`${useLabel("Quick question:")} ${m[1].toLowerCase()} ${m[2]}?`, "label");
       return none;

@@ -29,6 +29,9 @@ i don't care = I'm flexible on this = I'm agnostic on that = I'm fully outcome-a
 i don't have time = my plate is full = I don't have the bandwidth = I'm at full capacity across all verticals
 no time = no spare time = zero bandwidth = no available capacity
 !i'm busy = I'm tied up = I'm heads down = I'm in deep execution mode
+!i'm tired of = I'm frustrated with = I'm worn out by = I'm fatigued by
+!i'm so tired of = I'm really frustrated with = I'm truly worn out by = I'm deeply fatigued by
+!i'm sick and tired of = I'm really frustrated with = I'm truly worn out by = I'm deeply fatigued by
 !i'm tired = I'm worn out = I'm at reduced capacity = my personal battery KPIs are trending down
 i'm hungry = I could use a break = I need to refuel = I need to optimize my caloric pipeline
 i'm bored = I'm looking for a new challenge = I'm seeking more strategic stretch = I'm under-leveraged
@@ -41,6 +44,18 @@ out sick = out sick = out sick = offline for health reasons
 !so done with = really fed up with = at my limit with = fully at capacity on
 !crushed it = did a fantastic job = knocked it out of the park = delivered outsized impact
 !crushed the = did a great job on the = knocked it out of the park on the = delivered outsized impact on the
+!huge shoutout to = a huge thank-you to = huge kudos to = a massive shoutout to
+!huge shout-out to = a huge thank-you to = huge kudos to = a massive shoutout to
+!huge shout out to = a huge thank-you to = huge kudos to = a massive shoutout to
+!big shoutout to = a huge thank-you to = huge kudos to = a massive shoutout to
+!big shout-out to = a huge thank-you to = huge kudos to = a massive shoutout to
+!big shout out to = a huge thank-you to = huge kudos to = a massive shoutout to
+!massive shoutout to = a huge thank-you to = huge kudos to = a massive shoutout to
+!massive shout-out to = a huge thank-you to = huge kudos to = a massive shoutout to
+!massive shout out to = a huge thank-you to = huge kudos to = a massive shoutout to
+!major shoutout to = a huge thank-you to = huge kudos to = a massive shoutout to
+!major shout-out to = a huge thank-you to = huge kudos to = a massive shoutout to
+!major shout out to = a huge thank-you to = huge kudos to = a massive shoutout to
 !shoutout to = a big thank-you to = huge kudos to = a massive shoutout to
 !shout-out to = a big thank-you to = huge kudos to = a massive shoutout to
 !my laptop died = my laptop stopped working = my laptop is out of commission = my hardware endpoint is offline
@@ -135,8 +150,8 @@ salary = pay = compensation = total rewards package
 !boss = manager = leadership = executive sponsor
 !bosses = managers = managers = executive sponsors
 my manager = my manager = my manager = my people leader
-team = team = squad = pod
-teams = teams = squads = cross-functional pods
+team = team = team = pod
+teams = teams = teams = cross-functional pods
 coworker = colleague = teammate = valued stakeholder
 coworkers = colleagues = teammates = valued stakeholders
 people = folks = folks = team members
@@ -194,6 +209,8 @@ check in = check in = touch base = sync up
 look at = take a look at = review = take a deep dive into
 looked at = looked at = reviewed = reviewed
 look into = look into = dig into = investigate holistically
+!told you this = told you this = flagged this to you = surfaced this to you
+!told you that = told you that = flagged that to you = surfaced that to you
 told = told = informed = advised
 tell me = let me know = let me know = let me know
 let me know = let me know = keep me posted = keep me in the loop
@@ -212,7 +229,6 @@ was cut = was cut = was reduced = was streamlined
 were cut = were cut = were reduced = were streamlined
 cuts = cuts = reductions = efficiencies
 copy paste = copy-paste = copy-paste = manually copy-paste
-copy = copy = replicate = leverage existing IP
 steal you = borrow you = borrow you = borrow you
 !steal = take = take = appropriate
 !stole = took = took = appropriated
@@ -399,8 +415,8 @@ worth it = worth it = a good investment = high ROI
 a total waste of time = a total waste of time = a real waste of time = a value-negative use of bandwidth
 waste of time = waste of time = poor use of time = value-negative use of bandwidth
 for real = really = genuinely = with full intentionality
-!swamped = buried = at capacity = operating at maximum bandwidth utilization
-!slammed = buried = underwater = at max capacity across all verticals
+!swamped = very busy = at capacity = operating at maximum bandwidth utilization
+!slammed = very busy = at capacity = at max capacity across all verticals
 !i'm swamped = I'm buried = I'm at capacity = I'm operating at maximum bandwidth utilization
 !i'm slammed = I'm buried = I'm underwater = I'm at max capacity across all verticals
 !^can't = cannot = cannot commit to that = cannot commit bandwidth to that
@@ -536,6 +552,12 @@ the refund = the refund = the reimbursement = the reimbursement
 will not be ready = will not be ready = will not be available = will not be production-ready
 won't be ready = won't be ready = won't be available = won't be production-ready
 i'm not interested = I'm not interested = this isn't a fit for me = this isn't a strategic fit for me
+i can't find = I can't find = I'm unable to find = I'm unable to locate
+i can't see = I can't see = I'm unable to see = I'm unable to see
+i can't access = I can't access = I'm unable to access = I'm unable to access
+i can't open = I can't open = I'm unable to open = I'm unable to open
+i can't log in = I can't log in = I'm unable to log in = I'm unable to log in
+i can't hear = I can't hear = I'm unable to hear = I'm unable to hear
 i can't wait for = I can't wait for = I'm really looking forward to = I'm deeply excited about
 i can't wait to = I can't wait to = I'm eager to = I'm deeply excited to
 can't wait for = can't wait for = am really looking forward to = am deeply excited about
@@ -831,7 +853,7 @@ export const THEMES = [
     id: "shutdown",
     weight: 9,
     patterns: [
-      /\bsunset(?:ting|ted|s)?\b/i, /\bwind(?:ing)? down\b/i, /\bdiscontinu/i, /end[- ]of[- ](?:life|sale|support)\b/i, /\bEOL\b/, /\bshut(?:ting)? down\b/i,
+      /\bsunset(?:ting|ted|s)?\b(?![^.]{0,40}\b(?:stipend|perk|reimbursement|allowance|subsid|benefit|match)\w*)/i, /\bwind(?:ing)? down\b/i, /\bdiscontinu\w*(?![^.]{0,40}\b(?:stipend|perk|reimbursement|allowance|subsid|benefit|match)\w*)/i, /end[- ]of[- ](?:life|sale|support)\b/i, /\bEOL\b/, /\bshut(?:ting)? down\b/i,
       /\bcease (?:operations|development|support|production)/i, /\bdeprecat/i, /no longer (?:be )?(?:supported|available|offered|maintained)\b/i,
       /\bclos(?:e|ing) (?:the|our|its) (?:\w+ )?(?:office|site|plant|store|location|facility|business|product|studio|division)/i,
     ],
@@ -918,7 +940,7 @@ export const THEMES = [
       /\bdelay(?:ed|ing|s)?\b/i, /\bslip(?:ped|ping|s)?\b/i, /\bpush(?:ed|ing)? (?:out|back)\b/i, /\breschedul/i, /\bbehind schedule\b/i,
       /(?:moved|pushed|shifted|moving|pushing|shifting) (?:the \w+ )?(?:to|into) (?:Q[1-4]|next (?:quarter|year|month|sprint)|(?:early|mid|late)[ -]\w+|the (?:second|back) half)/i,
       /(?:revised|updated|new|adjusted|realistic) (?:timeline|target date|launch date|ETA|delivery date|go-live)/i, /timelines? (?:has |have )?(?:shifted|moved|changed|slipped)/i,
-      /\bre-?baselin/i, /later than (?:planned|expected|originally|anticipated)/i, /(?:no longer|not) (?:on track|going to make|hitting)/i, /\bre-?phas/i,
+      /\bre-?baselin/i, /later than (?:planned|expected|originally|anticipated)/i, /\b(?:will )?now (?:target|aim for|be targeting|land in|ship in|arrive in|be expected in)\b[^.]{0,30}\b(?:Q[1-4]|(?:early|mid|late)[ -]\w+|next (?:quarter|year|month)|the (?:second|back) half|[A-Z][a-z]+ \d{4})\b/i, /(?:no longer|not) (?:on track|going to make|hitting)/i, /\bre-?phas/i,
     ],
     summary: ["It's going to be late.", "It's late. The date moved.", "It's late, and the new date will slip too."],
     line: ["This is running late.", "It's delayed.", "It's late. Again."],
@@ -931,7 +953,7 @@ export const THEMES = [
       /(?:too early|premature) to (?:say|tell|comment|speculate|share)/i, /(?:still|currently|actively) (?:evaluating|assessing|exploring|reviewing) (?:our |all |the |a |several |many )?(?:options|paths?|situation|next steps|alternatives)/i,
       /(?:can't|cannot|won't|don't) (?:get into|go into|speak to|comment on) (?:the )?(?:specifics|details|individual|rumors|speculation)/i,
       /\bpark (?:that|this)\b/i, /let me get back to you/i, /\bno (?:final )?decisions? (?:has|have) been made\b/i, /nothing to (?:share|announce) (?:at this time|right now|yet)/i,
-      /(?:a lot of|many) moving (?:parts|pieces)/i, /\bwe hear you\b/i,
+      /(?:a lot of|many) moving (?:parts|pieces)/i, /\bwe hear you\b/i, /\bunder advisement\b/i, /\bthanks for (?:raising|flagging|sharing) (?:this|that)\b[^.]{0,20}$/i,
       /\b(?:share|tell you|update you|provide) more (?:details |information |context )?(?:when|once|as soon as) (?:we're|we are|we can|we're able|able|possible|appropriate|we have)/i,
     ],
     summary: ["They didn't really answer.", "That's a non-answer.", "They dodged it. Assume the worst."],
@@ -946,6 +968,7 @@ export const THEMES = [
       /eliminat\w* (?:\w+ )?(?:roles|positions|jobs)/i, /part(?:ing)? ways/i, /impacted (?:employees|colleagues|team members|roles)/i,
       /\bseverance\b/i, /\bseparation\b/i, /(?:roles|positions) (?:are|will be) (?:impacted|affected)/i,
       /saying goodbye to/i, /\blet(?:ting)? go\b(?! of)/i,
+      /\b(?:departure|exit|transition) of (?:some|several|a number of|many|certain|\d+) (?:team members|colleagues|employees|roles|people|teammates)\b/i,
     ],
     summary: ["Some people are losing their jobs.", "We're laying people off.", "We're firing people to save money."],
     line: ["Some jobs are being cut.", "People are getting laid off.", "We're firing people."],
@@ -982,7 +1005,7 @@ export const THEMES = [
   {
     id: "reorg",
     weight: 6,
-    patterns: [/\breorg/i, /restructur/i, /realign/i, /new (?:operating model|structure|org)/i, /reporting (?:line|structure)/i, /will now report/i, /consolidat/i, /combin\w* (?:the|our) \w+ (?:teams|orgs|organizations)/i, /merg\w* (?:the|our|two)/i],
+    patterns: [/\breorg/i, /restructur/i, /realign/i, /new (?:operating model|structure|org)/i, /reporting (?:line|structure)/i, /will now report/i, /\b(?:team|teams|org|organization|group|function|department)s? will (?:now )?report (?:in)?to\b/i, /consolidat/i, /combin\w* (?:the|our) \w+ (?:teams|orgs|organizations)/i, /\b(?:teams|orgs|organizations|departments|functions|groups) will (?:be )?(?:combined|merged|consolidated|unified|brought together)\b/i, /\bunder (?:one|a single) (?:leader|head|manager|org|organization|VP)\b/i, /merg\w* (?:the|our|two)/i],
     summary: ["Teams and managers are being reshuffled.", "It's a reorg. Expect new bosses and confusion.", "It's a reorg, which usually means cuts come next."],
     line: ["Teams are being reorganized.", "Your boss or team may change.", "Reorg. Brace for chaos."],
   },
@@ -996,7 +1019,7 @@ export const THEMES = [
   {
     id: "hiring-freeze",
     weight: 5,
-    patterns: [/hiring freeze/i, /paus\w* (?:on |all |new )*(?:hiring|backfill)/i, /\bbackfills?\b/i, /not (?:be )?(?:hiring|backfilling)/i, /open (?:roles|reqs)/i, /freez\w* (?:on )?(?:hiring|headcount)/i, /(?:hiring|headcount) (?:is |will be |has been )?(?:paused|frozen|on hold)/i, /headcount (?:is |will (?:be |stay |remain )?)?flat/i],
+    patterns: [/hiring freeze/i, /paus\w* (?:on |all |new |external |outside |further |most |non-critical )*(?:hiring|backfill)/i, /\bbackfills?\b/i, /not (?:be )?(?:hiring|backfilling)/i, /open (?:roles|reqs)/i, /freez\w* (?:on )?(?:hiring|headcount)/i, /(?:hiring|headcount) (?:is |will be |has been )?(?:paused|frozen|on hold)/i, /headcount (?:is |will (?:be |stay |remain )?)?flat/i],
     summary: ["No new hires for a while.", "No one new is being hired, so you'll cover the gaps.", "No help is coming. You'll do the extra work."],
     line: ["Hiring is on hold.", "No new hires.", "No help is coming."],
   },
@@ -1024,7 +1047,7 @@ export const THEMES = [
   {
     id: "benefits",
     weight: 5,
-    patterns: [/benefits? (?:changes|update|plan)/i, /perks/i, /(?:401\(?k\)?|retirement) match/i, /stipend/i, /health (?:plan|insurance|coverage)/i, /premiums?/i],
+    patterns: [/benefits? (?:changes|update|plan)/i, /perks/i, /\b(?:no longer|will not|won't|will stop) (?:cover|pay for|reimburse|fund|subsidi[sz]e|provide|offer)\w*\b[^.]{0,40}\b(?:plans?|costs?|phones?|internet|gym|meals?|lunch|parking|commut\w*|stipends?|tuition|childcare|insurance|memberships?)\b/i, /\b(?:sunset|discontinu|eliminat)\w*\b[^.]{0,40}\b(?:stipend|perk|reimbursement|allowance|subsid|match)\w*/i, /(?:401\(?k\)?|retirement) match/i, /stipend/i, /health (?:plan|insurance|coverage)/i, /premiums?/i],
     requiresNegative: true,
     summary: ["Some benefits are getting smaller.", "Your benefits are being cut.", "Your perks are gone."],
     line: ["Benefits are changing.", "Benefits are being cut.", "Perks are gone."],
@@ -1087,7 +1110,7 @@ const MORE_PATTERNS = {
     /\battendance will be a factor\b/i, /\bremote (?:work )?exceptions\b/i, /\beveryone in the office\b/i, /\bhybrid model is changing\b/i],
   reorg: [/\bchanges to (?:our|the) (?:org(?:anizational)? )?structure\b/i, /\bfewer layers of management\b/i, /\bunder a single leader\b/i, /\borganized around\b/i, /\bmatrix model\b|\bdual reporting\b/i, /\bwill be merged into\b/i, /\boperate as a single organization\b/i,
     /\bwill move under\b/i, /\breporting to [A-Z]\w+/, /\bevolving our structure\b/i],
-  performance: [/\bset a high bar\b|\baddress underperformance\b|\bunderperform/i, /\bbring (?:their|your|our) A-game\b/i, /\bwork-life integration\b|\bwinning takes sacrifice\b/i,
+  performance: [/\b(?:I'd like to|I want to|we need to|I need to|I'm hoping to|I expect to|I'll need to) see (?:more|greater|better|stronger|increased|a lot more) (?:ownership|urgency|accountability|focus|initiative|attention to detail|follow-through|proactivity|consistency)\b/i, /\b(?:opportunities|areas) (?:for|of) (?:growth|improvement|development)\b[^.]{0,30}\byour\b|\byour\b[^.]{0,40}\b(?:opportunities|areas) (?:for|of) (?:growth|improvement)\b/i, /\bset a high bar\b|\baddress underperformance\b|\bunderperform/i, /\bbring (?:their|your|our) A-game\b/i, /\bwork-life integration\b|\bwinning takes sacrifice\b/i,
     /\breviewing results closely\b|\bconsistently miss targets\b|\bimprove or move on\b/i, /\bthe bar is going up\b|\braising the bar\b/i],
   "record-year": [/\brecord bookings\b/i, /\bahead of plan\b|\bbest result in our history\b/i],
   acquisition: [/\bas part of the integration\b/i],
@@ -1166,7 +1189,7 @@ streamlining = simplifying = cutting jobs = cutting jobs
 `;
 
 // Words that flip a raise or benefits theme into the bad news version.
-export const NEGATIVE_CUES = /\b(?:pause|paused|pausing|freeze|frozen|hold|not|no|won't|will not|unable|suspend|suspended|defer|deferred|delay|delayed|reduc\w*|eliminat\w*|discontinu\w*|lower|cap|limited|modest|evolv\w*)\b/i;
+export const NEGATIVE_CUES = /\b(?:sunset\w*|no longer|will stop|fell short|falls short|short of (?:our )?(?:targets?|goals?|plan|expectations)|below (?:target|plan|expectations)|missed (?:our )?(?:targets?|goals?|plan)|pause|paused|pausing|freeze|frozen|hold|not|no|won't|will not|unable|suspend|suspended|defer|deferred|delay|delayed|reduc\w*|eliminat\w*|discontinu\w*|lower|cap|limited|modest|evolv\w*)\b/i;
 
 // Sentences that are pure fluff. Decoded with a stock line.
 export const FLUFF_PATTERNS = [
@@ -1187,8 +1210,43 @@ export const PLAIN_LINES = [
   ["No hidden meaning here.", "Says what it says.", "Plain enough."],
 ];
 
+const WHO_SAID = "legal|compliance|counsel|our lawyers|the lawyers|security|procurement|finance|HR|the board|leadership";
+const LEGAL_NO = new RegExp(String.raw`\b(?:(?:per|according to) (${WHO_SAID})\b(?: team)?,? |(${WHO_SAID})(?: team)? (?:has |have )?(?:advised|said|confirmed|determined|told us|let us know|flagged)(?: that)? )(?:we(?:'re| are| will be)? (?:not able|unable|not permitted|not allowed|not in a position) to|we (?:can't|cannot|can not|shouldn't|should not|must not|may not|won't be able to)) (\w+)([^.]{0,80})`, "i");
+function legalNoLine(sentence, lvl) {
+  const m = sentence.match(LEGAL_NO);
+  const who0 = (m[1] ?? m[2]).replace(/^(?:the |our )/i, "");
+  const who = /^hr$/i.test(who0) ? "HR" : /^(?:lawyers|counsel)$/i.test(who0) ? "Legal" : who0[0].toUpperCase() + who0.slice(1).toLowerCase();
+  const verb = m[3].toLowerCase();
+  const rest = m[4].replace(/[.!\s]+$/, "");
+  const ing = /ee$/.test(verb) ? verb + "ing" : /[^aeiou]e$/.test(verb) ? verb.slice(0, -1) + "ing" : verb + "ing";
+  return [`${who} said we can't ${verb}${rest}.`, `${who} said no. We can't ${verb}${rest}.`, `${who} killed it. No ${ing}${rest}.`][lvl];
+}
+const PERK_NOUN = "stipends?|perks?|reimbursements?|allowances?|subsid(?:y|ies)|match|benefits?|bonus(?:es)?|budget for (?:\\w+ )?(?:snacks|lunches|food|travel|training)";
+const PERK_CUT = new RegExp(String.raw`\b(?:sunset(?:ting|ted|s)?|discontinu\w*|eliminat\w*|remov\w*|end(?:ing)?|retir\w*|no longer (?:offer|provid|fund|cover)\w*) (?:the |our |your |all )?((?:[\w-]+ ){0,3}(?:${PERK_NOUN}))\b`, "i");
+function perkCutLine(sentence, lvl) {
+  const thing = sentence.match(PERK_CUT)[1].replace(/\s+/g, " ").trim();
+  const pl = /s$/i.test(thing) && !/(?:bonus|allowance)$/i.test(thing) || /ies$/i.test(thing);
+  return [`The ${thing} ${pl ? "are" : "is"} going away.`, `They're cutting the ${thing}.`, `No more ${thing}. That's a pay cut.`][lvl];
+}
+
 // Sentence-level decodes that beat theme lines. Checked in order, first match wins.
 export const SPECIAL_LINES = [
+  // Round 7 (fresh10): "Legal has advised that we are not able to use the customer's logo in our marketing
+  // materials" is a firm no from legal about one specific thing. Say who said no and to what.
+  { pattern: LEGAL_NO,
+    lines: [0, 1, 2].map((lvl) => (sentence) => legalNoLine(sentence, lvl)), asSummary: true },
+  // "we will be sunsetting the annual wellness stipend" is a perk going away, not a product shutdown.
+  { pattern: PERK_CUT,
+    lines: [0, 1, 2].map((lvl) => (sentence) => perkCutLine(sentence, lvl)), asSummary: true },
+  // "opportunities for growth in your role" is how a manager opens a talk about problems with your work.
+  { pattern: /\b(?:discuss|talk about|go over|review|share|explore)\b[^.]{0,30}\b(?:some )?(?:opportunities|areas) (?:for|of) (?:growth|improvement|development)\b[^.]{0,30}\byour\b|\byour\b[^.]{0,40}\b(?:opportunities|areas) (?:for|of) (?:growth|improvement)\b/i,
+    lines: ["They want to talk about problems with your work.", "You're about to hear criticism of your work.", "Your work isn't where they want it. Brace for it."], asSummary: true },
+  // "That's an interesting idea." before a brush-off is lukewarm, not praise.
+  { pattern: /^(?:that's|that is|what) an? (?:interesting|intriguing|bold|novel) (?:idea|thought|take|suggestion|perspective|proposal)[.!]?$/i,
+    lines: ["They're not sold on the idea.", "They don't like the idea.", "They don't like it."] },
+  // "Bonuses this year will reflect company performance, which fell short of targets" -> smaller bonuses.
+  { pattern: /\bbonus(?:es)?\b[^.]{0,60}\b(?:fell short|falls short|short of|below (?:target|plan|expectations)|missed (?:our )?(?:targets?|goals?|plan))\b/i,
+    lines: ["Bonuses will be smaller because the company missed its targets.", "Smaller bonuses. The company missed its numbers.", "Your bonus is shrinking because the company missed."], asSummary: true },
   // Round 6 (fresh7): lines that carry the specific fact instead of repeating the theme line.
   { pattern: /\b(?:premiums?|contributions?|deductibles?|copays?)\b[^.]{0,50}\b(?:will )?(?:increase|rise|go up)\b/i,
     lines: ["You'll pay more for your health plan.", "Your health plan will cost you more.", "Same health plan, bigger bill."], asSummary: true },

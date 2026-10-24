@@ -8,7 +8,7 @@ import { hasCrude } from "./profanity.js";
 
 const POS = "(?:I )?love that for us|(?:I )?love that for me|(?:I )?love this for us|great|awesome|wonderful|fantastic|brilliant|perfect|cool|nice|yay|lovely|amazing|super|excellent|classic|fun|sweet|wow|oh joy|oh good|oh cool|oh great|oh wonderful|oh perfect|oh nice|oh fun|joy";
 const SARC_LEAD = new RegExp(`^(?:oh,? |ah,? |well,? )?(?:${POS})(?:[,.!:]+|\\s*-)\\s+(.+)$`, "i");
-const NEG_CUE = /\b(?:died|dead|froze|frozen|stopped|missed|wrong|delayed|leaked|jammed|crashed|another|more|again|broke|broken|down|fail\w*|cancel\w*|ghost\w*|mandatory|nobody|no one|never|ate|lost|crash\w*|late|reorg|survey|paperwork|deadline|changed|instead|weekend|overtime|friday|saturday|sunday|\d+\s?(?:am|pm)|now (?:they|the|he|she)|wants?)\b/i;
+const NEG_CUE = /\b(?:died|dead|froze|frozen|stopped|missed|wrong|delayed|leaked|jammed|crashed|another|more|again|broke|broken|down|fail\w*|cancel\w*|ghost\w*|mandatory|nobody|no one|never|ate|lost|crash\w*|late|reorg|survey|paperwork|deadline|changed|instead|weekend|overtime|friday|saturday|sunday|\d+\s?(?:am|pm)|now (?:they|the|he|she)|wants?|found out|on (?:twitter|linkedin|the news|reddit)|from (?:the news|a reporter|twitter|linkedin|reddit)|the hard way|after the fact|layoffs?|laid off|out of date|outdated|always|stale|empty|broken|nobody)\b/i;
 const IRREGULAR_PAST = { tell: "told", give: "gave", send: "sent", let: "let", make: "made", schedule: "scheduled", book: "booked", cancel: "cancelled", move: "moved", change: "changed", ask: "asked", add: "added", warn: "warned", invite: "invited", email: "emailed" };
 
 function cap(s) {
@@ -61,6 +61,9 @@ export function splitGlued(sentence) {
   if (!m || m.index < 6 || /\b(?:there's|there is|I've|I have|here's|so|and|but|then|or|just|to|please)$/i.test(s.slice(0, m.index))) return null;
   const left = s.slice(0, m.index).replace(/,$/, "").trim();
   let right = s.slice(m.index + 1).trim();
+  // Round 7: "the AC in here is broken", "the parking situation here is a nightmare": "here" belongs to the
+  // subject. Only split before "here's" when the left side is a full clause or a greeting/apology/thanks.
+  if (/^here(?:'?s| is)\b/i.test(right) && (/\b(?:in|out|over|around|up|down|from|back|near|right)$/i.test(left) || !/^(?:sorry|apologies|thanks|thank you|hi|hey|hello|ok|okay|done|update|fyi|as promised|per your request)\b/i.test(left) && !/\b(?:is|was|are|were|am|has|had|have|got|did|do|does|can|could|will|would|should|need|needs|want|wants|sent|made|took|fixed|updated|finished|attached)\b|'(?:m|s|re|ll|ve|d)\b|n't\b|\b[a-z]{3,}ed\b/i.test(left))) return null;
   right = right
     .replace(/^been\b/i, "I've been")
     .replace(/^(?:please )?ignore\b/i, "Please ignore")
@@ -78,7 +81,7 @@ export function desarcasm(sentence) {
   let m;
   if (/^love that for (?:us|me|you)$/i.test(s)) return "That's not ideal for us.";
   // Round 4 sarcasm forms.
-  if ((m = s.match(/^(?:I )?(?:just )?(?:love|adore) (?:how|that(?! for\b)|it when) (.+)$/i)) && NEG_CUE.test(m[1])) return `It seems ${m[1].replace(/^(?:nobody|no one) /i, (x) => x.toLowerCase())}.`.replace(/^It seems (nobody|no one) (\w+)/i, "It seems $1 $2");
+  if ((m = s.match(/^(?:I )?(?:just )?(?:love|adore) (?:how|that(?! for\b)|it when) (.+)$/i)) && NEG_CUE.test(m[1])) return `I'm frustrated that ${lowFirst(m[1])}.`;
   if ((m = s.match(/^(?:oh,? )?(?:cool|great|nice|awesome|perfect|ok|okay|wonderful|fantastic|lovely),? so (now )?(we're|they're|you're|he's|she's|I'm|we are|they are) (?:now )?(?:just )?(.+)$/i))) return `It seems ${m[2]} ${m[1] ? "now " : ""}${m[3]}.`;
   if ((m = s.match(/^(?:wow,? |oh,? )?(?:super|so|very|really|soo+) helpful,? (?:thanks|thank you|thx)$/i))) return "That didn't really help.";
   if ((m = s.match(/^guess who (forgot|lost|broke|missed|left|spilled|dropped|deleted) (?:the |my )?(.+)$/i))) return `I ${m[1].toLowerCase()} ${/^(?:charger|laptop|badge|keys|lunch|notes|headphones|phone|wallet|umbrella|password)\b/i.test(m[2]) ? "my" : "the"} ${m[2]}.`;
@@ -92,7 +95,11 @@ export function desarcasm(sentence) {
   if ((m = s.match(/^(?:I )?can't wait for (?:the |a |an )?(.+)$/i))) return `I'm not thrilled about the ${m[1]}.`;
   if ((m = s.match(/^nothing says (?:teamwork|team spirit|culture|work-life balance|fun) like (?:a |an |the )?(.+)$/i))) return `I'm not thrilled about a ${m[1]}.`;
   if ((m = s.match(/^sure,? (?:I'll|I will) just (.+?)(?:,? (?:no problem|no worries|fine|sure|great|then|easy))*$/i))) return `I'm not happy about having to ${m[1]}.`;
-  if ((m = s.match(/^(?:sure,? |yeah,? |great,? |ok,? )?let'?s (?:just )?(.+?),? what could (?:possibly )?go wrong\??$/i))) return `I'm concerned about the risk if we ${m[1]}.`;
+  if ((m = s.match(/^(?:(?:sure|yeah|yes|yep|great|ok|okay|cool)[,!]? )?let'?s (?:just )?(.+?)[,.]? what could (?:possibly )?go wrong\??$/i))) return `I'm concerned about the risk if we ${m[1]}.`;
+  // Round 7: "sure, let's add five more features two days before launch" is a worry, not a plan.
+  if ((m = s.match(/^(?:oh,? )?(?:sure|yeah|yes|yep|great|ok|okay|cool|perfect|awesome|fantastic|brilliant|sounds good|totally|right),? (?:let'?s|we should|why don't we) (?:just )?([a-z]+) (.*?\b(?:(?:\w+ )?(?:days?|hours?|minutes?|weeks?) before|right before|the (?:day|night|week) before|at the last minute|last[- ]minute|on a friday|at \d+\s?(?:am|pm)|over the weekend|this weekend|during the freeze|in the middle of)\b.*)$/i)) && !/^(?:do|meet|talk|sync|chat|grab|celebrate)$/i.test(m[1])) return `I'm concerned about ${ing(m[1].toLowerCase())} ${m[2]}.`;
+  // "sure, let's add another approval step, that'll speed things up" means it won't.
+  if ((m = s.match(/^(?:oh,? )?(?:(?:sure|yeah|yes|yep|great|ok|okay|cool|perfect|awesome|brilliant|right)[,!]? )?(?:let'?s|we should) (?:just )?([a-z]+) (.+?),? (?:that'?ll|that will|that'?s going to|this will|because that'?ll) (?:totally |definitely |really |surely |certainly |obviously )?(.+)$/i)) && /^(?:help|fix|speed|solve|make|improve|work|go|boost|save|sort|end|calm|cheer)/i.test(m[3])) return `I don't think ${ing(m[1].toLowerCase())} ${m[2]} will ${m[3]}.`;
   // Round 6 sarcasm forms.
   if ((m = s.match(/^(?:wow,? |gee,? |oh,? )?(?:thanks|thank you) (?:so much |a lot )?for the (heads[- ]?up|notice|warning|invite|update|reminder) (\d+ (?:minutes?|mins?|hours?|hrs?|seconds?)|an hour|a day|a minute) before (?:the )?(.+)$/i))) return `I only got the ${m[1].toLowerCase().replace(/^heads[- ]?up$/, "heads-up")} ${m[2]} before the ${m[3]}.`;
   if ((m = s.match(/^(?:how )?nice of (legal|finance|sales|marketing|engineering|security|procurement|IT|HR|ops|management|leadership|the (?:vendor|client|customer|team|board|agency|contractor)) to finally (\w+)(?: (.+))?$/i))) {
@@ -119,7 +126,7 @@ export function desarcasm(sentence) {
     if (am) return `I'm concerned about ${/^more\b/i.test(rest) ? "the extra" : "yet another"} ${am[1]}.`;
     // A clause (has a verb) is a complaint; a bare noun phrase is something they're not keen on.
     if (/^(?:nobody|no one)\b/i.test(rest)) return `It looks like ${rest}.`;
-    if (/\b(?:is|are|was|were|has|have|had|got|went|moved|changed|broke|failed|cancel\w*|ghosted|ate|lost|crashed|wants?|needs?|read|said|did|didn't|won't|can't|doesn't|isn't|aren't|keeps?|missed|forgot|left|added|dropped|pushed|shipped|took|died|stopped|deleted|[a-z]{3,}ed)\b/i.test(rest)) {
+    if (/'s (?:broken|down|dead|out|late|gone|stuck|jammed|empty|full|offline|cancel\w*)\b/i.test(rest) || /\b(?:is|are|was|were|has|have|had|got|went|moved|changed|broke|failed|cancel\w*|ghosted|ate|lost|crashed|wants?|needs?|read|said|did|didn't|won't|can't|doesn't|isn't|aren't|keeps?|missed|forgot|left|added|dropped|pushed|shipped|took|died|stopped|deleted|[a-z]{3,}ed)\b/i.test(rest)) {
       return `Unfortunately, ${lowFirst(rest)}.`;
     }
     return `I'm not thrilled about the ${rest.replace(/^(?:the|a|an) /i, "")}.`;
@@ -245,12 +252,63 @@ function round6(t) {
     .replace(/\ba waste of (my|our|your|everyone's) (?:damn |damned |goddamn |fucking |freaking |bloody )?time\b/gi, (_m, w) => `not a good use of ${w.toLowerCase()} time`);
 }
 
+// Round 7 (fresh10): general fixes that run on each line before round6().
+function round7(t) {
+  return t
+    // "the slides look cheap" is about quality, not price.
+    .replace(/\b(look|looks|looked|feel|feels|felt|seem|seems|seemed)((?: a bit| kinda| kind of| really| so| pretty| very| super)?) cheap\b/gi, "$1$2 unpolished")
+    // "wait who's running the offsite" -> "who's running the offsite". "Wait" is a filler, not advice.
+    .replace(/^(?:wait|hold on|hang on)\b[,.!]*\s+(?=\S+\s+\S+\s+\S+)(?=(?:so |but )?(?:who|what|when|where|why|how|is|are|was|were|do|does|did|can|could|didn't|don't|isn't|aren't)\b)(.*?)[.!?]*$/i, "$1?")
+    // "we just changed this last month, why again" -> "... Why are we revisiting it?"
+    .replace(/,?\s+(?:so )?why (?:again|are we doing this again|is this happening again)\??$/i, ". Why are we revisiting it?")
+    // "these numbers are off, someone double check them" -> its own request sentence.
+    .replace(/^(.{8,}?),\s+(?:can |could )?(someone|somebody|anyone|anybody)(?: please| pls)? (?!(?:is|was|has|had|did|does|knows?|said|says|else|who|will|would|should|already|just|still|keeps|stole|took|ate|broke|left|got|made|sent|told|forgot|lost|found|put|ran|never|always|really|probably)\b|[a-z]+ed\b)([a-z]+\b.*?)\??$/i, (_m, a, who, rest) => `${a}. Could ${who.toLowerCase()} ${rest}?`)
+    // "check slack", "on twitter": the product names, not the words.
+    .replace(/\b(on|in|check|via|over|through|the|from|a|my|your|our) slack\b(?! off\b)/gi, (_m, p) => `${p} Slack`)
+    .replace(/\bslack (me|channel|channels|thread|threads|message|messages|dm|dms|huddle|post)\b/gi, (_m, w) => `Slack ${w}`)
+    .replace(/\b(twitter|linkedin|instagram|facebook|youtube|tiktok|reddit|whatsapp|github|zoom(?= (?:call|meeting|link|room)\b)|teams(?= (?:call|meeting|chat|channel)\b))\b/gi, (w) => ({ linkedin: "LinkedIn", youtube: "YouTube", tiktok: "TikTok", whatsapp: "WhatsApp", github: "GitHub" })[w.toLowerCase()] ?? w[0].toUpperCase() + w.slice(1).toLowerCase())
+    // "doc appt" is the doctor, not a document.
+    .replace(/\b(?:doc|dr\.?|doctors?|doctor's) (?:appt|appointment)s?\b/gi, "doctor's appointment")
+    // "the printer's broken. shocking." The trailing "shocking" is sarcasm with nothing to keep.
+    .replace(/([.!?])\s+(?:shocking|what a surprise|who knew|imagine that|colou?r me surprised|big surprise|go figure)[.!]*$/i, "$1")
+    // "marketing changed the copy again without asking, wtf": the tail is frustration, not a question.
+    .replace(/^(.{12,}?),\s*(?:what|wtf|wth|what the (?:fuck|hell|heck)|seriously|really|come on|ffs|for fuck's sake|smh|ugh)[?!.]*$/i, (m, a) => (/\b(?:is|are|was|were|did|does|do|has|have|had|keeps?|changed|moved|cancel\w*|broke|deleted|missed|forgot|again|without)\b|'s\b|\b[a-z]{3,}ed\b/i.test(a) ? `${a}, which is frustrating` : m))
+    // "nvm figured it out" -> "never mind, I figured it out".
+    .replace(/^(?:nvm|nevermind|never mind|nm)\b,?\s*(?:i )?(figured|found|got|fixed|sorted|solved|worked)\b/i, (_m, v) => `Never mind, I ${v.toLowerCase()}`)
+    .replace(/^(?:nvm|nevermind|nm)\b[,.!]*/i, "Never mind,")
+    // "that vendor can kiss my ass": the writer is done accommodating them.
+    .replace(/^(.{2,40}?) can (?:go )?(?:kiss my (?:ass|arse|butt)|bite me|get stuffed|shove it|stuff it)[.!]*$/i, (_m, who) => `I'm no longer willing to accommodate ${who.replace(/^(?:The|That|This|These|Those|Our|My|Your|Their)\b/, (d) => d.toLowerCase())}`)
+    // "thanks for letting me know the deadline moved, said nobody" -> nobody told me.
+    .replace(/^(?:thanks|thank you|thx) (?:so much )?for (?:letting me know|telling me|warning me|the heads[- ]up|giving me a heads[- ]up)(?: that| about)? (.+?),? said (?:nobody|no one)(?: ever)?[.!]*$/i, (_m, x) => `Nobody told me ${x}`)
+    .replace(/^(.+?),? said (?:nobody|no one) ever[.!]*$/i, "I don't think anyone would say $1")
+    // "wow great planning, the venue is double booked": praise in front of a problem is sarcasm.
+    .replace(/^(?:wow,? |oh,? )?(?:great|nice|good|excellent|brilliant|stellar|amazing|awesome) (?:planning|job|work|call|communication|timing|coordination|organi[sz]ation|idea)(?: guys| team| everyone)?[,.!]+\s+(.+)$/i, (m, rest) => (NEG_CUE.test(rest) || /\b(?:double[- ]booked|overbooked|missing|forgot|nobody|no one|wrong|broken|late|gone|empty|cancel\w*)\b/i.test(rest) ? `Unfortunately, ${rest}` : m))
+    // "room b" -> "Room B".
+    .replace(/\b(room|conference room|floor|building|gate|suite|lab) ([a-z]|\d{1,4}[a-z]?)\b(?![\w'])/gi, (_m, w, x) => `${w} ${x.toUpperCase()}`)
+    // "i'm done with this bullshit approval process" means fed up, not finished.
+    .replace(/\b(I'm|I am|im|we're) (?:so |totally |completely )?done with (this|that|these|those|all this|all the|the) (?=(?:[\w-]+ )?(?:bullshit|crap|shit|nonsense|garbage|bs)\b)/gi, (_m, w, d) => `${w.toLowerCase() === "we're" ? "we're" : "I'm"} fed up with ${d} `)
+    // "whoever wrote this code should be fired lol" is a complaint about the work, not a firing request.
+    .replace(/^(?:whoever|the (?:person|guy|dev|developer|one|people|team) (?:who|that)) (wrote|built|designed|approved|made|signed off on|scheduled|planned|picked|chose) (.+?) should (?:be fired|get fired|lose their job|be sacked)(?: lol| lmao| haha| tbh)*[.!]*$/i, (_m, v, x) => `I have serious concerns about ${x.replace(/^(?:this|that|the) /i, (d) => d.toLowerCase())}`)
+    // "the deck has too many words, cut half" -> a suggestion, not a comma splice.
+    .replace(/^(.{6,}?\b(?:has|have|is|are|looks|feels|seems|runs)\b[^,]{2,50}), (cut|trim|drop|lose|remove|shorten|simplify|split|merge) (half|most|some|a few|a third)(?: of (it|them))?[.!]*$/i, (_m, a, v, q, o) => `${a}. I'd suggest we ${/^half$/i.test(q) && !o && /^(?:cut|trim|shorten|split)$/i.test(v) ? v.toLowerCase() + " it in half" : v.toLowerCase() + " " + q.toLowerCase() + " of " + (o ?? "it").toLowerCase()}`)
+    // "sry missed ur call, whats up" -> the tail is a question.
+    .replace(/,\s*(what's up|whats up|what's going on|what happened|what's the issue|what do you need|what's new)[.!]*$/i, (_m, q) => `. ${q.replace(/^whats/i, "What's").replace(/^w/, "W")}?`)
+    // "the readme is confusing, add examples" -> a suggestion after the observation.
+    .replace(/^((?:the|this|that|our|your|my) [^,]{2,40}\b(?:is|are|looks|seems|feels)\b[^,]{2,40}), (add|include|use|try|remove|drop|rename|split|rewrite|simplify|shorten|update|fix|move) ((?:a |an |the |some |more |less |fewer )?[a-z][^,]{1,40})[.!]*$/i, (_m, a, v, rest) => `${a}. I'd suggest we ${v.toLowerCase()} ${rest}`)
+    .replace(/\breadme\b/gi, "README")
+    .replace(/\b(saved|save|saving) (our|my) (?:butts?|bacon|skins?|hides?|necks?)\b/gi, (_m, v, w) => `really ${v.toLowerCase()} ${w.toLowerCase() === "our" ? "us" : "me"}`)
+    // "what a waste of time" after a clause becomes its own sentence the levels can rephrase.
+    .replace(/,?\s+what a (?:complete |total |huge |massive )?waste of (?:my |our |everyone's )?(?:damn |freaking |fucking )?time[.!]*$/i, ". It wasn't a good use of time.")
+    // "jesus christ, the client changed it again": exasperation, so the levels read it as bad news.
+    .replace(/^(?:jesus(?: h\.?)? christ|for (?:god's|fuck's|pete's|christ's) sake|oh my god|good god|ugh+)[,.!]*\s+(?=\S)(.*)$/i, (m, rest) => (NEG_CUE.test(rest) || /\b(?:again|changed|moved|still|why)\b/i.test(rest) ? `Unfortunately, ${rest}` : m));
+}
+
 export function prepass(clean, nested = false) {
   // Line by line so lists keep their shape. Only prose lines are touched.
   return clean.split("\n").map((line) => {
     if (/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s+/.test(line) || !line.trim()) return line;
     const lead = line.match(/^\s*/)[0];
-    let t = round6(fixNamesAndTools(line.trim())).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
+    let t = round6(round7(fixNamesAndTools(line.trim()))).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
     const sents = t.split(/(?<=[.!?])\s+(?=[A-Za-z])/);
     t = sents.map((s, i) => {
       const sar = desarcasm(s);
@@ -282,10 +340,10 @@ export function prepass(clean, nested = false) {
         s = `I ${(mm[1] ?? "").toLowerCase()}${mm[2].toLowerCase()} ${mm[3]}`.replace(/, took (?:forever|ages)$/i, ". It took a long time").replace(/, (?:took|it took) (a while|all day|all week|all morning|hours|days)$/i, ". It took $1");
       }
       // "someone order more coffee" / "need someone to cover my shift" -> a request to someone.
-      if ((mm = s.match(/^(someone|somebody|anyone|anybody)(?: please)? ([a-z]+)\b(.*?)[.!?]*$/i)) && !/(?:ed|s)$/i.test(mm[2]) && !/^(?:is|was|has|had|did|does|know|knows|else|here|there|who|from|in|on|at|can|could|will|would|should|have|already|just|still|keeps|broke|took|left|got|ate)$/i.test(mm[2])) return `Could someone ${mm[2].toLowerCase()}${mm[3]}?`;
+      if ((mm = s.match(/^(someone|somebody|anyone|anybody)(?: please)? ([a-z]+)\b(.*?)[.!?]*$/i)) && !/(?:ed|s)$/i.test(mm[2]) && !/^(?:is|was|has|had|did|does|know|knows|else|here|there|who|from|in|on|at|can|could|will|would|should|have|already|just|still|keeps|broke|took|left|got|ate|stole|drank|threw|wrote|made|sent|said|told|knew|forgot|lost|found|put|hit|ran|spilled|spilt|unplugged|swiped|borrowed|stole|won|sold|bought|brought|keyed|parked|did|never|always|really|actually|probably|definitely)$/i.test(mm[2])) return `Could someone ${mm[2].toLowerCase()}${mm[3]}?`;
       if ((mm = s.match(/^(?:I )?(?:need|want) (someone|somebody|a volunteer|a hand|help) (?:to )?(cover|take|run|handle|watch|review|grab|check|look at|pick up|join)\b(.*?)[.!]*$/i))) return `Could someone ${mm[2]}${mm[3]}?`;
       // "quit leaving dishes" means stop.
-      s = s.replace(/^(?:please )?quit ([a-z]+ing)\b/i, "stop $1");
+      s = s.replace(/^(?:please )?quit ([a-z']+ing)\b/i, "stop $1");
       // Bare "pass on X" is a decline.
       if ((mm = s.match(/^(?:I'll |gonna |going to |I'm going to |I'm gonna )?pass on (?:the )?(.+?)[.!]*$/i))) return `I'll pass on the ${mm[1].replace(/^the /i, "")}.`;
       // "refund approved, let the customer know" -> status + request.

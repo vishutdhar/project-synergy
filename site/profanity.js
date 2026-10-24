@@ -50,6 +50,20 @@ const CANON = [
   // "Fix it, you idiot." -> "Fix it." The insult adds nothing a colleague needs to read.
   [/(^|[.!?]\s+)you (?:idiot|moron|dumbass|asshole|jerk|dick|prick|twat|wanker|bastard|clown)s?\s*[,!.]?\s*/gi, "$1"],
   [/,\s*you (?:idiot|moron|dumbass|asshole|jerk|dick|prick|twat|wanker|bastard|clown)s?\b/gi, ""],
+  // Round 7: "stop dumping last minute crap on my team" -> "last-minute requests".
+  [/\b(dump\w*|throw\w*|toss\w*|send\w*|pil\w* on|push\w*|drop\w*|lob\w*) (?:all )?(?:this |that |the |more |some |random )?last[- ]minute (?:shit|crap|junk|garbage|stuff|bullshit)\b/gi, "$1 last-minute requests"],
+  // "promising shit we can't build", "doing all this crap": the noun means "things", not a judgment.
+  [/\b(promis\w*|say|says|saying|said|sell\w*|sold|buy\w*|bought|build\w*|built|break\w*|broke|do|does|doing|did|done|fix\w*|ask\w*|send\w*|sent|ship\w*|post\w*|need|needs|needed|want\w*|handl\w*|make|makes|making|made|order\w*|mov\w*|chang\w*|add\w*|dump\w*|throw\w*|tak\w*|took|forget\w*|forgot|learn\w*|carry\w*|pack\w*|deal\w* with|put up with|clean\w* up|approv\w*|request\w*|merg\w*|deploy\w*|push\w*)((?: (?:for|about|with|on|into|in|up))?) (some |more |random |other |extra |weird |dumb |stupid |all (?:this|that|the|of this|of that) |this |that |the |our |my |your |their |his |her |its )?(?:shit|crap)\b(?! (?:out of|all|ton|load|show|storm|together)\b)/gi, (_m, v0, prep, det = "") => {
+    const v = v0 + (prep ?? "");
+    const d = (det ?? "").trim().toLowerCase().replace(/^(?:weird|dumb|stupid)$/, "");
+    if (/^(?:fix|clean\w* up|deal\w* with|handl|put up with)/i.test(v)) {
+      const d2 = d.replace(/^(?:this|that)$/, "these").replace(/^all (?:of )?(?:this|that|the)$/, "all these").replace(/^(?:random|more|some|other|extra)$/, "$& ").trim();
+      return `${v} ${d2 ? d2 + " " : ""}issues`;
+    }
+    if (/^(?:all|this|that|the)\b/.test(d)) return `${v} ${d} stuff`;
+    if (/^(?:our|my|your|their|his|her|its)$/.test(d)) return `${v} ${d} things`;
+    return `${v} ${d ? d + " " : ""}things`;
+  }],
   // "this stupid printer" -> "this printer". "a stupid idea" has its own rewrite.
   [/\b(the|this|that|these|those|my|our|your|his|her|their) (?:stupid|dumb|crappy|shitty) (?!(?:and|or|but|to|of)\b)(?=[a-z])/gi, "$1 "],
 ];
@@ -102,6 +116,7 @@ const PHRASES = `
 !{fuck|shit|jack shit|dick|bugger|naff|sod} all = nothing = nothing at all = nothing of substance
 !{fuck|shit|jack shit|dick|bugger|naff|sod} all of = none of = none of = none of
 !jack shit = nothing = nothing at all = nothing of substance
+!saved {our|my} {ass|asses|butt|butts|bacon|skins|hides|necks} = really saved {us|me} = saved {us|me} = saved the day for {us|me}
 !saved {our|the team's} {ass|asses|butt|butts|bacon} = really saved us = saved us = rescued us
 !saved my {ass|butt|bacon} = really saved me = saved me = rescued me
 !saved your {ass|butt|bacon} = really saved you = saved you = rescued you
@@ -416,6 +431,11 @@ export function cleanCrude(text) {
       let s = neutralizeSlurs(raw).replace(DROP_INTERJECTION, "$1").replace(DROP_INTENSIFIER, "").replace(/[ \t]{2,}/g, " ").trim();
       if (!s) continue;
       if (hasCrude(s)) {
+        // Round 7: try plain words for the common crude nouns before giving up on the sentence,
+        // so a message never comes back empty just because one word had no rewrite.
+        const sub = s.replace(/\b(?:shitty|crappy)\b/gi, "poor").replace(/\b(?:bullshit|shit|crap)\b/gi, "stuff")
+          .replace(/\bfucked(?: up)?\b/gi, "broken").replace(/\b(?:fucking|fuckin|freaking|goddamn|damn|bloody)\s+/gi, "").replace(/[ \t]{2,}/g, " ").trim();
+        if (sub && !hasCrude(sub)) { kept.push(sub[0].toUpperCase() + sub.slice(1)); continue; }
         dropped.push(raw.trim());
         continue;
       }

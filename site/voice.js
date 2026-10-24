@@ -30,10 +30,10 @@ const L2_FRAME = /^(?:Quick heads-up|Heads-up|For visibility|Quick flag|Quick wi
 // A body that can take a new lead-in: it starts with a subject, not a label, an interjection or an instruction.
 const SUBJECT_START = /^(?:The|This|That|These|Those|Our|My|Your|Their|His|Her|We|We're|We've|We'll|I|I've|I'm|I'll|It|It's|Its|There|There's|Nobody|No one|Everyone|Someone|Q[1-4]|[A-Z][A-Za-z]+(?:'s)? (?:is|are|was|were|has|have|had|went|got|keeps|moved|starts|said|wants|needs|finished|shipped|signed|doubled|went|will|can't|won't|isn't|aren't|didn't|hasn't)|[A-Z][a-z]+ (?:[a-z]+ ){1,3}(?:is|are|was|were|has|have|had|went|got|keeps|moved|doubled|went up|went down|dropped|passed|takes|ran|will))\b/;
 const FEELING = /^(?:I'm|I am|I feel|I'm feeling) (?:so |really |very |a bit |pretty |quite |extremely )?(?:annoyed|frustrated|upset|irritated|disappointed|angry|tired|exhausted|stressed|overwhelmed|worried|concerned|nervous|excited|thrilled|happy|glad|sad|bored)\b/;
-const PROBLEM = /\b(?:broke|broken|down|failing|failed|fails|wrong|bug|bugs|error|errors|crash\w*|outage|blocked|stuck|missing|lost|late|behind|delayed|overdue|over budget|ran out|out of (?:ink|paper|stock|space|toner|coffee|budget)|leak\w*|jam\w*|not working|isn't working|doesn't work|won't work|can't|cannot|unable|no longer|incorrect|mistake|problem|issue|issues|risk|expired|red|slow|slowly|latency|headwind|worse|off by|rough|nobody|no one|hasn't|haven't|didn't|won't|not hit|threatening|annoyed|frustrated|cancel+ed|full by|too slow|too long|ran \d+ \w+ over|closed|rejected|expires?|quit|leaving|raising prices)\b/i;
-const WIN = /\b(?:shipped|launched|finished|completed|wrapped up|closed (?:the|a|an|our) (?:[\w-]+ )?(?:deal|round|sale|contract|account)|signed|won|passed \d|hit \d|record|approved|resolved|fixed|went live|live now|is live|landed|exceeded|ahead of)\b/i;
+const PROBLEM = /\b(?:broke|broken|down|failing|failed|fails|wrong|bug|bugs|error|errors|crash\w*|outage|blocked|stuck|missing|lost|late|behind|delayed|overdue|over budget|ran out|out of (?:ink|paper|stock|space|toner|coffee|budget)|leak\w*|jam\w*|not working|isn't working|doesn't work|won't work|can't|cannot|unable|no longer|incorrect|mistake|problem|issue|issues|risk|expired|red|slow|slowly|latency|headwind|worse|off by|rough|nobody|no one|hasn't|haven't|didn't|won't|not hit|threatening|annoyed|frustrated|cancel+ed|full by|too slow|too long|ran \d+ \w+ over|closed(?! (?:the|a|an|our) (?:[\w-]+ )?(?:deal|round|sale|contract|account|renewal|partnership|order))|rejected|expires?|quit|leaving|raising prices)\b/i;
+const WIN = /\b(?:shipped|launched|finished|completed|wrapped up|closed (?:the|a|an|our) (?:[\w-]+ )?(?:deal|round|sale|contract|account|renewal|partnership|order)|signed|won|passed \d|hit \d|record|approved|resolved|fixed|went live|live now|is live|landed|exceeded|ahead of)\b/i;
 const PERSONAL = /\b(?:sick|flu|ill|unwell|out of office|ooo|working remotely|working from home|wfh|mental health|burnt out|burned out|dentist|doctor|appointment|day off|pto|vacation|out today|out tomorrow|out the week|out next week|my kid|my son|my daughter|family|personal)\b/i;
-const OPINION = /^(?:I think|I believe|I don't think|I don't believe|I'm not sure|I'd suggest|My recommendation|I'd recommend|I feel|In my view)\b/;
+const OPINION = /^(?:I think|I believe|I don't think|I don't believe|I'm not sure(?! (?:what|how|where|who|why|when|which)\b)|I'd suggest|My recommendation|I'd recommend|I feel|In my view)\b/;
 
 function intentOf(t, l1, l2) {
   if (/\n/.test(t)) return "skip";
@@ -67,6 +67,34 @@ const L2_UPGRADES = [
   [/\bby (?:eod|end of day|end of the day)\b/gi, "by EOD"],
   [/\bas soon as possible\b/g, "as a priority"],
   [/\bhas gotten worse\b/g, "has been trending down"],
+];
+
+// Round 7: buzzword ladder (research round7: Buzzkill ranks circle back, action item, touch base and
+// follow up as entry-level words, and loop in, bandwidth, align and take offline as manager words).
+// Mild gets the entry-level words, Middle Manager the manager words. Same slot, same meaning.
+const TEAM_WORD = "ops|legal|finance|IT|HR|security|support|sales|marketing|design|product|engineering|procurement|payroll|facilities|recruiting|QA|the team|your manager|my manager|the client|the vendor|them|him|her|[A-Z][a-z]+";
+export const L1_UPGRADES = [
+  [/(^|, )(?:talk|chat) (later|soon|tomorrow|next week|on (?:Monday|Tuesday|Wednesday|Thursday|Friday))\b/g, (_m, p, w) => `${p}${p ? "let's" : "Let's"} touch base ${w}`],
+  [/\b(?:talk|chat) (later|soon|tomorrow|next week|on (?:Monday|Tuesday|Wednesday|Thursday|Friday))\b/g, "touch base $1"],
+  [/\bget back to (you|them|him|her)\b/g, "follow up with $1"],
+  [/\bI'll let you know\b/g, "I'll keep you posted"],
+  [/\bto-?dos\b/gi, "action items"],
+  [/\bto-?do\b(?= (?:list|item))/gi, "action"],
+  [new RegExp(String.raw`(^|[.!?]\s+|, |: )ask (${TEAM_WORD})\b(?! (?:to|if|whether|for|about|why|what|how|when)\b)`, "g"), (_m, p, w) => `${p}${/^\s*$|[.!?]\s+$/.test(p) ? "Please " : "please "}check with ${w}`],
+  [/\bcontact (?=(?:the |our |your )?(?:vendor|client|customer|support|IT|HR|legal|finance|team|[A-Z][a-z]+)\b)/g, "reach out to "],
+];
+export const L2_UPGRADES_R7 = [
+  [new RegExp(String.raw`(^|[.!?]\s+|, |: )ask (${TEAM_WORD})\b(?! (?:to|if|whether|for|about|why|what|how|when)\b)`, "g"), (_m, p, w) => `${p}${/^\s*$|[.!?]\s+$/.test(p) ? "Let's loop in " : "let's loop in "}${w}`],
+  [new RegExp(String.raw`\bI'll (?:ask|tell) (${TEAM_WORD})\b(?! (?:to|if|whether|for|about|why|what|how|when)\b)`, "g"), "I'll loop in $1"],
+  [/\b(?:I|we) (?:just )?don't have (?:the )?time (?=for|to)\b/g, (m) => `${/^we/i.test(m) ? "we" : "I"} don't have the bandwidth `],
+  [/\b(I|we) (?:completely |totally |fully )?agree\b(?! to\b)/g, (_m, w) => `${w} ${w === "I" ? "am" : "are"} aligned`],
+  [/\bto-?dos\b/gi, "action items"],
+  [/\bquick call\b/g, "quick sync"],
+  [/\b(?:take a look at|look at|check)\b(?= (?:my|your|the|this|our) (?:PR|PRs|pull request|draft|doc|docs|deck|code|changes|slides|spec|proposal)\b)/g, "review"],
+  [/(^|, )circle back([.!]?)$/g, "$1let's circle back$2"],
+  [/\b(?:talk|chat) about (?:it|this|that) (later|tomorrow|next week)\b/g, "circle back on this $1"],
+  [/\bgo over\b(?= (?:the|it|this|that|your|our)\b)/g, "walk through"],
+  [/\bget back to (you|them|him|her)\b/g, "circle back with $1"],
 ];
 
 const L1_POOLS = {
@@ -105,6 +133,7 @@ export const L2_CLOSERS = {
 export function applyVoice(t, lvl, { raw = "", rng = Math.random } = {}) {
   if (lvl !== 1 && lvl !== 2) return t;
   if (!t || /\n/.test(t) || t.split(/\s+/).length > 40) return t;
+  for (const [re, rep] of lvl === 1 ? L1_UPGRADES : L2_UPGRADES_R7) t = t.replace(re, rep);
   const sentences = t.split(/(?<=[.!?])\s+(?=[A-Z])/).length;
   const l1 = (t.match(L1_FRAME) ?? [""])[0];
   const l2 = (t.match(L2_FRAME) ?? [""])[0];
@@ -151,6 +180,10 @@ export function applyVoice(t, lvl, { raw = "", rng = Math.random } = {}) {
   const excuse = intent === "apology" && sentences > 1;
   const feedback = intent === "opinion" && !OPINION.test(body) && !/^My two cents/.test(frame);
   const closers = aboutMe || smallSorry || noLead || askNoQ || softNo || excuse || feedback ? [] : (L2_CLOSERS[intent] ?? []).filter((c) => !(c.match(KEY) ?? []).some((w) => usedKeys.has(w.toLowerCase().replace(/^(loop|flag)\w*/, "$1"))));
+  // Round 7: a sign-off that offers a talk ("Happy to discuss.") only fits when the message is about talking;
+  // otherwise the meaning check rejects the whole voiced line and the level falls back to the tidy copy.
+  const talky = /\b(?:meet|meeting|sync|call|talk|chat|discuss|catch up)\b/i.test(raw);
+  if (!talky) for (let i = closers.length - 1; i >= 0; i--) if (/\b(?:discuss|sync|call|meet|talk|chat|circle back|touch base|offline)\b/i.test(closers[i])) closers.splice(i, 1);
   if (closers.length && sentences <= 3 && !/\b(?:thank|thanks|appreciate)\b/i.test(out) || closers.length && !/^(?:request|question|thanks)$/.test(intent) && sentences <= 3) {
     const c = pick(rng, closers);
     if (!/\b(?:thank|thanks|appreciate)\b/i.test(c) || !/\b(?:thank|thanks|appreciate)\b/i.test(out)) out = `${out} ${c}`;

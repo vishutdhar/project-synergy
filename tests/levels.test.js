@@ -63,8 +63,9 @@ test("distinctness: Mild moves away from the input and the levels rise", () => {
 
 test("a blunt no from Legal decodes as a blunt no", () => {
   const t = "legal said no on using the customer logo";
-  assert.equal(toNormal(t, { level: 1 }).summary, "It's a no from Legal.");
-  assert.equal(toNormal(t, { level: 2 }).summary, "Legal said no. It's a flat no.");
+  assert.equal(toNormal(t, { level: 1 }).summary, "Legal said no to using the customer logo.");
+  assert.equal(toNormal(t, { level: 2 }).summary, "Legal said no to using the customer logo. It's a flat no.");
+  assert.equal(toNormal("Legal said no.", { level: 1 }).summary, "It's a no from Legal.");
   for (const l of [1, 2, 3]) assert.doesNotMatch(toNormal(t, { level: l }).summary, /kindly|polite/i);
   // A softened no is still read as the polite kind.
   assert.match(toNormal("Unfortunately, legal said no at this time, but we can revisit next quarter", { level: 1 }).summary, /kindly/);

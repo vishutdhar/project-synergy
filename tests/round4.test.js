@@ -37,7 +37,7 @@ test("crude idioms are translated by meaning", () => {
 });
 
 test("sarcasm forms become the sincere complaint", () => {
-  every("love how nobody read my email", /it seems (?:no one|nobody) (?:read|reviewed) my email/i);
+  every("love how nobody read my email", /I'm frustrated that (?:no one|nobody) (?:read|reviewed) my email/i);
   every("cool so we're just ignoring the deadline", /it seems we're ignoring/i);
   every("great so now we're doing weekend releases", /it seems we're now doing weekend releases/i);
   every("guess who broke the build", /I broke the build/);
