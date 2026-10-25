@@ -27,7 +27,7 @@ const L2_LABEL = /^(?:Quick (?:heads-up|question|ask|flag|win|update)|Heads-up|K
 // Phrase upgrades. Each one keeps its grammatical slot (verb phrase for verb phrase, noun for noun).
 const UPGRADES = [
   [/\b(sales|revenue|signups|bookings|traffic|conversion|margins?|numbers) (?:are|is) down (\d+(?:\.\d+)?%)/gi, "$1 have realigned downward by $2"],
-  [/(?<!\b(?:churn|latency|costs?|bugs|errors|tickets|crashes|downtime|complaints|incidents|spend|load times?|wait times?|bounce rate)\s)\b(is|are) down\b(?! \d| by| to\b)/g, (_m, v) => `${v} experiencing ${v === "is" ? "an availability headwind" : "availability headwinds"}`],
+  [/(?<!\b(?:churn|latency|costs?|bugs|errors|tickets|crashes|downtime|complaints|incidents|spend|load times?|wait times?|bounce rate|conversions?|sales|revenue|signups|sign-ups|traffic|users|bookings|margins?|numbers|retention|engagement|attendance|profits?|orders|leads|clicks|downloads|scores?|ratings?|morale|prices?|rates?)\s)\b(is|are) down\b(?! \d| by| to\b)/g, (_m, v) => `${v} experiencing ${v === "is" ? "an availability headwind" : "availability headwinds"}`],
   [/\b(is|are) (?:broken|not working)\b/g, (_m, v) => `${v} experiencing ${v === "is" ? "a reliability headwind" : "reliability headwinds"}`],
   [/\b(is|are) (?:slow|loading slowly|really slow)\b/g, (_m, v) => `${v} experiencing latency headwinds`],
   [/\bis too slow to\b/g, "lacks the velocity to"],
@@ -186,10 +186,11 @@ export function intentOf(clean, core) {
   // Round 11: cutting a cost is a win, and "no rush" is a kindness, not a problem.
   if (/\b(?:cut|reduced|lowered|trimmed|slashed) (?:our |the )?(?:[\w-]+ )?(?:costs?|spend|spending|latency|churn|load times?|bills?|build times?)\b/i.test(c) && !/\b(?:budget|benefits?|perks?|jobs?|roles?|salar\w+)\b/i.test(c)) return "win";
   if (/\bno rush\b/i.test(c) && !/\?/.test(c)) return "status";
-  if (/\b(?:load times?|latency|churn|bugs|errors|tickets|crashes|downtime|complaints|incidents|wait times?|bounce rate|response times?)\b[^.]*\b(?:dropped|fell|decreased|halved|went down|is down|are down|down \d+%)\b/i.test(c) && !/\bbut\b/i.test(c)) return "win";
+  if (/^(?:I|we) (?:fixed|resolved|repaired|patched|squashed|cleared|addressed|sorted out)\b/i.test(c) && !/\bbut\b|\bstill\b|\bagain\b/i.test(c)) return "win";
+  if (/\b(?:load times?|latency|churn|bugs|errors|tickets|crashes|downtime|complaints|incidents|wait times?|bounce rate|response times?|costs?|spend|spending|issues|defects|open bugs|open issues)\b[^.]*\b(?:dropped|fell|decreased|halved|went down|is down|are down|down \d+%|down to \d+|down from)\b/i.test(c) && !/\bbut\b/i.test(c)) return "win";
   // "we hit the deadline but skipped the testing": a win with a catch is a problem update, not a celebration.
   if (/\bbut\b/i.test(c) && PROBLEM.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
-  if (/\bbut\b/i.test(c) && /\b(?:skipped|missed|over budget|blown|struggling|broke|broken|lost|cost(?:s)? more|late|wiped|deleted|hate|hates|dislike|outdated|thin|nobody|no one|complain\w*|failed|crash\w*|missing|cut|has no|have no|hasn't|haven't|doesn't have|no-showed|no-show)\b/i.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
+  if (/\bbut\b/i.test(c) && /\b(?:skipped|missed|over budget|blown|struggling|broke|broken|lost|cost(?:s)? more|late|wiped|deleted|hate|hates|dislike|outdated|thin|nobody|no one|complain\w*|failed|crash\w*|missing|cut|has no|have no|hasn't|haven't|doesn't have|no-showed|no-show|wants? (?:a |an )?(?:discount|refund)|asked for (?:a |an )?(?:discount|refund)|slower|dropped|fell|lower|worse|churn|more expensive|too long|too slow|lost)\b/i.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
   if (/^(?:a )?(?:huge |big |massive )?(?:shout-?out|thank-you|thanks|kudos) to\b/i.test(c)) return "praise";
   if (/^(?:I'm concerned|I'm not thrilled|I'm not looking forward|I'm not happy|That's not ideal|The timing isn't ideal|Unfortunately|I have \d+)\b/.test(core)) return "problem";
   const DOING = /\b(?:make|do|doing|take|attend|join|help|commit|support|offer|be at|be there|sign|signing|cover|go|come|work|working|approve|approving|give|giving|move|fit|present|presenting|host|hosting|speak|speaking|rewrite|rewriting|hire|hiring|joining|attending|making|taking|coming|going|covering|helping)\b/i;

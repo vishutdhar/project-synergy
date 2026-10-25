@@ -97,6 +97,11 @@ const QUESTION_START = /^(?!what an? |how (?:wonderful|nice|great|exciting|fun|g
 export function normalizeCasual(text) {
   let t = String(text);
   t = t.replace(EMOJI, " ").replace(EMOTICON, " ");
+  // Round 11f: a doubled word typed by accident ("look look", "over over") is one word.
+  t = t.replace(/\b([a-z]{2,})\s+\1\b/gi, (m0, w) => (/^(?:that|had|is|bye|no|yes|ha|so|very|really|ty|thanks|thank|knock|well|bla|blah|chop|go|ho|hey|now|wait|please|pls|super|far|more|again|tick|tock|night|woo|yay|yeah|bye|ok|okay|sure|wow|oh|hmm|done)$/i.test(w) ? m0 : w));
+  // Round 11h: trade crews by name ("roof guys" -> "the roofers").
+  t = t.replace(/\b(?:the )?(roof|roofing|cable|internet|hvac|ac|pest control|window|gutter|tree|lawn|moving|paint|painting|construction|plumbing) (?:guys|dudes|crew|people|folks)\b/gi, (_m, k) => ({ roof: "the roofers", roofing: "the roofers", cable: "the cable technicians", internet: "the internet technicians", hvac: "the HVAC technicians", ac: "the AC technicians", "pest control": "the pest control team", window: "the window cleaners", gutter: "the gutter cleaners", tree: "the tree crew", lawn: "the landscapers", moving: "the movers", paint: "the painters", painting: "the painters", construction: "the construction crew", plumbing: "the plumbers" })[k.toLowerCase()]);
+  t = t.replace(/\bhave a (quick |closer |proper )?look (at|over|through)\b/gi, (m0, q, p) => `take a ${q ?? ""}look ${p}`);
   // Round 10: work-chat shorthand that isn't a single word.
   t = t.replace(/\btl;? ?dr\b:?,?\s*/gi, "In short, ").replace(/\bquick q\b(?!\w)/gi, (m) => m[0] + "uick question").replace(/\bq for you\b/gi, "question for you");
   t = t.replace(CASUAL_RE, (m) => {
@@ -424,7 +429,7 @@ const LITERAL_TOKEN = /:\/\/|^www\.|@|[\\/`_={}<>#]|\.[a-z]{2,}(?:[/?#]|$)|[a-z]
 
 // Capitalize standalone "i" and its contractions, and the first letter of every sentence.
 export function polishCase(text) {
-  const parts = String(text).split(/(\s+)/);
+  const parts = String(text).replace(/\.\?(?=\s|$)/g, "?").replace(/\b(I'm|I am|I'll be) ([A-Z][a-z]+ing)\b/g, (_m, a, w) => `${a} ${w.toLowerCase()}`).split(/(\s+)/);
   let sentenceStart = true;
   let quoteMid = false;
   for (let i = 0; i < parts.length; i++) {
@@ -732,7 +737,7 @@ function levelPolish(text, lvl, clean) {
       .replace(/^Just to let you know, ([A-Z][a-z]+)'s ([\w ]+) is a game changer\.$/, "$1's $2 is excellent. Great work, $1.");
     // Praise that names someone gets a thank-you ("Marco saved the demo today. Thank you, Marco.").
     const nm = t.match(/^([A-Z][a-z]+) (saved|crushed|nailed|rescued|fixed|closed|shipped|landed|did) /);
-    if (nm && !/\bthank/i.test(t) && !/\?/.test(t) && !/^(?:The|This|That|We|They|It|There|Our|My|Your|I|Where|What|Who|Why|When|How|Which|Whose|Did|Does|Has|Have)$/.test(nm[1])) t = `${t} Thank you, ${nm[1]}.`;
+    if (nm && !/\bthank/i.test(t) && !/\?/.test(t) && !/^(?:The|This|That|We|They|It|There|Our|My|Your|I|Where|What|Who|Why|When|How|Which|Whose|Did|Does|Has|Have|She|He|You|Everyone|Someone|Somebody)$/.test(nm[1])) t = `${t} Thank you, ${nm[1]}.`;
   }
   if (lvl === 2) {
     t = t.replace(/^(?:For visibility|Heads-up|Quick heads-up|Quick flag): Unfortunately, /, "Flagging that ")
@@ -814,8 +819,8 @@ function postPolish(text, lvl, clean) {
       .replace(/^I prefer /, "I'd prefer ")
       .replace(/^I'd rather ([a-z]+) /, "I'd prefer to $1 ")
       .replace(/^(?:Nice|Great|Good) (?:work|job), (everyone|team)\.$/, "Great work, $1. Thank you.")
-      .replace(/^Just to let you know, ((?:the|your|this|that) [^.]*?\b(?:looks|is|was|are) (?:really |very |so )?(?:good|great|excellent|clear|amazing|awesome|fantastic)\b[^.]*)\.$/, (m, r) => (/\b(?:not|no|too)\b|n't/.test(r) ? m : `${r[0].toUpperCase()}${r.slice(1)}. Great work.`))
-      .replace(/^((?:The|Your|This|Our) [^.]*\b(?:(?:is|are|was|were|looks|look) (?:really |very |super |so )?(?:helpful|useful|clear|great|excellent|amazing|fantastic|awesome)|handled [\w' -]{1,30} (?:really |very |so )?well))\.$/, (m, r) => (/\b(?:not|too|never)\b|n't/.test(r) ? m : `${r}. Great work.`))
+      .replace(/^Just to let you know, ((?:the|your|this|that) [^.]*?\b(?:looks|is|was|are) (?:really |very |so )?(?:good|great|excellent|clear|amazing|awesome|fantastic)\b[^.]*)\.$/, (m, r) => (/\b(?:not|no|too|but|however|though|although)\b|n't/.test(r) || /\b(?:machine|machines|desks?|chairs?|coffee|weather|food|snacks|kitchen|furniture|lounge|view|playlist|music|carpet|lights|fridge|printer|cafe|lobby|elevator|furniture|plants?|couch|sofa|monitors?|wifi|parking)\b/i.test(r) ? m : `${r[0].toUpperCase()}${r.slice(1)}. Great work.`))
+      .replace(/^((?:The|Your|This|Our) [^.]*\b(?:(?:is|are|was|were|looks|look) (?:really |very |super |so )?(?:helpful|useful|clear|great|excellent|amazing|fantastic|awesome)|handled [\w' -]{1,30} (?:really |very |so )?well))\.$/, (m, r) => (/\b(?:not|too|never|but|however|though|although)\b|n't/.test(r) || /\b(?:machine|machines|desks?|chairs?|coffee|weather|food|snacks|kitchen|furniture|lounge|view|playlist|music|carpet|lights|fridge|printer|cafe|lobby|elevator|furniture|plants?|couch|sofa|monitors?|wifi|parking)\b/i.test(r) ? m : `${r}. Great work.`))
       .replace(/^(They|He|She) (want|wants|need|needs|asked|said|think|thinks) /, (_m, w, v) => `Just to let you know, ${w.toLowerCase()} ${v} `);
   }
   if (lvl === 2) {
@@ -833,7 +838,7 @@ function postPolish(text, lvl, clean) {
       .replace(/^(That's a no from (?:me|us)), /, "$1: ")
       .replace(/^(?:Quick heads-up|Heads-up|For visibility): (that|this|the) (deadline|timeline|date|target|estimate) is (?:impossible|unrealistic)\.$/, "Flagging that $1 $2 isn't realistic.")
       .replace(/^(?:Quick heads-up|Heads-up|For visibility): (this|it|that) needs more work/, "My two cents: $1 needs more work")
-      .replace(/^(?:Quick heads-up|Heads-up|For visibility): ((?:the|this|that) [^.]*?\b(?:looks|is|was) )(?:really |truly |very |so )?(good|great|excellent|clear|amazing|awesome)\b(?![^.]*\bbut\b)/, (_m, a, b) => `Kudos: ${a}${b === "good" ? "great" : b}`)
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): ((?:the|this|that) [^.]*?\b(?:looks|is|was) )(?:really |truly |very |so )?(good|great|excellent|clear|amazing|awesome)\b(?![^.]*\bbut\b)/, (_m, a, b) => (/\b(?:machine|desks?|chairs?|coffee|weather|food|snacks|kitchen|furniture|lounge|view|music|carpet|lights|fridge|plants?|couch|wifi|parking)\b/i.test(a) ? `For visibility: ${a}${b}` : `Kudos: ${a}${b === "good" ? "great" : b}`))
       .replace(/^(?:For visibility|Heads-up|Quick heads-up): (happy|congrat\w*|welcome|huge congrat\w*|sincere apologies|apologies)\b/i, (_m, w) => w[0].toUpperCase() + w.slice(1))
       .replace(/^(?:Quick heads-up|Heads-up|For visibility): that's a great question\. I'm not sure\./i, "Great question. Candidly, I'm not sure.")
       .replace(/^(?:For visibility|Heads-up|Quick heads-up): (I'd rather|I prefer|I'd prefer|I see)\b/, "My two cents: $1");

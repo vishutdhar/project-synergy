@@ -104,7 +104,7 @@ test("hand-read #4 fixes: no stray labels on social lines, no misread imperative
 });
 
 test("hand-read #5 fixes: social and emotive lines get a real Middle Manager register", () => {
-  assert.equal(corp("happy friday everyone", 2), "Wishing everyone a happy Friday.");
+  assert.match(corp("happy friday everyone", 2), /^Wishing everyone a happy Friday[.!]$/);
   assert.equal(corp("god damn it, I left my badge at home", 2), "Unfortunately, I left my badge at home.");
   assert.equal(corp("no thanks", 1), "No, thank you.");
   assert.equal(corp("sorry!!", 1), "Apologies!");

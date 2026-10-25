@@ -19,6 +19,8 @@ i don't understand = I'm not sure I understand = I'm not fully clear on = I lack
 i don't agree with = I don't agree with = I'm not aligned with = I'm not aligned with the strategic direction of
 i'm free = I'm available = I have availability = I have open bandwidth
 if you want to = if you'd like to = if you'd like to = if there's appetite to
+if urgent = if urgent = if time-sensitive = if anything becomes a P0
+slow to reply = slow to reply = slower to respond = running at reduced response velocity
 nice catch = good catch = great catch = high-impact catch
 welcome to the team = welcome aboard = welcome to the squad = welcome to the pod
 you're a lifesaver = you're a lifesaver = you really saved the day = you're a force multiplier
@@ -106,7 +108,13 @@ maybe = possibly = potentially = potentially
 probably = likely = likely = directionally
 right now = at the moment = at the moment = at this time
 !asap = soon = at your earliest convenience = with maximum urgency
+talk to you later = talk to you later = talk to you later = talk to you later
 later = later = a bit later = in a later phase
+get well soon = get well soon = get well soon = get well soon
+feel better soon = feel better soon = feel better soon = feel better soon
+phone number = phone number = phone number = phone number
+take the notes = take the notes = take the notes = capture the key learnings
+late fix = late fix = late-night fix = after-hours fix
 soon = shortly = in the near term = in the coming cycles
 this week = this week = this sprint = within the current execution window
 eventually = in time = down the road = at some point on the long-term roadmap
@@ -225,8 +233,14 @@ look into = look into = dig into = investigate holistically
 told = told = informed = advised
 tell me = let me know = let me know = let me know
 let me know = let me know = keep me posted = keep me in the loop
+sending it over = sending it over = sending it over = circulating it
+sending them over = sending them over = sending them over = circulating them
 send it = send it = send it over = circulate it
 send them = send them = send them over = circulate them
+send over = send over = send over = circulate
+let me know the = let me know the = please share the = kindly share the
+could use some = could use some = could use some = could benefit from some
+weather channel = weather channel = weather channel = weather channel
 send = send = send over = circulate
 send me = send me = please send me = kindly send over
 send you = send you = send over = circulate
@@ -343,7 +357,10 @@ forget = forget = drop = deprioritize
 forgot about = forgot about = lost track of = lost track of
 forgot = forgot = forgot = lost track of
 fixing = fixing = addressing = remediating
-building = building = developing = architecting
+building the = building the = developing the = architecting the
+building a = building a = developing a = architecting a
+building our = building our = developing our = architecting our
+building out = building out = developing = architecting
 build the = build the = develop the = architect the
 build a = build a = develop a = architect a
 built = built = developed = architected
@@ -1005,7 +1022,7 @@ export const THEMES = [
     patterns: [
       /return(?:ing)?[ -]to[ -](?:the )?office/i, /\bRTO\b/, /in[ -]person collaboration/i, /\bin[ -]office\b/i,
       /days? (?:a|per) week in/i, /back (?:to|in) the office/i, /\bour offices\b/i, /badge (?:data|swipes?)\b|\bbadging\b|\bbadge in (?:at least|\w+ days|on)\b/i, /\b(?:office|in-person|collaboration) hubs?\b|\bhub days?\b|\bour hubs\b/i,
-      /(?:three|four|five|3|4|5) days/i, /serendipit/i, /water ?cooler/i,
+      /(?<!(?:carryover|carry-over|limit|up) to )(?<!(?:extra|additional) )(?:three|four|five|3|4|5) days(?! (?:of (?:PTO|leave|vacation|carryover)|off\b|notice))/i, /serendipit/i, /water ?cooler/i,
     ],
     summary: ["You need to come back to the office.", "Remote work is over. Come back to the office.", "Back to your desk, where we can watch you."],
     line: ["You need to be in the office more.", "Come back to the office.", "Get back to your desk."],
@@ -1038,7 +1055,7 @@ export const THEMES = [
   {
     id: "cost-cuts",
     weight: 5,
-    patterns: [/cost (?:discipline|optimization|reduction|savings|cutting)/i, /\bcut(?:ting)? costs?\b/i, /efficienc/i, /streamlin/i, /do more with less/i, /\bleaner\b/i, /spend(?:ing)? (?:less|wisely|discipline)/i, /(?<!\b(?:bigger|larger|higher|increased|expanded|new) )(?<!\b(?:doubling|increasing|raising|expanding|boosting|doubled|tripling) (?:the |our |your |a )?(?:[\w-]+ )?)\bbudget(?!s? (?:has|have) been (?:doubled|increased|raised|expanded))(?! is now \$)/i, /prudent/i],
+    patterns: [/cost (?:discipline|optimization|reduction|savings|cutting)/i, /\bcut(?:ting)? costs?\b/i, /efficienc/i, /streamlin/i, /do more with less/i, /\bleaner\b/i, /spend(?:ing)? (?:less|wisely|discipline)/i, /(?<!\b(?:bigger|larger|higher|increased|expanded|new) )(?<!\b(?:doubling|increasing|raising|expanding|boosting|doubled|tripling) (?:the |our |your |a )?(?:[\w-]+ )?)\bbudget(?! questions| planning| templates?| office hours)(?!s? (?:has|have) been (?:doubled|increased|raised|expanded))(?! is now \$)/i, /prudent/i],
     summary: ["The company is cutting spending.", "They're cutting costs.", "They're cutting costs, and you are a cost."],
     line: ["Spending is being cut.", "They want to spend less money.", "They're cutting costs."],
   },

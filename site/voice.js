@@ -37,21 +37,25 @@ const OPINION = /^(?:I think|I believe|I don't think|I don't believe|I'm not sur
 
 function intentOf(t, l1, l2) {
   if (/\n/.test(t)) return "skip";
+  if (/^(?:the|our) (?:new )?[\w -]*?\b(?:machine|desks?|chairs?|coffee|weather|food|snacks|kitchen|furniture|lounge|view|music|carpet|lights|fridge|plants?|couch|wifi|parking)\b[^.]*\b(?:is|are|looks?) (?:really |actually |so )?(?:great|nice|good|amazing|awesome|lovely)\b/i.test(t)) return "status";
   if (/\b(?:hilarious|funny|lol|haha|joke|kidding)\b/i.test(t)) return "skip";
   // Social lines and offers are not status reports: "Wishing everyone a happy Friday", "I'd be glad to help".
-  if (/^(?:Wishing|Happy|Welcome|Congrat|Good luck|Hope|Have a|Enjoy|Cheers|Hi|Hey|Hello|Good morning|See you|Sounds good|Got it|Understood|Noted|Will do|On it|Sure|Absolutely|Of course|Yes|No problem|OK|Okay)\b/i.test(t)) return "skip";
+  if (/^(?:Wishing|Feel better|Get well|Safe travels|Safe flight|Happy|Welcome|Congrat|Good luck|Hope|Have a|Enjoy|Cheers|Hi|Hey|Hello|Good morning|See you|Sounds good|Got it|Understood|Noted|Will do|On it|Sure|Absolutely|Of course|Yes|No problem|OK|Okay)\b/i.test(t)) return "skip";
   if (/^I(?:'d| would) (?:be (?:glad|happy|delighted)|love|like|prefer|rather)\b|^I(?:'ll| will| can) (?!not\b|be out|be offline|be away|be taking)/.test(t)) return "skip";
   if (FEELING.test(t) || /\b(?:frustrating|annoying|bothering|driving) me\b|\bI (?:hate|love|can't stand)\b/.test(t)) return "feeling";
   if (/^(?:Could|Would|Can|Will) (?:you|someone|anyone|we|I)\b[^?]*\?$|^(?:Is there an opportunity|If you could|When you get a chance|Please)\b/.test(t)) return "request";
   if (/\?\s*$/.test(t)) return "question";
   if (/^(?:Apologies|Sincere apologies|I apologize|Sorry|My apologies)\b/.test(t)) return "apology";
-  if (/^(?:Thank you|Thanks|Huge thanks|Huge thank you|Big thanks|Special thanks|Really appreciate|A big thank|A huge thank|Many thanks|Appreciate|Shout-?out|A shout-?out|Props)\b/i.test(t)) return "thanks";
+  if (/^(?:Thank you|Thanks|Huge thanks|Huge thank you|Big thanks|Special thanks|Really appreciate|A big thank|A huge thank|Many thanks|Appreciate|Shout-?out|A shout-?out|Props|Huge props|Big props)\b/i.test(t)) return "thanks";
   if (/^(?:Kudos|Huge kudos|Great work|Great job|Outstanding|Excellent work|Nice work|Well done|Congrat)/.test(t) || /\b(?:did a great job|knocked it out of the park|was (?:great|excellent|outstanding|awesome|fantastic)|did great)\b/.test(t)) return "praise";
   if (/^(?:I|We) (?:won't|will not|can't|cannot|am unable|'m unable|'m not able|'ll have to pass|'ll pass)\b|^(?:I'm|We're) (?:unable|not able|not going)\b|^(?:Unfortunately, )?(?:I'm|I) (?:unable|won't|can't)|^That's a no\b|^No,|^I'm (?:going to have to|afraid I) (?:say no|pass|decline)|\bhave to (?:say no|pass|decline)\b/.test(t)) return /^We\b/.test(t) && /\b(?:hit|make|meet|deliver|ship)\b/.test(t) ? "problem" : "decline";
   if (PERSONAL.test(t)) return "personal";
+  if (/\b(?:churn|costs?|spend|latency|errors|bugs|tickets|incidents|complaints|downtime|(?:response|load|wait|build) times?)\b (?:is |are |was |were )?(?:currently )?(?:down|dropped|fell)\b/i.test(t) && !/\bbut\b/i.test(t)) return "win";
+  // Round 11h: a fix is good news even when the object is "the broken link".
+  if (/^(?:Unfortunately, )?(?:I|We) (?:fixed|resolved|repaired|patched|squashed|cleared|addressed|sorted out)\b/.test(t) && !/\bbut\b|\bstill\b|\bagain\b/i.test(t)) return "win";
   if (OPINION.test(t) || /^My two cents:/.test(l2) || /^(?:Some candid feedback|I noticed that)\b/.test(t)) return "opinion";
   if (/^(?:Let's|I'd suggest|My recommendation)\b/.test(t)) return "suggest";
-  if (/,? but\b/i.test(t) && /\b(?:hate|hates|dislike|wiped|lost|broke|broken|outdated|thin|nobody|no one|complain\w*|failed|crash\w*|deleted|missing|cut|skipped|missed|late|over budget|down|has no|have no|hasn't|haven't|doesn't have|no-showed|no-show)\b/i.test(t.split(/\bbut\b/i).slice(1).join(" "))) return "problem";
+  if (/,? but\b/i.test(t) && /\b(?:hate|hates|dislike|wiped|lost|broke|broken|outdated|thin|nobody|no one|complain\w*|failed|crash\w*|deleted|missing|cut|skipped|missed|late|over budget|down|has no|have no|hasn't|haven't|doesn't have|no-showed|no-show|wants? (?:a |an )?(?:discount|refund)|asked for (?:a |an )?(?:discount|refund)|slower|dropped|fell|lower|worse|churn|more expensive|too long|too slow|lost)\b/i.test(t.split(/\bbut\b/i).slice(1).join(" "))) return "problem";
   if (/^(?:I'm happy to share|Quick win:)/.test(l1 + " " + l2) || (WIN.test(t) && !PROBLEM.test(t))) return "win";
   if (PROBLEM.test(t) || /^(?:Unfortunately|Flagging that)/.test(l1 + " " + l2)) return "problem";
   return "status";

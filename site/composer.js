@@ -63,7 +63,7 @@ const INFLATE = [
   [/\bthe (?:bathroom|restroom)\b/gi, "the wellness facility"], [/\bthe fridge\b/gi, "the shared cold-storage asset"],
   [/\bthe vending machine\b/gi, "the snack-dispensing partner"], [/\bmy headset\b/gi, "my audio-collaboration hardware"],
   [/\bmy (?:second )?monitor\b/gi, "my visual real estate"], [/\bthe scanner\b/gi, "the document-digitization infrastructure"],
-  [/\bthe garage\b/gi, "the vehicle staging area"], [/\bthe lobby\b/gi, "the first-impression zone"], [/\bthe hand dryer\b/gi, "the airflow-based drying solution"],
+  [/\bif urgent\b/gi, "if anything becomes mission-critical"], [/\bthe garage\b/gi, "the vehicle staging area"], [/\bthe lobby\b/gi, "the first-impression zone"], [/\bthe hand dryer\b/gi, "the airflow-based drying solution"],
   [/\bmy charger\b/gi, "my mobile power solution"], [/\bthe logs\b/gi, "the system telemetry"], [/\bthe queue\b/gi, "the demand pipeline"],
   [/\bmy access\b/gi, "my access entitlements"], [/\bmy timesheet\b/gi, "my time-allocation attestation"],
   [/\btrain delays\b/gi, "rail-network latency"], [/\bmoving apartments\b/gi, "executing a residential migration"], [/\bworking a half day\b/gi, "running a half-day operating model"],
