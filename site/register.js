@@ -554,6 +554,9 @@ function restructureAt(marked, lvl, ctx = {}) {
     // "when is the demo?" -> "Could you let me know when the demo is?"
     if ((m = body.match(/^(what|when|where|who|what time)(?:'s| is| are) ((?:the|our|my|your|this|that|their|his|her|[A-Z][\w-]*'s) [\w'-]+(?: [\w'-]+){0,6})$/i)) && !/\b(?:going|happening|up|with|deal|point|plan here)\b/i.test(m[2])) {
       const verb = /\bare\b/i.test(body.split(" ").slice(0, 3).join(" ")) ? "are" : "is";
+      // Round 8: "what's the plan if the vendor doesn't deliver" -> "what the plan is if the vendor doesn't deliver".
+      const cond = m[2].match(/^(.+?) ((?:if|when|once|unless|in case|after|before|assuming) .+)$/i);
+      if (lvl === 1 && cond) return done(`${M("Could you let me know")} ${m[1].toLowerCase()} ${cond[1]} ${verb} ${cond[2]}?`, "embedded-question");
       if (lvl === 1) return done(`${M("Could you let me know")} ${m[1].toLowerCase()} ${m[2].replace(/ again$/i, "")} ${verb}${/ again$/i.test(m[2]) ? " again" : ""}?`, "embedded-question");
       if (lvl === 2 && !had) return done(`${useLabel("Quick question:")} ${lowerFirst(markedBody, { force: true })}?`, "label");
       return none;
@@ -717,6 +720,11 @@ const ONE_LINERS = {
   "yep": ["Yes, that works for me.", "Absolutely, I'm aligned.", "That's a strong yes from a strategic standpoint."],
   "yeah": ["Yes, that works for me.", "Absolutely, I'm aligned.", "That's a strong yes from a strategic standpoint."],
   "sounds good": ["That sounds good to me.", "Sounds good, I'm aligned.", "That's a green light from me."],
+  "that's hilarious": ["That's hilarious.", "That's hilarious, love it.", "That's genuinely hilarious. Love the energy here."],
+  "that's funny": ["That's funny.", "That's funny, love it.", "That's genuinely funny. Love the energy here."],
+  "that works for me": ["That works for me.", "That works for me, I'm aligned.", "That's fully aligned with my priorities. Green light from me."],
+  "works for me": ["That works for me.", "That works for me, I'm aligned.", "That's fully aligned with my priorities. Green light from me."],
+  "that works": ["That works for me.", "That works for me, I'm aligned.", "That's fully aligned with my priorities. Green light from me."],
   "on it boss": ["I'm on it.", "On it, and taking ownership of this.", "I'm owning this end to end."],
   "understood": ["Understood, thanks.", "Understood, fully aligned.", "Understood and fully aligned."],
   "will check": ["I'll take a look.", "I'll take a look on my end.", "I'll do a deep dive on this."],

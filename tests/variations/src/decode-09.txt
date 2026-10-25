@@ -1,0 +1,275 @@
+# Round 8 fresh batches 13 to 15 (project-synergy-research/round8). Hand-written ideals.
+
+# cat=layoffs signal=layoffs
+As part of our efforts to align resources with strategic priorities, a number of roles will be impacted.
+Some jobs are being cut.
+They're cutting jobs to fund other priorities.
+People are getting fired. "Aligning resources" is the cover.
+
+Today we said goodbye to some talented colleagues as we reshape the organization.
+Some people lost their jobs today.
+People were laid off today.
+They fired good people today and called it reshaping.
+
+We have made the difficult decision to reduce the size of our sales organization.
+Some sales jobs are being cut.
+They're laying off part of the sales team.
+Sales is getting fired. Some of it, anyway.
+
+Several roles across the marketing team have been eliminated as part of this change.
+Several marketing jobs were cut.
+Marketing people got laid off.
+Marketing jobs are gone. So are the people in them.
+
+To position ourselves for long-term success, we are reducing our global headcount by approximately 8%.
+About 8% of jobs are being cut.
+They're laying off about 8% of staff.
+About 8% of you are getting fired.
+
+We'll be saying farewell to a number of valued team members this week.
+Some people are losing their jobs this week.
+People are getting laid off this week.
+They're firing people this week and calling it farewell.
+
+# cat=delay signal=delay
+The launch will now take place in the second half of the year.
+The launch is later than planned.
+The launch slipped to the second half.
+The launch is late. Don't bet on the new date either.
+
+To ensure a high-quality experience, we are revisiting the release schedule.
+The release date is likely to move.
+The release is probably getting pushed.
+It's going to be late. "Quality" is the excuse.
+
+We now expect the new billing system to go live in early spring rather than January.
+The billing system is late. It's now early spring.
+The billing system slipped from January to spring.
+Billing missed January. Spring, they say.
+
+The rollout has been rescheduled to give teams more time to prepare.
+The rollout is happening later.
+The rollout got pushed back.
+It's late. They're not ready.
+
+Given some unforeseen dependencies, the go-live date is being re-evaluated.
+The go-live date will probably move.
+The go-live is slipping. Something blocked it.
+It's late, and they don't have a new date yet.
+
+We are targeting a revised launch window in Q3.
+The launch moved to Q3.
+The launch is late. Now it's Q3.
+Late again. Q3, maybe.
+
+# cat=benefits signal=benefits
+Beginning in March, employees will contribute a larger share of health insurance costs.
+You'll pay more of your health insurance cost from March.
+Your health insurance will cost you more starting in March.
+Same insurance, bigger bill for you, starting March.
+
+We are moving to a more flexible PTO approach, replacing accrued vacation.
+You'll stop banking vacation days, so there's nothing to cash out if you leave.
+No more banked vacation. Unused days won't be paid out.
+Your saved-up vacation is gone. "Flexible" means no payout.
+
+Starting next year, the company match on 401(k) contributions will be capped at 3%.
+Your 401(k) match will be smaller next year.
+They're cutting your 401(k) match to 3%.
+Less free retirement money for you. 3%, tops.
+
+The commuter benefit will be discontinued at the end of the quarter.
+The commuter benefit is ending.
+They're cutting the commuter benefit.
+No more commuter money. That's a pay cut.
+
+We are evolving our wellness program, and the monthly gym subsidy will no longer be offered.
+The gym subsidy is going away.
+They're cutting the gym subsidy.
+No more gym money. "Evolving" means cutting.
+
+Employees will now need to use PTO for the week between Christmas and New Year's.
+You'll have to use vacation days for the holiday week.
+The holiday week now comes out of your PTO.
+They took the free holiday week and made you pay for it with PTO.
+
+# cat=rto signal=rto
+We believe our best work happens when we are together, so we are updating our workplace policy.
+You'll need to be in the office more.
+Remote work is ending. Come back to the office.
+Back to your desk. "Together" means in the building.
+
+We're asking everyone to be in the office on Tuesdays, Wednesdays, and Thursdays.
+You need to be in the office three days a week.
+Come to the office Tuesday through Thursday.
+Three days a week at your desk. It's not a request.
+
+To strengthen our culture, team members are expected to work on-site at least three days a week.
+You need to be in the office at least three days a week.
+Come back to the office three days a week.
+Three days at your desk, minimum. "Culture" is the reason given.
+
+# cat=rejection signal=rejection
+After careful consideration, we will not be able to extend an offer at this time.
+You didn't get the job.
+No offer. You didn't get it.
+No job. They're just being polite about it.
+
+We appreciate the proposal, but it doesn't align with our current priorities.
+They're turning down the proposal.
+It's a no on the proposal.
+No. They're just being polite about it.
+
+Your request for an additional headcount was reviewed but cannot be approved this cycle.
+You won't get the extra hire this cycle.
+No extra headcount for you.
+No new hire. Do it with who you have.
+
+While we were impressed with your background, we have decided to pursue other candidates.
+You didn't get the job.
+It's a no. They picked someone else.
+No. Someone else got it.
+
+Unfortunately, we won't be moving ahead with your proposal at this stage.
+They're turning down your proposal.
+It's a no on your proposal.
+No. "At this stage" means at any stage.
+
+We've reviewed your promotion case, and the timing isn't right this cycle.
+You're not getting promoted this cycle.
+No promotion this time.
+No promotion. "Timing" is the polite word for no.
+
+# cat=brushoff signal=deflection
+Let's put a pin in that and revisit next quarter.
+They're setting this aside for now.
+They're shelving it. Don't expect it back soon.
+It's shelved. That usually means never.
+
+I'll take that back to the team.
+They won't decide now. They'll ask others first.
+No answer today. They're passing it up the chain.
+Not their call, or they don't want it to be. Don't wait up.
+
+Thanks for the feedback, we'll take it under consideration.
+They heard you but made no promise.
+Noted, and probably nothing will happen.
+Thanks, and no.
+
+Let's park this for now and come back to it when things settle down.
+They want to stop talking about this for now.
+They're dropping it for now.
+Drop it. Things never settle down.
+
+Good point, let's take that offline.
+They want to talk about it later, not here.
+Let's drop this for now.
+Drop it. Not in front of everyone.
+
+We'll revisit this in the new year.
+They're putting this off until next year.
+Not now. Maybe next year.
+Not happening this year. Maybe not next year either.
+
+# cat=reorg signal=reorg
+Effective Monday, the platform team will be part of the infrastructure organization.
+The platform team is moving under infrastructure.
+Reorg. Platform now reports into infrastructure.
+Reorg. Platform has a new boss on Monday.
+
+As of next week, the design team will roll up under the product organization.
+Design is moving under product.
+Reorg. Design now reports to product.
+Reorg. Design works for product now.
+
+The analytics and data engineering teams will be combined under a single leader.
+Analytics and data engineering are merging into one team.
+Reorg. Two teams, one boss.
+Reorg. Two teams, one boss, and fewer seats.
+
+# cat=pip signal=pip
+I'd like to set up weekly check-ins to make sure you have the support you need to succeed.
+Your manager wants to watch your work more closely.
+They're watching your work closely. This is often how a PIP starts.
+You're being watched. This is the step before a PIP.
+
+We need to see meaningful improvement in your communication over the next 60 days.
+You have 60 days to improve how you communicate.
+You're on a 60-day warning about your communication.
+Fix it in 60 days or you're out.
+
+Going forward, I'll be documenting our weekly conversations so we're aligned on expectations.
+Your manager will keep written notes on your talks.
+They're building a paper trail. That's often how a PIP starts.
+They're building the paper trail to manage you out.
+
+# cat=cost signal=cost-cuts
+We're asking every team to find 10% efficiencies in their operating budget.
+Every team has to cut its budget by 10%.
+They're cutting 10% from every team's budget.
+10% less money for every team. Find it or it finds you.
+
+# cat=cost signal=budget-freeze
+We're asking teams to be mindful of discretionary spend for the remainder of the year.
+They want everyone to spend as little as possible.
+Spend as little as you can. Big asks will get a no.
+Don't spend money. Seriously.
+
+# cat=outsourcing signal=outsourcing
+We will be transitioning first-line support to our partner in Manila.
+First-line support is moving to an outside company in Manila.
+They're outsourcing first-line support to Manila.
+Support jobs are moving to Manila.
+
+We have selected an external partner to manage our payroll processing going forward.
+An outside company will run payroll from now on.
+They're outsourcing payroll.
+Payroll is going to a vendor. So are those jobs.
+
+Tier 1 support will be handled by an external vendor starting next month.
+An outside company takes over Tier 1 support next month.
+They're outsourcing Tier 1 support.
+Tier 1 support jobs go to a vendor next month.
+
+# cat=hiring signal=hiring-freeze
+We are being thoughtful about headcount for the rest of the year.
+Hiring will be very limited.
+Hardly anyone new is getting hired.
+No new people. You'll cover the gaps.
+
+We are only approving backfills for business-critical roles at this time.
+Most roles that open up won't be refilled.
+If someone leaves, they probably won't be replaced.
+People who quit won't be replaced. You'll do their work.
+
+Open requisitions will remain on hold pending further review.
+Open jobs are on hold.
+Hiring is paused.
+No one is getting hired. No help is coming.
+
+# cat=fluff signal=fluff
+We're on a journey to become a truly customer-obsessed organization.
+Lots of kind words, not much news.
+A lot of words that don't say much.
+Nothing. This is a lot of words for nothing.
+
+Our people are our greatest asset, and we remain committed to fostering a culture of belonging.
+Kind words, no news.
+Nice words, no information.
+Nothing. Usually said right before bad news.
+
+# cat=none signal=none
+The quarterly town hall will be held on Thursday at 2 PM in the main auditorium.
+Nothing hidden here.
+It mostly says what it says.
+Nothing to decode. Rare.
+
+Please complete your security training by the end of the month.
+Nothing hidden here.
+It mostly says what it says.
+Nothing to decode. Rare.
+
+Please submit expense reports by the 5th of each month.
+Nothing hidden here.
+It mostly says what it says.
+Nothing to decode. Rare.

@@ -474,7 +474,7 @@ credit for my work = credit for my work = credit for my work = credit for my con
 !>grab = get = pick up = secure
 !option = option = option = strategic pathway
 !vendor = supplier = partner = strategic partner
-!way too = far too = much too = far too
+!way too = far too = far too = far too
 !works for me = works for me, thanks = aligns with my priorities = is fully aligned with my priorities
 !that plan = that approach = that roadmap = that strategic roadmap
 !this plan = this approach = this roadmap = this strategic roadmap
@@ -1040,7 +1040,7 @@ export const THEMES = [
   {
     id: "departure",
     weight: 4,
-    patterns: [/stepping (?:down|away|back)/i, /(?:has|have) decided to (?:leave|step|pursue)/i, /pursue other opportunities/i, /spend more time with (?:his|her|their) family/i],
+    patterns: [/stepping (?:down|away|back)/i, /(?:has|have) decided to (?:leave|step|pursue(?! other candidates| another candidate| a different candidate| candidates))/i, /pursue other opportunities/i, /spend more time with (?:his|her|their) family/i],
     summary: ["Someone is leaving.", "Someone is leaving, maybe not by choice.", "Someone is out, maybe not by choice."],
     line: ["Someone is leaving.", "They're leaving, maybe not by choice.", "They're out, maybe not by choice."],
   },
@@ -1189,7 +1189,7 @@ streamlining = simplifying = cutting jobs = cutting jobs
 `;
 
 // Words that flip a raise or benefits theme into the bad news version.
-export const NEGATIVE_CUES = /\b(?:sunset\w*|no longer|will stop|fell short|falls short|short of (?:our )?(?:targets?|goals?|plan|expectations)|below (?:target|plan|expectations)|missed (?:our )?(?:targets?|goals?|plan)|pause|paused|pausing|freeze|frozen|hold|not|no|won't|will not|unable|suspend|suspended|defer|deferred|delay|delayed|reduc\w*|eliminat\w*|discontinu\w*|lower|cap|limited|modest|evolv\w*)\b/i;
+export const NEGATIVE_CUES = /\b(?:sunset\w*|no longer|will stop|fell short|falls short|short of (?:our )?(?:targets?|goals?|plan|expectations)|below (?:target|plan|expectations)|missed (?:our )?(?:targets?|goals?|plan)|pause|paused|pausing|freeze|frozen|hold|not|no|won't|will not|unable|suspend|suspended|defer|deferred|delay|delayed|reduc\w*|eliminat\w*|discontinu\w*|lower|cap|capped|caps|limited|modest|evolv\w*)\b/i;
 
 // Sentences that are pure fluff. Decoded with a stock line.
 export const FLUFF_PATTERNS = [

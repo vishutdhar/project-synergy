@@ -331,7 +331,7 @@ export function composeCSuite({ clean, mild, middle, rng, raw = clean }) {
   let frame = pick(rng, pool);
   if (framedRequest) frame = (x) => x;
   const firstWords = core.split(/(?<=[.!?])\s+/)[0].split(/\s+/).length;
-  if (intent !== "thanks" && (firstWords <= 2 || /^(?:Okay|OK|Sure|Understood|Noted|Got it|Sounds good|No problem|Never mind)\b/.test(core))) frame = pick(rng, [(x) => `Net-net: ${x}`, (x) => `Bottom line, from a strategic lens: ${x}`, (x) => `Level-setting for full alignment: ${x}`]);
+  if (intent !== "thanks" && (firstWords <= 2 || /^(?:Okay|OK|Sure|Understood|Noted|Got it|Sounds good|No problem|Never mind|That works for me\.?$)/.test(core))) frame = pick(rng, [(x) => `Net-net: ${x}`, (x) => `Bottom line, from a strategic lens: ${x}`, (x) => `Level-setting for full alignment: ${x}`]);
   // A greeting stays first: "Hi team, <frame> ...".
   let greeting = "";
   const gm = core.match(/^((?:Hi|Hey|Hello|Good morning|Good afternoon)(?: [A-Za-z]+(?: [a-z]+)?)?,)\s+(?=\S)/);

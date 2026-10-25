@@ -4563,6 +4563,682 @@
   "source": "decode-08.txt"
  },
  {
+  "id": "d0352",
+  "direction": "toNormal",
+  "category": "layoffs",
+  "signal": "layoffs",
+  "input": "As part of our efforts to align resources with strategic priorities, a number of roles will be impacted.",
+  "ideal": [
+   "Some jobs are being cut.",
+   "They're cutting jobs to fund other priorities.",
+   "People are getting fired. \"Aligning resources\" is the cover."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0353",
+  "direction": "toNormal",
+  "category": "layoffs",
+  "signal": "layoffs",
+  "input": "Today we said goodbye to some talented colleagues as we reshape the organization.",
+  "ideal": [
+   "Some people lost their jobs today.",
+   "People were laid off today.",
+   "They fired good people today and called it reshaping."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0354",
+  "direction": "toNormal",
+  "category": "layoffs",
+  "signal": "layoffs",
+  "input": "We have made the difficult decision to reduce the size of our sales organization.",
+  "ideal": [
+   "Some sales jobs are being cut.",
+   "They're laying off part of the sales team.",
+   "Sales is getting fired. Some of it, anyway."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0355",
+  "direction": "toNormal",
+  "category": "layoffs",
+  "signal": "layoffs",
+  "input": "Several roles across the marketing team have been eliminated as part of this change.",
+  "ideal": [
+   "Several marketing jobs were cut.",
+   "Marketing people got laid off.",
+   "Marketing jobs are gone. So are the people in them."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0356",
+  "direction": "toNormal",
+  "category": "layoffs",
+  "signal": "layoffs",
+  "input": "To position ourselves for long-term success, we are reducing our global headcount by approximately 8%.",
+  "ideal": [
+   "About 8% of jobs are being cut.",
+   "They're laying off about 8% of staff.",
+   "About 8% of you are getting fired."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0357",
+  "direction": "toNormal",
+  "category": "layoffs",
+  "signal": "layoffs",
+  "input": "We'll be saying farewell to a number of valued team members this week.",
+  "ideal": [
+   "Some people are losing their jobs this week.",
+   "People are getting laid off this week.",
+   "They're firing people this week and calling it farewell."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0358",
+  "direction": "toNormal",
+  "category": "delay",
+  "signal": "delay",
+  "input": "The launch will now take place in the second half of the year.",
+  "ideal": [
+   "The launch is later than planned.",
+   "The launch slipped to the second half.",
+   "The launch is late. Don't bet on the new date either."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0359",
+  "direction": "toNormal",
+  "category": "delay",
+  "signal": "delay",
+  "input": "To ensure a high-quality experience, we are revisiting the release schedule.",
+  "ideal": [
+   "The release date is likely to move.",
+   "The release is probably getting pushed.",
+   "It's going to be late. \"Quality\" is the excuse."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0360",
+  "direction": "toNormal",
+  "category": "delay",
+  "signal": "delay",
+  "input": "We now expect the new billing system to go live in early spring rather than January.",
+  "ideal": [
+   "The billing system is late. It's now early spring.",
+   "The billing system slipped from January to spring.",
+   "Billing missed January. Spring, they say."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0361",
+  "direction": "toNormal",
+  "category": "delay",
+  "signal": "delay",
+  "input": "The rollout has been rescheduled to give teams more time to prepare.",
+  "ideal": [
+   "The rollout is happening later.",
+   "The rollout got pushed back.",
+   "It's late. They're not ready."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0362",
+  "direction": "toNormal",
+  "category": "delay",
+  "signal": "delay",
+  "input": "Given some unforeseen dependencies, the go-live date is being re-evaluated.",
+  "ideal": [
+   "The go-live date will probably move.",
+   "The go-live is slipping. Something blocked it.",
+   "It's late, and they don't have a new date yet."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0363",
+  "direction": "toNormal",
+  "category": "delay",
+  "signal": "delay",
+  "input": "We are targeting a revised launch window in Q3.",
+  "ideal": [
+   "The launch moved to Q3.",
+   "The launch is late. Now it's Q3.",
+   "Late again. Q3, maybe."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0364",
+  "direction": "toNormal",
+  "category": "benefits",
+  "signal": "benefits",
+  "input": "Beginning in March, employees will contribute a larger share of health insurance costs.",
+  "ideal": [
+   "You'll pay more of your health insurance cost from March.",
+   "Your health insurance will cost you more starting in March.",
+   "Same insurance, bigger bill for you, starting March."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0365",
+  "direction": "toNormal",
+  "category": "benefits",
+  "signal": "benefits",
+  "input": "We are moving to a more flexible PTO approach, replacing accrued vacation.",
+  "ideal": [
+   "You'll stop banking vacation days, so there's nothing to cash out if you leave.",
+   "No more banked vacation. Unused days won't be paid out.",
+   "Your saved-up vacation is gone. \"Flexible\" means no payout."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0366",
+  "direction": "toNormal",
+  "category": "benefits",
+  "signal": "benefits",
+  "input": "Starting next year, the company match on 401(k) contributions will be capped at 3%.",
+  "ideal": [
+   "Your 401(k) match will be smaller next year.",
+   "They're cutting your 401(k) match to 3%.",
+   "Less free retirement money for you. 3%, tops."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0367",
+  "direction": "toNormal",
+  "category": "benefits",
+  "signal": "benefits",
+  "input": "The commuter benefit will be discontinued at the end of the quarter.",
+  "ideal": [
+   "The commuter benefit is ending.",
+   "They're cutting the commuter benefit.",
+   "No more commuter money. That's a pay cut."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0368",
+  "direction": "toNormal",
+  "category": "benefits",
+  "signal": "benefits",
+  "input": "We are evolving our wellness program, and the monthly gym subsidy will no longer be offered.",
+  "ideal": [
+   "The gym subsidy is going away.",
+   "They're cutting the gym subsidy.",
+   "No more gym money. \"Evolving\" means cutting."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0369",
+  "direction": "toNormal",
+  "category": "benefits",
+  "signal": "benefits",
+  "input": "Employees will now need to use PTO for the week between Christmas and New Year's.",
+  "ideal": [
+   "You'll have to use vacation days for the holiday week.",
+   "The holiday week now comes out of your PTO.",
+   "They took the free holiday week and made you pay for it with PTO."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0370",
+  "direction": "toNormal",
+  "category": "rto",
+  "signal": "rto",
+  "input": "We believe our best work happens when we are together, so we are updating our workplace policy.",
+  "ideal": [
+   "You'll need to be in the office more.",
+   "Remote work is ending. Come back to the office.",
+   "Back to your desk. \"Together\" means in the building."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0371",
+  "direction": "toNormal",
+  "category": "rto",
+  "signal": "rto",
+  "input": "We're asking everyone to be in the office on Tuesdays, Wednesdays, and Thursdays.",
+  "ideal": [
+   "You need to be in the office three days a week.",
+   "Come to the office Tuesday through Thursday.",
+   "Three days a week at your desk. It's not a request."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0372",
+  "direction": "toNormal",
+  "category": "rto",
+  "signal": "rto",
+  "input": "To strengthen our culture, team members are expected to work on-site at least three days a week.",
+  "ideal": [
+   "You need to be in the office at least three days a week.",
+   "Come back to the office three days a week.",
+   "Three days at your desk, minimum. \"Culture\" is the reason given."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0373",
+  "direction": "toNormal",
+  "category": "rejection",
+  "signal": "rejection",
+  "input": "After careful consideration, we will not be able to extend an offer at this time.",
+  "ideal": [
+   "You didn't get the job.",
+   "No offer. You didn't get it.",
+   "No job. They're just being polite about it."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0374",
+  "direction": "toNormal",
+  "category": "rejection",
+  "signal": "rejection",
+  "input": "We appreciate the proposal, but it doesn't align with our current priorities.",
+  "ideal": [
+   "They're turning down the proposal.",
+   "It's a no on the proposal.",
+   "No. They're just being polite about it."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0375",
+  "direction": "toNormal",
+  "category": "rejection",
+  "signal": "rejection",
+  "input": "Your request for an additional headcount was reviewed but cannot be approved this cycle.",
+  "ideal": [
+   "You won't get the extra hire this cycle.",
+   "No extra headcount for you.",
+   "No new hire. Do it with who you have."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0376",
+  "direction": "toNormal",
+  "category": "rejection",
+  "signal": "rejection",
+  "input": "While we were impressed with your background, we have decided to pursue other candidates.",
+  "ideal": [
+   "You didn't get the job.",
+   "It's a no. They picked someone else.",
+   "No. Someone else got it."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0377",
+  "direction": "toNormal",
+  "category": "rejection",
+  "signal": "rejection",
+  "input": "Unfortunately, we won't be moving ahead with your proposal at this stage.",
+  "ideal": [
+   "They're turning down your proposal.",
+   "It's a no on your proposal.",
+   "No. \"At this stage\" means at any stage."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0378",
+  "direction": "toNormal",
+  "category": "rejection",
+  "signal": "rejection",
+  "input": "We've reviewed your promotion case, and the timing isn't right this cycle.",
+  "ideal": [
+   "You're not getting promoted this cycle.",
+   "No promotion this time.",
+   "No promotion. \"Timing\" is the polite word for no."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0379",
+  "direction": "toNormal",
+  "category": "brushoff",
+  "signal": "deflection",
+  "input": "Let's put a pin in that and revisit next quarter.",
+  "ideal": [
+   "They're setting this aside for now.",
+   "They're shelving it. Don't expect it back soon.",
+   "It's shelved. That usually means never."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0380",
+  "direction": "toNormal",
+  "category": "brushoff",
+  "signal": "deflection",
+  "input": "I'll take that back to the team.",
+  "ideal": [
+   "They won't decide now. They'll ask others first.",
+   "No answer today. They're passing it up the chain.",
+   "Not their call, or they don't want it to be. Don't wait up."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0381",
+  "direction": "toNormal",
+  "category": "brushoff",
+  "signal": "deflection",
+  "input": "Thanks for the feedback, we'll take it under consideration.",
+  "ideal": [
+   "They heard you but made no promise.",
+   "Noted, and probably nothing will happen.",
+   "Thanks, and no."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0382",
+  "direction": "toNormal",
+  "category": "brushoff",
+  "signal": "deflection",
+  "input": "Let's park this for now and come back to it when things settle down.",
+  "ideal": [
+   "They want to stop talking about this for now.",
+   "They're dropping it for now.",
+   "Drop it. Things never settle down."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0383",
+  "direction": "toNormal",
+  "category": "brushoff",
+  "signal": "deflection",
+  "input": "Good point, let's take that offline.",
+  "ideal": [
+   "They want to talk about it later, not here.",
+   "Let's drop this for now.",
+   "Drop it. Not in front of everyone."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0384",
+  "direction": "toNormal",
+  "category": "brushoff",
+  "signal": "deflection",
+  "input": "We'll revisit this in the new year.",
+  "ideal": [
+   "They're putting this off until next year.",
+   "Not now. Maybe next year.",
+   "Not happening this year. Maybe not next year either."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0385",
+  "direction": "toNormal",
+  "category": "reorg",
+  "signal": "reorg",
+  "input": "Effective Monday, the platform team will be part of the infrastructure organization.",
+  "ideal": [
+   "The platform team is moving under infrastructure.",
+   "Reorg. Platform now reports into infrastructure.",
+   "Reorg. Platform has a new boss on Monday."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0386",
+  "direction": "toNormal",
+  "category": "reorg",
+  "signal": "reorg",
+  "input": "As of next week, the design team will roll up under the product organization.",
+  "ideal": [
+   "Design is moving under product.",
+   "Reorg. Design now reports to product.",
+   "Reorg. Design works for product now."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0387",
+  "direction": "toNormal",
+  "category": "reorg",
+  "signal": "reorg",
+  "input": "The analytics and data engineering teams will be combined under a single leader.",
+  "ideal": [
+   "Analytics and data engineering are merging into one team.",
+   "Reorg. Two teams, one boss.",
+   "Reorg. Two teams, one boss, and fewer seats."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0388",
+  "direction": "toNormal",
+  "category": "pip",
+  "signal": "pip",
+  "input": "I'd like to set up weekly check-ins to make sure you have the support you need to succeed.",
+  "ideal": [
+   "Your manager wants to watch your work more closely.",
+   "They're watching your work closely. This is often how a PIP starts.",
+   "You're being watched. This is the step before a PIP."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0389",
+  "direction": "toNormal",
+  "category": "pip",
+  "signal": "pip",
+  "input": "We need to see meaningful improvement in your communication over the next 60 days.",
+  "ideal": [
+   "You have 60 days to improve how you communicate.",
+   "You're on a 60-day warning about your communication.",
+   "Fix it in 60 days or you're out."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0390",
+  "direction": "toNormal",
+  "category": "pip",
+  "signal": "pip",
+  "input": "Going forward, I'll be documenting our weekly conversations so we're aligned on expectations.",
+  "ideal": [
+   "Your manager will keep written notes on your talks.",
+   "They're building a paper trail. That's often how a PIP starts.",
+   "They're building the paper trail to manage you out."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0391",
+  "direction": "toNormal",
+  "category": "cost",
+  "signal": "cost-cuts",
+  "input": "We're asking every team to find 10% efficiencies in their operating budget.",
+  "ideal": [
+   "Every team has to cut its budget by 10%.",
+   "They're cutting 10% from every team's budget.",
+   "10% less money for every team. Find it or it finds you."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0392",
+  "direction": "toNormal",
+  "category": "cost",
+  "signal": "budget-freeze",
+  "input": "We're asking teams to be mindful of discretionary spend for the remainder of the year.",
+  "ideal": [
+   "They want everyone to spend as little as possible.",
+   "Spend as little as you can. Big asks will get a no.",
+   "Don't spend money. Seriously."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0393",
+  "direction": "toNormal",
+  "category": "outsourcing",
+  "signal": "outsourcing",
+  "input": "We will be transitioning first-line support to our partner in Manila.",
+  "ideal": [
+   "First-line support is moving to an outside company in Manila.",
+   "They're outsourcing first-line support to Manila.",
+   "Support jobs are moving to Manila."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0394",
+  "direction": "toNormal",
+  "category": "outsourcing",
+  "signal": "outsourcing",
+  "input": "We have selected an external partner to manage our payroll processing going forward.",
+  "ideal": [
+   "An outside company will run payroll from now on.",
+   "They're outsourcing payroll.",
+   "Payroll is going to a vendor. So are those jobs."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0395",
+  "direction": "toNormal",
+  "category": "outsourcing",
+  "signal": "outsourcing",
+  "input": "Tier 1 support will be handled by an external vendor starting next month.",
+  "ideal": [
+   "An outside company takes over Tier 1 support next month.",
+   "They're outsourcing Tier 1 support.",
+   "Tier 1 support jobs go to a vendor next month."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0396",
+  "direction": "toNormal",
+  "category": "hiring",
+  "signal": "hiring-freeze",
+  "input": "We are being thoughtful about headcount for the rest of the year.",
+  "ideal": [
+   "Hiring will be very limited.",
+   "Hardly anyone new is getting hired.",
+   "No new people. You'll cover the gaps."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0397",
+  "direction": "toNormal",
+  "category": "hiring",
+  "signal": "hiring-freeze",
+  "input": "We are only approving backfills for business-critical roles at this time.",
+  "ideal": [
+   "Most roles that open up won't be refilled.",
+   "If someone leaves, they probably won't be replaced.",
+   "People who quit won't be replaced. You'll do their work."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0398",
+  "direction": "toNormal",
+  "category": "hiring",
+  "signal": "hiring-freeze",
+  "input": "Open requisitions will remain on hold pending further review.",
+  "ideal": [
+   "Open jobs are on hold.",
+   "Hiring is paused.",
+   "No one is getting hired. No help is coming."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0399",
+  "direction": "toNormal",
+  "category": "fluff",
+  "signal": "fluff",
+  "input": "We're on a journey to become a truly customer-obsessed organization.",
+  "ideal": [
+   "Lots of kind words, not much news.",
+   "A lot of words that don't say much.",
+   "Nothing. This is a lot of words for nothing."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0400",
+  "direction": "toNormal",
+  "category": "fluff",
+  "signal": "fluff",
+  "input": "Our people are our greatest asset, and we remain committed to fostering a culture of belonging.",
+  "ideal": [
+   "Kind words, no news.",
+   "Nice words, no information.",
+   "Nothing. Usually said right before bad news."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0401",
+  "direction": "toNormal",
+  "category": "none",
+  "signal": "none",
+  "input": "The quarterly town hall will be held on Thursday at 2 PM in the main auditorium.",
+  "ideal": [
+   "Nothing hidden here.",
+   "It mostly says what it says.",
+   "Nothing to decode. Rare."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0402",
+  "direction": "toNormal",
+  "category": "none",
+  "signal": "none",
+  "input": "Please complete your security training by the end of the month.",
+  "ideal": [
+   "Nothing hidden here.",
+   "It mostly says what it says.",
+   "Nothing to decode. Rare."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
+  "id": "d0403",
+  "direction": "toNormal",
+  "category": "none",
+  "signal": "none",
+  "input": "Please submit expense reports by the 5th of each month.",
+  "ideal": [
+   "Nothing hidden here.",
+   "It mostly says what it says.",
+   "Nothing to decode. Rare."
+  ],
+  "source": "decode-09.txt"
+ },
+ {
   "id": "n0001",
   "direction": "toCorporate",
   "category": "one-liner",
@@ -21313,5 +21989,1193 @@
    "I'm unable to reproduce the issue on my machine."
   ],
   "source": "normal-holdout-5.txt"
+ },
+ {
+  "id": "n1397",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "the build has been red since yesterday and nobody owns it",
+  "ideal": [
+   "Just a heads-up that the build has been failing since yesterday and no one owns it yet.",
+   "Flagging that the build has been red since yesterday and there's no clear owner. Can we assign one?",
+   "The build has been red since yesterday with no clear owner. Let's align on accountability and unblock the pipeline."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1398",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "pushed the migration to staging, prod tomorrow if nothing breaks",
+  "ideal": [
+   "I pushed the migration to staging, and the production release is planned for tomorrow if nothing breaks.",
+   "Heads-up: the migration is on staging, and production is planned for tomorrow if nothing breaks.",
+   "The migration is live on staging, with a production release targeted for tomorrow, pending a clean bill of health."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1399",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "still waiting on design for the final mockups",
+  "ideal": [
+   "I'm still waiting on design for the final mockups.",
+   "Quick update: I'm still waiting on design for the final mockups.",
+   "We're currently dependent on design for the final mockups and will move forward as soon as they land."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1400",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "the client moved the call to 3pm",
+  "ideal": [
+   "Just to let you know, the client moved the call to 3pm.",
+   "Heads-up: the client moved the call to 3pm.",
+   "For full visibility, the client has realigned the call to 3pm."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1401",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "we're about 80% done with the audit",
+  "ideal": [
+   "Quick update: we're about 80% done with the audit.",
+   "Sharing for awareness: we're about 80% through the audit.",
+   "We're roughly 80% of the way through the audit and tracking toward completion."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1402",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "the printer on 4 is broken again",
+  "ideal": [
+   "It looks like the printer on 4 is down again.",
+   "Flagging that the printer on 4 is down again.",
+   "The printer on 4 is experiencing an availability headwind again."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1403",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "I'm out friday, back monday",
+  "ideal": [
+   "I'm out Friday, and I'll be back Monday.",
+   "Heads-up: I'm out Friday and back Monday.",
+   "I'll be offline Friday and back online Monday to re-engage."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1404",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "db is at 92% disk, need to clean up logs today",
+  "ideal": [
+   "Quick update: the database is at 92% disk, so I need to clean up logs today.",
+   "Heads-up: the database is at 92% disk, so I'll clean up logs today.",
+   "The database is at 92% disk utilization, so I'm prioritizing a log cleanup today to protect capacity."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1405",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the vendor's api docs are garbage",
+  "ideal": [
+   "I believe the vendor's API docs need significant work.",
+   "My read is that the vendor's API docs need significant work.",
+   "The vendor's API documentation has substantial runway for improvement."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1406",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "I'm so damn tired of fixing other people's bugs",
+  "ideal": [
+   "I'm really frustrated with fixing other people's issues.",
+   "Candidly, I'm worn out by fixing other people's defects.",
+   "I want to surface some fatigue around remediating defects introduced by other teams."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1407",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "that deck is a hot mess",
+  "ideal": [
+   "That deck is in rough shape.",
+   "Flagging that the deck is in rough shape.",
+   "The deck has meaningful opportunities for improvement."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1408",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "stop f***ing changing the requirements every week",
+  "ideal": [
+   "Could you stop changing the requirements every week? Thanks!",
+   "Quick ask: could we stop changing the requirements every week?",
+   "I'd love to align on stable requirements rather than weekly changes. Grateful for your partnership on this."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1409",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the onboarding process sucks ass",
+  "ideal": [
+   "The onboarding process isn't great.",
+   "Flagging that the onboarding process isn't working well.",
+   "The onboarding process has significant room to improve."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1410",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "our competitor ate our lunch on pricing",
+  "ideal": [
+   "Our competitor beat us on pricing.",
+   "Heads-up: our competitor outperformed us on pricing.",
+   "Our competitor has outmaneuvered us on pricing. Let's double-click on our pricing strategy."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1411",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "he threw me under the bus in front of the VP",
+  "ideal": [
+   "He blamed me in front of the VP.",
+   "Flagging that he shifted the blame onto me in front of the VP.",
+   "He publicly shifted accountability onto me in front of the VP, which I'd like to address."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1412",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "can someone review my PR before lunch",
+  "ideal": [
+   "Could someone review my PR before lunch? Thanks!",
+   "Would someone be able to review my PR before lunch?",
+   "I'm seeking a thought partner who could review my PR before lunch. Any takers?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1413",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "need the numbers by EOD or we're screwed",
+  "ideal": [
+   "I need the figures by EOD or we're in trouble.",
+   "Heads-up: I need the figures by EOD or we're in a tough spot.",
+   "Securing the figures by EOD is mission-critical to avoid a significant headwind."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1414",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "pls send me the slides from yesterday",
+  "ideal": [
+   "Could you please send me the slides from yesterday? Thanks!",
+   "Quick ask: could you send me the slides from yesterday?",
+   "If you could share the slides from yesterday, that would be greatly appreciated."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1415",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "can you stop scheduling meetings at 8am",
+  "ideal": [
+   "Could you stop scheduling meetings at 8am? Thanks!",
+   "Would you be able to stop scheduling syncs at 8am?",
+   "Would you be able to stop scheduling alignment sessions at 8am? Grateful for your partnership."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1416",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "somebody please fix the coffee machine",
+  "ideal": [
+   "Could someone fix the coffee machine? Thanks!",
+   "Could someone take a look at the coffee machine?",
+   "I'm seeking a thought partner who could remediate the coffee machine. Any takers?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1417",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "I need a day to think about it",
+  "ideal": [
+   "Could I get a day to think about it? Thanks!",
+   "Quick ask: could I get a day to think it over?",
+   "I'd appreciate a day to reflect before aligning on a decision."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1418",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "can we push the demo to next week, we're not ready",
+  "ideal": [
+   "Could we move the demo to next week? We're not ready.",
+   "Would it be possible to shift the demo to next week? We're not ready yet.",
+   "Is there an opportunity to realign the demo to next week? We're not yet ready."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1419",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "not doing the weekend on-call again",
+  "ideal": [
+   "I won't be doing the weekend on-call again.",
+   "Heads-up: I won't be taking the weekend on-call again.",
+   "After careful consideration, I won't be taking on the weekend on-call again. Protecting our focus is how we win."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1420",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "nice work on the launch, seriously",
+  "ideal": [
+   "Nice work on the launch, really.",
+   "Great work on the launch, truly.",
+   "Taking a beat to recognize exceptional impact on the launch. This is what excellence looks like."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1421",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "Maria crushed the customer call today",
+  "ideal": [
+   "Maria did a great job on the customer call today.",
+   "Kudos to Maria, who knocked the customer call out of the park today.",
+   "Calling out best-in-class execution: Maria delivered an outstanding customer call today."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1422",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "thanks for covering for me yesterday",
+  "ideal": [
+   "Thank you for covering for me yesterday.",
+   "Really appreciate you covering for me yesterday.",
+   "Leading with gratitude: thank you for covering for me yesterday."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1423",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "the new dashboard looks sick",
+  "ideal": [
+   "The new dashboard looks great.",
+   "Kudos: the new dashboard looks great.",
+   "The new dashboard looks best-in-class. Outstanding impact."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1424",
+  "direction": "toCorporate",
+  "category": "complaint",
+  "input": "the wifi in the conference room is useless",
+  "ideal": [
+   "The wifi in the conference room isn't much help.",
+   "Flagging that the wifi in the conference room isn't much help.",
+   "The wifi in the conference room is not delivering meaningful value."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1425",
+  "direction": "toCorporate",
+  "category": "complaint",
+  "input": "why are we using three different chat tools",
+  "ideal": [
+   "Could you help me understand why we're using three different chat tools?",
+   "Quick question: why are we using three different chat tools?",
+   "Quick question to drive alignment: why are we leveraging three different chat tools?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1426",
+  "direction": "toCorporate",
+  "category": "complaint",
+  "input": "I've asked for access four times now",
+  "ideal": [
+   "I've asked for access four times now.",
+   "Heads-up: I've asked for access four times now.",
+   "Gently escalating: I've requested access four times now."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1427",
+  "direction": "toCorporate",
+  "category": "complaint",
+  "input": "the deadline is impossible and everyone knows it",
+  "ideal": [
+   "I think the deadline is impossible, and everyone knows it.",
+   "My two cents: the deadline isn't realistic, and everyone knows it.",
+   "I believe the deadline is not realistic, and there's broad consensus on that."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1428",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "wow, a pizza party instead of raises, thanks",
+  "ideal": [
+   "I'm not thrilled about a pizza party instead of raises.",
+   "Candidly, a pizza party isn't a substitute for raises.",
+   "I want to surface some concern about a pizza party in lieu of raises."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1429",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "can't wait for the 7am all-hands",
+  "ideal": [
+   "I'm not thrilled about the 7am all-hands.",
+   "Candidly, I'm not thrilled about the 7am all-hands.",
+   "I want to surface some concern about the 7am all-hands."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1430",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "who's running the retro this week",
+  "ideal": [
+   "Could you let me know who's running the retro this week?",
+   "Quick question: who's running the retro this week?",
+   "Quick question to drive alignment: who's running the retro this week?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1431",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "is the office open on the 4th",
+  "ideal": [
+   "Just to check, is the office open on the 4th?",
+   "Quick question: is the office open on the 4th?",
+   "Seeking clarity: is the office open on the 4th?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1432",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "did anyone get the invoice from Acme",
+  "ideal": [
+   "Just to check, did anyone get the invoice from Acme?",
+   "Quick question: did anyone get the invoice from Acme?",
+   "Seeking clarity on a key alignment point: did anyone receive the invoice from Acme?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1433",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "what's the plan if the vendor doesn't deliver",
+  "ideal": [
+   "Could you let me know what the plan is if the vendor doesn't deliver?",
+   "Quick question: what's the plan if the vendor doesn't deliver?",
+   "What's our contingency roadmap if the vendor doesn't deliver?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1434",
+  "direction": "toCorporate",
+  "category": "casual",
+  "input": "lol yeah that's on me, my bad",
+  "ideal": [
+   "Sorry, that's on me.",
+   "Apologies, that's on me.",
+   "Leaning into ownership: apologies, that's on me."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1435",
+  "direction": "toCorporate",
+  "category": "casual",
+  "input": "running 10 late, start without me",
+  "ideal": [
+   "I'm running about 10 minutes late. Please start without me.",
+   "Heads-up: I'm running about 10 minutes late. Please start without me.",
+   "I'm running 10 minutes behind schedule. Please kick things off without me."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1436",
+  "direction": "toCorporate",
+  "category": "casual",
+  "input": "omg the demo actually worked",
+  "ideal": [
+   "Wow, the demo actually worked.",
+   "Wow, the demo really worked.",
+   "Excited to share a key win: the demo worked."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1437",
+  "direction": "toCorporate",
+  "category": "feedback",
+  "input": "your doc is way too long, cut it in half",
+  "ideal": [
+   "Your doc is far too long. Could you cut it in half?",
+   "Some candid feedback: your document is far too long. My recommendation would be to cut it in half.",
+   "In the spirit of radical candor, the doc is far too long. I'd recommend cutting it in half."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1438",
+  "direction": "toCorporate",
+  "category": "feedback",
+  "input": "this code is unreadable, add some comments",
+  "ideal": [
+   "This code is hard to read. Could you add some comments?",
+   "Some candid feedback: this code is hard to read. I'd suggest adding some comments.",
+   "The code has readability opportunities. I'd recommend adding comments to unlock clarity."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1439",
+  "direction": "toCorporate",
+  "category": "feedback",
+  "input": "I don't think this plan will work",
+  "ideal": [
+   "I don't think this plan will work.",
+   "Putting this out there: I don't believe this approach will work.",
+   "In the spirit of healthy debate, I don't believe this approach will work."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1440",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "the staging server is down again, looking into it",
+  "ideal": [
+   "It looks like the staging server is down again, and I'm looking into it.",
+   "Flagging that the staging server is down again, and I'm looking into it.",
+   "The staging server is experiencing an availability headwind again, and I'm actively investigating."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1441",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "finished the first draft, sending it over after lunch",
+  "ideal": [
+   "I finished the first draft, and I'll send it over after lunch.",
+   "Quick win: I wrapped up the first draft, and I'll send it after lunch.",
+   "I've closed out the first draft and will circulate it after lunch."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1442",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "the vendor still hasn't sent the contract back",
+  "ideal": [
+   "The vendor still hasn't sent the contract back.",
+   "Raising a flag: the vendor still hasn't returned the contract.",
+   "We're still awaiting the executed contract from the vendor."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1443",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "QA found 12 new bugs in the checkout flow",
+  "ideal": [
+   "It looks like QA found 12 new issues in the checkout flow.",
+   "Flagging that QA found 12 new issues in the checkout flow.",
+   "QA has surfaced 12 new issues in the checkout flow."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1444",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "I'm heads down on the report until 3",
+  "ideal": [
+   "I'm heads down on the report until 3.",
+   "Heads-up: I'm focused on the report until 3.",
+   "I'm deep in focus mode on the report until 3."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1445",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "the release went out last night, no issues so far",
+  "ideal": [
+   "The release went out last night. There have been no issues so far.",
+   "Sharing for visibility: the release went out last night, with no issues so far.",
+   "The release shipped last night, with zero issues to date."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1446",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "this ticket queue is a goddamn nightmare",
+  "ideal": [
+   "This ticket queue is a nightmare.",
+   "Flagging that this ticket queue is in rough shape.",
+   "The ticket queue is experiencing significant headwinds."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1447",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the client is being a total pain in the ass",
+  "ideal": [
+   "The client is being a real hassle.",
+   "Flagging that the client is being very difficult.",
+   "The client relationship is currently experiencing some friction."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1448",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "I'm pissed that nobody told me about the change",
+  "ideal": [
+   "I'm annoyed that nobody told me about the change.",
+   "Candidly, I'm frustrated that nobody informed me about the change.",
+   "I want to surface some frustration that I wasn't looped in on the change."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1449",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "whoever wrote this query is an idiot",
+  "ideal": [
+   "Whoever wrote this query made some careless mistakes.",
+   "Flagging that this query has some careless mistakes.",
+   "This query has some opportunities for improvement."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1450",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the new expense tool is crap",
+  "ideal": [
+   "I believe the new expense tool needs significant work.",
+   "My read is that the new expense tool needs significant work.",
+   "The new expense tool has substantial runway for improvement."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1451",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "screw it, let's just ship it",
+  "ideal": [
+   "Let's go ahead and ship it.",
+   "Let's move forward and ship it.",
+   "Let's lean in and ship it."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1452",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "can someone grab the notes from the standup",
+  "ideal": [
+   "Could someone get the notes from the standup? Thanks!",
+   "Would someone be able to grab the notes from the standup?",
+   "I'm seeking a thought partner who could capture the takeaways from the standup."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1453",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "send me the final numbers when you have them",
+  "ideal": [
+   "Could you send me the final numbers when you have them? Thanks!",
+   "Could you send me the final figures when you have them?",
+   "When the final figures land, it would be great if you could share them with me."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1454",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "can we get a room for 4 people tomorrow at 10",
+  "ideal": [
+   "Could we get a room for 4 people tomorrow at 10? Thanks!",
+   "Would it be possible to get a room for 4 people tomorrow at 10?",
+   "Is there an opportunity to secure a room for 4 team members tomorrow at 10?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1455",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "can't make the 4pm, I have a dentist appointment",
+  "ideal": [
+   "Unfortunately, I can't make the 4pm. I have a dentist appointment.",
+   "Heads-up: I won't be able to make the 4pm. I have a dentist appointment.",
+   "I'm unable to make the 4pm due to a dentist appointment. Grateful for your understanding."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1456",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "I'm not taking on the migration, I'm already at capacity",
+  "ideal": [
+   "I won't be taking on the migration. I'm already at capacity.",
+   "Heads-up: I won't be able to take on the migration. I'm already at capacity.",
+   "I won't be taking on the migration, as I'm already at full bandwidth."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1457",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "Dev absolutely nailed the presentation",
+  "ideal": [
+   "Dev did a great job on the presentation.",
+   "Kudos: Dev nailed the presentation.",
+   "Calling out best-in-class execution: Dev delivered an outstanding presentation."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1458",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "you guys killed it on the launch",
+  "ideal": [
+   "You all did a great job on the launch. Thank you.",
+   "Kudos: the team did a great job on the launch.",
+   "Taking a beat to recognize exceptional impact: the team delivered an outstanding launch."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1459",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "this writeup is fire",
+  "ideal": [
+   "This writeup is great.",
+   "Kudos: this writeup is great.",
+   "This writeup is best-in-class. Outstanding impact."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1460",
+  "direction": "toCorporate",
+  "category": "complaint",
+  "input": "the build takes 40 minutes, it's killing us",
+  "ideal": [
+   "The build takes 40 minutes, and it's really slowing us down.",
+   "Flagging that the build takes 40 minutes, which is really slowing us down.",
+   "The 40-minute build is a significant drag on our velocity."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1461",
+  "direction": "toCorporate",
+  "category": "complaint",
+  "input": "we keep having the same meeting every week",
+  "ideal": [
+   "We keep having the same meeting every week.",
+   "Flagging that we keep having the same sync every week.",
+   "We keep revisiting the same alignment session every week. Is there an opportunity to streamline?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1462",
+  "direction": "toCorporate",
+  "category": "complaint",
+  "input": "I'm sick of chasing people for approvals",
+  "ideal": [
+   "I'm tired of chasing people for approvals.",
+   "Candidly, I'm tired of chasing people for approvals.",
+   "I want to surface some fatigue around chasing approvals."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1463",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "oh good, another survey about survey fatigue",
+  "ideal": [
+   "I'm concerned about yet another survey about survey fatigue.",
+   "Flagging some concern about yet another survey about survey fatigue.",
+   "I want to surface some concern about another survey on survey fatigue."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1464",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "love getting meeting invites at 6pm on a friday",
+  "ideal": [
+   "I'm not thrilled about getting meeting invites at 6pm on a Friday.",
+   "Candidly, meeting invites at 6pm on a Friday aren't ideal.",
+   "I want to surface some concern about alignment session invites at 6pm on a Friday."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1465",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "when's the deadline for the budget request",
+  "ideal": [
+   "Could you let me know when the deadline for the budget request is?",
+   "Quick question: when's the deadline for the budget request?",
+   "Quick question to drive alignment: when's the hard stop for the budget request?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1466",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "what's the status of the Henderson account",
+  "ideal": [
+   "Could you let me know what the status of the Henderson account is?",
+   "Quick question: what's the status of the Henderson account?",
+   "Could you share a status update on the Henderson account?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1467",
+  "direction": "toCorporate",
+  "category": "casual",
+  "input": "ya that works for me",
+  "ideal": [
+   "That works for me.",
+   "That works for me, I'm aligned.",
+   "That's fully aligned with my priorities. Green light from me."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1468",
+  "direction": "toCorporate",
+  "category": "casual",
+  "input": "gonna be late, train's delayed",
+  "ideal": [
+   "I'm running a bit behind because my train is delayed.",
+   "Heads-up: I'm running behind because my train is delayed.",
+   "I'm running behind schedule because my train is delayed. Grateful for your patience."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1469",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "the payment service is throwing 500s, rolling back now",
+  "ideal": [
+   "The payment service is throwing 500s, and I'm rolling back now.",
+   "Flagging that the payment service is throwing 500s, and I'm rolling back now.",
+   "The payment service is experiencing 500 errors, and I'm actively rolling back."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1470",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "done with the slides, uploading them tonight",
+  "ideal": [
+   "I'm done with the slides, and I'll upload them tonight.",
+   "Quick win: I've finished the slides, and I'll upload them tonight.",
+   "I've closed out the slides and will upload them tonight."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1471",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "legal still hasn't reviewed the NDA",
+  "ideal": [
+   "Legal still hasn't reviewed the NDA.",
+   "Heads-up: legal still hasn't reviewed the NDA.",
+   "We're still awaiting legal's review of the NDA."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1472",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "the sprint is basically done, two tickets left",
+  "ideal": [
+   "The sprint is essentially done, with two tickets left.",
+   "Quick update: the sprint is essentially done, with two tickets left.",
+   "The sprint is substantially complete, with two tickets remaining."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1473",
+  "direction": "toCorporate",
+  "category": "status",
+  "input": "I'm stuck on the auth bug, might need help",
+  "ideal": [
+   "I'm stuck on the auth issue, and I might need a hand.",
+   "Heads-up: I'm blocked on the auth issue and may need support.",
+   "I'm blocked on the auth issue and may need a thought partner to unblock it."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1474",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "this approval process is a joke",
+  "ideal": [
+   "This approval process isn't working.",
+   "Flagging that this approval process isn't working.",
+   "The approval process is not performing as designed."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1475",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "the deadline is bullshit and they know it",
+  "ideal": [
+   "The deadline isn't realistic, and they know it.",
+   "My read is that the deadline isn't credible, and they know it.",
+   "The deadline is not grounded in reality, and that's broadly understood."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1476",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "my laptop is a piece of crap",
+  "ideal": [
+   "My laptop is in bad shape.",
+   "Heads-up: my laptop is in rough shape.",
+   "My laptop is experiencing significant performance headwinds."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1477",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "dude, the demo crashed in front of the client, I'm so screwed",
+  "ideal": [
+   "The demo crashed in front of the client. I'm in serious trouble.",
+   "Flagging that the demo crashed in front of the client. I'm in a tough spot.",
+   "The demo experienced an unplanned outage in front of the client, and I'm navigating a significant headwind."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1478",
+  "direction": "toCorporate",
+  "category": "crude",
+  "input": "quit dumping last-minute work on my team",
+  "ideal": [
+   "Could you stop giving my team last-minute work? Thanks!",
+   "Quick ask: could we stop sending last-minute work to my team?",
+   "I'd love to align on reducing last-minute asks for my team. Grateful for your partnership."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1479",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "can you share the deck before the call",
+  "ideal": [
+   "Could you share the deck before the call? Thanks!",
+   "Would you be able to share the deck before the call?",
+   "Would you be able to share the deck ahead of the call?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1480",
+  "direction": "toCorporate",
+  "category": "request",
+  "input": "could someone update the wiki, it's out of date",
+  "ideal": [
+   "Could someone update the wiki? It's out of date.",
+   "Could someone update the wiki? It's out of date.",
+   "I'm seeking a thought partner who could refresh the wiki, as it's out of date."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1481",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "can't do lunch today, swamped",
+  "ideal": [
+   "Unfortunately, I can't do lunch today. I'm swamped.",
+   "Heads-up: I won't be able to do lunch today, since I'm at capacity.",
+   "I'm unable to do lunch today, as I'm at full bandwidth."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1482",
+  "direction": "toCorporate",
+  "category": "decline",
+  "input": "I'm not joining another committee",
+  "ideal": [
+   "I won't be joining another committee.",
+   "Heads-up: I won't be joining another committee.",
+   "After careful consideration, I won't be joining another committee. Protecting our focus is how we win."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1483",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "Sam saved the day with that quick fix",
+  "ideal": [
+   "Sam saved the day with that quick fix. Thank you, Sam.",
+   "Kudos: Sam saved the day with that quick fix.",
+   "Calling out best-in-class execution: Sam's quick fix saved the day."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1484",
+  "direction": "toCorporate",
+  "category": "praise",
+  "input": "great call on delaying the launch",
+  "ideal": [
+   "Great call on delaying the launch.",
+   "Great call on delaying the launch.",
+   "That was a high-leverage call on delaying the launch."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1485",
+  "direction": "toCorporate",
+  "category": "complaint",
+  "input": "the parking garage is full every single day",
+  "ideal": [
+   "The parking garage is full every single day.",
+   "Flagging that the parking garage is full every day.",
+   "The parking garage is at full capacity every single day."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1486",
+  "direction": "toCorporate",
+  "category": "complaint",
+  "input": "nobody ever answers in the support channel",
+  "ideal": [
+   "Nobody ever answers in the support channel.",
+   "Flagging that nobody answers in the support channel.",
+   "The support channel has a responsiveness gap."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1487",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "oh fantastic, the printer jammed again",
+  "ideal": [
+   "Unfortunately, the printer jammed again.",
+   "Flagging that the printer jammed again.",
+   "The printer has experienced another jam."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1488",
+  "direction": "toCorporate",
+  "category": "sarcasm",
+  "input": "love working through lunch every day",
+  "ideal": [
+   "I'm not thrilled about working through lunch every day.",
+   "Candidly, I'm not thrilled about working through lunch every day.",
+   "I want to surface some concern about working through lunch every day."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1489",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "what's the ETA on the new laptops",
+  "ideal": [
+   "Could you let me know what the ETA on the new laptops is?",
+   "Quick question: what's the ETA on the new laptops?",
+   "Quick question to drive alignment: what's the ETA on the new laptops?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1490",
+  "direction": "toCorporate",
+  "category": "question",
+  "input": "are we still doing the offsite in May",
+  "ideal": [
+   "Just to check, are we still doing the offsite in May?",
+   "Quick question: are we still doing the offsite in May?",
+   "Seeking clarity: are we still doing the offsite in May?"
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1491",
+  "direction": "toCorporate",
+  "category": "casual",
+  "input": "yep, on it",
+  "ideal": [
+   "Sounds good, I'm on it.",
+   "Absolutely, I'm on it.",
+   "Net-net: I'm owning this end to end."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1492",
+  "direction": "toCorporate",
+  "category": "casual",
+  "input": "heading out, ping me if anything breaks",
+  "ideal": [
+   "I'm heading out. Please ping me if anything breaks.",
+   "Heads-up: I'm heading out. Please ping me if anything breaks.",
+   "I'm heading offline. Please ping me if anything breaks."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1493",
+  "direction": "toCorporate",
+  "category": "casual",
+  "input": "lol that's hilarious",
+  "ideal": [
+   "That's hilarious.",
+   "That's hilarious, love it.",
+   "That's genuinely hilarious. Love the energy here."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1494",
+  "direction": "toCorporate",
+  "category": "feedback",
+  "input": "these slides have way too much text",
+  "ideal": [
+   "These slides have far too much text.",
+   "Some candid feedback: these slides have far too much text.",
+   "The slides are text-heavy. I'd recommend streamlining for impact."
+  ],
+  "source": "normal-round8.txt"
+ },
+ {
+  "id": "n1495",
+  "direction": "toCorporate",
+  "category": "feedback",
+  "input": "the summary misses the main point",
+  "ideal": [
+   "The summary misses the main point.",
+   "Some candid feedback: the summary misses the main point.",
+   "The summary isn't fully landing the core message."
+  ],
+  "source": "normal-round8.txt"
  }
 ]

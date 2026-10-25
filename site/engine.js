@@ -10,6 +10,7 @@ import { prepass, fixCollocations } from "./prepass.js";
 import { composeCSuite } from "./csuite.js";
 import { applyVoice } from "./voice.js";
 import { CRUDE_SWAPS, canonicalizeCrude, hasCrude, cleanCrude } from "./profanity.js";
+import { conceptThemes, CONCEPT_LINES } from "./decode-concepts.js";
 
 export const SOFT_CAP = 20000;
 export const LEVELS = {
@@ -693,7 +694,7 @@ function levelPolish(text, lvl, clean) {
     t = t.replace(/^(That|This|The) ([\w-]+(?: [\w-]+)?) is (?:impossible|unrealistic)\.$/, (_m, d, n) => `I don't think ${d.toLowerCase()} ${n} is realistic.`)
       .replace(/^(?:Just to let you know, )?(this|that|it) needs more work\.$/i, (_m, w) => `I think ${w.toLowerCase()} needs more work.`)
       .replace(/^I see (it|this|that|the [\w-]+) differently\.$/, "I see $1 a bit differently.")
-      .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z']+) (.+)\.$/, (m, v, r) => (/\bThank you\b/.test(r) ? m : /\b(?:great|excellent|amazing|fantastic|awesome|well|outstanding|brilliant)\b/.test(r) ? `You ${v} ${r}. Thank you.` : `I've noticed you ${v} ${r}.`))
+      .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z']+) (.+)\.$/, (m, v, r) => (/\bThank you\b/.test(r) ? m : /\b(?:great|excellent|amazing|fantastic|awesome|well|outstanding|brilliant)\b|\b(?:killed|crushed|nailed|rocked|smashed|aced) it\b|^(?:killed|crushed|nailed|rocked|smashed|aced)$/.test(`${v} ${r}`) ? `You ${v} ${r}. Thank you.` : `I've noticed you ${v} ${r}.`))
       .replace(/^Just to let you know, your (.+)\.$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Your ${r}. Great work.` : `I noticed that your ${r}.`))
       .replace(/^It looks like (the [\w-]+ (?:says|said|reports|reported|mentioned)) /, (_m, r) => `${r[0].toUpperCase()}${r.slice(1)} `)
       .replace(/^Be (on time|there|ready|prepared|careful)\b/, "Please be $1")
@@ -768,7 +769,7 @@ function postPolish(text, lvl, clean) {
     .replace(/\btoo (?:tied up|at capacity|swamped|slammed)\b/g, "too busy")
     .replace(/(^|[.!?]\s+)((?:Can|Could|Would|Will|Should|Is|Are|Do|Does|Did) (?:it|we|you|I|this|that|they|someone|anyone)\b[^.!?]*)\.(?=\s|$)/g, "$1$2?")
     .replace(/^When you get a chance, (could you .+\bwhen you (?:can|get a chance|have a (?:sec|second|minute|moment))\b.*)$/, (_m, r) => r[0].toUpperCase() + r.slice(1))
-    .replace(/^When you get a chance, (could you .+\b(?:when|once|after) (?:you(?:'re| are) (?:done|finished|free)|it's (?:done|finished|ready)|you get (?:a sec|a second|a minute|a moment|a chance))\b.*)$/, (_m, r) => r[0].toUpperCase() + r.slice(1));
+    .replace(/^When you get a chance, (could you .+\b(?:when|once|after) (?:you(?:'re| are) (?:done|finished|free|ready)|it's (?:done|finished|ready)|you get (?:a sec|a second|a minute|a moment|a chance)|you have (?:it|them|that|those|this|time|a (?:sec|second|minute|moment))|they're (?:ready|done|final))\b.*)$/, (_m, r) => r[0].toUpperCase() + r.slice(1));
   if (lvl === 1) {
     t = t.replace(/^I disagree with /, "I'm not sure I agree with ")
       .replace(/^Why (is|are|was|were) (the [\w-]+|this|that|it|our [\w-]+|my [\w-]+) (.+)\?$/, "Could you help me understand why $2 $1 $3?")
@@ -865,6 +866,8 @@ export function detectThemes(sentence) {
     if (theme.firstPerson && !/\b(?:I|I'm|I've|I'll|I'd)\b|\b(?:my|me)\b/i.test(sentence.replace(/\bI\b(?=\.)/g, ""))) continue;
     found.push(theme.id);
   }
+  // Round 8: concept rules catch new wordings of the same news (see decode-concepts.js).
+  for (const id of conceptThemes(sentence)) if (!found.includes(id)) found.push(id);
   // A benefit being discontinued is a benefit cut, not a product shutdown.
   if (found.includes("benefits")) return found.filter((id) => id !== "shutdown");
   return found;
@@ -873,7 +876,7 @@ export function detectThemes(sentence) {
 const themeById = Object.fromEntries(THEMES.map((t) => [t.id, t]));
 
 // Themes that say the same thing as a stronger one are left out of the summary.
-const COVERED_BY = { "new-job": ["new-chapter"], "layoff-you": ["layoffs", "new-chapter"], pip: ["performance"], "stack-rank": ["performance"] };
+const COVERED_BY = { rejection: ["deflection"], "new-job": ["new-chapter"], "layoff-you": ["layoffs", "new-chapter"], pip: ["performance"], "stack-rank": ["performance"] };
 
 function summaryThemes(themeIds) {
   const drop = new Set(themeIds.flatMap((id) => COVERED_BY[id] ?? []));
@@ -983,7 +986,7 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       const { text: swapped, changed } = swapPhrases(sentence, matcher, lvl, rng, 1);
       const isFluff = FLUFF_PATTERNS.some((p) => p.test(sentence));
       let plain;
-      const special = SPECIAL_LINES.find((s) => s.pattern.test(sentence) && !(s.weak && themes.length));
+      const special = [...SPECIAL_LINES, ...CONCEPT_LINES].find((s) => s.pattern.test(sentence) && !(s.weak && themes.length));
       if (special) {
         if (isFluff) fluff++;
         plain = ((layoffContext && special.layoffLines) || special.lines)[lvl - 1];
