@@ -130,7 +130,18 @@ export const L2_CLOSERS = {
  * Apply the level voice. t is the engine's text at that level; l1/l2 are the frames it chose.
  * Returns the new text (the caller checks meaning and keeps t if the check fails).
  */
-export function applyVoice(t, lvl, { raw = "", rng = Math.random } = {}) {
+export function applyVoice(t, lvl, opts = {}) {
+  // Round 10b: greetings and birthday wishes stay warm instead of getting a status label.
+  let g;
+  if ((lvl === 1 || lvl === 2) && typeof t === "string" && (g = t.match(/^Good (morning|afternoon|evening), ([\w']+)[.!]$/))) return lvl === 1 ? t : `Good ${g[1]}, ${g[2]}! Hope everyone has a productive ${g[1] === "evening" ? "evening" : "day"}.`;
+  if ((lvl === 1 || lvl === 2) && typeof t === "string" && (g = t.match(/^Happy (birthday|anniversary|work anniversary), ([A-Z][\w'-]*)[.!]$/))) return lvl === 1 ? `Happy ${g[1]}, ${g[2]}!` : `Happy ${g[1]}, ${g[2]}! Wishing you a fantastic year ahead.`;
+  const out = applyVoice0(t, lvl, opts);
+  // Round 10: a comma frame never leaves a capital behind it ("Just so you know, Looks good").
+  return typeof out === "string" ? out.replace(/^((?:Just so you know|Just to let you know|I wanted to flag that|Just a heads-up that|I'm happy to share that|Happy to share that|Heads-up)[,:]? )(Looks|In|For|As|If|To|By|Of)\b(?! [A-Z])/, (_m, f, w) => f + w.toLowerCase())
+    .replace(/^((?:Quick heads-up|Heads-up|Quick status update|Quick update|Just a quick update|For visibility|Looping you in|Sharing for awareness|Quick win): )(Looks|Out|In|For|As|If|By|Of|To|Never|Just|Honestly|Frankly|Sounds|Not|No)\b(?! [A-Z])/, (_m, f, w) => f + w.toLowerCase())
+    .replace(/^((?:Quick question|Quick one for the group): )(What|Where|When|Who|Why|How|Which|Is|Are|Do|Does|Did|Can|Could|Should|Would|Will)\b(?! [A-Z])/, (_m, f, w) => f + w.toLowerCase()) : out;
+}
+function applyVoice0(t, lvl, { raw = "", rng = Math.random } = {}) {
   if (lvl !== 1 && lvl !== 2) return t;
   if (!t || /\n/.test(t) || t.split(/\s+/).length > 40) return t;
   for (const [re, rep] of lvl === 1 ? L1_UPGRADES : L2_UPGRADES_R7) t = t.replace(re, rep);

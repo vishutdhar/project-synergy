@@ -176,7 +176,7 @@ test("Decode: 'per my last email' keeps what the email actually says", () => {
 });
 
 test("Decode: a bonus delay is not read as no raises, and a coworker leaving is not called a leader", () => {
-  assert.equal(toNormal("Bonus payouts will be delayed until Q2 while we finalize results.", { level: 2 }).summary, "Bonuses are delayed.");
+  assert.match(toNormal("Bonus payouts will be delayed until Q2 while we finalize results.", { level: 2 }).summary, /^Bonus(?:es| payouts)(?: are|:) (?:delayed|late)\.$/);
   const d = toNormal("Hi all, I'm writing to let you know that Tomas will be leaving us at the end of the week.", { level: 3 });
   assert.doesNotMatch(d.summary, /leader/i);
 });

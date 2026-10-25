@@ -115,6 +115,11 @@ const SCENES = [
       const ch = chan ? (/slack/i.test(chan) ? "Slack" : /teams/i.test(chan) ? "Teams" : "email") : "";
       const resigned = /^(?:screw|f(?:uc)?k) it/i.test(t);
       if (at) return [`I'm going to log off at ${at}.`, `Heads-up: I'll be wrapping up and logging off at ${at}.`, `${resigned ? "After carefully weighing the trade-offs, I've made the executive decision" : "I've made the strategic decision"} to log off at ${at}. Protecting my bandwidth is a leadership choice.`];
+      if (/\bearly\b/i.test(t) && !ch) {
+        const d = t.match(/\b(today|tonight|tomorrow|on (?:monday|tuesday|wednesday|thursday|friday))\b/i)?.[1]?.toLowerCase();
+        const dd = d ? ` ${d}` : "";
+        return [`I'm logging off early${dd}.`, `Heads-up: I'll be signing off early${dd}.`, `I'll be concluding my operating day ahead of schedule${dd}. Protecting my bandwidth is a leadership choice.`];
+      }
       const w = time.implied ? "for the rest of the day" : time.when;
       const what = ch ? `${ch}` : "messages";
       return [`I'll be away from ${what} ${w}.`, `Heads-up: I'm going heads-down and stepping away from ${what} ${w}.`, `I'll be entering deep-focus mode and going dark on ${what} ${w}. Silence is a strategy.`];
@@ -266,7 +271,7 @@ SCENES.push(
   { id: "so-glad-spent", re: /^(?:i'm |i am )?(?:so|really|sooo*|very) glad (?:that )?we (?:spent|burned|wasted) (.{2,40}?) (?:on|in) (.{2,60}?)[.!]*$/i,
     build(t) {
       const m = t.match(/we (?:spent|burned|wasted) (.{2,40}?) (?:on|in) (.{2,60}?)[.!]*$/i); const p = /we (?:spent|burned|wasted) .{2,40}? in /i.test(t) ? "in" : "on";
-      return [`I don't think we needed to spend ${m[1]} ${p} ${m[2]}.`, `Candidly, ${m[1]} ${p} ${m[2]} feels like a lot.`, `Proud of our deep, ${m[1].replace(/^(\d+) (hour|day|week|minute|month)s?$/i, "$1-$2").replace(/^all (day|week|morning|afternoon)$/i, "all-$1")} strategic investment in ${m[2]}. I'd gently suggest we right-size that next time.`];
+      return [`I don't think we needed to spend ${m[1]} ${p} ${m[2]}.`, `Candidly, ${m[1]} ${p} ${m[2]} feels like a lot.`, `Proud of our deep, ${m[1].replace(/^(\d+) (hour|day|week|minute|month)s?$/i, "$1-$2").replace(/^all (day|week|morning|afternoon)$/i, "all-$1").replace(/^an? (hour|day|week|minute|month)$/i, "$1-long").replace(/^half an? (hour|day)$/i, "half-$1")} strategic investment in ${m[2]}. I'd gently suggest we right-size that next time.`];
     } },
 );
 // Round 9c: more everyday crude and time-off phrasings (found on held-out batch 18).

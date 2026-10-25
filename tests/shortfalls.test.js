@@ -7,7 +7,8 @@ import { toCorporate } from "../site/engine.js";
 import { prepass, desarcasm, splitApology } from "../site/prepass.js";
 import { intentOf } from "../site/csuite.js";
 
-const L = (s, level) => toCorporate(s, { level });
+import { stripQuip } from "../site/composer.js";
+const L = (s, level) => stripQuip(toCorporate(s, { level }));
 const all = (s) => [1, 2, 3].map((l) => L(s, l));
 
 test("dropped articles come back", () => {

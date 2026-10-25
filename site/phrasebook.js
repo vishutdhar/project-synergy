@@ -16,7 +16,7 @@ export const CORPORATE_SWAPS = `
 !happy friday everyone = happy Friday, everyone = wishing everyone a happy Friday = wishing the whole team a high-impact Friday
 !jesus christ = wow = yikes = what a development
 i don't understand = I'm not sure I understand = I'm not fully clear on = I lack clarity on
-i don't agree with = I'm not sure I agree with = I'm not aligned with = I'm not aligned with the strategic direction of
+i don't agree with = I don't agree with = I'm not aligned with = I'm not aligned with the strategic direction of
 i'm free = I'm available = I have availability = I have open bandwidth
 if you want to = if you'd like to = if you'd like to = if there's appetite to
 nice catch = good catch = great catch = high-impact catch
@@ -75,6 +75,7 @@ out sick = out sick = out sick = offline for health reasons
 !i'll be late = I'll be running a bit behind = I'll be running behind schedule = I'll be operating on a dynamic timeline
 !i'm running late = I'm running a bit behind = I'm running behind schedule = I'm operating on a dynamic timeline
 i'm late = I'm running behind = I'm slightly off schedule = I'm operating on a dynamic timeline
+i forgot about = I forgot about = I lost track of = I lost track of
 i forgot to = I forgot to = I neglected to = I inadvertently failed to
 ^i forgot = it slipped my mind = it fell through the cracks = it was deprioritized by my memory infrastructure
 i forgot = I lost track of = I lost track of = I lost track of
@@ -197,6 +198,8 @@ use = use = leverage = leverage
 using = using = leveraging = leveraging
 done with = done with = finished with = wrapped up with
 halfway done = halfway done = halfway through = halfway through
+done for today = done for today = wrapping up for today = concluding my operating day
+done for the day = done for the day = wrapping up for the day = concluding my operating day
 done = done = completed = fully actioned
 start to finish = start to finish = start to finish = start to finish
 finish = complete = wrap up = close out
@@ -404,6 +407,7 @@ sick of = tired of = tired of = fatigued by
 i'm sick = I'm sick = I'm out sick = I'm operating at reduced capacity
 call me = call me = ping me = let's set up a touchbase
 call you = call you = ping you = set up a touchbase with you
+giving up on = giving up on = stepping back from = strategically sunsetting my involvement in
 give up = step back = pause = strategically sunset
 gave up = stepped back = paused = strategically sunsetted
 figure it out = figure it out = sort it out = solution it
@@ -461,8 +465,8 @@ we won't work = we won't be working = we won't be working = we will not be worki
 !dude = friend = teammate = valued partner
 !pissed = annoyed = frustrated = experiencing strong feedback
 !pissed off = annoyed = frustrated = experiencing strong feedback
-!hungry = peckish = ready for a break = in need of caloric realignment
-!bored = restless = under-stretched = under-leveraged
+!hungry = hungry = ready for a break = in need of caloric realignment
+!bored = bored = under-stretched = under-leveraged
 credit for my work = credit for my work = credit for my work = credit for my contributions
 !my work = my tasks = my deliverables = my value-creation pipeline
 !his work = his tasks = his deliverables = his legacy workstreams
@@ -474,6 +478,8 @@ credit for my work = credit for my work = credit for my work = credit for my con
 !push back = disagree = offer some pushback = introduce strategic friction
 !running late = running behind = slightly delayed = operating on a dynamic timeline
 !pointless = not very useful = low value = value-negative
+grab me a = get me a = get me a = secure me a
+grab me = get me = get me = secure me
 !>grab = get = pick up = secure
 !option = option = option = strategic pathway
 !vendor = supplier = partner = strategic partner

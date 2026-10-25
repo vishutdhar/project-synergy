@@ -39,7 +39,7 @@ test("product names, doctor's appointments and appearance words keep their meani
   none("the slides look cheap, use the new template", /affordable|cost-effective/);
   every("huge shoutout to maria for saving the launch", /Maria/);
   none("huge shoutout to maria for saving the launch", /huge a big/i);
-  none("jesus christ, the client changed the requirements again", /win|excited/i);
+  none("jesus christ, the client changed the requirements again", /\bwin\b|excited/i);
 });
 
 test("Middle Manager uses manager words without adding meetings", () => {

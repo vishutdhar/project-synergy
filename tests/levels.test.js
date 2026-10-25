@@ -7,7 +7,9 @@ import { toCorporate, toNormal, normalizeCasual, normalizeInput } from "../site/
 import { distinctness, tokenSim, corporateScore } from "../site/register.js";
 import { checkMeaning } from "../site/meaning.js";
 
-const corp = (text, level) => toCorporate(text, { level, seed: 1 });
+import { stripQuip } from "../site/composer.js";
+// Round 10: Middle Manager may end with a short topical aside; these tests check the sentence before it.
+const corp = (text, level) => stripQuip(toCorporate(text, { level, seed: 1 }));
 // Round 6 voice adds a short thank-you on direct asks (site/voice.js). These checks are about the ask itself.
 const bare = (t) => t.replace(/ (?:Thanks!|Appreciate it\.|Appreciate the help\.|Thanks in advance, appreciate it\.)$/, "");
 const items = JSON.parse(fs.readFileSync(new URL("./variations/items.json", import.meta.url))).filter((i) => i.direction === "toCorporate");

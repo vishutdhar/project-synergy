@@ -9,7 +9,8 @@ import {
 } from "./phrasebook.js";
 import { checkMeaning, setAllowedCaps, isShouting } from "./meaning.js";
 import { prepass, fixCollocations } from "./prepass.js";
-import { composeCSuite } from "./csuite.js";
+import { composeCSuite, intentOf } from "./csuite.js";
+import { topicOf, groupOf, l2Quip, setSource } from "./composer.js";
 import { applyVoice } from "./voice.js";
 import { CRUDE_SWAPS, canonicalizeCrude, hasCrude, cleanCrude } from "./profanity.js";
 import { conceptThemes, CONCEPT_LINES } from "./decode-concepts.js";
@@ -78,7 +79,11 @@ const CASUAL_WORDS = {
   any1: "anyone", some1: "someone", every1: "everyone", no1: "no one", teh: "the", recieved: "received", recieve: "receive", reveiw: "review", definately: "definitely",
   definitly: "definitely", seperate: "separate", wierd: "weird", untill: "until", alot: "a lot", wat: "what", wut: "what", wht: "what", becuase: "because", becasue: "because",
   tho: "though", thru: "through", ppl: "people", pplz: "people", govt: "government", abt: "about", appt: "appointment", asap: "ASAP", eod: "EOD", eow: "EOW",
-  amirite: ", right?", afk: "offline", dawg: "", bruh: "", fam: "", sus: "questionable", borked: "broken", yeeted: "scrapped", wanna: "want to", lol: "", lmao: "", lmfao: "", rofl: "", haha: "", hahaha: "", hehe: "", smh: "", fr: "", omg: "wow,", omfg: "wow,", ugh: "", ughh: "", welp: "",
+  gtg: "I have to go,", g2g: "I have to go,", icymi: "in case you missed it,", fwiw: "for what it's worth,", afaik: "as far as I know,", afaict: "as far as I can tell,",
+  iirc: "if I remember correctly,", tbf: "to be fair,", wdyt: "what do you think", hmu: "let me know", ttyl: "talk to you later", ofc: "of course", nbd: "no worries",
+  yw: "you're welcome", hbu: "how about you?", qq: "quick question:", imma: "I'm going to", ima: "I'm going to", bday: "birthday", ik: "I know", ikr: "I know, right?",
+  atm: "at the moment", bbl: "be back later", otw: "on the way", idts: "I don't think so", gm: "good morning", pto: "PTO", wip: "WIP",
+  amirite: ", right?", afk: "offline", jk: "just kidding,", tyvm: "thanks so much", tysm: "thank you so much", irl: "in real life,", dawg: "", bruh: "", fam: "", sus: "questionable", borked: "broken", yeeted: "scrapped", wanna: "want to", lol: "", lmao: "", lmfao: "", rofl: "", haha: "", hahaha: "", hehe: "", smh: "", fr: "", omg: "wow,", omfg: "wow,", ugh: "", ughh: "", welp: "",
 };
 const CASUAL_RE = new RegExp(`(?<![\\w'/@.:-])(${Object.keys(CASUAL_WORDS).map(escapeRe).join("|")}|ha(?:ha)+h?|ugh+|lo+l+)(?![\\w'/@-]|\\.\\w)`, "gi");
 const DAYS = /\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|january|february|april|june|july|august|september|october|november|december)\b/g;
@@ -92,6 +97,8 @@ const QUESTION_START = /^(?!what an? |how (?:wonderful|nice|great|exciting|fun|g
 export function normalizeCasual(text) {
   let t = String(text);
   t = t.replace(EMOJI, " ").replace(EMOTICON, " ");
+  // Round 10: work-chat shorthand that isn't a single word.
+  t = t.replace(/\btl;? ?dr\b:?,?\s*/gi, "In short, ").replace(/\bquick q\b(?!\w)/gi, (m) => m[0] + "uick question").replace(/\bq for you\b/gi, "question for you");
   t = t.replace(CASUAL_RE, (m) => {
     const key = m.toLowerCase();
     let rep = CASUAL_WORDS[key];
@@ -101,6 +108,7 @@ export function normalizeCasual(text) {
     if (/^[A-Z]/.test(m) && /^[a-z]/.test(rep)) rep = rep[0].toUpperCase() + rep.slice(1);
     return rep;
   });
+  t = t.replace(/,\s*,/g, ",");
   // "your late" / "your welcome" / "your right" mean "you're".
   t = t.replace(/\b([Yy])our (late|welcome|right|wrong|going|not|so|still|the best|amazing|awesome|killing|kidding|joking|on mute|muted|up next|good|all set|fine|done|out|back|in charge|correct|always|never|being|a lifesaver|the man|a star)\b/g, "$1ou're $2");
   t = t.replace(/\bb (there|back|right|ready|late|home|in|online|on)\b/gi, "be $1");
@@ -622,12 +630,23 @@ export function toCorporateDetailed(input, opts = {}) {
   const seed = opts.seed ?? 1;
   const rng = mulberry32(hashString(r.text) ^ Math.imul((seed >>> 0) + 17, 2654435761) ^ (lvl * 131));
   const voiced = polishCase(tidy(applyVoice(r.text, lvl, { raw: String(input), rng })));
-  if (voiced === r.text) return r;
+  if (voiced === r.text) return lvl === 2 && r.fallback !== "plain" ? { ...r, text: withQuip(r.text, prepass(canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim()), rng) } : r;
   const ref = canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim();
   const without = (t) => (r.unsafe ?? []).reduce((x, d) => x.replace(d, " "), t);
   const check = checkMeaning(without(prepass(ref)), voiced);
   if (!check.ok || hasCrude(voiced)) return r;
-  return { ...r, text: voiced, check };
+  return { ...r, text: lvl === 2 ? withQuip(voiced, prepass(ref), rng) : voiced, check };
+}
+
+// Round 10: Middle Manager gets a light, topical aside on statements, so it is mildly funny too.
+function withQuip(text, ref, rng) {
+  if (/[?\n]/.test(text) || text.split(/\s+/).length > 28 || /[.!]\s+\S+[^.!?]*[.!]\s+\S/.test(text) && text.split(/(?<=[.!?])\s+/).length > 2) return text;
+  setSource(ref);
+  const intent = intentOf(ref, text.replace(/^[A-Z][\w' -]{1,30}:\s+/, ""));
+  const q = l2Quip(topicOf(ref), groupOf(intent), rng, intent);
+  if (!q || q.toLowerCase().split(/\W+/).some((w) => w.length >= 6 && text.toLowerCase().includes(w.slice(0, 6)))) return text;
+  const out = `${text.replace(/\s*(?:Sharing for visibility|Just keeping everyone in the loop|Wanted to keep this on everyone's radar|Wanted to make sure this is on everyone's radar|Flagging so it stays on the radar|Raising it for visibility)\.$/, "")} ${q}`;
+  return checkMeaning(ref, out).ok ? out : text;
 }
 
 function corporateCore(input, { level = 2, seed = 1, raw = false } = {}) {
@@ -706,14 +725,14 @@ function levelPolish(text, lvl, clean) {
       .replace(/^(?:Just to let you know, )?(this|that|it) needs more work\.$/i, (_m, w) => `I think ${w.toLowerCase()} needs more work.`)
       .replace(/^I see (it|this|that|the [\w-]+) differently\.$/, "I see $1 a bit differently.")
       .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z']+) (.+)\.$/, (m, v, r) => (/\bThank you\b|\bthanks\b/i.test(r) || /^(?:really )?(?:saved|rescued|helped|covered)$/.test(v) || /^(?:saved|rescued|helped|covered)\b/.test(r) ? m : /\b(?:great|excellent|amazing|fantastic|awesome|well|outstanding|brilliant)\b|\b(?:killed|crushed|nailed|rocked|smashed|aced) it\b|^(?:killed|crushed|nailed|rocked|smashed|aced)\b/.test(`${v} ${r}`) ? `You ${v} ${r}. Thank you.` : `I've noticed you ${v} ${r}.`))
-      .replace(/^Just to let you know, your (.+)\.$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Your ${r}. Great work.` : `I noticed that your ${r}.`))
+      .replace(/^Just to let you know, your (.+)\.$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome|thorough|detailed|solid|insightful|sharp)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Your ${r}. Great work.` : `I noticed that your ${r}.`))
       .replace(/^It looks like (the [\w-]+ (?:says|said|reports|reported|mentioned)) /, (_m, r) => `${r[0].toUpperCase()}${r.slice(1)} `)
       .replace(/^Be (on time|there|ready|prepared|careful)\b/, "Please be $1")
       .replace(/^Great (presentation|talk|demo|session|pitch|deck|write-up|meeting|catch-up|call)( today| yesterday)?\.$/i, (_m, n, w) => `That was a great ${n.toLowerCase()}${w ?? ""}.`)
       .replace(/^Just to let you know, ([A-Z][a-z]+)'s ([\w ]+) is a game changer\.$/, "$1's $2 is excellent. Great work, $1.");
     // Praise that names someone gets a thank-you ("Marco saved the demo today. Thank you, Marco.").
     const nm = t.match(/^([A-Z][a-z]+) (saved|crushed|nailed|rescued|fixed|closed|shipped|landed|did) /);
-    if (nm && !/\bthank/i.test(t) && !/^(?:The|This|That|We|They|It|There|Our|My|Your|I)$/.test(nm[1])) t = `${t} Thank you, ${nm[1]}.`;
+    if (nm && !/\bthank/i.test(t) && !/\?/.test(t) && !/^(?:The|This|That|We|They|It|There|Our|My|Your|I|Where|What|Who|Why|When|How|Which|Whose|Did|Does|Has|Have)$/.test(nm[1])) t = `${t} Thank you, ${nm[1]}.`;
   }
   if (lvl === 2) {
     t = t.replace(/^(?:For visibility|Heads-up|Quick heads-up|Quick flag): Unfortunately, /, "Flagging that ")
@@ -724,7 +743,7 @@ function levelPolish(text, lvl, clean) {
       .replace(/^(?:For visibility|Heads-up|Quick heads-up): (?:my apologies|apologies|sorry)\b,?\s*/i, "Apologies ")
       .replace(/^Apologies (for|about)\b/, "Apologies $1").replace(/^Apologies (?!for|about)/, "Apologies, ")
       .replace(/^(?:Quick heads-up|Heads-up|For visibility): you (?!could|can|should)([a-z']+) /, "Some candid feedback: I've noticed you $1 ")
-      .replace(/^(?:Quick heads-up|Heads-up|For visibility): your (.+)$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Kudos, your ${r}` : `Some candid feedback: your ${r}`))
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): your (.+)$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome|thorough|detailed|solid|insightful|sharp)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Kudos, your ${r}` : `Some candid feedback: your ${r}`))
       .replace(/^(?:For visibility|Heads-up): I(?:'m| am) (burnt out|burned out|exhausted|tired|frustrated|stressed|overwhelmed)/, "Candidly, I'm $1")
       .replace(/^(?:For visibility|Heads-up): (I'd rather|I prefer|I'd prefer|I see)\b/, "My two cents: $1")
       .replace(/^(?:For visibility|Quick heads-up): great (presentation|talk|demo|session|pitch|deck|write-up)/i, "Kudos on a great $1")
@@ -800,7 +819,8 @@ function postPolish(text, lvl, clean) {
       .replace(/^(They|He|She) (want|wants|need|needs|asked|said|think|thinks) /, (_m, w, v) => `Just to let you know, ${w.toLowerCase()} ${v} `);
   }
   if (lvl === 2) {
-    t = t.replace(/^For visibility: Understood\./, "Understood, and noted.")
+    t = t.replace(/^(?:Hi team, |Hi, )(all|everyone|team)!$/, "Hi, $1! Hope everyone is having a good day.")
+      .replace(/^For visibility: Understood\./, "Understood, and noted.")
       .replace(/^For visibility: no, (we're|I'm) not ([a-z]+ing)\b/, (_m, w, v) => `That's a no from ${w === "I'm" ? "me" : "us"}: ${w === "I'm" ? "I" : "we"} won't be ${v}`)
       .replace(/^For visibility: I'd like to (.+)$/, "Heads-up: I'd like to $1")
       .replace(/^(?:Quick heads-up|Heads-up): ((?:the|our) [\w ]*team (?:caught|fixed|solved|shipped) .+)$/, "Kudos: $1")
@@ -843,6 +863,13 @@ function levelFloorInner(input, clean, text, lvl, seed) {
       const typedLower = w && new RegExp(`(?:^|[^A-Za-z'])${w.toLowerCase()}\\b`).test(String(input));
       if (/^[^.!?]+\?$/.test(text)) return `Quick question: ${lowerFirst(text, { force: true })}`;
       if (/^(?:Thank you|Thanks)\b/.test(text)) return text.replace(/^(?:Thank you|Thanks)\b,?\s*/, "Huge thanks, ");
+      let gm;
+      if ((gm = text.match(/^Good (morning|afternoon|evening), ([\w']+)[.!]$/))) return `Good ${gm[1]}, ${gm[2]}! Hope everyone has a productive ${gm[1] === "evening" ? "evening" : "day"}.`;
+      if (/^Have a (?:good|great|nice) (?:one|day|evening|night)!$/.test(text)) return `${text} Enjoy the rest of your day.`.replace(/(evening|night)! Enjoy the rest of your day\./, "$1! See you tomorrow.");
+      if ((gm = text.match(/^Hi, (all|team|everyone)[.!]$/))) return `Hi, ${gm[1]}! Hope everyone is having a good day.`;
+      if ((gm = text.match(/^Welcome (aboard|to the team), ([A-Z][\w'-]*)[.!]$/))) return `Welcome ${gm[1]}, ${gm[2]}! Really glad to have you on the team.`;
+      if (/^(?:OK|Okay|Ok|Cool|Great|Perfect)(?:,? (?:cool|great|perfect|got it))?,? (?:thank you|thanks)[.!]$/i.test(text)) return "Sounds good. Thanks so much!";
+      if ((gm = text.match(/^Happy (birthday|anniversary|work anniversary), ([A-Z][\w'-]*)[.!]$/))) return `Happy ${gm[1]}, ${gm[2]}! Wishing you a fantastic year ahead.`;
       if (/^(?:Good|Best of) luck\b/.test(text)) return text.replace(/^(?:Good|Best of) luck\b/, "Wishing you the best of luck");
       const gw = text.match(/^Great (?:work|job), but please (.+?)\.?$/i);
       if (gw) return `Great work. Quick ask: could you ${gw[1]}?`;
@@ -968,6 +995,7 @@ export function bluntNo(text) {
   return [`It's a no from ${Who}.`, `${lead} said no. It's a flat no.`, `${lead} said no. Not a maybe, a no.`];
 }
 
+const BROAD_ALIKE = { hedge: ["deflection", "vague"], departure: ["new-chapter", "leader-exit"], layoffs: ["layoff-you", "outsourcing", "acquisition-layoffs"], delay: ["no-raises"], "no-raises": ["delay"], "hiring-freeze": ["budget-freeze", "cost-cuts"], "budget-freeze": ["hiring-freeze", "cost-cuts"], shutdown: ["sunset"], rejection: ["deflection"], performance: ["pip"], problem: ["pip", "performance", "bad-results", "incident", "outage", "miss", "layoffs", "layoff-you", "shutdown", "cost-cuts", "budget-freeze", "hiring-freeze", "deflection"], benefits: ["cost-cuts", "no-raises", "budget-freeze"], "cost-increase": ["cost-cuts"] };
 export function toNormal(input, { level = 2, seed = 1 } = {}) {
   const lvl = clampLevel(level);
   const clean = normalizeInput(input).trim();
@@ -995,8 +1023,16 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       if (!allSkipped && isGreetingOrSignature(sentence)) continue;
       total++;
       // Round 9: the plain news with its facts (news.js). Good news and temporary closures don't score themes.
-      const news = readNews(sentence);
-      const themes = news && (news.tone === "good" || news.id === "fyi") ? detectThemes(sentence).filter((id) => id === "record-year") : detectThemes(sentence);
+      let news = readNews(sentence);
+      // Round 10b: the broad keyword families only speak when no older, more specific detector did.
+      // When the older detector agrees on the family, its wording wins; when it disagrees, the keyword family is the closer read.
+      // Exception: delay, benefits, shutdown and price families keep the keyword wording, which names the thing ("The release is delayed").
+      if (news && news.broad) {
+        const th = detectThemes(sentence);
+        const sameOnly = /^(?:delay|benefits|shutdown|cost-increase|budget-freeze)$/.test(news.id) && th.every((id) => id === news.id);
+        if (!sameOnly && th.some((id) => id === news.id || (BROAD_ALIKE[news.id] ?? []).includes(id))) news = null;
+      }
+      const themes = news && news.broad ? [] : news && (news.tone === "good" || news.id === "fyi") ? detectThemes(sentence).filter((id) => id === "record-year") : detectThemes(sentence);
       for (const id of themes) scores.set(id, (scores.get(id) ?? 0) + themeById[id].weight);
       if (!news) for (const id of themes) plainThemes.add(id);
       if (news) {

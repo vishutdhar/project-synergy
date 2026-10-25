@@ -114,6 +114,12 @@ function expand(block) {
 // Bare swear words have no entry on purpose: a word-for-word swap is how "fuck all" became "mess all".
 const PHRASES = `
 !{fuck|shit|jack shit|dick|bugger|naff|sod} all = nothing = nothing at all = nothing of substance
+!{a|this|that|the} shit {idea|plan|proposal|design|take|call|decision|approach|deal} = $1 bad $2 = $1 weak $2 = $1 $2 with significant headroom
+!useless crap = useless = of little use = delivering minimal measurable value
+!{really|totally|completely|royally|seriously} fucked {the|this|that|our|my|his|her|their|your|up the} = $1 wrecked $2 = $1 derailed $2 = $1 materially derailed $2
+!fucked {the|this|that|our|my|his|her|their|your} = wrecked $1 = derailed $1 = materially derailed $1
+!{bullshitting|bullshit|lying to} {the|our|this|that|your|their} = misleading $2 = misleading $2 = giving $2 inaccurate information
+!bored out of {my|his|her|their|our} {skull|mind|head|brains|gourd} = really bored = extremely bored = profoundly under-stimulated
 !{half-ass|half ass|halfass} it = do the bare minimum = put in minimum viable effort = deliver a strategically minimum viable effort
 !{half-ass|half ass|halfass} = do the bare minimum on = put minimum viable effort into = deliver a strategically minimum viable effort on
 !talks out of {his|her|their} ass = makes things up = speaks without data = shares bold, data-free conviction
@@ -194,7 +200,7 @@ const PHRASES = `
 !{fuck|mess} with = mess with = interfere with = disrupt
 !fucking with = messing with = interfering with = disrupting
 !fucked with = messed with = interfered with = disrupted
-!{fuck|screw|dick} around = mess around = waste time = engage in low-value activity
+!{fuck|screw|dick} around = kill time = waste time = engage in low-value activity
 !stop {bitching|whining|moaning} and = let's move past the complaints and = let's move from concerns to action and = let's pivot from concerns to execution and
 !stop {fucking|screwing|dicking} around and = let's focus and = let's get focused and = let's prioritize execution and
 !{fucking|screwing|dicking} around = messing around = wasting time = engaging in low-value activity

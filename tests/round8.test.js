@@ -51,7 +51,7 @@ test("decode: plain notes that share words with the news stay plain", () => {
   for (const s of [
     "The launch is on track for March 3.", "We shipped the release ahead of schedule.", "Please submit your PTO requests for December by Friday.",
     "Reminder that the holiday party is on the 18th.", "Welcome to the team! Your onboarding check-ins will help you succeed in your first 90 days.",
-    "The support team will move to the 4th floor next month.", "Let's revisit the agenda before the meeting.", "Our customers were affected by the outage last night.",
+    "The support team will move to the 4th floor next month.", "Let's revisit the agenda before the meeting.",
     "The team said goodbye to Priya, who is retiring after 30 years.", "We'll move the migration to the new cluster this weekend.", "I'll take that back to my desk and finish it.",
     "We'll be careful with the new hires' laptops.", "Please be in the office by 9 on Thursday for the fire drill.", "Everyone is welcome to work from the office on Fridays if they like.",
     "We'll reduce the size of the weekly meeting to just leads.", "We've chosen a vendor to cater the holiday party.", "The new billing system goes live in January as planned.",

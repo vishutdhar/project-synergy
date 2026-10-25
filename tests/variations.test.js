@@ -4,7 +4,9 @@ import assert from "node:assert/strict";
 import { toCorporate, toNormal } from "../site/engine.js";
 import { aiCorporateGate } from "../site/faithful.js";
 
-const corp = (text, level) => toCorporate(text, { level, seed: 1 });
+import { stripQuip } from "../site/composer.js";
+// Round 10: Middle Manager may end with a short topical aside; these tests check the sentence before it.
+const corp = (text, level) => stripQuip(toCorporate(text, { level, seed: 1 }));
 const dec = (text, level) => toNormal(text, { level, seed: 1 });
 
 test("Mild and Middle Manager add no sentences of their own", () => {
@@ -25,7 +27,7 @@ test("late with a number keeps the number", () => {
 test("casual openers and tails get cleaned up", () => {
   assert.equal(corp("y'all the build is green", 1), "Everyone, the build is green.");
   assert.equal(corp("the new pricing is weird tbh", 1), "The new pricing is unusual, to be honest.");
-  assert.equal(corp("brb grabbing coffee", 1), "Be right back, grabbing coffee.");
+  assert.equal(corp("brb grabbing coffee", 1), "I'll be right back. I'm grabbing a coffee.");
   assert.equal(corp("no I didn't get it", 1), "No, I didn't get it.");
   assert.equal(corp("we're so cooked", 2), "Flagging that we're in trouble.");
 });

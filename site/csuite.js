@@ -1,4 +1,5 @@
 import { isKnownName } from "./prepass.js";
+import { topicOf, groupOf, inflate, topicFrame, topicCloser, topicClosers, setSource } from "./composer.js";
 // Full C-Suite composer (see shortfalls/max-corporate.md).
 // Shape: [strategic frame] + [the user's point, nominalized and buzzworded] + [a closer that fits the intent].
 // The point comes from the Mild rewrite, which already keeps every no, number, name, date and question.
@@ -99,7 +100,7 @@ const UPGRADES = [
   [/\bis useless\b/g, "is not delivering meaningful value"],
   [/\bget organized\b/g, "tighten up their operational rigor"],
   [/\bthreatening to walk\b/g, "signaling meaningful churn risk"],
-  [/\b[Bb]e right back\b/g, (m) => (m[0] === "B" ? "Stepping away briefly" : "stepping away briefly")],
+  [/\bI'll be right back\b/g, "I'll be stepping away briefly"], [/\b[Bb]e right back\b/g, (m) => (m[0] === "B" ? "Stepping away briefly" : "stepping away briefly")],
   [/\btakes forever\b/g, "carries significant cycle-time headwinds"],
   [/\bran (\d+ (?:minutes|mins|min|hours?)) over\b/g, "exceeded its timebox by $1"],
   [/\bhas gotten worse\b/g, "has been trending in the wrong direction"],
@@ -166,6 +167,11 @@ const PERSONAL = /^(?:I'm|I am|I'll|I will|I've|I have|I was|My)\b.*\b(?:going h
 
 export function intentOf(clean, core) {
   const c = clean.trim();
+  core = String(core ?? "").replace(/^In short, /, "");
+  // Round 10: "no problem" agrees, and status-of-me lines are personal, not problems.
+  if (/^(?:no problem|no worries|np)\b/i.test(c) && !/\?/.test(c)) return "social";
+  if (/^(?:looks good to me|LGTM|sounds good|works for me|approved|ship it)\b/i.test(c) && !/\b(?:but|except)\b|\?/.test(c)) return "approve";
+  if (/^(?:out of office|OOO|working from home|WFH|I'm working (?:from home|remotely)|offline for|afk|I have to go|be right back|brb|logging off|signing off)\b/i.test(c) && !/\?/.test(c)) return "personal";
   // Grief and illness get a plain, kind frame. No jokes about funerals.
   if (/\b(?:funeral|passed away|bereavement|hospital|hospitali[sz]ed|surgery|emergency room|ER visit|threw up|throwing up|miscarriage|memorial service|lost my (?:mom|dad|mother|father|grandma|grandpa|grandmother|grandfather|brother|sister|wife|husband|partner|son|daughter|dog|cat))\b/i.test(c)) return "sensitive";
   if (/^(?:cheers|thx|ty|many thanks|much appreciated)\b/i.test(c) && !/\?/.test(c)) return "thanks";
@@ -185,7 +191,7 @@ export function intentOf(clean, core) {
   if (/^Welcome back\b/.test(core)) return "thanks";
   if (/^(?:Huge )?[Cc]ongratulations on (?:the|your) (?:new baby|wedding|engagement|new home|retirement)\b/.test(core)) return "thanks";
   if (/\b(?:did an? (?:great|fantastic|excellent|outstanding) job|great catch|handled [\w' -]{1,30} (?:really |very |so )?well|(?:really|super|very|so) (?:helpful|useful)|[Ww]elcome (?:to|aboard)|nailed|crushed|killed it|smashed it|knocked it out|saved (?:us|our|the|me|my)|shout-?out|big thank-you)\b/.test(core) && !NEG.test(core)) return "praise";
-  if (/^(?:You|Your)\b/.test(core) && /\b(?:is|are|was|looks) (?:really |very |so )?(?:clear|great|good|excellent|amazing|fantastic|awesome|helpful|thoughtful)\b/.test(core)) return "praise";
+  if (/^(?:You|Your)\b/.test(core) && /\b(?:is|are|was|were|looks|look) (?:always |consistently |)(?:really |very |so |super |incredibly )?(?:clear|great|good|excellent|amazing|fantastic|awesome|helpful|thoughtful|thorough|detailed|solid|clean|insightful|kind|sharp|fast)\b/.test(core) && !NEG.test(core)) return "praise";
   if (/^(?:You|Your)\b/.test(core) && !/\?/.test(core) && !WIN.test(core)) return "feedback";
   if (/^I(?:'ve)? noticed\b/.test(core)) return "feedback";
   if (/^(?:Okay, thank you|Thank you|Thanks|Noted|Never mind|Please disregard|That makes sense|That sounds|Sounds good|Got it)\b/.test(core) && core.split(/\s+/).length <= 6) return "social";
@@ -194,8 +200,10 @@ export function intentOf(clean, core) {
   if (/^(?:I believe|I think|I don't (?:think|believe|agree)|I disagree|I'd prefer|I prefer|I'd rather|I'd suggest|I see|I'm not (?:yet )?aligned)\b/.test(core) || /\bshould\b/.test(core) && !NEG.test(core)) return "opinion";
   if (/^I (?:really |absolutely )?(?:like|love|appreciate)\b/.test(core) && !NEG.test(core)) return "praise";
   if (/^(?:Great|Outstanding|Huge|Big thanks|Big thank|Really (?:good|great|strong|nice) (?:work|job)|Amazing (?:work|job)|Awesome (?:work|job)|Excellent (?:work|job)|Fantastic (?:work|job)|Thank|Thanks|Congrat|Happy|Nice|Kudos|Shoutout|A big thank|Well done|Good (?:job|work))/i.test(core) || /^[A-Z][a-z]+(?:'s [a-z]+)? (?:saved|crushed|nailed|rocked|is a game changer|is a lifesaver)\b/.test(core) || /\b(?:is|are|looks|was) (?:awesome|excellent|great|amazing|fantastic|truly best-in-class|really good|really clear)\b/.test(core) && !NEG.test(core) || /\b(?:was|is) an? (?:great|fantastic|excellent|amazing|awesome) \w+/.test(core) && !NEG.test(core)) return "praise";
+  if (/\b(?:bill|bills|costs?|spend|expenses?|prices?|churn|latency|errors?|complaints?|tickets|bugs|outages?|turnover|rent|fees?|response times?|load times?|wait times?|build times?|downtime|defects?|incidents?|crashes|cost)\b[\w ]{0,20}\b(?:doubled|tripled|quadrupled|went up|increased|spiked)\b/i.test(core)) return "problem";
+  if (/\b(?:wrecked|derailed|misleading|crashed|giving up on|broke|is broken|messed up|mishandled)\b/.test(core) && !/\b(?:fixed|resolved)\b/.test(core)) return "problem";
   if (/\b(?:doubled|tripled|quadrupled)\b|\bno (?:issues|errors|problems|downtime|incidents)\b|\bwith zero (?:errors|issues|problems|downtime)\b|\bbeat (?:the |our )?(?:forecast|target|goal|estimate|plan)\b/.test(core) && !/\b(?:not|still|but)\b|n't\b/.test(core)) return "win";
-  if (/\b(?:is live|went live|is back up|(?:dropped|down|fell) to (?:zero|0)|\b(?:backlog|bug count|ticket count|churn|latency|error rate)\b[\w ]{0,20}\b(?:is |was )?(?:down|dropped|fell) to \d+)\b/.test(core) && !/\b(?:not|still|again|but)\b|n't\b/.test(core)) return "win";
+  if (/\b(?:is live|went live|is back up|(?:dropped|down|fell) to (?:zero|0)|\b(?:backlog|bug count|defect count|ticket count|issue count|open bugs|open tickets|churn|latency|error rate|response time|load time|queue)\b[\w ]{0,20}\b(?:is |was )?(?:down|dropped|fell) to \d+)\b/.test(core) && !/\b(?:not|still|again|but)\b|n't\b/.test(core)) return "win";
   if (PROBLEM.test(core) || NEG.test(core)) return "problem";
   if (WIN.test(core)) return "win";
   return "status";
@@ -262,6 +270,10 @@ const FRAMES = {
     (s) => `In the spirit of radical candor and growth, I want to surface an observation: ${lowerFirst(s)}`,
     (s) => `Leaning into a feedback-rich culture, one development opportunity: ${lowerFirst(s)}`,
   ],
+  approve: [
+    (s) => `After rigorous strategic review and deep reflection: ${lowerFirst(s)}`,
+    (s) => `Having pressure-tested this against our north star: ${lowerFirst(s)}`,
+  ],
   status: [
     (s) => `Circling back with a strategic update: ${lowerFirst(s)}`,
     (s) => `Quick download for full alignment: ${lowerFirst(s)}`,
@@ -281,6 +293,7 @@ const CLOSERS = {
   sensitive: ["Thank you for understanding.", "Thank you for your understanding.", "Thanks for understanding."],
   personal: ["Sustainable performance is a long game.", "You can't pour from an empty cup.", "Wellbeing is our north star."],
   feedback: ["Feedback is a gift, and this one comes gift-wrapped.", "Growth is a journey we're on together.", "Feedback is a gift."],
+  approve: ["Decisiveness is a leadership competency.", "Velocity is a choice."],
   social: ["Fully aligned.", "Appreciate the alignment.", "Onward."],
   welcome: ["Excited for the journey ahead.", "The future is bright."],
   thanks: ["Deeply grateful for the partnership.", "Gratitude is a core value.", "Appreciate you."],
@@ -340,6 +353,8 @@ export function composeCSuite({ clean, mild, middle, rng, raw = clean }) {
       : ["Focus is how we win.", "Let's keep the momentum going."];
     return `${out}\n\n${pick(rng, closer)}`;
   }
+  // A bare greeting gets a grand wish, not a status frame.
+  if (/^(?:Good (?:morning|afternoon|evening)|Morning|Hi|Hey|Hello)(?:,? (?:all|everyone|team|folks))?[.!]*$/.test(core)) return `${core.replace(/[.!]*$/, "").replace(/ (all|everyone|team|folks)$/, ", $1")}! Wishing the full stakeholder ecosystem a high-impact, synergy-rich day.`;
   // Questions keep the direct question from Middle Manager ("Who owns this?").
   if (intent === "question" && middle) {
     const m = middle.replace(L2_LABEL, "");
@@ -356,7 +371,7 @@ export function composeCSuite({ clean, mild, middle, rng, raw = clean }) {
   // "Wow, we hit our target" -> the frame already carries the excitement.
   core = core.replace(/^(?:Oh|Ha|Good news),\s+(?=[a-z])/, "");
   // The frame already says "in the spirit of radical transparency", so "Frankly," doesn't stack on it.
-  core = core.replace(/^(?:Frankly|Candidly|Honestly|To be honest|Truthfully),\s+(?=[a-z])/, "");
+  core = core.replace(/^(?:Frankly|Candidly|Honestly|To be honest|Truthfully),\s+(?=[a-z]|I\b|I')/, "");
   core = core[0].toUpperCase() + core.slice(1);
   // A statement followed by a question ("I finished the draft. Could you review it?") is framed as the statement.
   let closerIntent = intent;
@@ -366,7 +381,12 @@ export function composeCSuite({ clean, mild, middle, rng, raw = clean }) {
     intent = /^(?:question|request)$/.test(i2) ? "status" : i2;
     closerIntent = "request";
   }
-  core = upgrade(core);
+  core = inflate(upgrade(core));
+  // Round 10: frame and closer keyed to topic as well as intent, so the joke fits the message.
+  const topic = topicOf(clean);
+  setSource(clean);
+  const topical = /^(?:problem|win|status|personal|request|question|opinion)$/.test(intent);
+  const group = /^Good news: .+ Bad news: /.test(core) ? "bad" : groupOf(intent);
   // Short one-word answers ("Sounds good.") read as a strategic stance.
   const lowCore = core.toLowerCase();
   const framePool = (FRAMES[intent] ?? FRAMES.status).filter((f) => !f("x").toLowerCase().split(/\W+/).some((w) => w.length >= 5 && !STOP.has(w) && lowCore.includes(w)));
@@ -375,10 +395,15 @@ export function composeCSuite({ clean, mild, middle, rng, raw = clean }) {
   if (/^(?:That|Those|Stop|Please|Let's|Don't|Quit|Keep|Make|Get|Go|Send|Fix|Check|Ask|Tell)\b/.test(core) && pool.some((f) => !/that x$/.test(f("x")))) pool = pool.filter((f) => !/that x$/.test(f("x")));
   // An exclamation ("Wow, ...") only follows a colon, never "share that".
   if (/^(?:Wow|Whoa),/.test(core)) pool = pool.filter((f) => /: x$/.test(f("x"))).concat([(x) => `Excited to share a key win: ${lowerFirst(x)}`]).slice(0, 3);
+  // "Good news: X. Bad news: Y." is a balanced scorecard, not a win.
+  const mixed = /^Good news: .+ Bad news: /.test(core);
+  if (mixed) pool = [(x) => `Presenting a balanced scorecard, in the spirit of radical transparency. ${x}`];
   let frame = pick(rng, pool);
+  const tf = topical && !mixed && !/^(?:Wow|Whoa),/.test(core) ? topicFrame(topic, group, rng) : null;
+  if (tf) frame = (x) => tf(lowerFirst(x));
   if (framedRequest) frame = (x) => x;
   const firstWords = core.split(/(?<=[.!?])\s+/)[0].split(/\s+/).length;
-  if (intent !== "thanks" && (firstWords <= 2 || /^(?:Okay|OK|Sure|Understood|Noted|Got it|Sounds good|No problem|Never mind|That works for me\.?$)/.test(core))) frame = pick(rng, [(x) => `Net-net: ${x}`, (x) => `Bottom line, from a strategic lens: ${x}`, (x) => `Level-setting for full alignment: ${x}`]);
+  if (intent !== "thanks" && (firstWords <= 2 || /^(?:Okay|OK|Sure|Understood|Noted|Got it|Sounds good|No problem|Never mind|That works for me\.?$)/.test(core))) frame = pick(rng, [(x) => `Net-net: ${lowerFirst(x)}`, (x) => `Bottom line, from a strategic lens: ${lowerFirst(x)}`, (x) => `Level-setting for full alignment: ${lowerFirst(x)}`]);
   // A greeting stays first: "Hi team, <frame> ...".
   let greeting = "";
   const gm = core.match(/^((?:Hi|Hey|Hello|Good morning|Good afternoon)(?: [A-Za-z]+(?: [a-z]+)?)?,)\s+(?=\S)/);
@@ -389,7 +414,10 @@ export function composeCSuite({ clean, mild, middle, rng, raw = clean }) {
   if (/:\s/.test(parts[0]) && /:\s/.test(head.slice(0, head.length - parts[0].length + 2))) head = head.replace(/:\s/, ", ");
   let text = [head, ...parts.slice(1)].join(" ");
   if (!/[.!?]$/.test(text)) text += ".";
-  const closers = (CLOSERS[closerIntent === "request" ? "request" : intent] ?? CLOSERS.status).filter((c) => !c.toLowerCase().split(/\W+/).some((w) => w.length >= 5 && !STOP.has(w) && text.toLowerCase().includes(w)));
+  const tc = topical && closerIntent !== "request" ? topicClosers(topic, group) : [];
+  const closers = (tc.length ? tc.filter((c) => !c.toLowerCase().split(/\W+/).some((w) => w.length >= 6 && text.toLowerCase().includes(w.slice(0, 6)))) : CLOSERS[closerIntent === "request" ? "request" : intent] ?? CLOSERS.status).filter((c) => !c.toLowerCase().split(/\W+/).some((w) => w.length >= 5 && !STOP.has(w) && text.toLowerCase().includes(w)));
+  const fresh = (c) => !c.toLowerCase().split(/\W+/).some((w) => w.length >= 5 && !STOP.has(w) && text.toLowerCase().includes(w.slice(0, 6)));
+  if (!closers.length && tc.length) closers.push(...topicClosers("general", group).filter(fresh));
   if (closers.length) text += " " + pick(rng, closers);
   return text.replace(/\bthat that\b/g, "that").replace(/\b([a-z]{3,}) \1\b/g, (m, w) => (w === "had" ? m : w)).replace(/\s{2,}/g, " ").replace(/\.\./g, ".").replace(/!\./g, "!");
 }
