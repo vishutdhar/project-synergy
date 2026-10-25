@@ -81,7 +81,7 @@ const CASUAL_WORDS = {
   tho: "though", thru: "through", ppl: "people", pplz: "people", govt: "government", abt: "about", appt: "appointment", asap: "ASAP", eod: "EOD", eow: "EOW",
   gtg: "I have to go,", g2g: "I have to go,", icymi: "in case you missed it,", fwiw: "for what it's worth,", afaik: "as far as I know,", afaict: "as far as I can tell,",
   iirc: "if I remember correctly,", tbf: "to be fair,", wdyt: "what do you think", hmu: "let me know", ttyl: "talk to you later", ofc: "of course", nbd: "no worries",
-  yw: "you're welcome", hbu: "how about you?", qq: "quick question:", imma: "I'm going to", ima: "I'm going to", bday: "birthday", ik: "I know", ikr: "I know, right?", brt: "be right there", bbiab: "be back in a bit", tyt: "take your time", ftr: "for the record", sgtm: "sounds good",
+  yw: "you're welcome", hbu: "how about you?", wdym: "what do you mean", wyd: "what are you doing", qq: "quick question:", imma: "I'm going to", ima: "I'm going to", bday: "birthday", ik: "I know", ikr: "I know, right?", brt: "be right there", bbiab: "be back in a bit", tyt: "take your time", ftr: "for the record", sgtm: "sounds good",
   atm: "at the moment", bbl: "be back later", otw: "on the way", idts: "I don't think so", gm: "good morning", pto: "PTO", wip: "WIP",
   amirite: ", right?", afk: "offline", jk: "just kidding,", tyvm: "thanks so much", tysm: "thank you so much", irl: "in real life,", dawg: "", bruh: "", fam: "", sus: "questionable", borked: "broken", yeeted: "scrapped", wanna: "want to", lol: "", lmao: "", lmfao: "", rofl: "", haha: "", hahaha: "", hehe: "", smh: "", fr: "", omg: "wow,", omfg: "wow,", ugh: "", ughh: "", welp: "",
 };
@@ -110,7 +110,7 @@ export function normalizeCasual(text) {
   });
   t = t.replace(/,\s*,/g, ",");
   // "your late" / "your welcome" / "your right" mean "you're".
-  t = t.replace(/\b([Yy])our (late|welcome|right|wrong|going|not|so|still|the best|amazing|awesome|killing|kidding|joking|on mute|muted|up next|good|all set|fine|done|out|back|in charge|correct|always|never|being|a lifesaver|the man|a star)\b/g, "$1ou're $2");
+  t = t.replace(/\b([Yy])our (free|busy|available|around|online|late|welcome|right|wrong|going|not|so|still|the best|amazing|awesome|killing|kidding|joking|on mute|muted|up next|good|all set|fine|done|out|back|in charge|correct|always|never|being|a lifesaver|the man|a star)\b/g, "$1ou're $2");
   t = t.replace(/\bb (there|back|right|ready|late|home|in|online|on)\b/gi, "be $1");
   t = t.replace(/^\s*bet\s*[.!]*\s*$/i, "Sounds good.").replace(/^\s*rip\s*[.!]*\s*$/i, "That's unfortunate.");
   t = t.replace(/\bthe vibes (in|at|on|of|during) ([^.!?,]*?) (?:were|are) off\b/gi, "the mood $1 $2 was off").replace(/\bvibes? (?:were|are|was|is) off\b/gi, "mood was off");

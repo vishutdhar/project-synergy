@@ -137,29 +137,29 @@ const TOPIC_FRAMES = {
   people: { bad: [F("Surfacing a stakeholder-alignment opportunity:")], neutral: [F("A quick stakeholder-ecosystem update:")], good: [F("Celebrating a win for our stakeholder ecosystem:")], ask: [F("Raising a stakeholder-related ask:")] },
 };
 const TOPIC_CLOSERS = {
-  away: { any: ["Presence is a mindset, not a location.", "Availability is a journey, not a destination."] },
+  away: { any: ["Presence is a mindset, not a location.", "Availability is a journey, not a destination.", "My out-of-office reply has been briefed on our north star."] },
   coffee: { any: ["Caffeine is a key enabler of shareholder value.", "Our caffeine strategy remains under active review."] },
-  food: { any: ["Nourishment is a strategic priority.", "A well-fueled team is a high-performing team."] },
+  food: { any: ["Nourishment is a strategic priority.", "A well-fueled team is a high-performing team.", "Snacks remain a core pillar of our culture."] },
   sleep: { any: ["My bandwidth is currently running in low-power mode.", "Rest is a deliverable."] },
   feelings: { any: ["Vulnerability is a leadership competency.", "Feelings are data."] },
   meetings: { bad: ["Our calendars remain our most over-leveraged asset.", "Alignment is a journey, and apparently a long one."], any: ["Our calendars remain our most over-leveraged asset.", "Alignment is a journey."] },
   inbox: { bad: ["Async excellence remains an aspiration.", "Every notification is a stakeholder."], any: ["Async excellence remains an aspiration.", "Every notification is a stakeholder."] },
   tech: { bad: ["Our technology roadmap remains, as ever, aspirational.", "Resilience is a muscle, and so, apparently, is patience."], good: ["Operational excellence, delivered.", "The flywheel is spinning."], any: ["Our technology roadmap remains, as ever, aspirational.", "Innovation never sleeps, and neither does this backlog."] },
   money: { bad: ["Every dollar is a stakeholder.", "Fiscal discipline is a journey."], good: ["Shareholder value, unlocked.", "Every dollar is a stakeholder."], any: ["Every dollar is a stakeholder.", "Fiscal discipline is a journey."] },
-  docs: { any: ["Documentation remains our most ambitious long-term vision.", "Knowledge is a shared asset, in theory."] },
+  docs: { any: ["Documentation remains our most ambitious long-term vision.", "Knowledge is a shared asset, in theory.", "This document is now a living, breathing, slightly confused organism."] },
   scope: { any: ["Scope is a living, breathing, ever-growing organism.", "Agility is a core value, and today it is being tested."] },
-  deadline: { any: ["Time remains our scarcest resource.", "Punctuality is a journey, not a destination."] },
-  office: { any: ["The workplace experience remains a journey, not a destination.", "Our physical ecosystem remains a work in progress."] },
+  deadline: { any: ["Time remains our scarcest resource.", "Punctuality is a journey, not a destination.", "The clock remains our toughest stakeholder."] },
+  office: { any: ["The workplace experience remains a journey, not a destination.", "Our physical ecosystem remains a work in progress.", "Facilities has been looped in, spiritually."] },
   people: { bad: ["Stakeholder alignment is a journey.", "We grow through friction."], good: ["This is what a high-performing culture looks like.", "Teamwork makes the dream work."], any: ["Stakeholder alignment is a journey.", "We are all on the same team, structurally."] },
 };
 // Funnier generic closers by family, used when the topic has none.
 const GENERIC_CLOSERS = {
-  bad: ["Every setback is a setup for a comeback.", "Adversity is just opportunity in a hard hat.", "We remain cautiously optimistic about everything."],
-  good: ["The flywheel is spinning.", "This is what happens when vision meets execution.", "History will remember this moment."],
-  neutral: ["No synergies were harmed in the making of this strategic update.", "Please treat this update as a strategic asset.", "This has been a thought leadership moment.", "Synergy remains on track."],
+  bad: ["Every setback is a setup for a comeback.", "Adversity is just opportunity in a hard hat.", "We remain cautiously optimistic about everything.", "This is fine, strategically speaking."],
+  good: ["The flywheel is spinning.", "This is what happens when vision meets execution.", "History, and the quarterly scorecard, will remember this moment.", "Please hold your applause until the end of the quarter."],
+  neutral: ["No synergies were harmed in the making of this strategic update.", "Please treat this update as a strategic asset.", "Consider yourselves strategically informed.", "This message has been optimized for maximum alignment."],
   personal: ["Sustainable performance is a long game.", "You can't pour from an empty cup.", "Self-care is a strategic KPI."],
   ask: ["Grateful for your partnership on this.", "Appreciate you leaning in on this.", "Your partnership is our competitive advantage."],
-  opinion: ["Iron sharpens iron.", "Strong opinions, loosely held."],
+  opinion: ["Iron sharpens iron.", "Strong opinions, loosely held.", "Respectfully, and with maximum thought leadership."],
 };
 
 const pick0 = (rng, xs) => xs[Math.floor(rng() * xs.length)];

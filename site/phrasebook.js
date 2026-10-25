@@ -142,6 +142,7 @@ oh great = oh great = oh, wonderful = how exciting
 !^great = nice = excellent = world-class
 !awesome = great = excellent = a total game changer
 amazing = really good = outstanding = transformational
+!smells weird = smells odd = smells off = is emitting an unplanned aroma
 !weird = unusual = unexpected = non-standard
 !cheap = affordable = cost-effective = capital efficient
 !expensive = pricey = costly = capital intensive
@@ -385,6 +386,7 @@ money talk = money talk = budget discussion = capital allocation dialogue
 the plan = the plan = the roadmap = the strategic roadmap
 a plan = a plan = a roadmap = a strategic roadmap
 i need to = I need to = I have to = I have a strategic imperative to
+no problem at all = no problem at all = happy to help = happy to unlock value
 no problem = no problem = happy to help = happy to unlock value
 a raise = a raise = a compensation adjustment = a total rewards recalibration
 make sure = make sure = make sure = ensure
@@ -1030,7 +1032,7 @@ export const THEMES = [
   {
     id: "cost-cuts",
     weight: 5,
-    patterns: [/cost (?:discipline|optimization|reduction|savings|cutting)/i, /\bcut(?:ting)? costs?\b/i, /efficienc/i, /streamlin/i, /do more with less/i, /\bleaner\b/i, /spend(?:ing)? (?:less|wisely|discipline)/i, /(?<!\b(?:bigger|larger|higher|increased|expanded|new) )\bbudget(?!s? (?:has|have) been (?:doubled|increased|raised|expanded))(?! is now \$)/i, /prudent/i],
+    patterns: [/cost (?:discipline|optimization|reduction|savings|cutting)/i, /\bcut(?:ting)? costs?\b/i, /efficienc/i, /streamlin/i, /do more with less/i, /\bleaner\b/i, /spend(?:ing)? (?:less|wisely|discipline)/i, /(?<!\b(?:bigger|larger|higher|increased|expanded|new) )(?<!\b(?:doubling|increasing|raising|expanding|boosting|doubled|tripling) (?:the |our |your |a )?(?:[\w-]+ )?)\bbudget(?!s? (?:has|have) been (?:doubled|increased|raised|expanded))(?! is now \$)/i, /prudent/i],
     summary: ["The company is cutting spending.", "They're cutting costs.", "They're cutting costs, and you are a cost."],
     line: ["Spending is being cut.", "They want to spend less money.", "They're cutting costs."],
   },

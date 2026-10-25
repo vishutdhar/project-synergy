@@ -282,8 +282,8 @@ const FRAMES = {
     (s) => `Having pressure-tested this against our north star: ${lowerFirst(s)}`,
   ],
   status: [
-    (s) => `Circling back with a strategic update: ${lowerFirst(s)}`,
-    (s) => `Quick download for full alignment: ${lowerFirst(s)}`,
+    (s) => `Circling back on this strategic update, as promised to no one: ${lowerFirst(s)}`,
+    (s) => `Cascading this down from the 30,000-foot view: ${lowerFirst(s)}`,
     (s) => `In the spirit of radical transparency, ${lowerFirst(s)}`,
     (s) => `Cascading a mission-critical update to the broader organization: ${lowerFirst(s)}`,
     (s) => `Pursuant to our ongoing commitment to stakeholder over-communication: ${lowerFirst(s)}`,
