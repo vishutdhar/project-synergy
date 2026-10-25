@@ -96,6 +96,9 @@ export function aiCorporateGate(input, reply, { level = 2 } = {}) {
   if (!check.ok) return { ok: false, reason: "meaning", check };
   // Round 5: the stricter meaning checks built for the fine-tuned model apply to AI mode too.
   if (polarityFlip(basis, reply)) return { ok: false, reason: "polarity", check };
+  // Round 9: "Who cares about X?" can't come back as "Why do you care about X?".
+  const wh = basis.trim().match(/^(who|what|when|where|why|how|which)\b/i)?.[1]?.toLowerCase();
+  if (wh && !new RegExp(`\\b${wh}\\b`, "i").test(reply)) return { ok: false, reason: "meaning", check: { ...check, ok: false, lost: [...(check.lost ?? []), "question"] } };
   if (unitChanged(basis, reply).length || dayChanged(basis, reply)) return { ok: false, reason: "meaning", check };
   if (requestBroken(basis, reply) || declineBroken(basis, reply)) return { ok: false, reason: "request", check };
   if (lostIdioms(input, reply).length > 0 || (needsFaithCheck(input) && !faithfulToCrude(input, reply, { level }).ok)) return { ok: false, reason: "idiom", check };

@@ -28,7 +28,9 @@ for (const [i, d] of DECODE.entries()) {
     if (d.label) assert.equal(r.signal.label, d.label);
     for (const id of d.also ?? []) assert.ok(r.themes.includes(id), `missing ${id}`);
     // The summary leads with the signal: the top theme's own summary, or a combo line about it.
-    if (themeById[d.signal] && !d.also) assert.ok(r.summary.startsWith(themeById[d.signal].summary[d.level - 1]), r.summary);
+    // Round 9: a sentence with a plain news line (news.js) leads with that line, which names the actual change.
+    const newsLead = r.lines.some((l) => l.news && r.summary.startsWith(l.plain));
+    if (themeById[d.signal] && !d.also) assert.ok(newsLead || r.summary.startsWith(themeById[d.signal].summary[d.level - 1]), r.summary);
     if (d.signal === "none" || d.signal === "fluff") assert.equal(r.themes.length, 0);
     else assert.doesNotMatch(r.summary, /says what it says|Nothing hidden|Nothing to decode/);
   });

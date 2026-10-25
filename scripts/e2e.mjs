@@ -185,7 +185,7 @@ await check("example memo decodes with a Layoffs headline, and the summary leads
   await page.waitForSelector(".summary");
   assert.equal(await text(page, ".signal-label"), "Layoffs");
   assert.equal(await page.$eval(".signal", (el) => el.dataset.tone), "bad");
-  assert.match(await text(page, ".summary"), /^What they really mean: We're laying people off/);
+  assert.match(await text(page, ".summary"), /^What they really mean: (?:We're laying people off|About \d+% of the company is getting laid off)/);
   const items = await page.$$eval("ol.decode li", (lis) => lis.length);
   assert.ok(items >= 8, `lines: ${items}`);
   assert.match(await page.$eval("#input", (el) => el.value), /Corvane/);
@@ -219,7 +219,7 @@ await check("Blunt chip re-runs with blunt wording", async () => {
   await page.focus("#level-2");
   await page.keyboard.press("ArrowRight");
   await page.waitForFunction(() => document.querySelector("#level-3").checked);
-  await page.waitForFunction(() => document.querySelector(".summary").textContent.includes("firing"));
+  await page.waitForFunction(() => /firing|laying off/.test(document.querySelector(".summary").textContent));
 });
 
 await check("share link is an x.com intent with the summary and app link, under 280", async () => {

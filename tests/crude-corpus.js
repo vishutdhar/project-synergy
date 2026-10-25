@@ -7,8 +7,8 @@ const NOT_DONE = { test: (t) => /\b(?:completed|accomplished|achieved|delivered|
 
 export const CRUDE = [
   // The original 38
-  { in: "the plan is to fuck off all day today", has: ["today"], must: /slack|recharge|low-output|deprioritize/i },
-  { in: "This is bullshit.", has: [], must: /right|concern|reservation/i },
+  { in: "the plan is to fuck off all day today", has: ["today"], must: /recharge|low-output|low bandwidth|take it easy|deprioritize/i },
+  { in: "This is bullshit.", has: [], must: /right|concern|reservation|credible|hold up|grounded in/i },
   { in: "He's an idiot.", has: [], must: /careless|learning|growth/i },
   { in: "Screw this.", has: [], must: /fed up|revisit|aligned/i },
   { in: "I don't give a shit.", has: [], must: /n't|not/i },
@@ -80,7 +80,7 @@ export const CRUDE = [
   { in: "Stop bullshitting me about the numbers.", has: [], must: /mislead|straight|transparen|inaccurate/i },
   { in: "I'm calling bullshit on that estimate.", has: [], must: /push(?:ing)? back|challeng/i },
   // Things being bad
-  { in: "The new expense tool sucks.", has: [], must: /great|frustrat|underindex/i },
+  { in: "The new expense tool sucks.", has: [], must: /great|frustrat|underindex|not good|underperform|underindex|quality bar/i },
   { in: "The demo sucked, honestly.", has: [], must: /great|frustrat|underindex/i },
   { in: "I suck at Excel, can someone help?", has: ["?"], must: /struggle|underindex/i },
   { in: "It sucks that we lost the Acme deal.", has: ["Acme"], must: /unfortunate|disappointing|suboptimal/i },

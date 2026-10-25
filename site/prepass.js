@@ -208,6 +208,7 @@ export function restoreArticle(sentence) {
   // Round 8: "legal still hasn't reviewed it": "still" is an adverb, so the head is "legal".
   const words = m[1].split(" ").filter((w, i, a) => i === 0 || !/^(?:still|just|already|never|always|also|finally|really|now|totally|basically|apparently|literally|actually)$/i.test(w));
   if (NOT_HEAD.test(words[0]) && words.length === 1) return sentence;
+  if (/^(?:half|most|both|none|several|many|few|each|either|neither|two|three|four|five|\d+)$/i.test(words[0])) return sentence;
   // A bare metric ("conversion dropped", "uptime was 99.2%") reads fine with no article.
   if (words.length === 1 && /^(?:conversion|conversions|revenue|churn|retention|engagement|usage|attendance|morale|latency|uptime|growth|demand|headcount|turnover|adoption|productivity|velocity|throughput|spend|signups)$/i.test(words[0])) return sentence;
   if (/^(?:is|are|was|were|do|does|did|can|could|will|would|should|has|have|had|am|i|we|you|they|he|she|it|this|that|there|my|our|your|their|the|a|an|no|any|some|every|all|what|who|whose|whom|why|how|where|when|which|just|so|and|but|also|still|maybe|please|let's|lets|pls)$/i.test(words[0])) return sentence;
@@ -346,12 +347,69 @@ function round7(t) {
     .replace(/^(?:jesus(?: h\.?)? christ|for (?:god's|fuck's|pete's|christ's) sake|oh my god|good god|ugh+)[,.!]*\s+(?=\S)(.*)$/i, (m, rest) => (NEG_CUE.test(rest) || /\b(?:again|changed|moved|still|why)\b/i.test(rest) ? `Unfortunately, ${rest}` : m));
 }
 
+// Round 9: bare status fragments become full sentences before anything else reads them.
+const cap1 = (x) => x[0].toUpperCase() + x.slice(1);
+export function round9(line) {
+  let t = line, m;
+  if ((m = t.match(/^have an? (good|great|nice|lovely|restful) (weekend|evening|holiday|break)(?:,? (?:all|everyone|team|folks|y'all|guys))?[.!]*$/i))) return `Have a ${m[1].toLowerCase()} ${m[2].toLowerCase()}, everyone!`;
+  // Subjectless chat fragments get their "I" back so every level reads as a sentence.
+  t = t
+    .replace(/^(?:gonna|going to) (?=[a-z])/i, "I'm going to ")
+    .replace(/^thinking (of|about) /i, "I'm thinking $1 ")
+    .replace(/^(?:might|may) just /i, (x) => `I ${x.toLowerCase()}`)
+    .replace(/^((?:sorry|apologies|my bad|oops),?\s+)(totally |completely |just )?forgot\b/i, "$1I $2forgot")
+    .replace(/^(?:pretty much |basically )?done for (the day|the week|today)\b/i, (x) => `I'm ${x.toLowerCase()}`)
+    .replace(/^(no|nope|nah),?\s+not (\w+ing)\b/i, (_x, n, g) => `${n === "nah" ? "No" : cap1(n)}, I'm not ${g}`)
+    .replace(/^(slacking off|coasting|disappearing|chilling|phoning it in|pretending)\b/i, "I'm $1")
+    .replace(/^(no|nope|nah|sorry|unfortunately),?\s+(can't|won't|cannot|will not)\b/i, (_x, n, v) => `${/^n/i.test(n) ? "No" : cap1(n.toLowerCase())}, I ${v}`)
+    .replace(/^(.*\b(?:is|was|got|are|were|'s)\b[^,]*),\s*(will not|won't|can't|cannot) (make|be|join|attend)\b/i, "$1, so I $2 $3")
+    .replace(/,\s*no energy\b/i, ", and I have no energy")
+    .replace(/,\s*didn't (sleep|eat)\b/i, " because I didn't $1")
+    .replace(/,\s*(kid|son|daughter|dog|wife|husband|partner) (is|has)\b/i, " because my $1 $2")
+    .replace(/,\s*(?:have|got) (a|an) (flight|appointment|dentist appointment|doctor's appointment|train to catch)\b/i, " because I have $1 $2")
+    .replace(/\bbeing a (?:total |real |complete |huge )?pain(?: in the (?:ass|butt|neck))?\b/i, "being very difficult")
+    .replace(/\bcringe as (?:fuck|hell|shit)\b/i, "really awkward").replace(/\b(really|so|super) cringe\b/i, "$1 awkward")
+    .replace(/\s+like you wouldn't believe\b/i, " so badly");
+  const end = (x) => (/[.!?]$/.test(x) ? x : `${x}.`);
+  if ((m = t.match(/^(?:the )?(contract|deal|PO|invoice|SOW|NDA|offer|PR|budget)(?: with ([A-Z][\w&.-]*))? (signed|paid|approved|closed|sent|merged|done)(?: with ([A-Z][\w&.-]*))?[.!]*$/i))) {
+    const n = /^(?:po|sow|nda|pr)$/i.test(m[1]) ? m[1].toUpperCase() : m[1].toLowerCase();
+    const w = m[2] ?? m[4];
+    return `The ${n}${w ? ` with ${w}` : ""} is ${m[3].toLowerCase()}.`;
+  }
+  if ((m = t.match(/^(slides|deck|report|draft|notes|tests|docs|deploy|release|migration|backlog)\s+(done|finished|ready|shipped)[.!]*$/i))) return `The ${m[1].toLowerCase()} ${/s$/.test(m[1]) && !/ss$/.test(m[1]) ? "are" : "is"} ${m[2].toLowerCase()}.`;
+  if ((m = t.match(/^(?:my )?pr (?:is )?up for review[.!]*$/i))) return "My PR is up for review.";
+  if ((m = t.match(/^(?:the |my |our )?((?:[A-Za-z][\w-]* ){0,2}[A-Za-z][\w-]*) (sent|fixed|merged|deployed|shipped|done|updated|uploaded|booked|submitted|approved|closed|resolved|filed|scheduled|signed|paid|cancell?ed|canceled|published|posted|delivered|finished|completed|renewed|reverted|rolled back)[.!]*$/i)) && !/^(?:i|we|you|they|he|she|it|this|that|all|everything|nothing|just|got|get|been|be|is|are|was|were|has|have|had)$/i.test(m[1].split(" ")[0]) && !/\b(?:is|are|was|were|has|have|had|got|not|never)\b/i.test(m[1])) {
+    const n = /^(?:pr|po|sow|nda|qa|api|ui|ux)$/i.test(m[1]) ? m[1].toUpperCase() : m[1];
+    const pl = /s$/i.test(n) && !/(?:ss|us|is)$/i.test(n) && !/^(?:status|news|analysis)$/i.test(n);
+    if (/^done$/i.test(m[2])) return `The ${n} ${pl ? "are" : "is"} done.`;
+    return `The ${n} ${pl ? "have" : "has"} been ${m[2].toLowerCase()}.`;
+  }
+  if ((m = t.match(/^(?:i'll |i will |will )?be (there|back|online|on|in|out|over) in (\d+)(?: ?(min(?:ute)?s?|mins|sec(?:ond)?s?|hours?|hrs?))?,\s*(parking|driving|walking over|on my way|in the elevator|grabbing coffee)[.!]*$/i))) return `I'll be ${m[1].toLowerCase()} in ${m[2]} minutes. ${/^on my way$/i.test(m[4]) ? "I'm on my way" : `I'm ${m[4].toLowerCase()}`}.`;
+  if ((m = t.match(/^(?:i'll |i will |will )?be (there|back|online|on|in|out|over) in (\d+)(?: ?(min(?:ute)?s?|mins|sec(?:ond)?s?|hours?|hrs?))?[.!]*$/i))) return `I'll be ${m[1].toLowerCase()} in ${m[2]} ${/^h/i.test(m[3] ?? "") ? "hours" : /^s/i.test(m[3] ?? "") ? "seconds" : "minutes"}.`.replace(/in 1 (hours|minutes|seconds)/, (x, u) => `in 1 ${u.slice(0, -1)}`);
+  if ((m = t.match(/^back in (\d+)(?: ?(min(?:ute)?s?|mins))?[.!]*$/i))) return `I'll be back in ${m[1]} minutes.`;
+  if ((m = t.match(/^(?:i'm |i am )?not feeling it( today| this morning| this week)?(?:,\s*|\.\s+|$)(.*)$/i))) return `I'm low on energy${m[1] ?? ""}.${m[2] ? ` ${m[2].replace(/^working from bed/i, "I'm working from bed")}` : ""}`;
+  if ((m = t.match(/^(?:i )?can't be bothered (?:with|to do) (.+?)(?: (today|tomorrow|this week))?[.!]*$/i))) return `I don't have the energy for ${m[1]}${m[2] ? ` ${m[2]}` : ""}.`;
+  if ((m = t.match(/^(skipping|going home|heading out|heading home|leaving|logging off|signing off|stepping away|stepping out|grabbing|working from|taking|bailing on)\b(.*)$/i))) return `I'm ${m[1].toLowerCase()}${m[2]}`;
+  if ((m = t.match(/^call in (\d+)(?: ?min(?:ute)?s?)?[.!]*$/i))) return `The call starts in ${m[1]} minutes.`;
+  if ((m = t.match(/^(meeting|standup|sync|call) (?:moved|pushed) to (\S+?)[.!]*$/i))) return `The ${m[1].toLowerCase()} moved to ${m[2]}.`;
+  if ((m = t.match(/^out (today|tomorrow|this afternoon|monday|tuesday|wednesday|thursday|friday|next week)[.!]*$/i))) return `I'm out ${m[1]}.`;
+  if (/^all good now[.!]*$/i.test(t)) return "Everything is good now.";
+  if ((m = t.match(/^(?:my )?(train|bus|flight|subway|ferry)(?:'s| is) (?:delayed|late|stuck),? (?:I'll |will )?be there in (\d+)(?: ?min(?:ute)?s?)?[.!]*$/i))) return `My ${m[1].toLowerCase()} is delayed. I'll be there in ${m[2]} minutes.`;
+  if ((m = t.match(/^(?:gonna|going to|I'm gonna|I'm going to|I'll) be late (?:to|for) (.+?)[.!]*$/i))) return `I'm going to be late for ${m[1]}.`;
+  if (/^on it[.!]*$/i.test(t)) return "I'm on it.";
+  if (/^lunch\?+$/i.test(t)) return "Does anyone want lunch?";
+  if ((m = t.match(/^(?:does )?any ?(?:one|body) want (lunch|coffee|pizza|tacos|food|a coffee)\?*$/i))) return `Does anyone want ${m[1].toLowerCase()}?`;
+  if ((m = t.match(/^accepting the offer from ([A-Z][\w&.-]*)(.*)$/))) return `I'm accepting the offer from ${m[1]}${m[2]}`;
+  t = t.replace(/\bwith no (errors|issues|problems|downtime)\b/gi, "with zero $1");
+  return t;
+}
+
 export function prepass(clean, nested = false) {
   // Line by line so lists keep their shape. Only prose lines are touched.
   return clean.split("\n").map((line) => {
     if (/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s+/.test(line) || !line.trim()) return line;
     const lead = line.match(/^\s*/)[0];
-    let t = round6(round7(round8(fixNamesAndTools(line.trim())))).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
+    let t = round6(round7(round8(round9(fixNamesAndTools(line.trim()))))).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
     const sents = t.split(/(?<=[.!?])\s+(?=[A-Za-z])/);
     t = sents.map((s, i) => {
       const sar = desarcasm(s);
@@ -388,7 +446,7 @@ export function prepass(clean, nested = false) {
       // "quit leaving dishes" means stop.
       s = s.replace(/^(?:please )?quit ([a-z']+ing)\b/i, "stop $1");
       // Bare "pass on X" is a decline.
-      if ((mm = s.match(/^(?:I'll |gonna |going to |I'm going to |I'm gonna )?pass on (?:the )?(.+?)[.!]*$/i))) return `I'll pass on the ${mm[1].replace(/^the /i, "")}.`;
+      if ((mm = s.match(/^(?:I'll |gonna |going to |I'm going to |I'm gonna )?pass on (?:the )?(.+?)[.!]*$/i))) return /^\w+ing\b/i.test(mm[1]) ? `I'll pass on ${mm[1]}.` : `I'll pass on the ${mm[1].replace(/^the /i, "")}.`;
       // "refund approved, let the customer know" -> status + request.
       if ((mm = s.match(/^(?:the )?([a-z][\w -]{2,30}?) (approved|done|merged|shipped|fixed|sent|signed|confirmed|booked|ready),\s*(let|tell|ping|email|update|notify|ask|loop in|cc) (.+?)[.!]*$/i))) return `The ${mm[1]} is ${mm[2].toLowerCase()}. Could you ${mm[3].toLowerCase()} ${mm[4]}?`;
       // "office closed monday for the holiday": a place closed on a day is a schedule, not past news.

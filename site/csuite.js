@@ -25,7 +25,8 @@ const L2_LABEL = /^(?:Quick (?:heads-up|question|ask|flag|win|update)|Heads-up|K
 
 // Phrase upgrades. Each one keeps its grammatical slot (verb phrase for verb phrase, noun for noun).
 const UPGRADES = [
-  [/\b(is|are) down\b/g, (_m, v) => `${v} experiencing ${v === "is" ? "an availability headwind" : "availability headwinds"}`],
+  [/\b(sales|revenue|signups|bookings|traffic|conversion|margins?|numbers) (?:are|is) down (\d+(?:\.\d+)?%)/gi, "$1 have realigned downward by $2"],
+  [/\b(is|are) down\b(?! \d| by| to\b)/g, (_m, v) => `${v} experiencing ${v === "is" ? "an availability headwind" : "availability headwinds"}`],
   [/\b(is|are) (?:broken|not working)\b/g, (_m, v) => `${v} experiencing ${v === "is" ? "a reliability headwind" : "reliability headwinds"}`],
   [/\b(is|are) (?:slow|loading slowly|really slow)\b/g, (_m, v) => `${v} experiencing latency headwinds`],
   [/\bis too slow to\b/g, "lacks the velocity to"],
@@ -119,32 +120,71 @@ const UPGRADES = [
   [/\b(?:is|are) (?:annoyed|frustrated)\b(?= and\b)/g, (m) => `${m.split(" ")[0]} experiencing real friction`],
 ];
 
+// Round 9 satire lexicon: the plain thing, dressed up in the grandest corporate words that still mean it.
+const SATIRE = [
+  [/\bthe wifi\b(?! password)/gi, "our connectivity infrastructure"], [/\bmy internet died\b/gi, "my connectivity infrastructure experienced an unplanned outage"],
+  [/\bI need coffee\b/g, "I need a strategic caffeine intervention"],
+  [/\bI took a (?:rest|nap|recharge) at lunch\b/g, "I completed a strategic rest cycle at lunch"],
+  [/\bI fell asleep in the call\b/g, "I entered an unplanned low-power mode during the call"],
+  [/\bI deleted the\b/g, "I unintentionally sunset the"],
+  [/\breinventing the wheel\b/g, "reimagining the wheel from first principles"],
+  [/\bthrowing (?:funds|money|budget|cash) at this and nothing is working\b/g, "deploying significant capital against this with no measurable ROI"],
+  [/\bgot (\d+) leads\b/g, "generated a highly exclusive $1 leads"], [/\b[Ww]e spent (\$[\d,.]+k?)/g, (m, a) => `${m[0]}e invested ${a}`],
+  [/\bbabysitting this project\b/g, "providing round-the-clock stewardship for this initiative"],
+  [/\bis eating our lunch\b/g, "is capturing our market share"], [/\bwe're sitting on our hands\b/g, "we're maintaining a strategic holding pattern"],
+  [/\bpretend I didn't see that email\b/g, "strategically deprioritize that email"],
+  [/\bunread Slack messages\b/g, "unread Slack messages awaiting my thought leadership"],
+  [/\bhaven't eaten\b/g, "haven't had a chance to refuel"],
+  [/\bthis call is dragging\b/g, "this call has moved past its value curve"],
+  [/\bcompletely forgot about\b/g, "completely lost visibility on"], [/\btotally forgot about\b/g, "completely lost visibility on"],
+  [/\bI double-booked\b/g, "I accidentally double-committed my calendar"],
+  [/\bI snapped at you\b/g, "I communicated with more intensity than intended"],
+  [/\b(?:the |this )(delivery deadline|deadline|due date) is unrealistic\b/gi, (m, d) => `${m.split(" ")[0]} ${d} is, respectfully, not anchored in reality`],
+  [/\bmakes no sense\b/g, "lacks a coherent through-line"],
+  [/\bwill break everything\b/g, "carries enterprise-wide breakage risk"],
+  [/\bwe keep changing priorities every week\b/gi, (m) => `${m[0]}e keep pivoting our priorities on a weekly cadence`],
+  [/\bis asking for far too much\b/g, "is expanding scope at an impressive velocity"],
+  [/\b([Oo])ur standup\b/g, "$1ur daily alignment ritual"], [/\bI'm drowning in (emails|email|work|tickets|meetings|requests|Slack messages)\b/g, "I'm navigating an unprecedented inbound volume of $1"], [/\bsneak out at\b/g, "discreetly transition out of the office at"], [/\b(?:and )?nobody will notice\b/g, "with minimal stakeholder visibility"], [/\bkeeps stealing my ([\w ]+?) from the fridge\b/g, "keeps reallocating my $1 from the shared refrigeration ecosystem without my sign-off"], [/\btake six weeks to buy a mouse\b/g, "require a six-week procurement journey to acquire a single mouse"],
+  [/\bI'm hungry\b/g, "I'm running low on fuel"],
+  [/\bI have no idea what I'm doing on\b/g, "I'm operating with significant ambiguity on"],
+  [/\bwants this yesterday\b/g, "has set a highly aggressive timeline: yesterday"],
+  [/\bwhoops, wrong channel\b/gi, "Apologies, this message was deployed to the wrong channel"],
+  [/\bfar too much work for one person\b/g, "a workload that would challenge a team of three, scoped for one person"],
+];
+
 export function upgrade(text) {
   let t = text;
   for (const [re, rep] of UPGRADES) t = t.replace(re, rep);
+  for (const [re, rep] of SATIRE) t = t.replace(re, rep);
   return t.replace(/\bdelivery delivery\b/g, "delivery").replace(/\balignment alignment\b/g, "alignment");
 }
 
 const NEG = /\b(?:not|no|never|nothing|nobody|can't|won't|don't|didn't|isn't|aren't|wasn't|unable|unfortunately)\b|n't\b/i;
 const PROBLEM = /\b(?:down|broken|broke|fail\w*|late|behind|slow\w*|stuck|wrong|error\w*|bug\w*|blocked|blocker|cut|over budget|short|lost|missed|jammed|outage|crash\w*|concern\w*|not thrilled|not ideal|not happy|not looking forward|frustrat\w*|exhausted|burnt out|burned out|headwind\w*|risk\w*|flaky|out of date|smells|ghost\w*|rejected|unread|double[- ]booked|thin|expired|dropping|red|impossible|unrealistic|annoyed|difficult|waste|too long|too busy|too much|out of service|sick|over our|right-sized|rough shape|freeze|stuck|ghosted|nobody|no one|keeps? dropping|can't log in|locked out|upset|mad|angry|confus\w*|mess\w*|worse|declin\w*|dropped|doubled|garbage|halt\w*|delay\w*|stopped responding|gone quiet|no budget|no designer|nothing (?:got|was)|out again|out of \w+|full|overdue|freez\w*|threaten\w*|longer than|flopp\w*|didn't work|halved|cancel\w*|overspent|rais\w+ prices|swamped|buried|at capacity|disconnect\w*|outdated|out of date|typos?|quit|hassle|nonsense|never repl\w*|pain|not credible|disorganized)\b|\b0 [a-z]+/i;
 const WIN = /\b(?:paid|renewed|under budget|ahead of schedule|closed (?:the|a|an|our) (?:deal|round|sale|contract)|closed (?:the|a|an|our) [\w-]+ (?:deal|round|sale|contract)|closed the [\w-]+ (?:deal|renewal)|shipped|launched|landed|achieved|reached|hit|record|signed|won|went (?:great|well|really well)|loved|finished|done|fixed|saved|passed|approved|resolved|milestone|congrat\w*|promotion|anniversary|kudos|great work|great job|outstanding|excellent|game changer|awesome|lifesaver|shoutout|shout-out|thank)\b/i;
-const PERSONAL = /^(?:I'm|I am|I'll|I will|I've|I have|I was|My)\b.*\b(?:late|behind|sick|PTO|out|off|leaving|back|working remotely|working from home|on my way|dentist|doctor|appointment|free|booked|available|burnt out|exhausted|break|online)\b/i;
+const PERSONAL = /^(?:I'm|I am|I'll|I will|I've|I have|I was|My)\b.*\b(?:going home|heading (?:out|home)|done for (?:today|the day|the week)|logging off|late|behind|sick|PTO|out|(?<!sign )off|leaving|back|working remotely|working from home|on my way|dentist|doctor|appointment|free|booked|available|burnt out|exhausted|break|online)\b/i;
 
 export function intentOf(clean, core) {
   const c = clean.trim();
+  // Grief and illness get a plain, kind frame. No jokes about funerals.
+  if (/\b(?:funeral|passed away|bereavement|hospital|hospitali[sz]ed|surgery|emergency room|ER visit|threw up|throwing up|miscarriage|memorial service|lost my (?:mom|dad|mother|father|grandma|grandpa|grandmother|grandfather|brother|sister|wife|husband|partner|son|daughter|dog|cat))\b/i.test(c)) return "sensitive";
+  if (/^(?:cheers|thx|ty|many thanks|much appreciated)\b/i.test(c) && !/\?/.test(c)) return "thanks";
   if (/^Thanks, but I'll (?:have to )?pass\b/.test(core)) return "decline";
   if (/^(?:sorry|apologies|my bad|oops|so sorry|my apologies)\b/i.test(c) || /^(?:Sorry|Apologies|Very sorry|So sorry)\b/.test(core)) return "apology";
+  if (/^what an? /i.test(c) && !/\?/.test(c)) return PROBLEM.test(core) || /\b(?:rough|bad|awful|terrible|long|tough|challenging|difficult)\b/i.test(core) ? "problem" : "win";
+  if (/^have an? (?:good|great|nice|lovely|wonderful|restful) (?:weekend|day|evening|night|holiday|break|one)\b/i.test(c)) return "social";
   if (/^(?:who|who's|whose|what|what's|when|where|why|how|which)\b/i.test(c)) return "question";
   if (/^(?:can|could|would|will) (?:you|someone|anyone|somebody|we|I get)\b/i.test(c) && !/^can I\b/i.test(c) || /^(?:Could|Would|Can) (?:you|someone|I get|we)\b/.test(core) || /^Please\b/.test(core)) return "request";
   if (/\?\s*$/.test(c) || /\?$/.test(core) && /^(?:Who|What|When|Where|Why|How|Which|Is|Are|Does|Do|Did|Can I|Has|Have|Could you let me know|Could you help me understand)\b/.test(core)) return "question";
   if (/^(?:I'm concerned|I'm not thrilled|I'm not looking forward|I'm not happy|That's not ideal|The timing isn't ideal|Unfortunately|I have \d+)\b/.test(core)) return "problem";
-  const DOING = /\b(?:make|do|doing|take|attend|join|help|commit|support|offer|be at|be there|sign|signing|cover|go|come|work|working|approve|give|move|fit)\b/i;
+  const DOING = /\b(?:make|do|doing|take|attend|join|help|commit|support|offer|be at|be there|sign|signing|cover|go|come|work|working|approve|approving|give|giving|move|fit|present|presenting|host|hosting|speak|speaking|rewrite|rewriting|hire|hiring|joining|attending|making|taking|coming|going|covering|helping)\b/i;
+  if (/^(?:absolutely not|hell no|no way|nope|not happening)\b/i.test(c) || /^(?:that's|that is) a (?:hard |firm |big )?no\b/i.test(c)) return "decline";
   if (/^(?:no|nope|not interested|hard pass|not this)\b/i.test(c) || /^(?:I|we)(?:'m| am|'re| are)? (?:not|can't|won't|cannot|will not)\b/i.test(c) && DOING.test(c) && !/\b(?:not sure|no idea)\b/i.test(c) || /^(?:I'll have to pass|I won't|We won't|We can't|I can't|We're not|I'm not|I'm unable|We're unable)\b/.test(core) && DOING.test(core)) return "decline";
   if (/^(?:Welcome|A warm welcome)\b(?! back)/.test(core)) return "welcome";
   if (/^[A-Z][a-z]+ (?:fixed|caught|solved|rescued|unblocked)\b/.test(core) && !/^(?:The|This|That|We|They|It|There|Our|My|Your|I)\b/.test(core) || /^(?:The|Our) [\w ]*team (?:caught|fixed|solved|shipped)\b/.test(core) || /\b(?:really|so) sharp\b/.test(core)) return "praise";
   if (/^Welcome back\b/.test(core)) return "thanks";
   if (/^(?:Huge )?[Cc]ongratulations on (?:the|your) (?:new baby|wedding|engagement|new home|retirement)\b/.test(core)) return "thanks";
-  if (/\b(?:did an? (?:great|fantastic|excellent|outstanding) job|great catch|handled [\w' -]{1,30} (?:really |very |so )?well|(?:really|super|very|so) (?:helpful|useful)|[Ww]elcome (?:to|aboard)|nailed|crushed|killed it|smashed it|knocked it out|saved (?:us|our|the)|shout-?out|big thank-you)\b/.test(core) && !NEG.test(core)) return "praise";
+  if (/\b(?:did an? (?:great|fantastic|excellent|outstanding) job|great catch|handled [\w' -]{1,30} (?:really |very |so )?well|(?:really|super|very|so) (?:helpful|useful)|[Ww]elcome (?:to|aboard)|nailed|crushed|killed it|smashed it|knocked it out|saved (?:us|our|the|me|my)|shout-?out|big thank-you)\b/.test(core) && !NEG.test(core)) return "praise";
   if (/^(?:You|Your)\b/.test(core) && /\b(?:is|are|was|looks) (?:really |very |so )?(?:clear|great|good|excellent|amazing|fantastic|awesome|helpful|thoughtful)\b/.test(core)) return "praise";
   if (/^(?:You|Your)\b/.test(core) && !/\?/.test(core) && !WIN.test(core)) return "feedback";
   if (/^I(?:'ve)? noticed\b/.test(core)) return "feedback";
@@ -154,7 +194,8 @@ export function intentOf(clean, core) {
   if (/^(?:I believe|I think|I don't (?:think|believe|agree)|I disagree|I'd prefer|I prefer|I'd rather|I'd suggest|I see|I'm not (?:yet )?aligned)\b/.test(core) || /\bshould\b/.test(core) && !NEG.test(core)) return "opinion";
   if (/^I (?:really |absolutely )?(?:like|love|appreciate)\b/.test(core) && !NEG.test(core)) return "praise";
   if (/^(?:Great|Outstanding|Huge|Big thanks|Big thank|Really (?:good|great|strong|nice) (?:work|job)|Amazing (?:work|job)|Awesome (?:work|job)|Excellent (?:work|job)|Fantastic (?:work|job)|Thank|Thanks|Congrat|Happy|Nice|Kudos|Shoutout|A big thank|Well done|Good (?:job|work))/i.test(core) || /^[A-Z][a-z]+(?:'s [a-z]+)? (?:saved|crushed|nailed|rocked|is a game changer|is a lifesaver)\b/.test(core) || /\b(?:is|are|looks|was) (?:awesome|excellent|great|amazing|fantastic|truly best-in-class|really good|really clear)\b/.test(core) && !NEG.test(core) || /\b(?:was|is) an? (?:great|fantastic|excellent|amazing|awesome) \w+/.test(core) && !NEG.test(core)) return "praise";
-  if (/\b(?:is live|went live|is back up|(?:dropped|down|fell) to (?:zero|0))\b/.test(core) && !/\b(?:not|still|again|but)\b|n't\b/.test(core)) return "win";
+  if (/\b(?:doubled|tripled|quadrupled)\b|\bno (?:issues|errors|problems|downtime|incidents)\b|\bwith zero (?:errors|issues|problems|downtime)\b|\bbeat (?:the |our )?(?:forecast|target|goal|estimate|plan)\b/.test(core) && !/\b(?:not|still|but)\b|n't\b/.test(core)) return "win";
+  if (/\b(?:is live|went live|is back up|(?:dropped|down|fell) to (?:zero|0)|\b(?:backlog|bug count|ticket count|churn|latency|error rate)\b[\w ]{0,20}\b(?:is |was )?(?:down|dropped|fell) to \d+)\b/.test(core) && !/\b(?:not|still|again|but)\b|n't\b/.test(core)) return "win";
   if (PROBLEM.test(core) || NEG.test(core)) return "problem";
   if (WIN.test(core)) return "win";
   return "status";
@@ -163,14 +204,14 @@ export function intentOf(clean, core) {
 const FRAMES = {
   problem: [
     (s) => `In the spirit of radical transparency, I want to surface that ${lowerFirst(s)}`,
-    (s) => `Surfacing a key learning from our journey: ${lowerFirst(s)}`,
-    (s) => `Zooming out to the 30,000-foot view, ${lowerFirst(s)}`,
-    (s) => `As we navigate a dynamic landscape, I want to flag that ${lowerFirst(s)}`,
+    (s) => `Flagging a growth opportunity in real time: ${lowerFirst(s)}`,
+    (s) => `Not every chapter is a highlight reel: ${lowerFirst(s)}`,
+    (s) => `Leaning into the discomfort here: ${lowerFirst(s)}`,
   ],
   win: [
-    (s) => `Humbled and thrilled to share that ${lowerFirst(s)}`,
-    (s) => `Excited to share a key win for the ecosystem: ${lowerFirst(s)}`,
-    (s) => `Taking a moment to celebrate a north-star win: ${lowerFirst(s)}`,
+    (s) => `Humbled and honored to share that ${lowerFirst(s)}`,
+    (s) => `I'm not crying, you're crying: ${lowerFirst(s)}`,
+    (s) => `Thrilled to announce a milestone moment: ${lowerFirst(s)}`,
   ],
   welcome: [
     (s) => `In the spirit of our people-first culture: ${lowerFirst(s)}`,
@@ -183,7 +224,7 @@ const FRAMES = {
   praise: [
     (s) => `Taking a beat to recognize exceptional impact: ${lowerFirst(s)}`,
     (s) => `In the spirit of a recognition-first culture: ${lowerFirst(s)}`,
-    (s) => `Calling out best-in-class execution: ${lowerFirst(s)}`,
+    (s) => `Pausing the roadmap to celebrate greatness: ${lowerFirst(s)}`,
   ],
   request: [
     (s) => `To unlock velocity on our shared priorities, a quick ask: ${lowerFirst(s)}`,
@@ -191,7 +232,7 @@ const FRAMES = {
   ],
   question: [
     (s) => `Seeking clarity on a key alignment point: ${lowerFirst(s)}`,
-    (s) => `To drive alignment across the ecosystem, a quick question: ${lowerFirst(s)}`,
+    (s) => `Asking for a friend, and for the roadmap: ${lowerFirst(s)}`,
     (s) => `Double-clicking on this for strategic clarity: ${lowerFirst(s)}`,
   ],
   decline: [
@@ -201,43 +242,49 @@ const FRAMES = {
   ],
   apology: [
     (s) => `In the spirit of radical accountability, I want to own this. ${cap(s)}`,
-    (s) => `Leaning into ownership and transparency: ${lowerFirst(s)}`,
+    (s) => `Owning my growth journey in public: ${lowerFirst(s)}`,
   ],
   opinion: [
     (s) => `From a strategic lens, ${lowerFirst(s)}`,
-    (s) => `Zooming out to the 30,000-foot view, ${lowerFirst(s)}`,
+    (s) => `Strong opinions, loosely held: ${lowerFirst(s)}`,
     (s) => `In the spirit of healthy debate and diversity of thought, ${lowerFirst(s)}`,
   ],
+  sensitive: [
+    (s) => `For awareness, ${lowerFirst(s)}`,
+    (s) => `For your awareness, ${lowerFirst(s)}`,
+    (s) => `Just so everyone is aware, ${lowerFirst(s)}`,
+  ],
   personal: [
-    (s) => `For full visibility and alignment, ${lowerFirst(s)}`,
-    (s) => `In the spirit of radical transparency, ${lowerFirst(s)}`,
+    (s) => `In the spirit of bringing my whole self to work, ${lowerFirst(s)}`,
+    (s) => `Practicing radical transparency about my bandwidth: ${lowerFirst(s)}`,
   ],
   feedback: [
     (s) => `In the spirit of radical candor and growth, I want to surface an observation: ${lowerFirst(s)}`,
     (s) => `Leaning into a feedback-rich culture, one development opportunity: ${lowerFirst(s)}`,
   ],
   status: [
-    (s) => `For full visibility across the ecosystem, ${lowerFirst(s)}`,
-    (s) => `Quick strategic download to drive alignment: ${lowerFirst(s)}`,
+    (s) => `Circling back with a strategic update: ${lowerFirst(s)}`,
+    (s) => `Quick download for full alignment: ${lowerFirst(s)}`,
     (s) => `In the spirit of radical transparency, ${lowerFirst(s)}`,
   ],
 };
 
 const CLOSERS = {
-  problem: ["We remain laser-focused on the path forward.", "Every headwind is a learning opportunity on this journey.", "We remain committed to operational excellence as we navigate this.", "Resilience is our north star."],
-  win: ["This is what value creation looks like.", "This is the flywheel in action.", "Let's keep this momentum going.", "Onward and upward."],
-  praise: ["This is what excellence looks like.", "This is exactly the kind of impact that defines us.", "This is what a high-performing culture looks like."],
+  problem: ["Every setback is a setup for a comeback.", "Resilience is a muscle, and we are training it.", "Every problem is an opportunity in disguise.", "We move forward, with humility."],
+  win: ["Teamwork makes the dream work.", "This is what happens when vision meets execution.", "The flywheel is spinning.", "Grateful for this incredible team. Onward."],
+  praise: ["This is what a high-performing culture looks like.", "Absolute rockstar energy.", "Teamwork makes the dream work."],
   request: ["Grateful for your partnership on this.", "Appreciate you leaning in on this.", "Thanks for driving value with me on this."],
-  question: ["Keen to hear your perspective.", "Grateful for any clarity here.", "Appreciate your thought partnership."],
-  decline: ["Protecting our focus is how we win.", "Focus is a strategic choice.", "Grateful for your understanding."],
-  apology: ["Owning this is part of the journey.", "Grateful for your patience and grace.", "Continuous improvement is our north star."],
-  opinion: ["Healthy debate is how we win.", "Diversity of thought is our competitive advantage.", "Keen to align on the path forward."],
-  personal: ["Grateful for your patience.", "Sustainable performance is how we win.", "Wellbeing is our north star."],
-  feedback: ["Growth is a journey we're on together.", "Psychological safety and high standards go hand in hand.", "Feedback is a gift."],
+  question: ["No wrong answers, only learning opportunities.", "Curious to hear the collective wisdom here.", "Grateful for any thought leadership on this."],
+  decline: ["Every no is a yes to focus.", "Focus is a strategic choice.", "Grateful for your understanding."],
+  apology: ["Failing forward, as always.", "Growth happens outside the comfort zone.", "Grateful for your patience and grace."],
+  opinion: ["Iron sharpens iron.", "Healthy debate is how we win.", "Diversity of thought is our competitive advantage."],
+  sensitive: ["Thank you for understanding.", "Thank you for your understanding.", "Thanks for understanding."],
+  personal: ["Sustainable performance is a long game.", "You can't pour from an empty cup.", "Wellbeing is our north star."],
+  feedback: ["Feedback is a gift, and this one comes gift-wrapped.", "Growth is a journey we're on together.", "Feedback is a gift."],
   social: ["Fully aligned.", "Appreciate the alignment.", "Onward."],
   welcome: ["Excited for the journey ahead.", "The future is bright."],
   thanks: ["Deeply grateful for the partnership.", "Gratitude is a core value.", "Appreciate you."],
-  status: ["Clarity is our north star.", "Transparency is how we scale.", "Alignment is everything."],
+  status: ["More to come as this journey unfolds.", "Transparency is a journey, not a destination.", "Stay aligned, team."],
 };
 
 // "Could you send me the deck before 3?" -> "If you could go ahead and send me the deck before 3, that would be greatly appreciated."

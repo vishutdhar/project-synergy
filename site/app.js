@@ -223,9 +223,11 @@ async function run({ reroll = false } = {}) {
       : !out ? "There's no work-safe way to say this as written. Try rewording it."
       : `I left out ${instant.unsafe.length === 1 ? "a sentence" : `${instant.unsafe.length} sentences`} that had no work-safe rewrite. Try rewording ${instant.unsafe.length === 1 ? "it" : "them"}.`;
     const instantNote = [instant.fallback === "plain" && !instant.unsafe?.length ? "Kept close to your wording so the meaning stays the same." : "", unsafeNote].filter(Boolean).join(" ");
-    if (!useAI) {
+    // A built-in scene ("strategic recharge window") keeps the meaning and the joke; the small AI model can't beat it.
+    if (!useAI || (instant.scene && out)) {
       renderCorporate(out);
-      setResult({ direction: "toCorporate", copyText: out, shareText: out, note: [instantNote, capNote].filter(Boolean).join(" ") });
+      const sceneNote = useAI ? "This one has a built-in rewrite, so AI mode used it." : "";
+      setResult({ direction: "toCorporate", copyText: out, shareText: out, note: [sceneNote, instantNote, capNote].filter(Boolean).join(" ") });
       return;
     }
     renderCorporate("Rewriting with AI...");
@@ -264,18 +266,19 @@ async function runAIDecode(text, level, instant, capNote, reroll) {
       { type: "toNormal", text, level, themes: instant.themes, seed: state.seed },
       (msg) => {
         if (msg.type !== "line") return;
-        if (view.lines[msg.index]) view.lines[msg.index].plain = msg.plain || view.lines[msg.index].plain;
+        // A sentence with a plain news line ("Jobs are being cut") keeps it; the small model tends to soften those.
+        if (view.lines[msg.index] && !instant.lines[msg.index]?.news) view.lines[msg.index].plain = msg.plain || view.lines[msg.index].plain;
         renderDecode(view, { pendingFrom: msg.index + 1 });
       },
     );
     // Missing or empty AI lines fall back to the Instant line for that sentence.
-    const lines = res.lines.map((l, i) => ({ original: l.original, plain: l.plain || instant.lines[i]?.plain || "" }));
+    const lines = res.lines.map((l, i) => ({ original: l.original, plain: instant.lines[i]?.news ? instant.lines[i].plain : l.plain || instant.lines[i]?.plain || "" }));
     lines.push(...instant.lines.slice(lines.length));
     const summary = res.summaryOk && res.summary ? res.summary : instant.summary;
     const final = { summary, lines, signal: instant.signal };
     renderDecode(final);
     const notes = [];
-    const aiLines = res.lines.filter((l) => l.plain).length;
+    const aiLines = res.lines.filter((l, i) => l.plain && !instant.lines[i]?.news).length;
     notes.push(aiLines ? "The summary is from Instant mode. AI wrote the sentence lines that passed its checks." : "None of the AI lines passed its checks, so this is the Instant version.");
     if (res.skipped > 0) notes.push(`AI decoded the first ${res.lines.length} sentences. The rest use Instant mode.`);
     if (capNote) notes.push(capNote);

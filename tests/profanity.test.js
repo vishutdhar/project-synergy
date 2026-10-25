@@ -46,7 +46,7 @@ test("Vishut's sentences say what he meant", () => {
   }
   for (const r of runs("the plan is to fuck off all day today")) {
     assert.match(r.text, /today/i, r.text);
-    assert.match(r.text, /slack|recharge|low-output|deprioritize/i, r.text);
+    assert.match(r.text, /recharge|low-output|low bandwidth|take it easy|deprioritize/i, r.text);
   }
 });
 

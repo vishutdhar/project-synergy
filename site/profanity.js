@@ -114,6 +114,14 @@ function expand(block) {
 // Bare swear words have no entry on purpose: a word-for-word swap is how "fuck all" became "mess all".
 const PHRASES = `
 !{fuck|shit|jack shit|dick|bugger|naff|sod} all = nothing = nothing at all = nothing of substance
+!{half-ass|half ass|halfass} it = do the bare minimum = put in minimum viable effort = deliver a strategically minimum viable effort
+!{half-ass|half ass|halfass} = do the bare minimum on = put minimum viable effort into = deliver a strategically minimum viable effort on
+!talks out of {his|her|their} ass = makes things up = speaks without data = shares bold, data-free conviction
+!talking out of {his|her|their|my|your} ass = making things up = speaking without data = sharing bold, data-free conviction
+!{looks|look|looked} like {ass|shit|crap|garbage} = $1 bad = $1 rough = $1 like it has meaningful headroom on visual quality
+!being a {total|real|complete|huge} pain = being very difficult = being really challenging = operating as a uniquely high-friction partner
+!{is|was} a {total|real|complete|huge} pain = $1 very difficult = $1 really challenging = $1 a uniquely high-friction experience
+!cringe as {fuck|hell|shit} = really awkward = deeply awkward = a high-discomfort moment for all stakeholders
 !{fuck|shit|jack shit|dick|bugger|naff|sod} all of = none of = none of = none of
 !jack shit = nothing = nothing at all = nothing of substance
 !saved {our|my} {ass|asses|butt|butts|bacon|skins|hides|necks} = really saved {us|me} = saved {us|me} = saved the day for {us|me}
@@ -465,7 +473,7 @@ export const IDIOM_MEANINGS = [
   {
     id: "slack-or-leave",
     re: /\b(?:fuck|fucking|fucked|piss|bugger|sod) off\b(?! (?:the|a|an|our|my|your|their|his|her|people|everyone|him|them|us|me|customers?|clients?)\b)/i,
-    must: /slack|easy|relax|\brest\b|recharge|low[- ]?(?:output|key|effort|pressure)|downtime|break|unplug|leave|left|head(?:ed|ing|s)? (?:out|home)|went home|going home|early|log(?:ged|ging)? off|space|alone|pause|step back|wind down|deprioriti/i,
+    must: /slack|easy|relax|\brest\b|recharge|low[- ]?(?:output|key|effort|pressure)|downtime|break|unplug|leave|left|head(?:ed|ing|s)? (?:out|home)|went home|going home|early|log(?:ged|ging)? off|space|alone|pause|step back|wind down|deprioriti|low bandwidth|nothing work-related|accomplish nothing/i,
   },
   {
     id: "dont-care",

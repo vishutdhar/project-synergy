@@ -99,7 +99,7 @@ if (withAI) {
     const got = await page.$eval(".corporate-out", (e) => e.textContent);
     const engine = await page.$eval("#engine-used", (e) => e.textContent);
     const instant = toCorporateDetailed(text, { level, seed: 1 }).text;
-    const ok = !findCrude(got).length && (/fallback/i.test(engine) ? got === instant : aiCorporateGate(text, got, { level }).ok);
+    const ok = !findCrude(got).length && (/fallback|^Instant/i.test(engine) ? got === instant : aiCorporateGate(text, got, { level }).ok);
     log(ok, `AI N>C L${level} ${JSON.stringify(text)} [${engine}] => ${JSON.stringify(got)}`);
   }
   await toDirection("toNormal");

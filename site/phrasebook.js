@@ -33,7 +33,7 @@ no time = no spare time = zero bandwidth = no available capacity
 !i'm so tired of = I'm really frustrated with = I'm truly worn out by = I'm deeply fatigued by
 !i'm sick and tired of = I'm really frustrated with = I'm truly worn out by = I'm deeply fatigued by
 !i'm tired = I'm worn out = I'm at reduced capacity = my personal battery KPIs are trending down
-i'm hungry = I could use a break = I need to refuel = I need to optimize my caloric pipeline
+i'm hungry = I could use something to eat = I need to refuel = I need to optimize my caloric pipeline
 i'm bored = I'm looking for a new challenge = I'm seeking more strategic stretch = I'm under-leveraged
 !i'm sorry = I apologize = I acknowledge the miss = I take full ownership of the learning opportunity
 !^sorry = apologies = apologies for the friction = I own that misalignment
@@ -198,6 +198,7 @@ using = using = leveraging = leveraging
 done with = done with = finished with = wrapped up with
 halfway done = halfway done = halfway through = halfway through
 done = done = completed = fully actioned
+start to finish = start to finish = start to finish = start to finish
 finish = complete = wrap up = close out
 finished = finished = wrapped up = closed out
 stop = stop = stop = put a pause on
@@ -422,6 +423,8 @@ for real = really = genuinely = with full intentionality
 !^can't = cannot = cannot commit to that = cannot commit bandwidth to that
 !^i can't = I'm unable to make that work = I'm not able to commit to that = I'm unable to commit bandwidth to that
 won't work = won't work = isn't going to work = isn't going to deliver
+i won't work = I won't be working = I won't be working = I will not be working
+we won't work = we won't be working = we won't be working = we will not be working
 !>won't = will not = will not = will not
 !^won't = will not = will not be doing that = will not be prioritizing that
 !^don't know = don't know just yet = don't have visibility into that yet = lack line of sight on that
@@ -537,6 +540,8 @@ the emails = the emails = the emails = the emails
 !stupid = silly = misguided = suboptimal
 !dumb = silly = misguided = suboptimal
 never = never = never = at no point
+crazy week = hectic week = hectic week = high-velocity week
+crazy day = hectic day = hectic day = high-velocity day
 crazy = intense = aggressive = extremely ambitious
 the fix = the fix = the fix = the remediation
 a fix = a fix = a fix = a remediation
@@ -963,7 +968,7 @@ export const THEMES = [
     id: "layoffs",
     weight: 10,
     patterns: [
-      /\blay ?offs?\b/i, /\blaid off\b/i, /\bright[- ]?siz/i, /workforce optimi[sz]ation/i, /optimi[sz]e (?:our|the) workforce/i, /transition(?:ing)? (?:\w+ )?out\b/i, /\bdownsiz/i, /reduction in force/i, /\bRIF\b/,
+      /\blay ?offs?\b/i, /\blaid off\b/i, /\bright[- ]?siz/i, /workforce optimi[sz]ation/i, /optimi[sz]e (?:our|the) workforce/i, /transition(?:ing)? (?:\w+ )?out\b(?! of (?:his|her|their|my) role)/i, /\bdownsiz/i, /reduction in force/i, /\bRIF\b/,
       /workforce reduction/i, /reduc\w* (?:our |the )?(?:global )?(?:workforce|headcount|team)/i, /headcount (?:will be |is |will )?(?:lower|reduc\w*|cut|smaller|down)/i,
       /eliminat\w* (?:\w+ )?(?:roles|positions|jobs)/i, /part(?:ing)? ways/i, /impacted (?:employees|colleagues|team members|roles)/i,
       /\bseverance\b/i, /\bseparation\b/i, /(?:roles|positions) (?:are|will be) (?:impacted|affected)/i,
@@ -978,7 +983,7 @@ export const THEMES = [
     weight: 8,
     patterns: [
       /return(?:ing)?[ -]to[ -](?:the )?office/i, /\bRTO\b/, /in[ -]person collaboration/i, /\bin[ -]office\b/i,
-      /days? (?:a|per) week in/i, /back (?:to|in) the office/i, /\bour offices\b/i, /badge/i, /\bhubs?\b/i,
+      /days? (?:a|per) week in/i, /back (?:to|in) the office/i, /\bour offices\b/i, /badge (?:data|swipes?|in)\b|\bbadging\b/i, /\bhubs?\b/i,
       /(?:three|four|five|3|4|5) days/i, /serendipit/i, /water ?cooler/i,
     ],
     summary: ["You need to come back to the office.", "Remote work is over. Come back to the office.", "Back to your desk, where we can watch you."],
@@ -1091,7 +1096,7 @@ const MORE_PATTERNS = {
     /\b(?:snacks|catered lunches|perks|swag)\b[^.]{0,40}\b(?:reduced|cut|scaled back)\b/i, /\bROI targets\b/i, /\blimit travel\b|\bpause new vendor contracts\b/i, /\breduce costs\b/i, /\bsmaller footprint\b/i],
   deflection: [/\bdon't want to speculate\b|\brather not (?:speculate|commit)\b/i, /\bsomething we'll look into\b|\bwe'll look into (?:it|that|this)\b/i,
     /\bdon't have anything (?:more )?to share\b|\bnothing (?:more )?to share\b/i, /\bwhen there is something to share\b/i, /\bstill working through\b/i,
-    /\bas previously mentioned\b|\bper my last email\b/i, /\bout of scope for now\b/i, /\baware of the concerns\b/i, /\brest assured\b/i, /\bparking lot\b/i],
+    /\bas previously mentioned\b|\bper my last email\b/i, /\bout of scope for now\b/i, /\baware of the concerns\b/i, /\brest assured\b/i, /\b(?:in|into|to|on) the parking lot\b|\bparking[- ]lot (?:it|this|that)\b/i],
   delay: [/\b(?:revised|updated|adjusted|moved|pushed|shifted|changed) the (?:[\w-]+ )?(?:go-live|launch|target|delivery|release|ship|completion) (?:date|timeline)\b[^.]{0,60}\bto (?:late|early|mid|Q[1-4]|next|the (?:second|back) half|a later)\b/i, /\btaking longer than (?:anticipated|expected|planned)\b/i, /\bno longer (?:tracking|realistic|feasible)\b/i, /\bmoved from \w+ to \w+\b/i, /\bin a later (?:sprint|release|phase)\b/i,
     /\bnow targeting\b/i, /\bdelivery will move\b/i, /\bmove (?:our |the )?(?:\w+ )?date from\b/i, /\bwill now take effect in\b/i, /\badjust\w* the timeline\b/i],
   departure: [/\bno longer with the company\b/i, /\btransitions? to an advisory role\b|\btransitioning to the role of\b/i, /\b(?:[A-Z][a-z]+|he|she) will be leaving (?:us|the company)\b/,

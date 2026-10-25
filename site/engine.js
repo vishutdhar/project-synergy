@@ -1,4 +1,6 @@
 // Project Synergy rewrite engine. Pure functions, no network, runs in the browser and in Node.
+import { satireScene } from "./satire.js";
+import { readNews, NEWS_SIGNALS, NEWS_RANK } from "./news.js";
 import { restructure, tokenSim, polishRegister, lowerFirst } from "./register.js";
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
@@ -603,8 +605,17 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [], forceMild
  * and "plain" when only the version without openers, closers and asides passed.
  */
 export function toCorporateDetailed(input, opts = {}) {
-  const r = corporateCore(input, opts);
   const lvl = clampLevel(opts.level ?? 2);
+  // Round 9: whole-message satire scenes (satire.js) come first. Each is still meaning-checked.
+  const scene = opts.scenes === false ? null : satireScene(String(input ?? ""));
+  if (scene && scene[lvl - 1]) {
+    const ref = prepass(canonicalizeCrude(normalizeCasual(normalizeInput(input)) || normalizeInput(input)).replace(/[ \t]{2,}/g, " ").trim());
+    const text = scene[lvl - 1];
+    const check = checkMeaning(ref, text);
+    if (check.ok && !hasCrude(text)) return { text, check, fallback: "", unsafe: [], scene: true };
+    if (opts.debugScenes) console.log("scene rejected", JSON.stringify(check), text);
+  }
+  const r = corporateCore(input, opts);
   if ((lvl !== 1 && lvl !== 2) || opts.voice === false || !r.text || r.fallback === "plain") return r;
   // Level voice (voice.js): Mild reads as a polished email, Middle Manager as manager-speak. Kept only if
   // it still passes the meaning check against the same reference the plain version passed.
@@ -694,7 +705,7 @@ function levelPolish(text, lvl, clean) {
     t = t.replace(/^(That|This|The) ([\w-]+(?: [\w-]+)?) is (?:impossible|unrealistic)\.$/, (_m, d, n) => `I don't think ${d.toLowerCase()} ${n} is realistic.`)
       .replace(/^(?:Just to let you know, )?(this|that|it) needs more work\.$/i, (_m, w) => `I think ${w.toLowerCase()} needs more work.`)
       .replace(/^I see (it|this|that|the [\w-]+) differently\.$/, "I see $1 a bit differently.")
-      .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z']+) (.+)\.$/, (m, v, r) => (/\bThank you\b/.test(r) ? m : /\b(?:great|excellent|amazing|fantastic|awesome|well|outstanding|brilliant)\b|\b(?:killed|crushed|nailed|rocked|smashed|aced) it\b|^(?:killed|crushed|nailed|rocked|smashed|aced)$/.test(`${v} ${r}`) ? `You ${v} ${r}. Thank you.` : `I've noticed you ${v} ${r}.`))
+      .replace(/^You (?!could|can|should|might|may|will|would|are welcome)([a-z']+) (.+)\.$/, (m, v, r) => (/\bThank you\b|\bthanks\b/i.test(r) || /^(?:really )?(?:saved|rescued|helped|covered)$/.test(v) || /^(?:saved|rescued|helped|covered)\b/.test(r) ? m : /\b(?:great|excellent|amazing|fantastic|awesome|well|outstanding|brilliant)\b|\b(?:killed|crushed|nailed|rocked|smashed|aced) it\b|^(?:killed|crushed|nailed|rocked|smashed|aced)\b/.test(`${v} ${r}`) ? `You ${v} ${r}. Thank you.` : `I've noticed you ${v} ${r}.`))
       .replace(/^Just to let you know, your (.+)\.$/, (m, r) => (/\b(?:clear|great|good|excellent|amazing|helpful|thoughtful|awesome)\b/.test(r) && !/\b(?:not|no|too)\b|n't/.test(r) ? `Your ${r}. Great work.` : `I noticed that your ${r}.`))
       .replace(/^It looks like (the [\w-]+ (?:says|said|reports|reported|mentioned)) /, (_m, r) => `${r[0].toUpperCase()}${r.slice(1)} `)
       .replace(/^Be (on time|there|ready|prepared|careful)\b/, "Please be $1")
@@ -967,6 +978,8 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
   let fluff = 0;
   let total = 0;
   const summaryLines = [];
+  const newsHits = [];
+  const plainThemes = new Set();
 
   // Two or more soft layoff signals in one memo count as a layoff, even without the word.
   const hints = LAYOFF_HINTS.filter((re) => re.test(clean)).length;
@@ -981,8 +994,17 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
     for (const sentence of splitSentences(paragraph)) {
       if (!allSkipped && isGreetingOrSignature(sentence)) continue;
       total++;
-      const themes = detectThemes(sentence);
+      // Round 9: the plain news with its facts (news.js). Good news and temporary closures don't score themes.
+      const news = readNews(sentence);
+      const themes = news && (news.tone === "good" || news.id === "fyi") ? detectThemes(sentence).filter((id) => id === "record-year") : detectThemes(sentence);
       for (const id of themes) scores.set(id, (scores.get(id) ?? 0) + themeById[id].weight);
+      if (!news) for (const id of themes) plainThemes.add(id);
+      if (news) {
+        newsHits.push(news);
+        if (themeById[news.id]) scores.set(news.id, (scores.get(news.id) ?? 0) + themeById[news.id].weight);
+        lines.push({ original: sentence, plain: news.lines[lvl - 1], news: news.id });
+        continue;
+      }
       const { text: swapped, changed } = swapPhrases(sentence, matcher, lvl, rng, 1);
       const isFluff = FLUFF_PATTERNS.some((p) => p.test(sentence));
       let plain;
@@ -1022,12 +1044,53 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
 
   const ranked = [...scores.entries()].sort((a, b) => b[1] - a[1]).map(([id]) => id);
   const fluffShare = total ? fluff / total : 0;
+  // Good-news lines never outvote a real bad theme found elsewhere in the memo ("back to the office... we're adding free lunch").
+  const goodOnly = newsHits.length && newsHits.every((h) => h.tone === "good" || h.id === "fyi");
+  const badTheme = [...plainThemes].some((id) => !["record-year", "new-job", "new-chapter", "acquisition", "departure"].includes(id));
+  if (newsHits.length && !(goodOnly && badTheme)) return newsResult(newsHits, ranked, lines, lvl, fluffShare);
+  if (goodOnly && badTheme) for (const l of lines) if (l.news && newsHits.find((h) => h.id === l.news)?.tone === "good") l.plain = l.plain.replace(/^(?:Real good news, and we checked for a catch|Good news, no catch|Good news): /, "").replace(/^\w/, (c) => c.toUpperCase());
   // A message that is only a phrase like "per my last email, let's take this offline" is summed up by that phrase.
   let summary = summaryLines.length && summaryLines.length === total ? summaryLines.join(" ") : combineSummary(ranked, lvl, fluffShare);
   // A plain "X said no" with nothing soft around it is a blunt no, not a polite one.
   const blunt = bluntNo(clean);
   if (blunt && ranked[0] === "rejection") summary = blunt[lvl - 1];
+  // Round 9: a plain memo with nothing hidden still says what the news is.
+  if (/^(?:Nothing hidden here\.|It mostly says what it says\.|Nothing to decode\. Rare\.)$/.test(summary)) {
+    const facts = lines.map((l) => l.original.trim())
+      .map((x) => x.replace(/^(?:(?:hi|hey|hello)(?: (?:all|team|everyone|folks))?|team|all|everyone|folks|quick note|reminder|fyi|heads up|heads-up)[,:!-]\s+/i, ""))
+      .filter((x) => x.length > 15 && !/^(?:thanks|thank you|best|cheers|regards|questions\?|let (?:me|us) know|reach out|please reach out|feel free)\b/i.test(x))
+      .slice(0, 2);
+    if (facts.length) summary = `${["Nothing hidden here:", "Says what it says:", "Nothing to decode. Rare."][lvl - 1]} ${facts.map((f) => capFirst(f) + (endsWithPunct(f) ? "" : ".")).join(" ")}`;
+  }
   return { summary, lines, themes: ranked, signal: pickSignal(ranked, fluffShare) };
+}
+
+// Round 9: a decode led by the plain news lines. Bad news first, good news and FYIs last.
+// Themes found in sentences without a news line still get their summary after the news.
+const NEWS_FAMILY = { "layoff-you": "layoffs", "no-raises": "benefits", "budget-freeze": "cost-cuts", "hiring-freeze": "cost-cuts" };
+function newsResult(hits, ranked, lines, lvl, fluffShare) {
+  // One line per kind of news: two layoff sentences don't give two layoff lines.
+  const byId = new Map();
+  for (const h of hits) { const k = h.id === "layoff-you" ? "layoffs" : h.id; if (!byId.has(k) || h.id === "layoff-you") byId.set(k, h); }
+  const order = [...byId.values()].sort((a, b) => (NEWS_RANK[b.id] ?? 3) - (NEWS_RANK[a.id] ?? 3));
+  const bad = order.filter((h) => h.tone !== "good" && h.id !== "fyi");
+  const shown = (bad.length ? bad : order).slice(0, 2);
+  const seen = new Set();
+  const parts = shown.map((h) => h.lines[lvl - 1]).filter((x) => (seen.has(x) ? false : seen.add(x)));
+  const covered = new Set(hits.flatMap((h) => [h.id, NEWS_FAMILY[h.id] ?? h.id]));
+  const extra = summaryThemes(ranked).filter((id) => !covered.has(id) && !covered.has(NEWS_FAMILY[id] ?? id) && !(id === "layoffs" && covered.has("layoff-you")));
+  if (bad.length && extra.length && parts.length < 3) parts.push(themeById[extra[0]].summary[lvl - 1]);
+  const top = order[0];
+  // A known combination ("no raises, even after a record year") says it best.
+  const ids0 = summaryThemes(ranked);
+  const combo = COMBOS.find((c) => c.all.includes(ids0[0]) && c.all.every((id) => ids0.includes(id)) && c.all.includes("record-year"));
+  if (combo) return { summary: combo.text[lvl - 1], lines, themes: ranked, signal: pickSignal(ranked, fluffShare) };
+  const themes = [...new Set([...order.map((h) => h.id).filter((id) => themeById[id]), ...(bad.length ? ranked : [])])];
+  let signal;
+  if (bad.length && themeById[bad[0].id]) signal = pickSignal([bad[0].id, ...themes.filter((id) => id !== bad[0].id)], fluffShare);
+  else if (!bad.length && top.id === "fyi") signal = { id: "none", label: "No bad news found", tone: "none" };
+  else signal = { id: (bad[0] ?? top).id, ...(NEWS_SIGNALS[(bad[0] ?? top).id] ?? { label: top.id, tone: top.tone }) };
+  return { summary: parts.join(" "), lines, themes, signal };
 }
 
 // Plain-text version of a decode, for copy and share.

@@ -33,7 +33,7 @@ test("crude idioms are translated by meaning", () => {
   every("we got screwed on the contract", /(?:bad deal|unfavorable terms)/);
   every("no fucking way we ship friday", /don't (?:think|believe) we can ship Friday/);
   every("no damn way i'm working sunday", /I (?:won't|will not) be working Sunday/);
-  every("the onboarding docs are garbage", /need significant work/);
+  every("the onboarding docs are garbage", /need significant work|not good|underperform|underindex/);
 });
 
 test("sarcasm forms become the sincere complaint", () => {

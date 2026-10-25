@@ -1,6 +1,6 @@
 // Runs the AI model over the variations dataset in Node on CPU, with the same prompts, sampling settings,
 // output guards and page-side checks as the site. Writes one JSON line per item and level, and resumes.
-// Usage: node scripts/variations-ai.mjs --dir toCorporate|toNormal --out file.jsonl [--model id] [--dtype q4]
+// Usage: node scripts/variations-ai.mjs --dir toCorporate|toNormal --out file.jsonl [--items holdout.jsonl] [--model id] [--dtype q4]
 //        [--shard 0/3] [--threads 2] [--fewshot fixed] [--ids n0001,n0002] [--levels 1,2,3]
 import fs from "node:fs";
 import { pipeline, env, random, StoppingCriteria, LogitsProcessor } from "@huggingface/transformers";
@@ -25,7 +25,8 @@ const onlyIds = arg("ids", "") ? new Set(arg("ids").split(",")) : null;
 const isQwen3 = /qwen3/i.test(model);
 
 env.cacheDir = new URL("../.model-cache/", import.meta.url).pathname;
-const items = JSON.parse(fs.readFileSync(new URL("../tests/variations/items.json", import.meta.url))).filter((i) => i.direction === dir && (!onlyIds || onlyIds.has(i.id)));
+const itemsFile = arg("items", "");
+const items = (itemsFile ? fs.readFileSync(itemsFile, "utf8").trim().split("\n").map((l) => JSON.parse(l)) : JSON.parse(fs.readFileSync(new URL("../tests/variations/items.json", import.meta.url)))).filter((i) => i.direction === dir && (!onlyIds || onlyIds.has(i.id)));
 const mine = items.filter((_, i) => i % shards === shard);
 const done = new Set(fs.existsSync(out) ? fs.readFileSync(out, "utf8").split("\n").filter(Boolean).map((l) => { const r = JSON.parse(l); return `${r.id}|${r.level}`; }) : []);
 
@@ -65,6 +66,13 @@ for (const item of mine) for (const level of levels) {
   if (dir === "toCorporate") {
     const text = item.input;
     const input = softenCrude(text);
+    // Mirrors the site: a built-in satire scene is shown as is, and the AI model is not asked.
+    const pre = toCorporateDetailed(text, { level, seed: 1 });
+    if (pre.scene && pre.text) {
+      stream.write(JSON.stringify({ id: item.id, level, model, fewshot, ai_raw: "", ai_text: "", gate: "scene", shown_engine: "Instant (scene)", shown: pre.text, ms: 0 }) + "\n");
+      n++;
+      continue;
+    }
     const raw = firstLineBlock(await ask(corporateMessages(input, level, item), "corporate", input, sampleSeed(text, level, 1)));
     const checked = guardOutput(raw, { examples: P.CORPORATE_EXAMPLE_ANSWERS, maxWords: 120 });
     const ai = checked.text;
@@ -81,12 +89,13 @@ for (const item of mine) for (const level of levels) {
       const themes = detectThemes(sentences[i]);
       let plain = guardOutput(P.firstLine(await ask(P.buildDecodeMessages(sentences[i], level, themes), "line", sentences[i], sampleSeed(sentences[i], level, 1, i + 1))), { maxWords: 40 }).text;
       if (isMetaReply(plain) || contradictsThemes(plain, themes) || echoesExample(plain, [sentences[i]], 8) || addsCrude(sentences[i], plain) || decodeTextFails(plain, sentences[i], [...themes, ...(instant.themes ?? [])])) plain = "";
-      lines.push({ original: sentences[i], ai: plain, shown: plain || instant.lines[i]?.plain || "" });
+      lines.push({ original: sentences[i], ai: plain, shown: instant.lines[i]?.news ? instant.lines[i].plain : plain || instant.lines[i]?.plain || "" });
     }
     const tagged = lines.filter((l) => detectThemes(l.original).length).map((l) => l.shown);
     const summary = guardOutput(P.firstLine(await ask(P.buildSummaryMessages(tagged.length ? tagged : lines.map((l) => l.shown), level, instant.themes ?? []), "summary", "", sampleSeed(item.input, level, 1, -1))), { maxWords: 40 }).text;
     const summaryOk = P.summaryCoversThemes(summary, instant.themes ?? []) && !contradictsThemes(summary, instant.themes ?? []) && !isMetaReply(summary) && !addsCrude(item.input, summary) && !decodeTextFails(summary, item.input, instant.themes ?? []);
-    row = { id: item.id, level, model, ai_summary: summary, summary_ok: summaryOk, shown_summary: summaryOk && summary ? summary : instant.summary, lines };
+    // The site always shows the Instant summary in AI mode (ai-worker summaryOk = false).
+    row = { id: item.id, level, model, ai_summary: summary, summary_ok: summaryOk, shown_summary: instant.summary, lines };
   }
   row.ms = Date.now() - t1;
   stream.write(JSON.stringify(row) + "\n");
