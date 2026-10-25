@@ -207,6 +207,9 @@ finish = complete = wrap up = close out
 finished = finished = wrapped up = closed out
 stop = stop = stop = put a pause on
 !quit = left = moved on = transitioned out
+keep the change = keep the change = keep the change = keep the change
+rolled back the change = rolled back the change = rolled back the update = strategically unwound the change
+the change = the change = the update = the change
 change = change = shift = pivot
 changed = changed = shifted = pivoted
 double check = double-check = double-check = validate
@@ -589,6 +592,7 @@ is broken = is down = is in a degraded state = is experiencing suboptimal uptime
 been broken = been down = been in a degraded state = been in a degraded state
 borked = broken = broken = broken
 i don't think = I don't think = I don't believe = I'm not convinced
+!a pain in the butt = a real hassle = a major friction point = a significant source of organizational friction
 !is trash = is terrible = is unreliable = is underperforming
 !is garbage = is terrible = is unreliable = is underperforming
 !was garbage = was terrible = was unreliable = was underperforming

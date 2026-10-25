@@ -9,7 +9,7 @@ const TOPICS = [
   ["away", /\b(?:out of office|OOO|working from home|WFH|working remotely|offline|afk|heading out|signing off|logging off|be right back|have to go|kid pickup|school run|on my way|omw)\b/i],
   ["coffee", /\b(?:coffee|espresso|latte|caffeine|tea)\b/i],
   ["food", /\b(?:lunch|hungry|snacks?|pizza|food|microwave|kitchen|fridge|cake|donuts?|breakfast|eat|eaten|starving|peckish)\b/i],
-  ["sleep", /\b(?:tired|exhausted|sleep|slept|asleep|nap|fried|burnt out|burned out|drained|wiped|yawn\w*)\b/i],
+  ["sleep", /\b(?:tired|exhausted|sleep|slept|asleep|nap|fried|burnt out|burned out|drained|wiped(?! out the| clean)|yawn\w*)\b(?<!(?:got|were|was|been) wiped)/i],
   ["feelings", /\b(?:stressed|anxious|nervous|overwhelmed|bored|sad|frustrated|annoyed|scared|scares|worried|excited|proud|happy(?! to\b)|grumpy|can't focus)\b/i],
   ["meetings", /\b(?:meetings?|standup|stand-up|sync|syncs|1:1|all[- ]hands|calls?|retro|sprint planning|offsite|calendar|invites?)\b/i],
   ["inbox", /\b(?:emails?|inbox|reply[- ]all|replied all|slack|channel|messages?|dms?|@-ing|cc'?ing|pinged?)\b/i],
@@ -17,7 +17,7 @@ const TOPICS = [
   ["tech", /\b(?:laptop|wifi|vpn|printer|copier|projector|server|staging|prod|build|bug|tests?|deploy\w*|api|login|password|outage|crash\w*|restart\w*|toner|monitor|computer|keyboard|app)\b/i],
   ["docs", /\b(?:docs?|document\w*|spreadsheet|deck|slides|tabs|wiki|spec|report|roadmap|notes|ticket|tracker\w*|copy|font)\b/i],
   ["scope", /\b(?:scope|requirements|priorities|revisions?|rewrite|pivot\w*)\b/i],
-  ["deadline", /\b(?:deadline|eod|asap|late|behind|delayed|commute|traffic|train|bus|missed my|running \d+|minutes|mins|waiting|forever|hours?)\b/i],
+  ["deadline", /\b(?:deadline|eod|asap|late(?!-night| night)|behind|delayed|commute|traffic|train|bus|missed my|running \d+|minutes|mins|waiting|forever|hours?)\b/i],
   ["office", /\b(?:office|desk|chair|ac\b|air conditioning|parking|elevator|plants?|floor|building|fire drill|room)\b/i],
   ["people", /\b(?:client|customer|manager|boss|vendor|legal|finance|marketing|sales|ceo|team|everyone|nobody|someone|intern|new hire)\b/i, /\b(?:IT|HR)\b/],
 ];
@@ -150,16 +150,16 @@ const TOPIC_CLOSERS = {
   scope: { any: ["Scope is a living, breathing, ever-growing organism.", "Agility is a core value, and today it is being tested."] },
   deadline: { any: ["Time remains our scarcest resource.", "Punctuality is a journey, not a destination.", "The clock remains our toughest stakeholder."] },
   office: { any: ["The workplace experience remains a journey, not a destination.", "Our physical ecosystem remains a work in progress.", "Facilities has been looped in, spiritually."] },
-  people: { bad: ["Stakeholder alignment is a journey.", "We grow through friction."], good: ["This is what a high-performing culture looks like.", "Teamwork makes the dream work."], any: ["Stakeholder alignment is a journey.", "We are all on the same team, structurally."] },
+  people: { bad: ["Stakeholder alignment is a journey, and we are still in the parking lot.", "We grow through friction, and we are growing a lot."], good: ["Somebody alert the culture deck.", "Legends are being written in real time."], any: ["Stakeholder alignment is a journey.", "We are all on the same team, structurally."] },
 };
 // Funnier generic closers by family, used when the topic has none.
 const GENERIC_CLOSERS = {
-  bad: ["Every setback is a setup for a comeback.", "Adversity is just opportunity in a hard hat.", "We remain cautiously optimistic about everything.", "This is fine, strategically speaking."],
+  bad: ["Every setback is a setup for a comeback, presumably.", "Adversity is just opportunity in a hard hat.", "We remain cautiously optimistic about everything.", "This is fine, strategically speaking."],
   good: ["The flywheel is spinning.", "This is what happens when vision meets execution.", "History, and the quarterly scorecard, will remember this moment.", "Please hold your applause until the end of the quarter."],
   neutral: ["No synergies were harmed in the making of this strategic update.", "Please treat this update as a strategic asset.", "Consider yourselves strategically informed.", "This message has been optimized for maximum alignment."],
-  personal: ["Sustainable performance is a long game.", "You can't pour from an empty cup.", "Self-care is a strategic KPI."],
-  ask: ["Grateful for your partnership on this.", "Appreciate you leaning in on this.", "Your partnership is our competitive advantage."],
-  opinion: ["Iron sharpens iron.", "Strong opinions, loosely held.", "Respectfully, and with maximum thought leadership."],
+  personal: ["Self-care is a strategic KPI.", "My wellness metrics have been escalated for executive review.", "Please route all urgent synergies elsewhere."],
+  ask: ["Gratitude has been pre-approved by all relevant stakeholders.", "Your inbox has been strategically pre-thanked.", "Grateful in advance, and in perpetuity."],
+  opinion: ["Iron sharpens iron, and this is me sharpening.", "Strong opinions, loosely held.", "Respectfully, and with maximum thought leadership."],
 };
 
 const pick0 = (rng, xs) => xs[Math.floor(rng() * xs.length)];

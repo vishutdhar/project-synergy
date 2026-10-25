@@ -33,6 +33,7 @@ const UPGRADES = [
   [/\bis too slow to\b/g, "lacks the velocity to"],
   [/\b(?:got|was|has been) cut in half\b/g, "has been strategically halved"],
   [/\b(?:got|was|has been) cut by\b/g, "has been strategically right-sized by"],
+  [/\bstill (?:got|was) cut\b/g, "was still strategically right-sized"],
   [/\b(?:got|was|has been) cut\b/g, "has been strategically right-sized"],
   [/\b(?:got|was|has been) moved to\b/g, "has been strategically realigned to"],
   [/\b(?:failed)(?= (?:last night|again|overnight|today|this morning|yesterday)|[.!]|$)/g, "did not land as planned"],
@@ -188,7 +189,8 @@ export function intentOf(clean, core) {
   if (/\b(?:load times?|latency|churn|bugs|errors|tickets|crashes|downtime|complaints|incidents|wait times?|bounce rate|response times?)\b[^.]*\b(?:dropped|fell|decreased|halved|went down|is down|are down|down \d+%)\b/i.test(c) && !/\bbut\b/i.test(c)) return "win";
   // "we hit the deadline but skipped the testing": a win with a catch is a problem update, not a celebration.
   if (/\bbut\b/i.test(c) && PROBLEM.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
-  if (/\bbut\b/i.test(c) && /\b(?:skipped|missed|over budget|blown|struggling|broke|lost|cost(?:s)? more|late)\b/i.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
+  if (/\bbut\b/i.test(c) && /\b(?:skipped|missed|over budget|blown|struggling|broke|broken|lost|cost(?:s)? more|late|wiped|deleted|hate|hates|dislike|outdated|thin|nobody|no one|complain\w*|failed|crash\w*|missing|cut)\b/i.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
+  if (/^(?:a )?(?:huge |big |massive )?(?:shout-?out|thank-you|thanks|kudos) to\b/i.test(c)) return "praise";
   if (/^(?:I'm concerned|I'm not thrilled|I'm not looking forward|I'm not happy|That's not ideal|The timing isn't ideal|Unfortunately|I have \d+)\b/.test(core)) return "problem";
   const DOING = /\b(?:make|do|doing|take|attend|join|help|commit|support|offer|be at|be there|sign|signing|cover|go|come|work|working|approve|approving|give|giving|move|fit|present|presenting|host|hosting|speak|speaking|rewrite|rewriting|hire|hiring|joining|attending|making|taking|coming|going|covering|helping)\b/i;
   if (/^(?:absolutely not|hell no|no way|nope|not happening)\b/i.test(c) || /^(?:that's|that is) a (?:hard |firm |big )?no\b/i.test(c)) return "decline";
@@ -291,22 +293,22 @@ const FRAMES = {
 };
 
 const CLOSERS = {
-  problem: ["Every setback is a setup for a comeback.", "Resilience is a muscle, and we are training it.", "Every problem is an opportunity in disguise.", "We move forward, with humility."],
-  win: ["Teamwork makes the dream work.", "This is what happens when vision meets execution.", "The flywheel is spinning.", "Grateful for this incredible team. Onward."],
-  praise: ["This is what a high-performing culture looks like.", "Absolute rockstar energy.", "Teamwork makes the dream work."],
-  request: ["Grateful for your partnership on this.", "Appreciate you leaning in on this.", "Thanks for driving value with me on this.", "Your partnership is our competitive advantage."],
-  question: ["No wrong answers, only learning opportunities.", "Curious to hear the collective wisdom here.", "Grateful for any thought leadership on this."],
-  decline: ["Every no is a yes to focus.", "Focus is a strategic choice.", "Grateful for your understanding."],
-  apology: ["Failing forward, as always.", "Growth happens outside the comfort zone.", "Grateful for your patience and grace."],
-  opinion: ["Iron sharpens iron.", "Healthy debate is how we win.", "Diversity of thought is our competitive advantage."],
+  problem: ["Every setback is a setup for a comeback, presumably.", "This is fine, strategically speaking.", "Every problem is an opportunity in disguise, and this one is very well disguised.", "We remain cautiously optimistic about everything."],
+  win: ["Please hold your applause until the end of the quarter.", "This is what happens when vision meets execution.", "The flywheel is spinning.", "History, and the quarterly scorecard, will remember this moment."],
+  praise: ["Somebody alert the culture deck.", "Absolute rockstar energy.", "Legends are being written in real time."],
+  request: ["Gratitude has been pre-approved by all relevant stakeholders.", "Your inbox has been strategically pre-thanked.", "This ask has been pressure-tested by my inner leadership voice.", "Grateful in advance, and in perpetuity."],
+  question: ["No wrong answers, only learning opportunities.", "Curious to hear the collective wisdom here.", "Thought leadership on this is warmly invited, and lightly required."],
+  decline: ["Every no is a strategic yes to focus.", "My bandwidth has spoken, and it said no.", "Focus is a strategic choice, and today I chose it."],
+  apology: ["Failing forward, as always.", "Accountability has been taken, and framed.", "A full post-mortem of my feelings will follow."],
+  opinion: ["Strong opinions, loosely held.", "Respectfully, and with maximum thought leadership.", "Iron sharpens iron, and this is me sharpening."],
   sensitive: ["Thank you for understanding.", "Thank you for your understanding.", "Thanks for understanding."],
-  personal: ["Sustainable performance is a long game.", "You can't pour from an empty cup.", "Wellbeing is our north star."],
+  personal: ["Self-care is a strategic KPI.", "My wellness metrics have been escalated for executive review.", "Please route all urgent synergies elsewhere."],
   feedback: ["Feedback is a gift, and this one comes gift-wrapped.", "Growth is a journey we're on together.", "Feedback is a gift."],
   approve: ["Decisiveness is a leadership competency.", "Velocity is a choice."],
-  social: ["Fully aligned.", "Appreciate the alignment.", "Onward."],
-  welcome: ["Excited for the journey ahead.", "The future is bright."],
-  thanks: ["Deeply grateful for the partnership.", "Gratitude is a core value.", "Appreciate you."],
-  status: ["More to come as this journey unfolds.", "No synergies were harmed in the making of this strategic update.", "Please treat this update as a strategic asset.", "This has been a thought leadership moment."],
+  social: ["Alignment achieved. Synergy may now commence.", "Consensus has been reached at the highest levels of me.", "Fully aligned, spiritually and operationally."],
+  welcome: ["The org chart has never looked more aspirational.", "The future is bright, and slightly better staffed."],
+  thanks: ["Gratitude is a core strategic value, and today it is maxed out.", "This thank-you has been escalated to senior stakeholders.", "Stakeholder appreciation levels are at an all-time high."],
+  status: ["Consider yourselves strategically informed.", "No synergies were harmed in the making of this strategic update.", "Please treat this update as a strategic asset.", "This has been a thought leadership moment."],
 };
 
 // "Could you send me the deck before 3?" -> "If you could go ahead and send me the deck before 3, that would be greatly appreciated."
