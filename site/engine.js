@@ -81,7 +81,7 @@ const CASUAL_WORDS = {
   tho: "though", thru: "through", ppl: "people", pplz: "people", govt: "government", abt: "about", appt: "appointment", asap: "ASAP", eod: "EOD", eow: "EOW",
   gtg: "I have to go,", g2g: "I have to go,", icymi: "in case you missed it,", fwiw: "for what it's worth,", afaik: "as far as I know,", afaict: "as far as I can tell,",
   iirc: "if I remember correctly,", tbf: "to be fair,", wdyt: "what do you think", hmu: "let me know", ttyl: "talk to you later", ofc: "of course", nbd: "no worries",
-  yw: "you're welcome", hbu: "how about you?", qq: "quick question:", imma: "I'm going to", ima: "I'm going to", bday: "birthday", ik: "I know", ikr: "I know, right?",
+  yw: "you're welcome", hbu: "how about you?", qq: "quick question:", imma: "I'm going to", ima: "I'm going to", bday: "birthday", ik: "I know", ikr: "I know, right?", brt: "be right there", bbiab: "be back in a bit", tyt: "take your time", ftr: "for the record", sgtm: "sounds good",
   atm: "at the moment", bbl: "be back later", otw: "on the way", idts: "I don't think so", gm: "good morning", pto: "PTO", wip: "WIP",
   amirite: ", right?", afk: "offline", jk: "just kidding,", tyvm: "thanks so much", tysm: "thank you so much", irl: "in real life,", dawg: "", bruh: "", fam: "", sus: "questionable", borked: "broken", yeeted: "scrapped", wanna: "want to", lol: "", lmao: "", lmfao: "", rofl: "", haha: "", hahaha: "", hehe: "", smh: "", fr: "", omg: "wow,", omfg: "wow,", ugh: "", ughh: "", welp: "",
 };
@@ -766,14 +766,14 @@ function levelFloor(input, clean, text, lvl, seed) {
 
 const NOT_VOCATIVE = /^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|January|February|March|April|May|June|July|August|September|October|November|December|Q[1-4]|Slack|Excel|Python|Postgres|AWS|SVG)$/;
 const vocative = (t) => t.replace(/(^|[.!?]\s+)((?:Huge congratulations|Congratulations|Congrats|Thanks|Thank you|Happy|Great|Nice|Good|Well done|Huge kudos|Kudos|Welcome|Good luck|Outstanding|Excellent|Amazing|Fantastic|Stellar|Awesome|Brilliant|Incredible)\b[^.!?,:\n]*?) (everyone|team|folks|[A-Z][a-z]+)([.!?])/g,
-  (m, pre, body, who, end) => (NOT_VOCATIVE.test(who) ? m : `${pre}${body}, ${who}${end}`));
+  (m, pre, body, who, end) => (NOT_VOCATIVE.test(who) || /\b(?:this|the|our|my|your|whole|entire|their|a|an|to|of|for|with)$/i.test(body) || (/^(?:team|everyone|folks)$/i.test(who) && /\b(?:of|for|with|to|about|on) (?:the|our|my|this|your) [\w-]+$/i.test(body)) ? m : `${pre}${body}, ${who}${end}`));
 // Runs after the level floor on every level, so labels added there get the same cleanup.
 function postPolish(text, lvl, clean) {
   let t = levelPolish(text, lvl, clean);
   // Vocative comma: "Happy work anniversary Tom!" -> "Happy work anniversary, Tom!"
   t = vocative(t);
   t = t.replace(/(^|[.!?]\s+)((?:Huge congratulations|Congratulations|Congrats|Thanks|Thank you|Happy|Great|Nice|Good|Well done|Huge kudos|Kudos|Welcome|Good luck)\b[^.!?,\n]*?) (everyone|team|folks|[A-Z][a-z]+)([.!?])/g,
-    (m, pre, body, who, end) => (NOT_VOCATIVE.test(who) ? m : `${pre}${body}, ${who}${end}`))
+    (m, pre, body, who, end) => (NOT_VOCATIVE.test(who) || /\b(?:this|the|our|my|your|whole|entire|their|a|an|to|of|for|with)$/i.test(body) || (/^(?:team|everyone|folks)$/i.test(who) && /\b(?:of|for|with|to|about|on) (?:the|our|my|this|your) [\w-]+$/i.test(body)) ? m : `${pre}${body}, ${who}${end}`))
     .replace(/\b(\d+(?:st|nd|rd|th)?) not (the )?(\d+(?:st|nd|rd|th)?)\b/g, "$1, not $2$3")
     .replace(/\bloading (really |very |super |so )?slow\b/g, "loading $1slowly")
     .replace(/\bwork remote\b/g, "work remotely")
@@ -862,7 +862,7 @@ function levelFloorInner(input, clean, text, lvl, seed) {
       const w = (text.match(/^[A-Za-z']+/) ?? [""])[0];
       const typedLower = w && new RegExp(`(?:^|[^A-Za-z'])${w.toLowerCase()}\\b`).test(String(input));
       if (/^[^.!?]+\?$/.test(text)) return `Quick question: ${lowerFirst(text, { force: true })}`;
-      if (/^(?:Thank you|Thanks)\b/.test(text)) return text.replace(/^(?:Thank you|Thanks)\b,?\s*/, "Huge thanks, ");
+      if (/^(?:Thank you|Thanks)\b/.test(text)) return /^(?:Thank you|Thanks) to\b/.test(text) ? text.replace(/^(?:Thank you|Thanks) to\b/, "Huge thanks to") : text.replace(/^(?:Thank you|Thanks)\b,?\s*/, "Huge thanks, ");
       let gm;
       if ((gm = text.match(/^Good (morning|afternoon|evening), ([\w']+)[.!]$/))) return `Good ${gm[1]}, ${gm[2]}! Hope everyone has a productive ${gm[1] === "evening" ? "evening" : "day"}.`;
       if (/^Have a (?:good|great|nice) (?:one|day|evening|night)!$/.test(text)) return `${text} Enjoy the rest of your day.`.replace(/(evening|night)! Enjoy the rest of your day\./, "$1! See you tomorrow.");
@@ -870,6 +870,9 @@ function levelFloorInner(input, clean, text, lvl, seed) {
       if ((gm = text.match(/^Welcome (aboard|to the team), ([A-Z][\w'-]*)[.!]$/))) return `Welcome ${gm[1]}, ${gm[2]}! Really glad to have you on the team.`;
       if (/^(?:OK|Okay|Ok|Cool|Great|Perfect)(?:,? (?:cool|great|perfect|got it))?,? (?:thank you|thanks)[.!]$/i.test(text)) return "Sounds good. Thanks so much!";
       if ((gm = text.match(/^Happy (birthday|anniversary|work anniversary), ([A-Z][\w'-]*)[.!]$/))) return `Happy ${gm[1]}, ${gm[2]}! Wishing you a fantastic year ahead.`;
+      if ((gm = text.match(/^Happy (anniversary|work anniversary), (team|all|everyone)[.!]$/))) return `Happy ${gm[1]}, ${gm[2]}! Here's to many more.`;
+      if ((gm = text.match(/^Happy (Monday|Tuesday|Wednesday|Thursday),? (all|everyone|team)[.!]?$/i))) return `Happy ${gm[1]}, ${gm[2].toLowerCase()}! Hope everyone has a great week.`;
+      if ((gm = text.match(/^Welcome back, ([A-Z][\w'-]*)[.!]$/))) return `Welcome back, ${gm[1]}! Great to have you back.`;
       if (/^(?:Good|Best of) luck\b/.test(text)) return text.replace(/^(?:Good|Best of) luck\b/, "Wishing you the best of luck");
       const gw = text.match(/^Great (?:work|job), but please (.+?)\.?$/i);
       if (gw) return `Great work. Quick ask: could you ${gw[1]}?`;
@@ -1029,7 +1032,7 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       // Exception: delay, benefits, shutdown and price families keep the keyword wording, which names the thing ("The release is delayed").
       if (news && news.broad) {
         const th = detectThemes(sentence);
-        const sameOnly = /^(?:delay|benefits|shutdown|cost-increase|budget-freeze)$/.test(news.id) && th.every((id) => id === news.id);
+        const sameOnly = /^(?:delay|benefits|shutdown|cost-increase|budget-freeze|departure)$/.test(news.id) && th.every((id) => id === news.id);
         if (!sameOnly && th.some((id) => id === news.id || (BROAD_ALIKE[news.id] ?? []).includes(id))) news = null;
       }
       const themes = news && news.broad ? [] : news && (news.tone === "good" || news.id === "fyi") ? detectThemes(sentence).filter((id) => id === "record-year") : detectThemes(sentence);

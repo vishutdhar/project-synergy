@@ -112,6 +112,11 @@ const SCENES = [
       const at = t.match(/\bat (\d{1,2}(?::\d\d)?\s?(?:am|pm)?)\b/i)?.[1];
       const time = timeOf(t);
       const chan = t.match(/\b(slack|teams|email|inbox)\b/i)?.[1];
+      const back = t.match(/\bback (?:on )?(monday|tuesday|wednesday|thursday|friday|tomorrow|next week)\b/i)?.[1];
+      if (back && !chan && !at) {
+        const d = /^(?:tomorrow|next week)$/i.test(back) ? back.toLowerCase() : back[0].toUpperCase() + back.slice(1).toLowerCase();
+        return [`I'm signing off now, and I'll be back ${d}.`, `Heads-up: I'm signing off now, and I'll be back ${d}.`, `I'm concluding my operating cycle now and will re-enter the ecosystem ${d}. Rest is a deliverable.`];
+      }
       const ch = chan ? (/slack/i.test(chan) ? "Slack" : /teams/i.test(chan) ? "Teams" : "email") : "";
       const resigned = /^(?:screw|f(?:uc)?k) it/i.test(t);
       if (at) return [`I'm going to log off at ${at}.`, `Heads-up: I'll be wrapping up and logging off at ${at}.`, `${resigned ? "After carefully weighing the trade-offs, I've made the executive decision" : "I've made the strategic decision"} to log off at ${at}. Protecting my bandwidth is a leadership choice.`];
@@ -339,6 +344,8 @@ function assess(text) {
   let t = text.trim().replace(/^(?:honestly|frankly|man|ugh|god|dude|ok),?\s+/i, "");
   const wa = t.match(/^what an? (?:total |complete |absolute |fucking )?(?:clusterfuck|shit ?show|mess|disaster|dumpster fire|train ?wreck|circus|nightmare) (?:of an? |that )?((?:\w+ ){0,2}\w+?)(?: (?:was|is))?[.!]*$/i);
   if (wa) t = `the ${wa[1]} ${/ was$/i.test(text.replace(/[.!]+$/, "")) ? "was" : "is"} a mess`;
+  // Round 11: "the line for the microwave is ridiculous" means it's long, not that a claim is false.
+  if (/^(?:the )?(?:line|queue|wait)\b|\b(?:line|queue) (?:for|at|on)\b/i.test(t)) return null;
   for (const a of ASSESS) {
     const m = t.match(a.re);
     if (!m) continue;

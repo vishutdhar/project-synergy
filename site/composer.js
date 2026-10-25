@@ -40,6 +40,7 @@ export function groupOf(intent) {
 
 // The clause, inflated. Each swap keeps its grammatical slot and its meaning.
 const INFLATE = [
+  [/\bthe coffee line\b/gi, "the caffeine waitlist"], [/\bthe line for the (microwave|coffee machine|coffee)\b/gi, (m, x) => `the waitlist for the ${x.toLowerCase() === "microwave" ? "shared thermal-reheating asset" : "caffeine delivery platform"}`],
   [/\bmy laptop\b/gi, "my endpoint device"], [/\bthe laptop\b/gi, "the endpoint device"], [/\bthis laptop\b/gi, "this endpoint device"],
   [/\bthe printer\b/gi, "the print infrastructure"], [/\bthe copier\b/gi, "the document-replication infrastructure"],
   [/\bthe projector\b/gi, "the visual-alignment infrastructure"], [/\bthe coffee machine\b/gi, "the caffeine delivery platform"],
@@ -47,7 +48,7 @@ const INFLATE = [
   [/\bthe microwave\b/gi, "the shared thermal-reheating asset"], [/\bthe kitchen\b/gi, "the nourishment hub"],
   [/\bthe AC\b/g, "the climate-control infrastructure"], [/\bthe parking lot\b/gi, "the vehicle staging area"],
   [/\bthe new chair\b/gi, "the new ergonomic seating solution"], [/\bmy desk\b/gi, "my workstation real estate"],
-  [/\bthe office plants\b/gi, "the office biodiversity portfolio"], [/\bthe elevator\b/gi, "the vertical mobility solution"],
+  [/\bthe office plants\b/gi, "the office biodiversity portfolio"], [/\bthe elevator\b(?! music| pitch| speech)/gi, "the vertical mobility solution"],
   [/\bthe fire drill\b/gi, "the unscheduled evacuation exercise"],
   [/\bmy inbox\b/gi, "my inbound communication pipeline"], [/\bthe HR email\b/g, "the HR broadcast"],
   [/\bour team channel\b/gi, "our team's async collaboration surface"], [/\bthe whole channel\b/gi, "the full channel ecosystem"],
@@ -56,7 +57,23 @@ const INFLATE = [
   [/\bthe client\b(?=[.,!?;]|$|\s+(?:is|was|are|were|has|had|have|wants|wanted|needs|needed|keeps|kept|said|says|seemed|seems|hated|loved|liked|asked|approved|rejected|signed|will|would|can|could|just|still|did|does|didn't|doesn't|isn't|wasn't|changed|called|emailed|replied|loves|hates|likes)\b)/g, "our valued client partner"], [/\bthat client\b(?=[.,!?;]|$|\s+(?:is|was|has|wants|keeps|said|seemed)\b)/g, "that valued client partner"],
   [/\bmy manager\b/gi, "my leadership partner"], [/\bmy boss\b/gi, "my leadership partner"],
   [/\bthe vendor\b/gi, "our vendor partner"], [/\bthe new hire\b/gi, "our newest talent investment"], [/\bthe new intern\b/gi, "our newest talent investment"],
-  [/\bthe bug\b/gi, "the undocumented feature"], [/\bthe build\b/gi, "the build pipeline"],
+  [/\bthe badge reader\b/gi, "the identity-verification checkpoint"], [/\bthe badge system\b/gi, "the identity-verification platform"],
+  [/\bthe ice machine\b/gi, "the frozen-hydration platform"], [/\bthe soap dispensers\b/gi, "the hand-hygiene delivery units"],
+  [/\bthe meeting room chairs\b/gi, "the meeting room ergonomic seating solutions"], [/\bthe hallway\b/gi, "the main transit corridor"],
+  [/\bthe (?:bathroom|restroom)\b/gi, "the wellness facility"], [/\bthe fridge\b/gi, "the shared cold-storage asset"],
+  [/\bthe vending machine\b/gi, "the snack-dispensing partner"], [/\bmy headset\b/gi, "my audio-collaboration hardware"],
+  [/\bmy (?:second )?monitor\b/gi, "my visual real estate"], [/\bthe scanner\b/gi, "the document-digitization infrastructure"],
+  [/\bthe garage\b/gi, "the vehicle staging area"], [/\bthe lobby\b/gi, "the first-impression zone"], [/\bthe hand dryer\b/gi, "the airflow-based drying solution"],
+  [/\bmy charger\b/gi, "my mobile power solution"], [/\bthe logs\b/gi, "the system telemetry"], [/\bthe queue\b/gi, "the demand pipeline"],
+  [/\bmy access\b/gi, "my access entitlements"], [/\bmy timesheet\b/gi, "my time-allocation attestation"],
+  [/\btrain delays\b/gi, "rail-network latency"], [/\bmoving apartments\b/gi, "executing a residential migration"], [/\bworking a half day\b/gi, "running a half-day operating model"],
+  [/\bthere (?:are|is) (snack|bagel|donut|cookie|cupcake|leftover)s\b/gi, "there are strategic $1 reserves"], [/\bthere is cake\b/gi, "there is celebratory cake inventory"],
+  [/\bpizza Friday\b/gi, "the Friday pizza-based engagement initiative"], [/\bthe (?:shared )?calendar\b(?= ate| eats| lost| deleted)/gi, "the shared scheduling platform"],
+  [/\bthe dashboard\b/gi, "the insights dashboard"], [/\bthe notes\b/gi, "the key learnings"], [/\bthe retro\b/gi, "the retrospective learning ceremony"],
+  [/\bthe standup\b/gi, "the daily alignment ritual"], [/\bthe (?:8|7|6|9)am standup\b/gi, (m) => m.replace(/standup$/i, "alignment ritual")],
+  [/\ban? (?:mid-?)?meeting\b(?=[.!?,]|$)/gi, (m) => m], [/\bthe whiteboard\b|\ba whiteboard\b/gi, (m) => m.replace(/whiteboard/, "collaborative ideation surface")],
+  [/\bthe AC is freezing\b/g, "the AC is freezing"], [/\bthe VPN\b/g, "the secure-access tunnel"],
+  [/(?<!(?:fixed|found|caught|squashed|closed|patched|solved) )\bthe bug\b/gi, "the undocumented feature"], [/\bthe build\b/gi, "the build pipeline"],
   [/\bkeeps adding scope\b/g, "keeps generously expanding the scope"], [/\bkeeps restarting\b/g, "keeps proactively rebooting itself"],
   [/\bis (?:so |really |very )?slow\b/g, "is operating at a deliberate pace"], [/\bis full again\b/g, "has reached full capacity again"], [/\bis full\b/g, "has reached full capacity"],
   [/\bis freezing\b/g, "is delivering an aggressively chilled experience"], [/\bsmells like\b/g, "is broadcasting the aroma of"],
@@ -80,6 +97,20 @@ const INFLATE = [
   [/\bI pushed the hotfix\b/g, "I deployed a precision hotfix"], [/\bI booked\b/g, "I secured"],
   [/\bI updated\b/g, "I meaningfully evolved"], [/\bsigned off on\b/g, "formally blessed"],
   [/\bapproved the copy\b/g, "blessed the copy"],
+  // Round 11b: more everyday nouns get the deadpan upgrade at Full C-Suite.
+  [/\bthe agenda\b/gi, "the strategic agenda framework"], [/\bthe (?:quarterly |annual )?survey\b/gi, (m) => m.replace(/survey/i, "sentiment-harvesting initiative")],
+  [/\b(?:the |an )?expense (?:forms?|reports?)\b/gi, (m) => m.replace(/expense (forms?|reports?)/i, (_x, f) => `expense attestation ${/s$/.test(f) ? "packets" : "packet"}`)],
+  [/\bthe (?:mandatory )?training\b/gi, (m) => m.replace(/training/i, "upskilling journey")], [/\bmeeting invites\b/gi, "calendar summons"], [/\bcatch-up invites\b|\bsync invites\b|\balignment session invites\b/gi, "calendar summons"],
+  [/\bthe heater\b/gi, "the thermal comfort infrastructure"], [/\bthe shuttle\b/gi, "the last-mile mobility solution"], [/\bone taxi\b/gi, "one ground-transportation engagement"],
+  [/\bmy settings\b/gi, "my personalization configuration"], [/\bthe commute\b/gi, "the inbound mobility journey"], [/\bthe wifi\b(?! password| network)/gi, "the connectivity infrastructure"],
+  [/\ba reply-all storm\b|\breply-all storm\b/gi, (m) => m.replace(/reply-all storm/i, "organization-wide engagement event")], [/\bthe (?:shared )?drive\b/gi, (m) => m.replace(/drive/i, "knowledge repository")],
+  [/\bthe plants\b/gi, "the office biodiversity assets"], [/\bmore chairs\b/gi, "additional seating capacity"], [/\ba second microwave\b/gi, "a second thermal-reheating asset"],
+  [/\bthe ceiling\b/gi, "the overhead infrastructure"], [/\bthe cafeteria\b/gi, "the on-site nourishment center"], [/\bthe break room\b/gi, "the recharge zone"],
+  [/\bthe elevators\b/gi, "the vertical mobility solutions"], [/\bthe mockups\b/gi, "the visual thought-starters"], [/\bthe slides\b/gi, "the narrative assets"],
+  [/\bthe board deck draft\b/gi, "the board-level strategic narrative (draft)"], [/\ba payroll question\b/gi, "a compensation-adjacent inquiry"],
+  [/\bthe hotfix\b/gi, "the precision hotfix"], [/\bthe server\b(?=[.,!?]|$| is\b| was\b| went\b| crashed\b| keeps\b| died\b| has\b)/gi, "the compute infrastructure"], [/\bthe servers\b/gi, "the server fleet"],
+  [/\bthe ticket\b/gi, "the work item"], [/\bjury duty\b/gi, "civic-engagement duty"],
+  [/\bthe vet\b/gi, "the vet, supporting a key family stakeholder"],
 ];
 export function inflate(text) {
   let t = text;
@@ -125,9 +156,9 @@ const TOPIC_CLOSERS = {
 const GENERIC_CLOSERS = {
   bad: ["Every setback is a setup for a comeback.", "Adversity is just opportunity in a hard hat.", "We remain cautiously optimistic about everything."],
   good: ["The flywheel is spinning.", "This is what happens when vision meets execution.", "History will remember this moment."],
-  neutral: ["Synergy remains on track.", "Transparency is a journey, not a destination.", "Stay aligned, team."],
-  personal: ["Sustainable performance is a long game.", "You can't pour from an empty cup."],
-  ask: ["Grateful for your partnership on this.", "Appreciate you leaning in on this."],
+  neutral: ["No synergies were harmed in the making of this strategic update.", "Please treat this update as a strategic asset.", "This has been a thought leadership moment.", "Synergy remains on track."],
+  personal: ["Sustainable performance is a long game.", "You can't pour from an empty cup.", "Self-care is a strategic KPI."],
+  ask: ["Grateful for your partnership on this.", "Appreciate you leaning in on this.", "Your partnership is our competitive advantage."],
   opinion: ["Iron sharpens iron.", "Strong opinions, loosely held."],
 };
 

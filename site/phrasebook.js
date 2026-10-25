@@ -188,7 +188,7 @@ really = really = truly = genuinely
 very = very = highly = highly
 >super = really = very = extremely
 totally = completely = fully = fully
-kind of = somewhat = partially = directionally
+kind of = somewhat = a bit = directionally
 sort of = somewhat = loosely = directionally
 lots of = plenty of = a significant amount of = a robust volume of
 a little = a bit = slightly = incrementally
@@ -210,6 +210,8 @@ change = change = shift = pivot
 changed = changed = shifted = pivoted
 double check = double-check = double-check = validate
 check in = check in = touch base = sync up
+take a quick look at = take a quick look at = give a quick review to = do a quick deep dive into
+take a look at = take a look at = review = take a deep dive into
 look at = take a look at = review = take a deep dive into
 looked at = looked at = reviewed = reviewed
 look into = look into = dig into = investigate holistically
@@ -265,7 +267,8 @@ a late = a late = a delayed = a timeline-challenged
 ^hey = hi = hi team = hi all
 ^bye = bye = talk soon = let's reconnect soon
 grab coffee = get coffee = grab a coffee chat = schedule a caffeinated alignment session
-vacation = time off = PTO = strategic recharge
+on vacation = on vacation = on PTO = on a strategic recharge
+vacation = vacation = PTO = strategic recharge
 nap = rest = recharge = strategic recharge
 sleep = rest = recharge = restorative downtime
 ^fun = fun = engaging = culture-additive
@@ -432,7 +435,9 @@ we won't work = we won't be working = we won't be working = we will not be worki
 !>won't = will not = will not = will not
 !^won't = will not = will not be doing that = will not be prioritizing that
 !^don't know = don't know just yet = don't have visibility into that yet = lack line of sight on that
+!>don't know if = don't know if = don't have clarity on whether = lack visibility into whether
 !>don't know = don't yet know = don't have clarity on = lack visibility into
+!>i don't know if = I'm not sure if = I don't have clarity on whether = I lack visibility into whether
 !>i don't know = I'm not sure = I don't have clarity on = I lack visibility into
 !tired = worn out = low on bandwidth = running on a depleted energy budget
 !tired of = fed up with = worn out by = fatigued by
@@ -583,6 +588,8 @@ been broken = been down = been in a degraded state = been in a degraded state
 borked = broken = broken = broken
 i don't think = I don't think = I don't believe = I'm not convinced
 !is trash = is terrible = is unreliable = is underperforming
+!is garbage = is terrible = is unreliable = is underperforming
+!was garbage = was terrible = was unreliable = was underperforming
 !was trash = was terrible = was unreliable = was underperforming
 !are trash = are terrible = are unreliable = are underperforming
 can shove = can keep = can keep = can keep
@@ -856,7 +863,7 @@ export const THEMES = [
   {
     id: "pip",
     weight: 11,
-    patterns: [/performance improvement plan/i, /\bPIP\b/, /\bimprovement plan\b/i, /\b(?:30|60|90|thirty|sixty|ninety)[- ]day (?:plan|period|review|window)\b/i, /(?:below|did not meet|does not meet|not meeting|not met) (?:the )?expectations/i, /\bdocumented (?:concerns|gaps)\b/i],
+    patterns: [/performance improvement plan/i, /\bPIP\b/, /\bimprovement plan\b/i, /\b(?:30|60|90|thirty|sixty|ninety)[- ]day (?:plan|period|review|window)\b/i, /\b(?:your|you)\b[^.]{0,50}\b(?:below|did not meet|does not meet|not meeting|not met) (?:the )?expectations/i, /\bdocumented (?:concerns|gaps)\b/i],
     summary: ["Your performance is under formal review, with a deadline.", "You're on a PIP. That often ends in an exit.", "This is the paper trail before they fire you."],
     line: ["You're on a formal improvement plan.", "You're on a PIP.", "They're building the case to fire you."],
   },
@@ -989,7 +996,7 @@ export const THEMES = [
     weight: 8,
     patterns: [
       /return(?:ing)?[ -]to[ -](?:the )?office/i, /\bRTO\b/, /in[ -]person collaboration/i, /\bin[ -]office\b/i,
-      /days? (?:a|per) week in/i, /back (?:to|in) the office/i, /\bour offices\b/i, /badge (?:data|swipes?|in)\b|\bbadging\b/i, /\bhubs?\b/i,
+      /days? (?:a|per) week in/i, /back (?:to|in) the office/i, /\bour offices\b/i, /badge (?:data|swipes?)\b|\bbadging\b|\bbadge in (?:at least|\w+ days|on)\b/i, /\b(?:office|in-person|collaboration) hubs?\b|\bhub days?\b|\bour hubs\b/i,
       /(?:three|four|five|3|4|5) days/i, /serendipit/i, /water ?cooler/i,
     ],
     summary: ["You need to come back to the office.", "Remote work is over. Come back to the office.", "Back to your desk, where we can watch you."],
@@ -1023,7 +1030,7 @@ export const THEMES = [
   {
     id: "cost-cuts",
     weight: 5,
-    patterns: [/cost (?:discipline|optimization|reduction|savings|cutting)/i, /\bcut(?:ting)? costs?\b/i, /efficienc/i, /streamlin/i, /do more with less/i, /\bleaner\b/i, /spend(?:ing)? (?:less|wisely|discipline)/i, /\bbudget/i, /prudent/i],
+    patterns: [/cost (?:discipline|optimization|reduction|savings|cutting)/i, /\bcut(?:ting)? costs?\b/i, /efficienc/i, /streamlin/i, /do more with less/i, /\bleaner\b/i, /spend(?:ing)? (?:less|wisely|discipline)/i, /(?<!\b(?:bigger|larger|higher|increased|expanded|new) )\bbudget(?!s? (?:has|have) been (?:doubled|increased|raised|expanded))(?! is now \$)/i, /prudent/i],
     summary: ["The company is cutting spending.", "They're cutting costs.", "They're cutting costs, and you are a cost."],
     line: ["Spending is being cut.", "They want to spend less money.", "They're cutting costs."],
   },
@@ -1037,7 +1044,7 @@ export const THEMES = [
   {
     id: "ai",
     weight: 4,
-    patterns: [/\bAI\b/, /artificial intelligence/i, /automat/i, /agentic/i, /machine learning/i],
+    patterns: [/\bAI\b/, /artificial intelligence/i, /\bautomat(?:ion|ions|ed|ing|e|es)\b/i, /agentic/i, /machine learning/i],
     summary: ["They want AI to do more of the work.", "They plan to use AI to need fewer people.", "They'd like a robot to do your job."],
     line: ["They want to use AI more.", "AI will do some of this work.", "AI is coming for these jobs."],
   },

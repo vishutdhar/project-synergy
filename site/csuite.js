@@ -8,7 +8,7 @@ import { topicOf, groupOf, inflate, topicFrame, topicCloser, topicClosers, setSo
 const STOP = new Set(["looks", "there", "about", "which", "would", "could", "their", "thing", "thanks", "going"]);
 const pick = (rng, xs) => xs[Math.floor(rng() * xs.length)];
 let srcWords = new Set();
-const FUNCTION_START = /^(?:The|A|An|This|That|These|Those|My|Our|Your|Their|We|We're|We've|We'll|They|They're|He|She|It|It's|There|There's|Here's|Nothing|Nobody|Everyone|Someone|Anyone|Unfortunately|Could|Would|Can|Will|Is|Are|Do|Does|Did|What|What's|Who|Who's|When|Where|Why|How|Which|Whose|Please|Thank|Thanks|Great|Huge|Sorry|Apologies|Not|No|Yes|Hard|Sounds|Understood|You|You're|Today|Tomorrow|Happy|Outstanding|Congratulations|Lunch|Payroll|Traffic|Just|So|Very|Let's|Let|Here|If|To|Is|In|On|At|For|By|With|Some|All|Any|Every|Each|Both|Over|Under|After|Before|Server|Printer|Invoice|Closed|New)$/;
+const FUNCTION_START = /^(?:Lunch|Dinner|Breakfast|Pastries|Pizza|Cake|Bagels|Donuts|Snacks|Payroll|Hotfix|Retro|Interview|Deck|Board|Client|Shipped|Merged|Reviewing|Pushed|Fixed|Sent|Starting|Going|Heading|Moving|Working|Taking|Leaving|Out|Off|At|On|In|The|A|An|This|That|These|Those|My|Our|Your|Their|We|We're|We've|We'll|They|They're|He|She|It|It's|There|There's|Here's|Nothing|Nobody|Everyone|Someone|Anyone|Unfortunately|Could|Would|Can|Will|Is|Are|Do|Does|Did|What|What's|Who|Who's|When|Where|Why|How|Which|Whose|Please|Thank|Thanks|Great|Huge|Sorry|Apologies|Not|No|Yes|Hard|Sounds|Understood|You|You're|Today|Tomorrow|Happy|Outstanding|Congratulations|Lunch|Payroll|Traffic|Just|So|Very|Let's|Let|Here|If|To|Is|In|On|At|For|By|With|Some|All|Any|Every|Each|Both|Over|Under|After|Before|Server|Printer|Invoice|Closed|New|Deploy|Release|Launch|Demo|Coffee|Quick|Still|Done|Free|Snacks|Urgent|Back|Offline|Heads|Huddle|Running|Out|Off|Half|Pizza|Bagels|Donuts|Cake|Standup|Meeting|Almost|Working|Waiting|Blocked|Stuck|Need|Welcome|Congrats|Nice|Also|Going|Heading|Taking|Starting|Off|Fixed|Sent|Pushed|Shipped|Finished|Merged|Approved|Signed|Booked|Moved|Running|Grabbing|Ok|Okay|Got|Sure|Yep|Yeah|Nope|Maybe|Probably|Honestly|Frankly|Btw|Fyi|Ugh|Wow|Oh|Hey|Hi|Hello|Morning|Afternoon|Evening|Tonight|Friday|Monday|Tuesday|Wednesday|Thursday|Saturday|Sunday|Next|Last|One|Two|Three|Big|Small|Kudos|Shoutout|Love|Hate|Agreed|Agree|Disagree|Feels|Seems|Looks|Same|Ditto|Again|Lol|Haha|Status|Update|Reminder|Note|Heads-up|Blocker|Question|Ask|Request|FYI)$/;
 let capsKeep = new Set();
 const lowerFirst = (s) => {
   const w = (s.match(/^[A-Za-z][\w'-]*/) ?? [""])[0];
@@ -27,7 +27,7 @@ const L2_LABEL = /^(?:Quick (?:heads-up|question|ask|flag|win|update)|Heads-up|K
 // Phrase upgrades. Each one keeps its grammatical slot (verb phrase for verb phrase, noun for noun).
 const UPGRADES = [
   [/\b(sales|revenue|signups|bookings|traffic|conversion|margins?|numbers) (?:are|is) down (\d+(?:\.\d+)?%)/gi, "$1 have realigned downward by $2"],
-  [/\b(is|are) down\b(?! \d| by| to\b)/g, (_m, v) => `${v} experiencing ${v === "is" ? "an availability headwind" : "availability headwinds"}`],
+  [/(?<!\b(?:churn|latency|costs?|bugs|errors|tickets|crashes|downtime|complaints|incidents|spend|load times?|wait times?|bounce rate)\s)\b(is|are) down\b(?! \d| by| to\b)/g, (_m, v) => `${v} experiencing ${v === "is" ? "an availability headwind" : "availability headwinds"}`],
   [/\b(is|are) (?:broken|not working)\b/g, (_m, v) => `${v} experiencing ${v === "is" ? "a reliability headwind" : "reliability headwinds"}`],
   [/\b(is|are) (?:slow|loading slowly|really slow)\b/g, (_m, v) => `${v} experiencing latency headwinds`],
   [/\bis too slow to\b/g, "lacks the velocity to"],
@@ -162,7 +162,7 @@ export function upgrade(text) {
 
 const NEG = /\b(?:not|no|never|nothing|nobody|can't|won't|don't|didn't|isn't|aren't|wasn't|unable|unfortunately)\b|n't\b/i;
 const PROBLEM = /\b(?:down|broken|broke|fail\w*|late|behind|slow\w*|stuck|wrong|error\w*|bug\w*|blocked|blocker|cut|over budget|short|lost|missed|jammed|outage|crash\w*|concern\w*|not thrilled|not ideal|not happy|not looking forward|frustrat\w*|exhausted|burnt out|burned out|headwind\w*|risk\w*|flaky|out of date|smells|ghost\w*|rejected|unread|double[- ]booked|thin|expired|dropping|red|impossible|unrealistic|annoyed|difficult|waste|too long|too busy|too much|out of service|sick|over our|right-sized|rough shape|freeze|stuck|ghosted|nobody|no one|keeps? dropping|can't log in|locked out|upset|mad|angry|confus\w*|mess\w*|worse|declin\w*|dropped|doubled|garbage|halt\w*|delay\w*|stopped responding|gone quiet|no budget|no designer|nothing (?:got|was)|out again|out of \w+|full|overdue|freez\w*|threaten\w*|longer than|flopp\w*|didn't work|halved|cancel\w*|overspent|rais\w+ prices|swamped|buried|at capacity|disconnect\w*|outdated|out of date|typos?|quit|hassle|nonsense|never repl\w*|pain|not credible|disorganized)\b|\b0 [a-z]+/i;
-const WIN = /\b(?:paid|renewed|under budget|ahead of schedule|closed (?:the|a|an|our) (?:deal|round|sale|contract)|closed (?:the|a|an|our) [\w-]+ (?:deal|round|sale|contract)|closed the [\w-]+ (?:deal|renewal)|shipped|launched|landed|achieved|reached|hit|record|signed|won|went (?:great|well|really well)|loved|finished|done|fixed|saved|passed|approved|resolved|milestone|congrat\w*|promotion|anniversary|kudos|great work|great job|outstanding|excellent|game changer|awesome|lifesaver|shoutout|shout-out|thank)\b/i;
+const WIN = /\b(?:paid|renewed|under budget|ahead of schedule|closed (?:the|a|an|our) (?:deal|round|sale|contract)|closed (?:the|a|an|our) [\w-]+ (?:deal|round|sale|contract)|closed the [\w-]+ (?:deal|renewal)|shipped|launched|landed|achieved|reached|hit|(?<!for the )record(?! straight)|signed|won|went (?:great|well|really well)|loved|finished|done|fixed|saved|passed|approved|resolved|milestone|congrat\w*|promotion|anniversary|kudos|great work|great job|outstanding|excellent|game changer|awesome|lifesaver|shoutout|shout-out|thank)\b/i;
 const PERSONAL = /^(?:I'm|I am|I'll|I will|I've|I have|I was|My)\b.*\b(?:going home|heading (?:out|home)|done for (?:today|the day|the week)|logging off|late|behind|sick|PTO|out|(?<!sign )off|leaving|back|working remotely|working from home|on my way|dentist|doctor|appointment|free|booked|available|burnt out|exhausted|break|online)\b/i;
 
 export function intentOf(clean, core) {
@@ -182,6 +182,13 @@ export function intentOf(clean, core) {
   if (/^(?:who|who's|whose|what|what's|when|where|why|how|which)\b/i.test(c)) return "question";
   if (/^(?:can|could|would|will) (?:you|someone|anyone|somebody|we|I get)\b/i.test(c) && !/^can I\b/i.test(c) || /^(?:Could|Would|Can) (?:you|someone|I get|we)\b/.test(core) || /^Please\b/.test(core)) return "request";
   if (/\?\s*$/.test(c) || /\?$/.test(core) && /^(?:Who|What|When|Where|Why|How|Which|Is|Are|Does|Do|Did|Can I|Has|Have|Could you let me know|Could you help me understand)\b/.test(core)) return "question";
+  // Round 11: cutting a cost is a win, and "no rush" is a kindness, not a problem.
+  if (/\b(?:cut|reduced|lowered|trimmed|slashed) (?:our |the )?(?:[\w-]+ )?(?:costs?|spend|spending|latency|churn|load times?|bills?|build times?)\b/i.test(c) && !/\b(?:budget|benefits?|perks?|jobs?|roles?|salar\w+)\b/i.test(c)) return "win";
+  if (/\bno rush\b/i.test(c) && !/\?/.test(c)) return "status";
+  if (/\b(?:load times?|latency|churn|bugs|errors|tickets|crashes|downtime|complaints|incidents|wait times?|bounce rate|response times?)\b[^.]*\b(?:dropped|fell|decreased|halved|went down|is down|are down|down \d+%)\b/i.test(c) && !/\bbut\b/i.test(c)) return "win";
+  // "we hit the deadline but skipped the testing": a win with a catch is a problem update, not a celebration.
+  if (/\bbut\b/i.test(c) && PROBLEM.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
+  if (/\bbut\b/i.test(c) && /\b(?:skipped|missed|over budget|blown|struggling|broke|lost|cost(?:s)? more|late)\b/i.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
   if (/^(?:I'm concerned|I'm not thrilled|I'm not looking forward|I'm not happy|That's not ideal|The timing isn't ideal|Unfortunately|I have \d+)\b/.test(core)) return "problem";
   const DOING = /\b(?:make|do|doing|take|attend|join|help|commit|support|offer|be at|be there|sign|signing|cover|go|come|work|working|approve|approving|give|giving|move|fit|present|presenting|host|hosting|speak|speaking|rewrite|rewriting|hire|hiring|joining|attending|making|taking|coming|going|covering|helping)\b/i;
   if (/^(?:absolutely not|hell no|no way|nope|not happening)\b/i.test(c) || /^(?:that's|that is) a (?:hard |firm |big )?no\b/i.test(c)) return "decline";
@@ -278,6 +285,8 @@ const FRAMES = {
     (s) => `Circling back with a strategic update: ${lowerFirst(s)}`,
     (s) => `Quick download for full alignment: ${lowerFirst(s)}`,
     (s) => `In the spirit of radical transparency, ${lowerFirst(s)}`,
+    (s) => `Cascading a mission-critical update to the broader organization: ${lowerFirst(s)}`,
+    (s) => `Pursuant to our ongoing commitment to stakeholder over-communication: ${lowerFirst(s)}`,
   ],
 };
 
@@ -285,7 +294,7 @@ const CLOSERS = {
   problem: ["Every setback is a setup for a comeback.", "Resilience is a muscle, and we are training it.", "Every problem is an opportunity in disguise.", "We move forward, with humility."],
   win: ["Teamwork makes the dream work.", "This is what happens when vision meets execution.", "The flywheel is spinning.", "Grateful for this incredible team. Onward."],
   praise: ["This is what a high-performing culture looks like.", "Absolute rockstar energy.", "Teamwork makes the dream work."],
-  request: ["Grateful for your partnership on this.", "Appreciate you leaning in on this.", "Thanks for driving value with me on this."],
+  request: ["Grateful for your partnership on this.", "Appreciate you leaning in on this.", "Thanks for driving value with me on this.", "Your partnership is our competitive advantage."],
   question: ["No wrong answers, only learning opportunities.", "Curious to hear the collective wisdom here.", "Grateful for any thought leadership on this."],
   decline: ["Every no is a yes to focus.", "Focus is a strategic choice.", "Grateful for your understanding."],
   apology: ["Failing forward, as always.", "Growth happens outside the comfort zone.", "Grateful for your patience and grace."],
@@ -297,12 +306,13 @@ const CLOSERS = {
   social: ["Fully aligned.", "Appreciate the alignment.", "Onward."],
   welcome: ["Excited for the journey ahead.", "The future is bright."],
   thanks: ["Deeply grateful for the partnership.", "Gratitude is a core value.", "Appreciate you."],
-  status: ["More to come as this journey unfolds.", "Transparency is a journey, not a destination.", "Stay aligned, team."],
+  status: ["More to come as this journey unfolds.", "No synergies were harmed in the making of this strategic update.", "Please treat this update as a strategic asset.", "This has been a thought leadership moment."],
 };
 
 // "Could you send me the deck before 3?" -> "If you could go ahead and send me the deck before 3, that would be greatly appreciated."
 function lumbergh(core, keepQuestion) {
   const m = core.match(/^(?:Could|Would|Can) you (?:please )?(.+?)\?$/);
+  if (m && /^mind \w/.test(m[1])) return `Would you be open to ${m[1].slice(5)}?`;
   if (m && !keepQuestion) return `If you could go ahead and ${m[1]}, that would be greatly appreciated.`;
   if (m) return `Would you be able to go ahead and ${m[1]}?`;
   const p = core.match(/^Please (don't|do not|stop|avoid) (.+?)[.!]?$/i);
@@ -419,5 +429,25 @@ export function composeCSuite({ clean, mild, middle, rng, raw = clean }) {
   const fresh = (c) => !c.toLowerCase().split(/\W+/).some((w) => w.length >= 5 && !STOP.has(w) && text.toLowerCase().includes(w.slice(0, 6)));
   if (!closers.length && tc.length) closers.push(...topicClosers("general", group).filter(fresh));
   if (closers.length) text += " " + pick(rng, closers);
-  return text.replace(/\bthat that\b/g, "that").replace(/\b([a-z]{3,}) \1\b/g, (m, w) => (w === "had" ? m : w)).replace(/\s{2,}/g, " ").replace(/\.\./g, ".").replace(/!\./g, "!");
+  return dejargon(text.replace(/\bthat that\b/g, "that").replace(/\b([a-z]{3,}) \1\b/g, (m, w) => (w === "had" ? m : w)).replace(/\s{2,}/g, " ").replace(/\.\./g, ".").replace(/!\./g, "!"));
+}
+// Round 11: one buzzword per output. A second "headwind" or "journey" reads as a glitch, not a joke,
+// so the later one is swapped for a sibling word with the same grammar.
+const JARGON = [
+  [/headwinds?/gi, (w) => (/s$/i.test(w) ? "speed bumps" : "speed bump")], [/ecosystem/gi, () => "landscape"], [/journey/gi, () => "marathon"],
+  [/alignment/gi, () => "consensus"], [/aligned/gi, () => "in sync"], [/transparency/gi, () => "candor"], [/transparent(?!ly)/gi, () => "candid"],
+  [/infrastructure/gi, () => "apparatus"], [/stakeholders?/gi, (w) => (/s$/i.test(w) ? "partners" : "partner")], [/bandwidth/gi, () => "capacity"],
+  [/strategic/gi, () => "visionary"], [/radical/gi, () => "bold"], [/excellence/gi, () => "greatness"], [/flywheel/gi, () => "momentum engine"],
+];
+export function dejargon(text) {
+  let t = String(text);
+  for (const [re, alt] of JARGON) {
+    const hits = [...t.matchAll(new RegExp(`\\b${re.source}\\b`, "gi"))];
+    if (hits.length < 2) continue;
+    const h = hits[hits.length - 1];
+    let rep = alt(h[0]);
+    if (/^[A-Z]/.test(h[0])) rep = rep[0].toUpperCase() + rep.slice(1);
+    t = t.slice(0, h.index) + rep + t.slice(h.index + h[0].length);
+  }
+  return t.replace(/\b(a|A) (apparatus|ecosystem|alignment|update|odyssey)\b/g, (m, a, w) => `${a}n ${w}`.replace(/^(a|A)n (apparatus)/, "$1n $2")).replace(/\ba (apparatus)\b/g, "an $1");
 }
