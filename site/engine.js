@@ -80,7 +80,7 @@ const CASUAL_WORDS = {
   definitly: "definitely", seperate: "separate", wierd: "weird", untill: "until", alot: "a lot", wat: "what", wut: "what", wht: "what", becuase: "because", becasue: "because",
   tho: "though", thru: "through", ppl: "people", pplz: "people", govt: "government", abt: "about", appt: "appointment", asap: "ASAP", eod: "EOD", eow: "EOW",
   gtg: "I have to go,", g2g: "I have to go,", icymi: "in case you missed it,", fwiw: "for what it's worth,", afaik: "as far as I know,", afaict: "as far as I can tell,",
-  iirc: "if I remember correctly,", tbf: "to be fair,", wdyt: "what do you think", hmu: "let me know", ttyl: "talk to you later", ofc: "of course", nbd: "no worries",
+  iirc: "if I remember correctly,", tbf: "to be fair,", wdyt: "what do you think", hmu: "let me know", hbd: "happy birthday", gg: "great job", ttyl: "talk to you later", ofc: "of course", nbd: "no worries",
   yw: "you're welcome", hbu: "how about you?", wdym: "what do you mean", wyd: "what are you doing", qq: "quick question:", imma: "I'm going to", ima: "I'm going to", bday: "birthday", ik: "I know", ikr: "I know, right?", brt: "be right there", bbiab: "be back in a bit", tyt: "take your time", ftr: "for the record", sgtm: "sounds good",
   atm: "at the moment", bbl: "be back later", otw: "on the way", idts: "I don't think so", gm: "good morning", pto: "PTO", wip: "WIP",
   amirite: ", right?", afk: "offline", jk: "just kidding,", tyvm: "thanks so much", tysm: "thank you so much", irl: "in real life,", dawg: "", bruh: "", fam: "", sus: "questionable", borked: "broken", yeeted: "scrapped", wanna: "want to", lol: "", lmao: "", lmfao: "", rofl: "", haha: "", hahaha: "", hehe: "", smh: "", fr: "", omg: "wow,", omfg: "wow,", ugh: "", ughh: "", welp: "",
@@ -134,7 +134,7 @@ export function normalizeCasual(text) {
   t = t.replace(/([a-z]) (you're|you are|ur|u r) (the best|a lifesaver|a star|amazing)\b/gi, "$1, you're $3");
   t = t.replace(/^(\s*)(oops|whoops)\s+(?=(?:my bad|sorry|wrong|typo)\b)/gim, "$1$2, ");
   t = t.replace(/^(\s*)(wow|whoa|oh wow|yikes)\s+(?=(?:thanks|thank|that|this|so|what|ok|okay|i|we|you|the|great|nice|cool|just)\b)/gim, "$1$2, ");
-  t = t.replace(/\blowkey\b/gi, "quietly").replace(/\bslapped\b/gi, "was great");
+  t = t.replace(/\blowkey\b/gi, "a bit").replace(/\bslapped\b/gi, "was great");
   t = t.replace(/(^|[.!?]\s+)wait,? what\b[?!.]*/gi, (_m, p) => p + "Wait, what?");
   // "honestly," left at the very end of a sentence loses its comma.
   t = t.replace(/,(?=\s*[.!?])/g, "").replace(/,\s*$/, "");
@@ -833,7 +833,7 @@ function postPolish(text, lvl, clean) {
       .replace(/^(That's a no from (?:me|us)), /, "$1: ")
       .replace(/^(?:Quick heads-up|Heads-up|For visibility): (that|this|the) (deadline|timeline|date|target|estimate) is (?:impossible|unrealistic)\.$/, "Flagging that $1 $2 isn't realistic.")
       .replace(/^(?:Quick heads-up|Heads-up|For visibility): (this|it|that) needs more work/, "My two cents: $1 needs more work")
-      .replace(/^(?:Quick heads-up|Heads-up|For visibility): ((?:the|this|that) [^.]*?\b(?:looks|is|was) )(?:really |truly |very |so )?(good|great|excellent|clear|amazing|awesome)\b/, (_m, a, b) => `Kudos: ${a}${b === "good" ? "great" : b}`)
+      .replace(/^(?:Quick heads-up|Heads-up|For visibility): ((?:the|this|that) [^.]*?\b(?:looks|is|was) )(?:really |truly |very |so )?(good|great|excellent|clear|amazing|awesome)\b(?![^.]*\bbut\b)/, (_m, a, b) => `Kudos: ${a}${b === "good" ? "great" : b}`)
       .replace(/^(?:For visibility|Heads-up|Quick heads-up): (happy|congrat\w*|welcome|huge congrat\w*|sincere apologies|apologies)\b/i, (_m, w) => w[0].toUpperCase() + w.slice(1))
       .replace(/^(?:Quick heads-up|Heads-up|For visibility): that's a great question\. I'm not sure\./i, "Great question. Candidly, I'm not sure.")
       .replace(/^(?:For visibility|Heads-up|Quick heads-up): (I'd rather|I prefer|I'd prefer|I see)\b/, "My two cents: $1");

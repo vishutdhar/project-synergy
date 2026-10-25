@@ -13,11 +13,11 @@ const TOPICS = [
   ["feelings", /\b(?:stressed|anxious|nervous|overwhelmed|bored|sad|frustrated|annoyed|scared|scares|worried|excited|proud|happy(?! to\b)|grumpy|can't focus)\b/i],
   ["meetings", /\b(?:meetings?|standup|stand-up|sync|syncs|1:1|all[- ]hands|calls?|retro|sprint planning|offsite|calendar|invites?)\b/i],
   ["inbox", /\b(?:emails?|inbox|reply[- ]all|replied all|slack|channel|messages?|dms?|@-ing|cc'?ing|pinged?)\b/i],
-  ["money", /\b(?:budget|bill|invoice|costs?|spend\w*|money|price|pricing|deal|revenue|quota|discount|\$\d|expenses?|payroll|bonus\w*|payday)\b/i],
+  ["money", /\b(?:budget|bill|invoice|costs?|spend\w*(?! (?:my|the|our|this|all|a|every|another) (?:weekend|evening|time|day|night|holiday|morning|afternoon|week|saturday|sunday))|money|price|pricing|deal|revenue|quota|discount|\$\d|expenses?|payroll|bonus\w*|payday)\b/i],
   ["tech", /\b(?:laptop|wifi|vpn|printer|copier|projector|server|staging|prod|build|bug|tests?|deploy\w*|api|login|password|outage|crash\w*|restart\w*|toner|monitor|computer|keyboard|app)\b/i],
   ["docs", /\b(?:docs?|document\w*|spreadsheet|deck|slides|tabs|wiki|spec|report|roadmap|notes|ticket|tracker\w*|copy|font)\b/i],
   ["scope", /\b(?:scope|requirements|priorities|revisions?|rewrite|pivot\w*)\b/i],
-  ["deadline", /\b(?:deadline|eod|asap|late(?!-night| night)|behind|delayed|commute|traffic|train|bus|missed my|running \d+|minutes|mins|waiting|forever|hours?)\b/i],
+  ["deadline", /\b(?:deadline|eod|asap|late(?!-night| night)|behind|delayed|commute|(?<!(?:web|site) )traffic(?! (?:dropped|fell|is down|is up|grew|spiked|doubled|tripled|jumped))|train|bus|missed my|running \d+|minutes|mins|waiting|forever|hours?)\b/i],
   ["office", /\b(?:office|desk|chair|ac\b|air conditioning|parking|elevator|plants?|floor|building|fire drill|room)\b/i],
   ["people", /\b(?:client|customer|manager|boss|vendor|legal|finance|marketing|sales|ceo|team|everyone|nobody|someone|intern|new hire)\b/i, /\b(?:IT|HR)\b/],
 ];
@@ -110,7 +110,7 @@ const INFLATE = [
   [/\bthe board deck draft\b/gi, "the board-level strategic narrative (draft)"], [/\ba payroll question\b/gi, "a compensation-adjacent inquiry"],
   [/\bthe hotfix\b/gi, "the precision hotfix"], [/\bthe server\b(?=[.,!?]|$| is\b| was\b| went\b| crashed\b| keeps\b| died\b| has\b)/gi, "the compute infrastructure"], [/\bthe servers\b/gi, "the server fleet"],
   [/\bthe ticket\b/gi, "the work item"], [/\bjury duty\b/gi, "civic-engagement duty"],
-  [/\bthe vet\b/gi, "the vet, supporting a key family stakeholder"],
+  [/\bthe vet\b(?! with)/gi, "the vet, supporting a key family stakeholder"],
 ];
 export function inflate(text) {
   let t = text;

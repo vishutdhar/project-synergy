@@ -131,6 +131,7 @@ bug = issue = defect = defect
 bugs = issues = defects = defects
 a simple fix = a simple fix = a straightforward fix = a low-lift remediation
 a quick fix = a quick fix = a fast fix = a rapid remediation
+is fixed = is fixed = is fixed = has been fully remediated
 !fixed = fixed = addressed = remediated
 terrible = pretty rough = deeply suboptimal = a significant value leak
 awful = rough = suboptimal = a value-destroying event
@@ -372,6 +373,7 @@ kitchen = kitchen = break room = nourishment hub
 bathroom = bathroom = restroom = wellness break facility
 car = car = car = mobility asset
 traffic = traffic = traffic = mobility headwinds
+under the weather = under the weather = under the weather = operating at reduced capacity
 weather = weather = conditions = environmental headwinds
 rain = rain = bad weather = environmental headwinds
 mess = mess = disorganized situation = unstructured ecosystem
