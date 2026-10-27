@@ -1,4 +1,5 @@
 import { hasCrude } from "./profanity.js";
+import { round12, genericClause } from "./round12.js";
 
 // Input pre-pass for Normal to corporate (see shortfalls/research.md).
 // Runs on the cleaned input before the level rules, so every level starts from a sincere, well-formed message:
@@ -58,7 +59,7 @@ export function splitGlued(sentence) {
   if (/[.!?;]\s/.test(s) || s.split(/\s+/).length < 4) return null;
   const m = GLUE.exec(s);
   if (/^(?:sorry|oops|my bad),? wrong\b/i.test(s)) return null;
-  if (!m || m.index < 6 || /\b(?:there's|there is|I've|I have|here's|so|and|but|then|or|just|to|please|because|since|as)$/i.test(s.slice(0, m.index))) return null;
+  if (!m || m.index < 6 || /\b(?:there's|there is|I've|I have|here's|so|and|but|then|or|just|to|please|because|since|as|has|have|had|it's|that's|which|who)$/i.test(s.slice(0, m.index))) return null;
   const left = s.slice(0, m.index).replace(/,$/, "").trim();
   let right = s.slice(m.index + 1).trim();
   // Round 7: "the AC in here is broken", "the parking situation here is a nightmare": "here" belongs to the
@@ -475,7 +476,8 @@ export function fragClause(c0, first) {
   if ((m = c.match(/^(offline|out|unreachable|away) ((?:on )?(?:mon|tues|wednes|thurs|fri|satur|sun)day)$/i))) return { s: `I'll be ${m[1].toLowerCase()} ${m[2].replace(/^on /i, "on ").replace(/(\w+day)/i, (d) => d[0].toUpperCase() + d.slice(1).toLowerCase())}`, kind: "effect" };
   if ((m = c.match(/^(muted|on mute|staying on mute|camera off)$/i))) return { s: /camera/i.test(m[1]) ? "I'll be off camera" : "I'm staying on mute", kind: "effect" };
   if (ING.test(c) && c.split(" ").length >= 2) return { s: `I'm ${c[0].toLowerCase()}${c.slice(1)}`.replace(/^I'm stuck\b/, "I'm stuck").replace(/^I'm parked\b/, "I'm parked"), kind: /^(?:heading|logging|signing|leaving|going|running|joining|rejoining|taking|dialing|calling|switching|working)/i.test(c) ? "effect" : "state" };
-  return null;
+  // Round 12: general noun phrase + state fallback.
+  return genericClause(c, { single: first });
 }
 export function completeFragment(t) {
   if (t.length > 90 || /[?]/.test(t) || /[.!]\s+\S/.test(t) || /\bon my way\b|\bomw\b/i.test(t)) return null;
@@ -951,7 +953,7 @@ export function prepass(clean, nested = false) {
   return clean.split("\n").map((line) => {
     if (/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s+/.test(line) || !line.trim()) return line;
     const lead = line.match(/^\s*/)[0];
-    let t = round6(round7(round8(round9(round10(round11(fixNamesAndTools(line.trim()))))))).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
+    let t = round6(round7(round8(round9(round10(round11(round12(fixNamesAndTools(line.trim())))))))).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
     const sents = t.split(/(?<=[.!?])\s+(?=[A-Za-z])/);
     t = sents.map((s, i) => {
       const sar = desarcasm(s);

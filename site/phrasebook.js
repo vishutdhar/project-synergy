@@ -888,7 +888,7 @@ export const THEMES = [
   {
     id: "pip",
     weight: 11,
-    patterns: [/performance improvement plan/i, /\bPIP\b/, /\bimprovement plan\b/i, /\b(?:30|60|90|thirty|sixty|ninety)[- ]day (?:plan|period|review|window)\b/i, /\b(?:your|you)\b[^.]{0,50}\b(?:below|did not meet|does not meet|not meeting|not met) (?:the )?expectations/i, /\bdocumented (?:concerns|gaps)\b/i],
+    patterns: [/performance improvement plan/i, /\bPIP\b/, /\bimprovement plan\b/i, /\b(?:30|60|90|thirty|sixty|ninety)[- ]day (?:plan|period|review|window)\b/i, /\bdocumented (?:concerns|gaps)\b/i],
     summary: ["Your performance is under formal review, with a deadline.", "You're on a PIP. That often ends in an exit.", "This is the paper trail before they fire you."],
     line: ["You're on a formal improvement plan.", "You're on a PIP.", "They're building the case to fire you."],
   },

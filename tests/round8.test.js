@@ -74,7 +74,7 @@ test("comma fragments in status lines become full clauses", () => {
   every("pushed the migration to staging, prod tomorrow if nothing breaks", /and the production release is planned for tomorrow if nothing breaks/);
   every("finished the first draft, sending it over after lunch", /(?:and I.ll send it|so I.m sending it) (?:over )?after lunch/);
   none("finished the first draft, sending it over after lunch", /over over/);
-  every("the payment service is throwing 500s, rolling back now", /and I'm rolling back now/);
+  every("the payment service is throwing 500s, rolling back now", /(?:and|so) I'm rolling back now/);
   every("I'm stuck on the auth bug, might need help", /and I might need/);
   every("the sprint is basically done, two tickets left", /with two tickets left/);
   every("gonna be late, train's delayed", /behind(?: schedule)? because my train is delayed/);

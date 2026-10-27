@@ -357,6 +357,12 @@ export function tidy(text) {
   t = t.replace(/\u0000\^(\S)/g, (_m, c) => "\u0000" + c.toUpperCase());
   t = t.replace(/~/g, "");
   t = t.replace(/[\u0000\u0001]/g, "");
+  // Round 12: a full sentence glued after a label colon starts lowercase ("Quick heads-up: please be straight").
+  t = t.replace(/(^|[.!?]\s+)([A-Z][\w'-]*(?: [\w'-]+){0,7}): (Please|Is|Are|Could|Would|Can|Do|Does|Did|Should|Will|Has|Have) (?=[a-z])/g, (_m, pre, lab, w) => `${pre}${lab}: ${w.toLowerCase()} `);
+  t = t.replace(/\b(?:completely|totally) did an? (fantastic|great|amazing|excellent|outstanding|incredible) job\b/g, "did a $1 job");
+  // Round 12: doubled determiners and split phrasal verbs.
+  t = t.replace(/\b([Tt])he (this|that|these|those|my|our|your|their)\b/g, (_m, T, d) => (T === "T" ? d[0].toUpperCase() + d.slice(1) : d));
+  t = t.replace(/\b(pick|picking|pin|pinning|drop|dropping|bring|bringing) (up|off|in) (her|him|them|me|us)\b/g, "$1 $3 $2");
   t = t.replace(/\b(a|an|A|An)\s+([A-Za-z][\w'-]*)/g, (m, art, word) => {
     const wantsAn = startsWithVowelSound(word);
     const cap = art[0] === "A";
@@ -602,7 +608,9 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [], forceMild
     if (pool.length) {
       const opener = pick(rng, pool);
       keyWords(opener).forEach((k) => used.add(k));
-      result = `${opener}${openJoin}${result}`;
+      // Round 12: a colon opener runs into the sentence, so an ordinary first word goes lowercase ("...: the pager went off").
+      const body = opener.endsWith(":") && openJoin === " " ? result.replace(/^(The|This|That|These|Those|My|Our|Your|A|An|It|It's|There|We|We're|We've|Unfortunately|Anyone|Someone|Everyone|Just|Quick|Please|Could|Would|Can|Do|Does|Is|Are)\b(?! [A-Z][a-z])/, (w) => w.toLowerCase()) : result;
+      result = `${opener}${openJoin}${body}`;
     }
   }
   if (extras && /[A-Za-z]/.test(result) && rng() < CLOSER_CHANCE[lvl]) {

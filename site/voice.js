@@ -56,7 +56,7 @@ function intentOf(t, l1, l2) {
   if (OPINION.test(t) || /^My two cents:/.test(l2) || /^(?:Some candid feedback|I noticed that)\b/.test(t)) return "opinion";
   if (/^(?:Let's|I'd suggest|My recommendation)\b/.test(t)) return "suggest";
   if (/,? but\b/i.test(t) && /\b(?:hate|hates|dislike|wiped|lost|broke|broken|outdated|thin|nobody|no one|complain\w*|failed|crash\w*|deleted|missing|cut|skipped|missed|late|over budget|down|has no|have no|hasn't|haven't|doesn't have|no-showed|no-show|wants? (?:a |an )?(?:discount|refund)|asked for (?:a |an )?(?:discount|refund)|slower|dropped|fell|lower|worse|churn|more expensive|too long|too slow|lost)\b/i.test(t.split(/\bbut\b/i).slice(1).join(" "))) return "problem";
-  if (/^(?:I'm happy to share|Quick win:)/.test(l1 + " " + l2) || (WIN.test(t) && !PROBLEM.test(t))) return "win";
+  if (/^(?:I'm happy to share|Quick win:)/.test(l1 + " " + l2) || (WIN.test(t) && !PROBLEM.test(t) && !/\b(?:churn|attrition|errors?|bugs?|costs?|backlog|complaints?|downtime|latency|incidents?|refunds?|turnover|burn|debt|outages?)\b[^.]*?\b(?:hit|reached|record)\b/i.test(t))) return "win";
   if (PROBLEM.test(t) || /^(?:Unfortunately|Flagging that)/.test(l1 + " " + l2)) return "problem";
   return "status";
 }

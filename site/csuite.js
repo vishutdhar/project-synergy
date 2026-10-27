@@ -26,7 +26,7 @@ const L2_LABEL = /^(?:Quick (?:heads-up|question|ask|flag|win|update)|Heads-up|K
 
 // Phrase upgrades. Each one keeps its grammatical slot (verb phrase for verb phrase, noun for noun).
 const UPGRADES = [
-  [/\b(sales|revenue|signups|bookings|traffic|conversion|margins?|numbers) (?:are|is) down (\d+(?:\.\d+)?%)/gi, "$1 have realigned downward by $2"],
+  [/\b(sales|revenue|signups|bookings|traffic|conversion|margins?|numbers) (?:are|is) down (\d+(?:\.\d+)?%)/gi, (_m, x, n) => `${x} ${/^(?:revenue|traffic|conversion|margin)$/i.test(x) ? "has" : "have"} realigned downward by ${n}`],
   [/(?<!\b(?:churn|latency|costs?|bugs|errors|tickets|crashes|downtime|complaints|incidents|spend|load times?|wait times?|bounce rate|conversions?|sales|revenue|signups|sign-ups|traffic|users|bookings|margins?|numbers|retention|engagement|attendance|profits?|orders|leads|clicks|downloads|scores?|ratings?|morale|prices?|rates?)\s)\b(is|are) down\b(?! \d| by| to\b)/g, (_m, v) => `${v} experiencing ${v === "is" ? "an availability headwind" : "availability headwinds"}`],
   [/\b(is|are) (?:broken|not working)\b/g, (_m, v) => `${v} experiencing ${v === "is" ? "a reliability headwind" : "reliability headwinds"}`],
   [/\b(is|are) (?:slow|loading slowly|really slow)\b/g, (_m, v) => `${v} experiencing latency headwinds`],
@@ -164,6 +164,8 @@ export function upgrade(text) {
 const NEG = /\b(?:not|no|never|nothing|nobody|can't|won't|don't|didn't|isn't|aren't|wasn't|unable|unfortunately)\b|n't\b/i;
 const PROBLEM = /\b(?:down|broken|broke|fail\w*|late|behind|slow\w*|stuck|wrong|error\w*|bug\w*|blocked|blocker|cut|over budget|short|lost|missed|jammed|outage|crash\w*|concern\w*|not thrilled|not ideal|not happy|not looking forward|frustrat\w*|exhausted|burnt out|burned out|headwind\w*|risk\w*|flaky|out of date|smells|ghost\w*|rejected|unread|double[- ]booked|thin|expired|dropping|red|impossible|unrealistic|annoyed|difficult|waste|too long|too busy|too much|out of service|sick|over our|right-sized|rough shape|freeze|stuck|ghosted|nobody|no one|keeps? dropping|can't log in|locked out|upset|mad|angry|confus\w*|mess\w*|worse|declin\w*|dropped|doubled|garbage|halt\w*|delay\w*|stopped responding|gone quiet|no budget|no designer|nothing (?:got|was)|out again|out of \w+|full|overdue|freez\w*|threaten\w*|longer than|flopp\w*|didn't work|halved|cancel\w*|overspent|rais\w+ prices|swamped|buried|at capacity|disconnect\w*|outdated|out of date|typos?|quit|hassle|nonsense|never repl\w*|pain|not credible|disorganized)\b|\b0 [a-z]+/i;
 const WIN = /\b(?:paid|renewed|under budget|ahead of schedule|closed (?:the|a|an|our) (?:deal|round|sale|contract)|closed (?:the|a|an|our) [\w-]+ (?:deal|round|sale|contract)|closed the [\w-]+ (?:deal|renewal)|shipped|launched|landed|achieved|reached|hit|(?<!for the )record(?! straight)|signed|won|went (?:great|well|really well)|loved|finished|done|fixed|saved|passed|approved|resolved|milestone|congrat\w*|promotion|anniversary|kudos|great work|great job|outstanding|excellent|game changer|awesome|lifesaver|shoutout|shout-out|thank)\b/i;
+// Round 12: a bad metric that "hit" or "reached" a number is a problem, not a win ("churn hit 9%").
+export const BAD_METRIC = /\b(?:churn|attrition|errors?|bugs?|costs?|backlog|complaints?|downtime|latency|incidents?|refunds?|cancellations?|turnover|burn(?: rate)?|wait times?|debt|outages?|returns|tickets?|escalations?|chargebacks?|bounce rate)\b[^.]*?\b(?:hit|reached|climbed|record|is at|are at|rose|jumped|spiked|doubled|tripled)\b/i;
 const PERSONAL = /^(?:I'm|I am|I'll|I will|I've|I have|I was|My)\b.*\b(?:going home|heading (?:out|home)|done for (?:today|the day|the week)|logging off|late|behind|sick|PTO|out|(?<!sign )off|leaving|back|working remotely|working from home|on my way|dentist|doctor|appointment|free|booked|available|burnt out|exhausted|break|online)\b/i;
 
 export function intentOf(clean, core) {
@@ -186,8 +188,9 @@ export function intentOf(clean, core) {
   // Round 11: cutting a cost is a win, and "no rush" is a kindness, not a problem.
   if (/\b(?:cut|reduced|lowered|trimmed|slashed) (?:our |the )?(?:[\w-]+ )?(?:costs?|spend|spending|latency|churn|load times?|bills?|build times?)\b/i.test(c) && !/\b(?:budget|benefits?|perks?|jobs?|roles?|salar\w+)\b/i.test(c)) return "win";
   if (/\bno rush\b/i.test(c) && !/\?/.test(c)) return "status";
+  if (/\b(?:customers?|clients?) (?:is|are|was|were|seems?|looks?) (?:\w+ )?(?:happy|thrilled|delighted|pleased)\b|\b(?:happy|thrilled|delighted) (?:customers?|clients?)\b/i.test(c) && !/\b(?:not|isn't|aren't|wasn't|never|un)\b/i.test(c) && !/\?/.test(c)) return "win";
   if (/^(?:I|we) (?:fixed|resolved|repaired|patched|squashed|cleared|addressed|sorted out)\b/i.test(c) && !/\bbut\b|\bstill\b|\bagain\b/i.test(c)) return "win";
-  if (/\b(?:load times?|latency|churn|bugs|errors|tickets|crashes|downtime|complaints|incidents|wait times?|bounce rate|response times?|costs?|spend|spending|issues|defects|open bugs|open issues)\b[^.]*\b(?:dropped|fell|decreased|halved|went down|is down|are down|down \d+%|down to \d+|down from)\b/i.test(c) && !/\bbut\b/i.test(c)) return "win";
+  if (/\b(?:load times?|latency|churn|bugs|errors|tickets|crashes|crash rate|error rate|refunds|chargebacks|downtime|complaints|incidents|wait times?|bounce rate|response times?|costs?|spend|spending|issues|defects|open bugs|open issues)\b[^.]*\b(?:dropped|fell|decreased|halved|went down|is down|are down|down \d+%|down to \d+|down from)\b/i.test(c) && !/\bbut\b/i.test(c)) return "win";
   // "we hit the deadline but skipped the testing": a win with a catch is a problem update, not a celebration.
   if (/\bbut\b/i.test(c) && PROBLEM.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
   if (/\bbut\b/i.test(c) && /\b(?:skipped|missed|over budget|blown|struggling|broke|broken|lost|cost(?:s)? more|late|wiped|deleted|hate|hates|dislike|outdated|thin|nobody|no one|complain\w*|failed|crash\w*|missing|cut|has no|have no|hasn't|haven't|doesn't have|no-showed|no-show|wants? (?:a |an )?(?:discount|refund)|asked for (?:a |an )?(?:discount|refund)|slower|dropped|fell|lower|worse|churn|more expensive|too long|too slow|lost)\b/i.test(c.split(/\bbut\b/i).slice(1).join(" ")) && !/\?/.test(c)) return "problem";
@@ -206,6 +209,7 @@ export function intentOf(clean, core) {
   if (/^I(?:'ve)? noticed\b/.test(core)) return "feedback";
   if (/^(?:Okay, thank you|Thank you|Thanks|Noted|Never mind|Please disregard|That makes sense|That sounds|Sounds good|Got it)\b/.test(core) && core.split(/\s+/).length <= 6) return "social";
   if (/\bI'm not sure\b/.test(core)) return "opinion";
+  if (/\b(?:no strong preference|don't have strong feelings|have no preference)\b/i.test(core)) return "opinion";
   if (PERSONAL.test(core) || /^My (?:kid|son|daughter|child)\b/.test(core)) return "personal";
   if (/^(?:I believe|I think|I don't (?:think|believe|agree)|I disagree|I'd prefer|I prefer|I'd rather|I'd suggest|I see|I'm not (?:yet )?aligned)\b/.test(core) || /\bshould\b/.test(core) && !NEG.test(core)) return "opinion";
   if (/^I (?:really |absolutely )?(?:like|love|appreciate)\b/.test(core) && !NEG.test(core)) return "praise";
@@ -214,7 +218,7 @@ export function intentOf(clean, core) {
   if (/\b(?:wrecked|derailed|misleading|crashed|giving up on|broke|is broken|messed up|mishandled)\b/.test(core) && !/\b(?:fixed|resolved)\b/.test(core)) return "problem";
   if (/\b(?:doubled|tripled|quadrupled)\b|\bno (?:issues|errors|problems|downtime|incidents)\b|\bwith zero (?:errors|issues|problems|downtime)\b|\bbeat (?:the |our )?(?:forecast|target|goal|estimate|plan)\b/.test(core) && !/\b(?:not|still|but)\b|n't\b/.test(core)) return "win";
   if (/\b(?:is live|went live|is back up|(?:dropped|down|fell) to (?:zero|0)|\b(?:backlog|bug count|defect count|ticket count|issue count|open bugs|open tickets|churn|latency|error rate|response time|load time|queue)\b[\w ]{0,20}\b(?:is |was )?(?:down|dropped|fell) to \d+)\b/.test(core) && !/\b(?:not|still|again|but)\b|n't\b/.test(core)) return "win";
-  if (PROBLEM.test(core) || NEG.test(core)) return "problem";
+  if (PROBLEM.test(core) || NEG.test(core) || BAD_METRIC.test(core)) return "problem";
   if (WIN.test(core)) return "win";
   return "status";
 }

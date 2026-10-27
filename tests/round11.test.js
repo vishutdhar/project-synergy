@@ -196,7 +196,7 @@ test("round 11i: fresh34 fragments become whole sentences", () => {
   every("Wifi out, tethering to my phone.", /(?:the|our) (?:wifi|connectivity infrastructure) is out, so I'm tethering to my phone/i);
   every("Headset dying, switching to speaker.", /my (?:headset|audio-collaboration hardware) is dying, so I'm switching to speaker/i);
   every("Doctor ran late, in by 11.", /my doctor's appointment ran late, and I'll be in by 11/i);
-  every("Coffee spilled on my keyboard, give me five.", /I spilled coffee on my keyboard, and I need five minutes/);
+  every("Coffee spilled on my keyboard, give me five.", /(?:I spilled coffee on my keyboard|my keyboard received an unplanned caffeine infusion), and I need five minutes/);
   every("Babysitter running behind, starting at 10.", /my babysitter is (?:running behind|slightly delayed)[\w ]*, so I'll be starting at 10/i);
   every("Power flickered, rejoining.", /the power flickered, so I'm rejoining/i);
   every("Noisy cafe, staying on mute.", /I'm in a noisy cafe, so I'm staying on mute/);
@@ -290,7 +290,7 @@ test("round 11j: cover lines, bare first-person lines and feelings", () => {
   every("talked to legal, they need two more days", /I talked to legal, and they need two more days/);
   every("locked myself out of the house", /I locked myself out of the house/);
   every("running a 10k on saturday, wish me luck", /I'm running a 10k on Saturday\. Wish me luck!/);
-  every("pretty bummed the offsite got cancelled", /I'm disappointed that the offsite got cancelled/);
+  every("pretty bummed the offsite got cancelled", /I'm disappointed that the offsite(?: alignment retreat)? got cancelled/);
   none("so thrilled the quarterly planning doc is 40 pages", /^(?:[^:]+: )?I'm thrilled/);
   every("I have parent-teacher conference at 3", /I have a parent-teacher conference at 3/);
   every("I have eye appointment tomorrow", /I have an eye appointment tomorrow/);

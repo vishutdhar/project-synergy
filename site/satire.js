@@ -37,6 +37,10 @@ const TAILS = [
   [/,?\s*peace(?: out)?\.?$/i, ["", "", "Peace and alignment."]],
   [/,?\s*it's been (?:real|fun|a ride|great)\.?$/i, ["It's been great.", "It's been a real pleasure.", "Truly, what a journey."]],
   [/,?\s*(?:please )?don't (?:call|ping|message|bother) me\.?$/i, ["Please don't call me.", "Please don't ping me.", "Please do not route inbound requests my way; my future self will circle back."]],
+  // Round 12: short reasons and plans tacked on the end.
+  [/,?\s*(?:and|to) (?:sleep|sleep in|rest|nap|catch up on sleep)\.?$/i, ["I'll use the time to rest.", "I'll use the time to recharge.", "The time will be reinvested in a strategic sleep initiative."]],
+  [/,\s*(?:at the )?doctor(?:'s)?\.?$/i, ["I have a doctor's appointment.", "I have a doctor's appointment.", "I'll be attending a personal health-optimization engagement."]],
+  [/,\s*(?:at the )?vet\.?$/i, ["I have a vet appointment.", "I have a vet appointment.", "I'll be supporting a key family stakeholder at the vet."]],
   [/,?\s*(?:my )?kids? (?:has|have) (?:a|her|his|their) (recital|game|play|concert|appointment|show)\.?$/i, null],
 ];
 function splitTail(text) {
