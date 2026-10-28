@@ -139,7 +139,7 @@ const SATIRE = [
   [/\bhaven't eaten\b/g, "haven't had a chance to refuel"],
   [/\bthis call is dragging\b/g, "this call has moved past its value curve"],
   [/\bcompletely forgot about\b/g, "completely lost visibility on"], [/\btotally forgot about\b/g, "completely lost visibility on"],
-  [/\bI double-booked\b/g, "I accidentally double-committed my calendar"],
+  [/\bI double-booked(?= myself\b| (?:again|today|tomorrow)\b|[.!,]|$)/g, "I accidentally double-committed my calendar"], [/\bI double-booked (the|a) (room|space|desk|car|van|venue|slot)\b/g, "I accidentally double-allocated $1 $2"],
   [/\bI snapped at you\b/g, "I communicated with more intensity than intended"],
   [/\b(?:the |this )(delivery deadline|deadline|due date) is unrealistic\b/gi, (m, d) => `${m.split(" ")[0]} ${d} is, respectfully, not anchored in reality`],
   [/\bmakes no sense\b/g, "lacks a coherent through-line"],

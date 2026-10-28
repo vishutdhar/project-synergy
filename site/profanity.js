@@ -46,7 +46,7 @@ const CANON = [
   // "the hell is wrong with this" -> "what is wrong with this"
   [/(^|[.!?]\s+)the (?:fuck|hell|heck) (?=(?:is|are|was|were|do|does|did|have|has|happened)\b)/gi, "$1what "],
   // Intensifiers just go away: "the fucking printer" -> "the printer", "damn good" -> "good".
-  [/(?<!\bgive an? |\bgives an? |\bgiving an? )\b(?:fucking|fuckin|bloody|goddamn|goddamned|damned|damn|motherfucking)\s+(?!(?:it|you|him|her|them|off|up|over|around|with|me|this|that|us|all)\b)(?=[a-z])/gi, ""],
+  [/(?<!\bgive an? |\bgives an? |\bgiving an? )\b(?:fucking|fuckin|bloody|goddamn|goddamned|damned|damn|motherfucking)\s+(?!(?:it|you|him|her|them|off|up|over|around|with|me|this|that|us|all|done with)\b)(?=[a-z])/gi, ""],
   // "Fix it, you idiot." -> "Fix it." The insult adds nothing a colleague needs to read.
   [/(^|[.!?]\s+)you (?:idiot|moron|dumbass|asshole|jerk|dick|prick|twat|wanker|bastard|clown)s?\s*[,!.]?\s*/gi, "$1"],
   [/,\s*you (?:idiot|moron|dumbass|asshole|jerk|dick|prick|twat|wanker|bastard|clown)s?\b/gi, ""],
@@ -113,6 +113,7 @@ function expand(block) {
 // Every option has to fit the same slot in the sentence, so each level reads as a sentence.
 // Bare swear words have no entry on purpose: a word-for-word swap is how "fuck all" became "mess all".
 const PHRASES = `
+!{so fucking|fucking|freaking|effing|bloody} done with = fed up with = at the limit of my patience with = operating at the outer edge of my emotional bandwidth for
 !{fuck|shit|jack shit|dick|bugger|naff|sod} all = nothing = nothing at all = nothing of substance
 !{a|this|that|the} shit {idea|plan|proposal|design|take|call|decision|approach|deal} = $1 bad $2 = $1 weak $2 = $1 $2 with significant headroom
 !useless crap = useless = of little use = delivering minimal measurable value
@@ -120,6 +121,13 @@ const PHRASES = `
 !fucked {the|this|that|our|my|his|her|their|your} = wrecked $1 = derailed $1 = materially derailed $1
 !{bullshitting|bullshit|lying to} {the|our|this|that|your|their} = misleading $2 = misleading $2 = giving $2 inaccurate information
 !bored out of {my|his|her|their|our} {skull|mind|head|brains|gourd} = really bored = extremely bored = profoundly under-stimulated
+!{half-assing|half assing|halfassing} it = doing the bare minimum on it = putting in minimum viable effort = delivering a strategically minimum viable effort
+!{half-assing|half assing|halfassing} = doing the bare minimum on = putting minimum viable effort into = delivering a strategically minimum viable effort on
+!dragging {their|his|her|our|my|your} {ass|asses|butt|butts|feet} on = moving slowly on = slow-walking = operating on an extended timeline for
+!dragging {their|his|her|our|my|your} {ass|asses|butt|butts} = moving slowly = slow-walking it = operating on an extended timeline
+!{get|got|getting} off {their|his|her|your|our} {ass|asses|butt|butts} = $1 moving = $1 moving = $1 into execution mode
+!rip {us|them|me|him|her|you} a new one = be very critical of $1 = come down hard on $1 = deliver some deeply candid feedback to $1
+!{ripped|rips} {us|them|me|him|her|you} a new one = criticized $2 sharply = came down hard on $2 = delivered some deeply candid feedback to $2
 !{half-ass|half ass|halfass} it = do the bare minimum = put in minimum viable effort = deliver a strategically minimum viable effort
 !{half-ass|half ass|halfass} = do the bare minimum on = put minimum viable effort into = deliver a strategically minimum viable effort on
 !talks out of {his|her|their} ass = makes things up = speaks without data = shares bold, data-free conviction
@@ -402,7 +410,7 @@ export const CRUDE_SWAPS = expand(PHRASES).join("\n");
 // Anything left after the rewrite is crude. Matching is whole word.
 const CRUDE_WORDS = [
   String.raw`fuck\w*`, String.raw`\w*fuck(?:er|ers|ing|ed)?`, FUCK_STEM + String.raw`\w*`, String.raw`shit\w*`, String.raw`\w+shit`, String.raw`bullshit\w*`,
-  String.raw`crap(?:py|s|load|ton)?`, String.raw`damn\w*`, String.raw`goddamn\w*`, "dammit", "hell", String.raw`ass(?:es)?`, String.raw`arse\w*`, String.raw`asshole\w*`, String.raw`asshat\w*`, "dumbass", "jackass", "badass", "smartass", String.raw`half-assed`,
+  String.raw`crap(?:py|s|load|ton)?`, String.raw`damn\w*`, String.raw`goddamn\w*`, "dammit", "hell", String.raw`ass(?:es)?`, String.raw`arse\w*`, String.raw`asshole\w*`, String.raw`asshat\w*`, "dumbass", "jackass", "badass", "smartass", String.raw`half-ass\w*`,
   String.raw`bitch\w*`, String.raw`bastard\w*`, String.raw`dick(?:s|head|heads|ish)?`, "prick", "pricks", String.raw`cock(?!tails?\b|pits?\b|roach\w*|atoos?\b|ney\w*|erels?\b|les?\b|y\b|ed\b|ing\b)\w*`, String.raw`cunt\w*`, "twat", "twats", String.raw`wanker\w*`, "bollocks", String.raw`bugger\w*`, "knobhead", "bellend", "tosser",
   String.raw`piss\w*`, String.raw`douche\w*`, String.raw`motherf\w*`, String.raw`idiot\w*`, String.raw`moron\w*`, String.raw`(?<!knee-)jerks?`, "stupid", "dumb", "dumbest", "stupidest", String.raw`suck(?:s|ed|y)?`, String.raw`(?<=\b(?:this|it|that) )blows`,
   "wtf", "stfu", "gtfo", "ffs", "fml", "omfg", "lmfao", String.raw`screw(?:ed|ing|s)?(?= (?:this|that|it|you|him|her|them|us|me|up|over|around)\b)`, String.raw`screwed(?=[.!?,]|$)`,

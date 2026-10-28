@@ -100,7 +100,7 @@ test("round 11g: more fragment families become sentences", () => {
   every("Kid home sick, camera off.", /my kid is home sick, so I'll be off camera/);
   every("On a plane, back online tonight.", /I'm on a plane, and I'll be back online tonight/);
   every("Construction next door, sorry for the noise.", /There's construction next door\. (?:Sorry|Apologies|My apologies) for the noise/i);
-  every("plumber coming between 1 and 3, might step away", /a plumber is coming between 1 and 3, so I may step away/);
+  every("plumber coming between 1 and 3, might step away", /a (?:plumber|third-party plumbing partner) is coming between 1 and 3, so I may step away/);
   every("home with a migraine, offline today", /I'm home with a migraine, so I'll be offline today/);
   every("Toddler's sick, half day.", /my toddler is sick, so I'm taking a half day/);
   every("Train stuck outside the station, running 20 late.", /my train is stuck outside the station, so I'm running 20 minutes (?:late|behind)/);
@@ -211,7 +211,7 @@ test("round 11i: fresh34 fragments become whole sentences", () => {
   every("moving apartments this weekend, offline Saturday", /moving apartments|residential migration/);
   every("moving apartments this weekend, offline Saturday", /and I'll be offline Saturday/);
   every("partner's birthday, logging off early", /it's my partner's birthday, so I'm logging off early/i);
-  every("water heater broke, plumber coming at 2", /the water heater broke, and a plumber is coming at 2/i);
+  every("water heater broke, plumber coming at 2", /the water heater broke, and a (?:plumber|third-party plumbing partner) is coming at 2/i);
   every("Neighbor mowing, on mute.", /my neighbor is mowing, so I'm on mute/i);
   every("In the lobby, can someone buzz me up", /I'm in the (?:lobby|first-impression zone)\. Could someone buzz me up\?/);
   none("In the lobby, can someone buzz me up", /\.\?/);

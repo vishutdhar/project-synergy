@@ -359,6 +359,12 @@ export function tidy(text) {
   t = t.replace(/[\u0000\u0001]/g, "");
   // Round 12: a full sentence glued after a label colon starts lowercase ("Quick heads-up: please be straight").
   t = t.replace(/(^|[.!?]\s+)([A-Z][\w'-]*(?: [\w'-]+){0,7}): (Please|Is|Are|Could|Would|Can|Do|Does|Did|Should|Will|Has|Have) (?=[a-z])/g, (_m, pre, lab, w) => `${pre}${lab}: ${w.toLowerCase()} `);
+  // Round 13: a swapped "want" inside a question ("does anyone would like") and agreement slips.
+  t = t.replace(/\b([Dd])oes (anyone|anybody|someone|everyone|he|she|it|the team) would like\b/g, (_m, D, w) => `${D === "D" ? "Would" : "would"} ${w} like`);
+  t = t.replace(/\b([Dd])o (you|we|they|y'all|folks|people) would like\b/g, (_m, D, w) => `${D === "D" ? "Would" : "would"} ${w} like`);
+  t = t.replace(/\b(knowledge base|infrastructure|platform|ecosystem|pipeline) are\b/g, "$1 is");
+  t = t.replace(/\bI'd prefer to we\b/g, "I'd prefer that we");
+  t = t.replace(/\bI closed out (\w+ing)\b/g, "I wrapped up $1");
   t = t.replace(/\b(?:completely|totally) did an? (fantastic|great|amazing|excellent|outstanding|incredible) job\b/g, "did a $1 job");
   // Round 12: doubled determiners and split phrasal verbs.
   t = t.replace(/\b([Tt])he (this|that|these|those|my|our|your|their)\b/g, (_m, T, d) => (T === "T" ? d[0].toUpperCase() + d.slice(1) : d));

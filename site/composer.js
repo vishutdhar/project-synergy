@@ -22,7 +22,7 @@ const TOPICS = [
   ["people", /\b(?:client|customer|manager|boss|vendor|legal|finance|marketing|sales|ceo|team|everyone|nobody|someone|intern|new hire)\b/i, /\b(?:IT|HR)\b/],
 ];
 export function topicOf(text) {
-  text = String(text).replace(/\beating (?:our|my|their|your) lunch\b/gi, "beating us").replace(/\bno big deal\b/gi, "no issue").replace(/\bhappy (?:hour|birthday|friday|holidays?|anniversary)\b/gi, "social event").replace(/\btired of\b/gi, "frustrated with").replace(/\b(?:after|before|by|until|till|til|at|during|post|pre|over) (?:the )?lunch(?:time)?\b/gi, "midday");
+  text = String(text).replace(/\bparking (?:ticket|pass|spot|space)\b/gi, "parking").replace(/\beating (?:our|my|their|your) lunch\b/gi, "beating us").replace(/\bno big deal\b/gi, "no issue").replace(/\bhappy (?:hour|birthday|friday|holidays?|anniversary)\b/gi, "social event").replace(/\btired of\b/gi, "frustrated with").replace(/\b(?:after|before|by|until|till|til|at|during|post|pre|over) (?:the )?lunch(?:time)?\b/gi, "midday");
   for (const [id, re, re2] of TOPICS) if (re.test(text) || (re2 && re2.test(text))) return id;
   return "general";
 }
@@ -147,6 +147,42 @@ const INFLATE = [
   [/\bthe pager\b/gi, "the on-call alerting apparatus"], [/\bthe (?:conference room )?TV\b/g, (m) => m.replace("TV", "display ecosystem")],
   [/\bthe whole company\b(?!'s)/gi, "the whole company, a stakeholder ecosystem of considerable size"],
   [/\bthe customer\b(?= is happy| is thrilled| loved)/gi, "the customer, our north star,"],
+  // Round 13: more mundane nouns told with total sincerity, and small losses told as strategic outcomes.
+  [/\boat milk\b/gi, "plant-based dairy reserves"], [/\bmy chair keeps sinking\b/gi, "my ergonomic seating solution keeps proactively lowering its altitude"],
+  [/\bthe (conference|meeting) room clock\b/gi, "the $1 room time-alignment asset"], [/\bthe label maker\b/gi, "the labeling infrastructure"],
+  [/\bthe plant in the lobby\b/gi, "the lobby's biodiversity portfolio"], [/\bmy parking ticket\b/gi, "my vehicle-staging credential"],
+  [/\bI sprained my ankle((?: (?:at|playing|during|in) [\w' ]+?)?)(?=[,.;!?]|$)/gi, "I sprained my ankle$1, so my mobility infrastructure is in an unplanned maintenance window"],
+  [/\bmy basement flooded((?: overnight| last night| this morning| today| again| this week| yesterday)?)\b/gi, "my home's lower-level infrastructure flooded$1, an unplanned water-feature rollout"],
+  [/\bmy neighbor's tree fell on my car\b/gi, "my neighbor's tree fell on my car, an unsolicited partnership between their landscaping and my personal mobility asset"],
+  [/\bmy flight got (cancelled|canceled)\b(?!, so)/gi, "my flight got $1, so my air-travel roadmap has been descoped"], [/\bmy flight got (cancelled|canceled), so ((?:I|I'll|I'm)\b)/gi, "my flight got $1 and my air-travel roadmap has been descoped, so $2"],
+  [/\bmy power went out((?: overnight| last night| this morning| today| again| this week| yesterday)?)\b/gi, "my power went out$1, putting my home office into an unplanned dark-mode rollout"],
+  [/\bI locked myself out of the house\b/gi, "I locked myself out of the house, a stress test of my residential access controls that I did not pass"],
+  [/\bmy kid is sick\b/gi, "my kid, a key family stakeholder, is sick"],
+  [/\ba plumber is coming\b/gi, "a third-party plumbing partner is coming"],
+  [/\bI(?:'d like to| would like to|'ll be| will be|'m going to| am going to) (?:leave|leaving) early today\b/gi, (m) => `${m.match(/^I(?:'d like to| would like to)/i) ? "I'd like to execute" : "I'll be executing"} a strategic early departure today`],
+  [/\bI(?:'m going to| am going to|'ll) take a long lunch today\b/gi, "I'll be running an extended midday refuel initiative today"],
+  [/\bI'd like to take tomorrow off and rest\b/gi, "I'd like to take tomorrow off and rest, a full-day strategic recharge to protect my bandwidth"],
+  [/\bwe lost (\d+) (customers|clients)\b/gi, "we released $1 $2 to pursue other opportunities"], [/\bwe lost our (biggest|largest|best) (customer|client)\b/gi, "our $1 $2 has chosen to explore a future without us"],
+  [/\bour biggest customer wants to cancel\b/gi, "our biggest customer wants to cancel, which they are framing as a strategic pivot away from us"],
+  [/\bthe backup didn't run((?: overnight| last night| this morning| today| again| this week| yesterday)?)\b/gi, "the backup didn't run$1, opting into a strategic day off"],
+  [/\bthe website is down((?: overnight| last night| this morning| today| again| this week| yesterday)?)\b/gi, "the website is down$1, taking an unscheduled break from availability"],
+  [/\bpayroll didn't go through\b/gi, "payroll didn't go through, so compensation is in an involuntary holding pattern"],
+  [/\bthe client never got the invoice\b/gi, "the client never got the invoice, so our revenue is still on its way"],
+  [/\bI missed the deadline\b/gi, "I missed the deadline, which I'm reframing as a high-learning moment"],
+  [/\bwe shipped the wrong version\b/gi, "we successfully shipped the wrong version"],
+  [/\bthe demo environment\b/gi, "the demo environment, our showroom of possibility,"],
+  [/\bchurn hit (\d+(?:\.\d+)?%)\b/gi, "churn hit $1, as customers continue to explore their options"],
+  [/\bNPS dropped to (\d+)\b/g, "NPS dropped to $1, a bold new benchmark"],
+  [/\bsupport tickets (?:have )?(?:doubled|increased 2x)\b/gi, "support tickets doubled, a record level of customer engagement"],
+  [/\bthe microwave line\b/gi, "the thermal-reheating waitlist"], [/\bsomeone left fish in\b/gi, "someone launched a bold seafood initiative in"],
+  [/\bthe elevator on the north side\b/gi, "the north-side vertical mobility solution"],
+  [/\bwhoever wrote this code was drunk\b/gi, "whoever wrote this code was operating outside their usual decision framework"],
+  [/\bthe (\w+ )?booth has been packed up\b/gi, (_m, w) => `the ${w ?? ""}booth has been decommissioned and returned to its pre-expo state`],
+  [/\bI'm pairing with ([A-Z][a-z]+)\b/g, "I'm in a high-bandwidth co-creation session with $1"],
+  [/\bI have civic-engagement duty\b/gi, "I've been selected for a civic-engagement deployment, also known as jury duty,"],
+  [/\bI started on the\b/gi, "I've formally kicked off the"],
+  [/\bthere are too many (catch-ups|syncs|alignment sessions|meetings) on my calendar\b/gi, "my calendar is running at a meeting density that exceeds its design capacity"],
+  [/\bthe timing of the (\w+) (crashing|dying|breaking|going down|failing)\b/gi, "the timing of the $1 $2, while bold,"],
 ];
 export function inflate(text) {
   let t = text;

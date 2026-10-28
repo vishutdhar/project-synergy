@@ -109,6 +109,12 @@ export function aiCorporateGate(input, reply, { level = 2 } = {}) {
   if (level === 2 && sameWords(basis, reply) >= 0.999) return { ok: false, reason: "flat", check };
   // Rude but not crude: "Shut up about synergy" is not something to send at work.
   if (RUDE.test(reply)) return { ok: false, reason: "rude", check };
+  // Round 13: "you saved my butt" can't come back as "Your butt was saved", and slang body words aren't work-safe.
+  if (/\b(?:butt|butts|arse|booty|tush)\b/i.test(reply)) return { ok: false, reason: "rude", check };
+  // Round 13: a statement can't come back as a question or a request ("quote approved by procurement" -> "Could you please approve the quote?").
+  const asks = (t) => /\?\s*$/.test(t.trim()) || /^(?:please|could you|can you|would you|kindly|can someone|could someone|would someone)\b/i.test(t.trim());
+  const inAsks = asks(basis) || /^(?:hey,? )?(?:can|could|would|will|is|are|do|does|did|who|what|when|where|why|how|which|any|anyone|should|shall|may|mind|wanna|want)\b/i.test(basis.trim()) || /\b(?:pls|plz|please|can you|could you|lmk|let me know)\b/i.test(basis);
+  if (!inAsks && asks(reply.replace(/^[^:]{0,40}:\s*/, ""))) return { ok: false, reason: "meaning", check: { ...check, ok: false, lost: [...(check.lost ?? []), "statement"] } };
   // Mild that only fixes spelling ("I'm going to be late sorry.") is a tidy copy, not a rewrite. Instant does it.
   if (level === 1 && sameWords(basis, reply) >= 0.999) return { ok: false, reason: "flat", check };
   return { ok: true, reason: "ok", check };

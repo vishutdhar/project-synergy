@@ -1,5 +1,6 @@
 import { hasCrude } from "./profanity.js";
 import { round12, genericClause } from "./round12.js";
+import { round13 } from "./round13.js";
 
 // Input pre-pass for Normal to corporate (see shortfalls/research.md).
 // Runs on the cleaned input before the level rules, so every level starts from a sincere, well-formed message:
@@ -597,7 +598,7 @@ export function round11(line) {
     if ((m = t.match(/^(?:wow,? |oh,? |well,? )?(.+?),\s*(?:amazing|great|perfect|awesome|fantastic|wonderful|love it|just great|lovely|nice|brilliant|classic)[.!]*$/i)) && /\b(?:broke|crashed|died|failed|jammed|froze|went down|is down|stopped|canceled|cancelled|again|leaked|flooded|ran out)\b/i.test(m[1])) { const b = m[1].replace(/^(The|Our|My)\b/, (w) => w.toLowerCase()); const w0 = b.split(" ")[0]; return `Unfortunately, ${/^(?:the|our|my|a|an|this|that|it|we|I|they|someone|everyone|nobody)$/i.test(w0) ? b : `${FRAG_MINE.test(w0) ? "my" : "the"} ${b[0].toLowerCase()}${b.slice(1)}`}.`; }
     if ((m = t.match(/^(?:perfect|great|awesome|fantastic|wonderful|brilliant|lovely|nice),\s+(the .+?|my .+?|our .+?)[.!]*$/i)) && /\b(?:logged me out|kicked me out|locked me out|mid-\w+|crashed|died|froze|broke|went down|failed|dropped|again|right before|during)\b/i.test(m[1])) return `Unfortunately, ${m[1]}.`;
     if ((m = t.match(/^(?:really |so )?loving (?:these|this|all these|the) (.+?)[.!]*$/i)) && /\b(?:\d+\s?(?:am|pm)|early|late-night|weekend|again|surprise|back-to-back|mandatory|last-minute)\b/i.test(m[1])) { const head = m[1].split(/ (?:with|for|from|on|in|at|about)\b/)[0].split(" ").pop(); return `I'm not a fan of ${/s$/i.test(head) && !/(?:ss|all-hands|news)$/i.test(head) ? "these" : "this"} ${m[1]}.`; }
-    if ((m = t.match(/^(revenue|sales|signups|sign-ups|traffic|usage|churn|costs?|spend|conversion|retention|nps|margin|bookings|pipeline|latency|downloads|users|engagement|attendance|tickets|errors|uptime|response time)( (?!is\b|are\b|was\b|were\b|has\b|have\b)[\w-]+)? (up|down|flat|at|over|under) (.+?)[.!]*$/i)) && /\d/.test(m[4])) { const n = (m[1] + (m[2] ?? "")); const pl = /s$/i.test(n) && !/(?:ss|us|nps|sales)$/i.test(n) || /^(?:sales|signups|users|tickets|errors|bookings|downloads)$/i.test(n); return `${cap1(n.replace(/^nps$/i, "NPS"))} ${pl ? "are" : "is"} ${m[3].toLowerCase()} ${m[4]}.`; }
+    if ((m = t.match(/^(revenue|sales|signups|sign-ups|traffic|usage|churn|costs?|spend|conversion|retention|nps|margin|bookings|pipeline|latency|downloads|users|engagement|attendance|tickets|errors|uptime|response time)( (?!is\b|are\b|was\b|were\b|has\b|have\b|went\b|had\b|got\b|came\b|ended\b|closed\b|finished\b|stayed\b)[\w-]+)? (up|down|flat|at|over|under) (.+?)[.!]*$/i)) && /\d/.test(m[4])) { const n = (m[1] + (m[2] ?? "")); const pl = /s$/i.test(n) && !/(?:ss|us|nps|sales)$/i.test(n) || /^(?:sales|signups|users|tickets|errors|bookings|downloads)$/i.test(n); return `${cap1(n.replace(/^nps$/i, "NPS"))} ${pl ? "are" : "is"} ${m[3].toLowerCase()} ${m[4]}.`; }
     if ((m = t.match(/^(\d+ (?:of|out of) \d+ [\w -]+?) (?:are )?(still )?(failing|passing|done|left|open|pending|broken|down|flaky|red|green|blocked)[.!]*$/i))) return `${cap1(m[1])} are ${m[2] ?? ""}${m[3].toLowerCase()}.`;
     if ((m = t.match(/^(?:we |I )?(wrapped(?: up)?|reviewed|tested|drafted|prepped|prepared|organized|interviewed|onboarded|emailed|called|pinged|documented|triaged|renewed|archived|labeled|tagged|cleaned up|caught up on|went through|read through|finalized|polished|rewrote|refactored|benchmarked|patched|upgraded) ((?:all|both|every|our|the|a|an|my|\d+|their|his|her|some) .+?)[.!]*$/i)) && !/,|\bbut\b/i.test(m[2])) return `${/^(?:\d|all\b|both\b|our\b)/i.test(m[2]) ? "We" : "I"} ${m[1].toLowerCase().replace(/^wrapped$/, "wrapped up")} ${m[2]}.`;
     if ((m = t.match(/^(?:ftw[,!]?\s+(.+?)|(.+?),?\s+ftw)[.!]*$/i))) return `${cap1((m[1] ?? m[2]).replace(/[.!]+$/, ""))}, which is a big win!`;
@@ -953,7 +954,7 @@ export function prepass(clean, nested = false) {
   return clean.split("\n").map((line) => {
     if (/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s+/.test(line) || !line.trim()) return line;
     const lead = line.match(/^\s*/)[0];
-    let t = round6(round7(round8(round9(round10(round11(round12(fixNamesAndTools(line.trim())))))))).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
+    let t = round6(round7(round8(round9(round10(round11(round12(round13(fixNamesAndTools(line.trim()))))))))).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
     const sents = t.split(/(?<=[.!?])\s+(?=[A-Za-z])/);
     t = sents.map((s, i) => {
       const sar = desarcasm(s);

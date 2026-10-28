@@ -280,7 +280,7 @@ SCENES.push(
   { id: "so-glad-spent", re: /^(?:i'm |i am )?(?:so|really|sooo*|very) glad (?:that )?we (?:spent|burned|wasted) (.{2,40}?) (?:on|in) (.{2,60}?)[.!]*$/i,
     build(t) {
       const m = t.match(/we (?:spent|burned|wasted) (.{2,40}?) (?:on|in) (.{2,60}?)[.!]*$/i); const p = /we (?:spent|burned|wasted) .{2,40}? in /i.test(t) ? "in" : "on";
-      return [`I don't think we needed to spend ${m[1]} ${p} ${m[2]}.`, `Candidly, ${m[1]} ${p} ${m[2]} feels like a lot.`, `Proud of our deep, ${m[1].replace(/^(\d+) (hour|day|week|minute|month)s?$/i, "$1-$2").replace(/^all (day|week|morning|afternoon)$/i, "all-$1").replace(/^an? (hour|day|week|minute|month)$/i, "$1-long").replace(/^half an? (hour|day)$/i, "half-$1")} strategic investment in ${m[2]}. I'd gently suggest we right-size that next time.`];
+      return [`I don't think we needed to spend ${m[1]} ${p} ${m[2]}.`, `Candidly, ${m[1]} ${p} ${m[2]} feels like a lot.`, `${/^(?:\d+ (?:hour|day|week|minute|month)s?|all (?:day|week|morning|afternoon)|an? (?:hour|day|week|minute|month)|half an? (?:hour|day))$/i.test(m[1]) ? `Proud of our deep, ${m[1].replace(/^(\d+) (hour|day|week|minute|month)s?$/i, "$1-$2").replace(/^all (day|week|morning|afternoon)$/i, "all-$1").replace(/^an? (hour|day|week|minute|month)$/i, "$1-long").replace(/^half an? (hour|day)$/i, "half-$1")} strategic investment in ${m[2]}. ` : `Proud of our bold decision to allocate ${m[1]} to ${m[2]}. `}I'd gently suggest we right-size that next time.`];
     } },
 );
 // Round 9c: more everyday crude and time-off phrasings (found on held-out batch 18).
@@ -342,7 +342,7 @@ const ASSESS = [
 ];
 const NOUNS3 = [
   [/\bmeeting\b/, "alignment session"], [/\bcode\b/, "codebase"], [/\bdashboard\b/, "dashboard experience"], [/\bpolicy\b/, "policy framework"],
-  [/\bspreadsheet\b/, "mission-critical spreadsheet"], [/\bprinter\b/, "print infrastructure"], [/\bonboarding docs\b/, "onboarding knowledge base"],
+  [/\bspreadsheet\b/, "mission-critical spreadsheet"], [/\bprinter\b/, "print infrastructure"], [/\bonboarding docs\b/, "onboarding knowledge assets"],
   [/\bplan\b/, "roadmap"], [/\bdemo\b/, "demo experience"], [/\bagenda\b/, "agenda architecture"], [/\bdeadline\b/, "delivery timeline"],
   [/\bproject\b/, "initiative"], [/\bprocess\b/, "process architecture"], [/\bwifi\b/, "connectivity infrastructure"], [/\blaunch\b/, "go-to-market motion"],
 ];
