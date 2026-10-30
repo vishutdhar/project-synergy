@@ -9,6 +9,9 @@
 const GOODCUE = /\b(?:faster|early|earlier|ahead of schedule|saved|free|finally (?:works|fixed|shipped)|record|won|closed the deal|promoted|raise|bonus)\b/i;
 const SOUR = /\b(?:bad|worse|worst|never|again|outage|broke|broken|wrong|fifth|fourth|third time|speakerphone|another|late|down|crash\w*|fail\w*|overtime|weekend|midnight|4:5\d|5 ?pm|reply-all|three tools|nobody|no one|zero|lost|hot desk|logins?|\d+ minutes|consultants?|blocked|cancell?ed|mandatory|tight|except|slides?|deck|meetings? about|password reset|\d+ (?:hours?|days?|weeks?) (?:in a row|straight)|in a row|while nobody|stuck|forever|told at|update during|on a friday|at midnight|until midnight|more times)\b/i;
 
+// Round 16: "nice of them to ..." -> "they decided to", and sarcasm over a bare noun phrase ("yay, mandatory fun at 4pm") needs a verb.
+const OBJ2SUBJ = { them: "they", him: "he", her: "she", us: "we", me: "I", you: "you" };
+const HASVERB = /\b(?:is|are|was|were|be|been|has|have|had|do|does|did|requires?|wants?|needs?|keeps?|will|won't|can't|cannot|doesn't|don't|isn't|aren't|wasn't|got|goes|went|says|said|made|took|ran|broke|left|came|told|gave|\w+'(?:re|s|ve|ll|d))\b|\b\w+(?:ed|es)\b/i;
 export function preclean15(input) {
   let s = String(input ?? "");
   // Crude shapes with a clear plain meaning.
@@ -33,12 +36,12 @@ export function preclean15(input) {
     .replace(/\bcrawling up our (?:asses|butts|backsides)\b/gi, "breathing down our necks")
     .replace(/\bcrawling up my (?:ass|butt|backside)\b/gi, "breathing down my neck")
     // Any "pain in the/my/our ass|butt|backside|neck" is a headache, whatever the determiner or adjective.
-    .replace(/\bpain in (?:the|my|our|your|his|her|their|everyone's|everybody's) (?:ass|arse|asses|butt|butts|backside|rear|neck)\b/gi, "hassle");
+    .replace(/(?<!\bbeing (?:a |an )?(?:total |real |complete |huge |such a )?)\bpain in (?:the|my|our|your|his|her|their|everyone's|everybody's) (?:ass|arse|asses|butt|butts|backside|rear|neck)\b/gi, "hassle");
   // Sarcastic praise with a sour detail.
   const t = s.trim();
   let m;
   if (SOUR.test(t)) {
-    if ((m = t.match(/^(?:oh |wow,? |gee,? )?(?:so |really |just )?(?:nice|kind|great|thoughtful|sweet) of ([\w ]+?) to (\w+)\b(.*)$/i))) s = `I'm frustrated that ${m[1]} decided to ${m[2]}${m[3]}`;
+    if ((m = t.match(/^(?:oh |wow,? |gee,? )?(?:so |really |just )?(?:nice|kind|great|thoughtful|sweet) of ([\w ]+?) to (\w+)\b(.*)$/i))) s = `I'm frustrated that ${OBJ2SUBJ[m[1].toLowerCase()] ?? m[1]} decided to ${m[2]}${m[3]}`;
     else if ((m = t.match(/^(?:oh |wow,? )?(?:so |really |just |super )?(?:happy|glad|thrilled|excited|delighted) to be (\w+ing)\b(.*)$/i))) s = `I'm dreading ${m[1]}${m[2]}`;
     else if ((m = t.match(/^(?:oh |wow,? )?(?:so |really )?(?:great|nice|good|lovely) to see (?:that )?(.+?) (?:was|were|got|has been|have been) (\w+ed) never\b(.*)$/i))) s = `I'm disappointed that ${m[1]} was never ${m[2]}${m[3]}`;
     else if ((m = t.match(/^(?:oh |wow,? )?(?:really |just |so )?(?:loving|love) (the [\w -]+?), especially (.+)$/i))) s = `I'm struggling with ${m[1]}, especially ${m[2]}`;
@@ -47,7 +50,7 @@ export function preclean15(input) {
       if ((m = t.match(/^(?:oh |wow,? )?(?:i )?(?:just |really |so |absolutely )?(?:love|loving|like|adore) (?:that|how) (?!for (?:us|me|you)\b)(.+)$/i))) s = `I'm frustrated that ${m[1]}`;
       else if ((m = t.match(/^(?:oh |wow,? )?(?:i'm |im )?(?:so |really |super )?(?:excited|thrilled|happy|glad|delighted) (?:that|how) (.+)$/i))) s = `I'm not thrilled that ${m[1]}`;
       else if ((m = t.match(/^(?:oh |wow,? )?(?:incredible|amazing|unbelievable|impressive|fascinating) (?:that|how) (.+)$/i))) s = `It's hard to believe that ${m[1]}`;
-      else if ((m = t.match(/^(?:oh )?(?:great|wonderful|perfect|fantastic|awesome|excellent|lovely|super|cool|nice|good|oh good|yay)[,!.]+\s+(.+)$/i)) && !/^(?:thanks|thank|job|work|news|a|an|another|more|yet another)\b/i.test(m[1])) { const r = m[1].replace(/^my (\w+) (update|reboot|restart|crash)\b/i, "my $1 decided to $2"); s = /^(?:a|an|another|more|yet another)\b/i.test(r) ? `I'm concerned about yet ${r.replace(/^(?:a|an) /i, "another ").replace(/^yet /i, "")}` : `Unfortunately, ${r}`; }
+      else if ((m = t.match(/^(?:oh )?(?:great|wonderful|perfect|fantastic|awesome|excellent|lovely|super|cool|nice|good|oh good|yay)[,!.]+\s+(.+)$/i)) && !/^(?:thanks|thank|job|work|news|a|an|another|more|yet another)\b/i.test(m[1])) { const r = m[1].replace(/^(?:so|and|now),?\s+/i, "").replace(/^my (\w+) (update|reboot|restart|crash)\b/i, "my $1 decided to $2"); s = /^(?:a|an|another|more|yet another)\b/i.test(r) ? `I'm concerned about yet ${r.replace(/^(?:a|an) /i, "another ").replace(/^yet /i, "")}` : HASVERB.test(r) ? `Unfortunately, ${r}` : `I'm not thrilled about ${/^(?:the|my|our|this|that)\b/i.test(r) ? "" : "the "}${r}`; }
       else if ((m = t.match(/^(?:wow,? )?(?:really |just |so )?(?:love|loving|enjoying) (\w+ing)\b(.*)$/i))) s = `I'm not thrilled about ${m[1]}${m[2]}`;
       else if ((m = t.match(/^(?:i )?(?:really |truly |so )?appreciate being (\w+)\b(.*)$/i))) s = `I'd appreciate not being ${m[1]}${m[2]}`;
       else if ((m = t.match(/^(.+?),? how (?:fun|nice|great|lovely|exciting|wonderful)[.!]*$/i))) s = `Unfortunately, ${m[1]}`;

@@ -29,3 +29,11 @@ test("round 16: access cut off today is an exit, not a performance warning; main
   assert.equal(sig("Your VPN access will be removed today for scheduled maintenance."), "none");
   assert.equal(sig("Your guest Wi-Fi access ends today; please request a new code at the desk."), "none");
 });
+
+test("round 16: sarcasm rewrites stay grammatical (pronouns, bare noun phrases, 'so', 'halfway done')", () => {
+  const ok = (s, re, bad) => all(s).forEach((o, i) => { assert.match(o, re, `L${i + 1}: ${o}`); if (bad) assert.doesNotMatch(o, bad, `L${i + 1}: ${o}`); });
+  ok("nice of them to tell us 10 minutes before the deadline", /\bthey decided to\b/, /\bthem decided\b/);
+  ok("yay, mandatory fun at 4pm", /not thrilled about the mandatory fun/, /Flagging that mandatory|Unfortunately, mandatory/);
+  ok("cool, so we're doing the thing we said we'd never do", /we're doing the thing/, /that so we're|, so we're/);
+  ok("halfway done with the migration", /I'm halfway/, /the halfway is/);
+});
