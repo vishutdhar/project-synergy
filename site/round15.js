@@ -31,7 +31,9 @@ export function preclean15(input) {
     .replace(/\bno (?:fucking )?way in (?:hell|heck),? (we|they|you|he|she|it|this|that) (?:can |will |could |are going to |'re going to )?/gi, (m, w) => `I don't think ${w.toLowerCase()} will `).replace(/\bno (?:fucking )?way in (?:hell|heck),? I(?: am|'m) (\w+ing)\b/gi, "I won't be $1").replace(/\bno (?:fucking )?way in (?:hell|heck),? I (?:will |am going to |'m going to |can )?/gi, "I won't ")
     .replace(/\b(sucks?) (?:balls|donkey balls)\b/gi, "$1")
     .replace(/\bcrawling up our (?:asses|butts|backsides)\b/gi, "breathing down our necks")
-    .replace(/\bcrawling up my (?:ass|butt|backside)\b/gi, "breathing down my neck");
+    .replace(/\bcrawling up my (?:ass|butt|backside)\b/gi, "breathing down my neck")
+    // Any "pain in the/my/our ass|butt|backside|neck" is a headache, whatever the determiner or adjective.
+    .replace(/\bpain in (?:the|my|our|your|his|her|their|everyone's|everybody's) (?:ass|arse|asses|butt|butts|backside|rear|neck)\b/gi, "hassle");
   // Sarcastic praise with a sour detail.
   const t = s.trim();
   let m;

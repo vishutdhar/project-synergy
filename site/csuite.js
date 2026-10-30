@@ -183,6 +183,8 @@ const SATIRE = [
   [/\bback to square one\b/g, "back in an exciting new discovery phase"],
   [/\bnot boil the ocean\b/g, "not launch an enterprise-wide moonshot"],
   [/\bcutting corners\b/g, "piloting an accelerated quality posture"], [/\bcut corners\b/g, "pilot an accelerated quality posture"],
+  // Round 16: "a (real) headache" (also what "a pain in the ass" becomes) reads as a friction asset.
+  [/\b(is|are|was|were|'s) a (?:real |total |huge |major |constant )?(?:headache|hassle)\b/g, (m, v) => `${v} a recurring source of high-friction learning`],
   [/\bthe elephant in the room\b/g, "the unaddressed strategic mammal in the room"],
   [/\bthrew me under the bus\b/g, "strategically repositioned me as the accountable party"],
   [/\bwe dropped the ball\b/g, "we experienced an execution gap"], [/\bdropped the ball\b/g, "experienced an execution gap"],

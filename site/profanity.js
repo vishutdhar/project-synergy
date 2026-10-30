@@ -376,7 +376,7 @@ const PHRASES = `
 !cover {my|your|our|his|her|their} {ass|asses|butt} = protect {myself|yourself|ourselves|himself|herself|themselves} = document {my|your|our|his|her|their} position = build a robust paper trail
 !{work|working|worked|works|bust|busting|busted|busts} {my|our|your|his|her|their} {ass|asses|butt} off = {work|working|worked|works|work|working|worked|works} really hard = {work|working|worked|works|work|working|worked|works} very hard = {operate|operating|operated|operates|operate|operating|operated|operates} at maximum output
 !{bust|busting|busted|busts} {my|our|your|his|her|their} {ass|asses|butt} = {work|working|worked|works} really hard = {work|working|worked|works} very hard = {operate|operating|operated|operates} at maximum output
-!pain in the {ass|arse|butt} = hassle = real hassle = high-friction dependency
+!pain in {the|my|our|your|his|her|their} {ass|arse|butt|backside|rear} = hassle = real hassle = high-friction dependency
 !{smartass|smart ass|wiseass} = know-it-all = know-it-all = overconfident contributor
 !lazy ass = lazy = lazy = low-output
 !sucks ass = isn't great = is frustrating = underindexes on value
