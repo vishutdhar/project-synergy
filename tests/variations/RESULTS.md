@@ -691,3 +691,13 @@ q3-dec what the page shows (AI if it passes the gates, else Instant), hand-read 
 ## r21, after the level fix (October 2026)
 
 Instant on all 1,003 items (3,009 outputs): 0 meaning, safety or crude flags. The corporate ideals were revised (see README). Mean token similarity to the input for plain-to-corporate went from 0.87 / 0.80 / 0.40 (Mild / Middle Manager / Full C-Suite) to 0.68 / 0.59 / 0.39. Mild and Middle Manager were identical on 370 of 652 items before and are within 7% on 35 now.
+
+## Round 16 (Oct 30, 2026): shipped rounds 14-15 plus fixes, deploy e473a815
+
+Baseline is round 13 (52649a7, deploy fe79b062). Instant engine only (the in-browser AI engine can't run in node).
+
+- Clean held-out fresh47, written and hashed before any engine run: 207 plain-to-corporate inputs x 3 levels, 208 decode memos (31 neutral, 24 good). Round 15's hold set (234 + 201) was also scored, but round 15 edited rules after first running it, so it is not clean for those changes.
+- Plain to corporate, fresh47: 11 of 207 items changed vs round 13. Round 13 came back empty on 2 crude lines ("our ticketing tool is absolute dogshit", "this client is a pain in my ass every single week"); now 0 empty. 0 swear words in any output, either version.
+- Decode, fresh47: 74.0% to 74.5% auto, false alarms on neutral and good 3/55 both. Hold-decode: 71.6% to 75.6%, false alarms 2/41 to 1/41.
+- Dataset (items.json, 5,694 outputs): 41 flagged before and after, 0 new flags. All 69 changed rows were read by hand. That found 4 grammar regressions from the round 14-15 sarcasm and fragment code ("them decided", "Flagging that mandatory fun at 4pm", "that so we're", "the halfway is done") plus one decode regression (an access cut-off at 5 PM today read as a performance warning). All 5 were fixed with general rules and have tests.
+- npm test 411/0, e2e 26/0, live-check 60/0.
