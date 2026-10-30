@@ -982,6 +982,28 @@ function readNews15(sentence) {
   if (/\b(?:will (?:communicate|share|update)[\w ]* when|when we have something to share|more clarity after|still finalizing)\b/i.test(s)) {
     return out("hedge", "warn", "They aren't ready to say what's happening. Expect news later.", "No details yet, on purpose.", "They know. You don't.");
   }
+  // Round 16: soft euphemism verbs. Memos rarely say "cut"; they say a perk is "adjusted", "refreshed" or
+  // "evolving", a product is "concluding" or "read-only", pay is "held at current levels". Each family below
+  // pairs a topic (perk, product, pay, price, you) with a soft verb, and only speaks when nothing else read the sentence.
+  const tname = subj ? S : "";
+  if (R15_PERK.test(s) && /\b(?:adjust\w*|recalibrat\w*|evolv\w*|moderniz\w*|refresh\w*|streamlin\w*|rebalanc\w*|bundl\w*|replac\w*|combin\w*|consolidat\w*|revis\w*|align\w* with (?:industry|market)|require[sd]? pre-approval|will change|changing|chang\w+ from|phas\w+ out|not be renewed|simplif\w*|reduced to|limited to)\b/i.test(s) && !/\b(?:more|extra|additional|increas\w*|improv\w*|enhanc\w*|expand\w*|100%|immediate)\b/i.test(s))
+    { const pk = tname || `Your ${s.match(R15_PERK)[0].replace(/^(?!PTO|401)\w/, (c) => c.toLowerCase())}`; return out("benefits", "bad", `${pk} ${headPlural(pk) && !/\b(?:leave|coverage|PTO|pay|insurance)$/i.test(pk) ? "are" : "is"} changing. ${((w) => w && !/^chang/i.test(w) ? `When a memo says a perk is "${w.toLowerCase()}", ` : "When a memo announces a change to a perk, ")(s.match(/\b(adjusted|recalibrat\w*|evolv\w*|moderniz\w*|refresh\w*|streamlin\w*|rebalanc\w*|bundled|replaced|combin\w*|consolidat\w*|revised|simplif\w*|phased out|reduced|limited)\b/i)?.[1])}it almost always means you get less.`, "Your perks are shrinking.", "Less for you, nicer words."); }
+  if (/\b(?:merit|promotions?|raises?|pay (?:ranges|bands)|salary (?:bands|ranges)|salar(?:y|ies)|bonus(?:es)?|headcount|requisitions?|hiring|budgets?|travel|offsites?|extensions?|tool requests)\b/i.test(s) && /\b(?:there will be no|no (?:merit|promotion|raise|bonus)|held at current|remain\w* (?:unchanged|flat|at current)|locked at|limited to exceptional|will not be (?:approved|opening|opened|extended)|not be opening|on hold|paused|suspended|in the next fiscal year)\b/i.test(s) && !R15_GOOD.test(s)) {
+    const pay = /\b(?:merit|raises?|pay (?:ranges|bands)|salary|salaries|bonus\w*|promotions?)\b/i.test(s);
+    return pay ? out("no-raises", "bad", "Pay and promotions are frozen for now. Don't expect a raise or a bump this round.", "No raises for now.", "Your pay: frozen.") : out("budget-freeze", "bad", "Spending and hiring are frozen. Nothing new gets approved for a while, so expect to do more with less.", "Spending freeze.", "No money. Don't ask.");
+  }
+  if ((R15_PRODUCT.test(s) || /\b(?:module|SDK|magazine|issue|themes?|mode|beta|points|sign-ups|support for)\b/i.test(s)) && /\b(?:will (?:conclude|not be extended)|has concluded|concludes?|read-only|archiv\w+|end of life|deprecat\w+|retir\w+|removed from|final issue|indefinite hiatus|unpublish\w*|stop syncing|(?:are|is) closed|will end|no longer)\b/i.test(s) && !R15_GOOD.test(s))
+    return out("shutdown", "bad", `${tname || "It"} ${tname && headPlural(tname) ? "are" : "is"} going away${whenOf(s) ? ` (${whenOf(s).replace(/^(?:on|in|by) /i, "")})` : ""}. Plan for life without ${tname && headPlural(tname) ? "them" : "it"}.`, `${tname || "It"}: going away.`, `${tname || "It"}: dead. They're just being gentle.`);
+  if (/\b(?:fee|surcharge|ticketed|pay-per-\w+|paid add-on|overage charges?|charges? will apply|cover the cost|list price|rates will be adjusted|now be charged|keep pace with inflation)\b/i.test(s) && !/\b(?:waiv\w+|no (?:fee|charge)|free)\b/i.test(s))
+    return out("cost-increase", "bad", "You'll pay more for this than before.", "It costs more now.", "Same thing, bigger bill.");
+  if (/\b(?:cannot be accommodated|not able to (?:offer|approve|support|accommodate)|unable to (?:offer|approve|support|accommodate)|isn't something we can|is not something we can|will not be making an exception|not (?:been )?selected|(?:need|have) to pass on)\b/i.test(s))
+    return out("rejection", "bad", "The answer is no.", "No.", "No, with a bow on it.");
+  if (/\b(?:you|your)\b/i.test(s) && /\b(?:coaching plan|improvement plan|not met the standards|documenting performance|daily update on your progress|discuss expectations|standards expected)\b/i.test(s))
+    return out("performance", "bad", "They're unhappy with your work and are building a paper trail. Take it seriously.", "Performance warning.", "This is the paper trail.");
+  if (/\b(?:challenges with|control gaps?|material weakness|remediat\w+|introduced a bug|issue (?:caused|affecting)|higher than normal|lower [\w ]*than expected|elevated turnover|over budget|behind schedule|under pressure|missed (?:our|the|its) [\w ]*target|raised concerns|incorrect totals|may have been exposed)\b/i.test(s))
+    return out("problem", "bad", `Something is wrong: ${lc(S14(s)).replace(/^we are /i, "they're ").replace(/^we have /i, "they've ").replace(/^our /i, "their ")}.`, "Something went wrong.", "Something broke, and they're spinning it.");
+  if (/\b(?:moving (?:from [\w ]+ )?to (?:a |an )?[\w -]*(?:model|structure)|pod-based|realign\w* into|now sit within|into one (?:team|portfolio|group|organization)|new reporting lines)\b/i.test(s))
+    return out("reorg", "warn", "Teams are being reshuffled. Check who your boss is.", "Reshuffle.", "Another reorg.");
   return null;
 }
 export { readNews15 };

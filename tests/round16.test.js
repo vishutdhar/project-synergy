@@ -37,3 +37,15 @@ test("round 16: sarcasm rewrites stay grammatical (pronouns, bare noun phrases, 
   ok("cool, so we're doing the thing we said we'd never do", /we're doing the thing/, /that so we're|, so we're/);
   ok("halfway done with the migration", /I'm halfway/, /the halfway is/);
 });
+
+test("round 16: soft euphemism verbs decode to the real news, good news stays good", () => {
+  const sig = (s) => toNormal(s, { level: 1 }).signal.id;
+  assert.equal(sig("We are recalibrating our parental leave policy to align with industry benchmarks."), "benefits");
+  assert.equal(sig("Commuter benefits will be adjusted to better reflect our hybrid working model."), "benefits");
+  assert.equal(sig("Salary bands will remain unchanged for 2027."), "no-raises");
+  assert.equal(sig("Our community forum will move to read-only mode and be archived next month."), "shutdown");
+  assert.equal(sig("We are introducing a modest service fee to continue investing in your experience."), "cost-increase");
+  assert.equal(sig("Your request for an exception has been carefully reviewed and cannot be accommodated."), "rejection");
+  assert.equal(sig("The audit surfaced several control gaps that we are now remediating."), "problem");
+  for (const s of ["We are expanding parental leave to 20 weeks.", "Open enrollment for 2027 benefits runs from November 2 to November 16.", "Please complete the annual security awareness training by November 20."]) assert.equal(sig(s), "none", s);
+});
