@@ -701,3 +701,9 @@ Baseline is round 13 (52649a7, deploy fe79b062). Instant engine only (the in-bro
 - Decode, fresh47: 74.0% to 74.5% auto, false alarms on neutral and good 3/55 both. Hold-decode: 71.6% to 75.6%, false alarms 2/41 to 1/41.
 - Dataset (items.json, 5,694 outputs): 41 flagged before and after, 0 new flags. All 69 changed rows were read by hand. That found 4 grammar regressions from the round 14-15 sarcasm and fragment code ("them decided", "Flagging that mandatory fun at 4pm", "that so we're", "the halfway is done") plus one decode regression (an access cut-off at 5 PM today read as a performance warning). All 5 were fixed with general rules and have tests.
 - npm test 411/0, e2e 26/0, live-check 60/0.
+
+### Round 16b (same day): decode reads soft euphemisms, deploy 3fe0d792
+
+A memo rarely says "cut". It says a perk is "adjusted" or "recalibrated", pay is "held at current levels", a forum "goes read-only", a "modest service fee" is added. A new family reader pairs each topic (perk, pay or spending, product, price, you, operations) with that soft verb.
+- Second held-out fresh48-decode (110 memos, 13 neutral and 8 good, frozen before any run, scored once): 64.5% to 84.5%. False alarms 1/21 before and after.
+- Dev fresh47-decode 74.5% to 80.8%, round 15 hold-decode 75.6% to 78.1%. False alarms unchanged (3/55, 1/41). Dataset: 0 changed rows, 0 new flags. npm test 412/0, e2e 26/0, live-check 60/0.
