@@ -1,6 +1,7 @@
 // Project Synergy rewrite engine. Pure functions, no network, runs in the browser and in Node.
 import { satireScene } from "./satire.js";
-import { readNews, NEWS_SIGNALS, NEWS_RANK } from "./news.js";
+import { preclean15, postfix15, dropCrude15, rescue15 } from "./round15.js";
+import { readNews, readNews15, readGood15, NEWS_SIGNALS, NEWS_RANK } from "./news.js";
 import { restructure, tokenSim, polishRegister, lowerFirst } from "./register.js";
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
@@ -631,7 +632,7 @@ function corporateOnce(clean, lvl, rng, { extras = true, dropped = [], forceMild
  * fallback is "" when the first try passed, "reseed" when a later try passed,
  * and "plain" when only the version without openers, closers and asides passed.
  */
-export function toCorporateDetailed(input, opts = {}) {
+function toCorporateDetailed0(input, opts = {}) {
   const lvl = clampLevel(opts.level ?? 2);
   // Round 9: whole-message satire scenes (satire.js) come first. Each is still meaning-checked.
   const scene = opts.scenes === false ? null : satireScene(String(input ?? ""));
@@ -655,6 +656,21 @@ export function toCorporateDetailed(input, opts = {}) {
   const check = checkMeaning(without(prepass(ref)), voiced);
   if (!check.ok || hasCrude(voiced)) return r;
   return { ...r, text: lvl === 2 ? withQuip(voiced, prepass(ref), rng) : voiced, check };
+}
+
+// Round 15: general guards around the rewrite (round15.js): clean shapes first, never empty, no cheer on sad news.
+export function toCorporateDetailed(input, opts = {}) {
+  const raw = String(input ?? "");
+  const lvl = clampLevel(opts.level ?? 2);
+  const pre = preclean15(raw);
+  let r = toCorporateDetailed0(pre, opts);
+  if (pre !== raw && (!r.text || hasCrude(r.text))) { const r0 = toCorporateDetailed0(raw, opts); if (r0.text && !hasCrude(r0.text)) r = r0; }
+  if (!r.text && raw.trim()) { const rs = rescue15(pre); if (rs !== pre) { const r3 = toCorporateDetailed0(rs, opts); if (r3.text && !hasCrude(r3.text)) r = r3; } }
+  if (!r.text && raw.trim()) {
+    const bare = dropCrude15(pre, hasCrude);
+    if (bare) { const r2 = toCorporateDetailed0(bare, opts); r = r2.text && !hasCrude(r2.text) ? { ...r2, fallback: r2.fallback || "dropped-crude" } : { ...r, text: bare, fallback: "dropped-crude" }; }
+  }
+  return r.text ? { ...r, text: postfix15(raw, r.text, lvl) } : r;
 }
 
 // Round 10: Middle Manager gets a light, topical aside on statements, so it is mildly funny too.
@@ -821,7 +837,7 @@ function postPolish(text, lvl, clean) {
     .replace(/^When you get a chance, (could you .+\b(?:when|once|after) (?:you(?:'re| are) (?:done|finished|free|ready)|it's (?:done|finished|ready)|you get (?:a sec|a second|a minute|a moment|a chance)|you have (?:it|them|that|those|this|time|a (?:sec|second|minute|moment))|they're (?:ready|done|final))\b.*)$/, (_m, r) => r[0].toUpperCase() + r.slice(1));
   if (lvl === 1) {
     t = t.replace(/^I disagree with /, "I'm not sure I agree with ")
-      .replace(/^Why (is|are|was|were) (the [\w-]+|this|that|it|our [\w-]+|my [\w-]+) (.+)\?$/, "Could you help me understand why $2 $1 $3?")
+      .replace(/^Why (is|are|was|were) (the [\w-]+(?: [\w-]+)??|this|that|it|our [\w-]+(?: [\w-]+)??|my [\w-]+(?: [\w-]+)??) ((?:so|still|not|always|never|down|up|on|in|out|late|broken|empty|missing|here|there|[\w-]+ing|[\w-]+ed)\b.*)\?$/, "Could you help me understand why $2 $1 $3?")
       .replace(/^([A-Z][a-z]+) (paid|signed|renewed|approved|accepted) (.+)\.$/, (m, n, v, r) => (/^(?:The|This|That|We|They|It|There|Our|My|Your|I)$/.test(n) ? m : `I'm happy to share that ${n} ${v} ${r}.`))
       .replace(/^We (overspent|missed|lost|blew) (.+)\.$/, "Unfortunately, we $1 $2.")
       .replace(/^Just to let you know, (the new hire is (?:really |so )?sharp)\.$/, "$1. Great to have them on board.")
@@ -1045,7 +1061,9 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       if (!allSkipped && isGreetingOrSignature(sentence)) continue;
       total++;
       // Round 9: the plain news with its facts (news.js). Good news and temporary closures don't score themes.
-      let news = readNews(sentence);
+      let news = readGood15(sentence) ?? readNews(sentence);
+      // Round 15: the general reader only speaks when nothing else read the sentence.
+      if (!news && !detectThemes(sentence).length) news = readNews15(sentence);
       // Round 10b: the broad keyword families only speak when no older, more specific detector did.
       // When the older detector agrees on the family, its wording wins; when it disagrees, the keyword family is the closer read.
       // Exception: delay, benefits, shutdown and price families keep the keyword wording, which names the thing ("The release is delayed").

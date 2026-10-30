@@ -50,7 +50,96 @@ function splitTail(text) {
 const join = (...xs) => xs.filter(Boolean).join(" ").replace(/\s{2,}/g, " ").trim();
 
 // Every scene: test(lowerText) and build(text, time) -> [mild, middle, csuite].
+// Round 14: common idioms, read by meaning. {S} is the subject as written ("We're", "He's", "She's").
+const IDIOMS = [
+  [/^(we're|we are|i'm|i am|they're|they are) back to square one$/, ["{S} starting over from scratch.", "{S} back at the starting line on this.", "{S} executing a full strategic reset to day zero, with all prior learnings lovingly preserved."]],
+  [/^(we're|we are|they're|they are|you're|you are) trying to boil the ocean(?: here)?$/, ["{S} trying to do too much at once.", "{S} trying to tackle everything at once.", "{S} pursuing an ocean-scale scope in a single initiative, which remains an aggressive thermal target."]],
+  [/^(he's|she's|they're|he is|she is|they are) moving the goalposts(?: again)?$/, ["{S} changing the targets{A}.", "{S} shifting the success criteria{A}.", "{S} piloting a dynamic, continuously evolving definition of success{A}."]],
+  [/^let's not throw good money after bad$/, ["Let's not spend more on something that isn't working.", "Let's not put more budget into something that isn't working.", "I'd recommend we pause our ongoing reinvestment in a value-destruction initiative, however consistent it has been."]],
+  [/^(this|that|it) is (?:just |only )?the tip of the iceberg$|^(this|that|it)'s (?:just |only )?the tip of the iceberg$/, ["This is just the start of a bigger problem.", "This is only the visible part of a bigger issue.", "What we're seeing is only the above-water portion of a much larger strategic iceberg."]],
+  [/^(we're|we are|i'm|i am|they're|they are) (?:stuck |caught )?between a rock and a hard place$/, ["{S} in a tough spot with no good options.", "{S} facing two difficult options.", "{S} navigating a dual-headwind scenario in which every available option is a learning opportunity."]],
+  [/^(it's|this is|that's|it is|that is) (?:just )?a drop in the bucket$/, ["It's too small to make a real difference.", "It's a marginal impact at best.", "It's a rounding error with excellent intentions."]],
+  [/^(he's|she's|they're|you're|we're|he is|she is|they are) barking up the wrong tree$/, ["{S} looking in the wrong place.", "{S} focused on the wrong area.", "{S} directing a high-energy initiative at the wrong tree."]],
+  [/^the ball'?s in their court(?: now)?$|^the ball is in their court(?: now)?$/, ["It's their move now, and we're waiting on them.", "The next step is with them now.", "We have formally transferred ownership of the next move to them and await their response."]],
+  [/^(that's|that is|this is|it's) (?:a|such a|a real|a whole) can of worms$/, ["That could create a lot of new problems.", "That could open up a lot of complications.", "That would unlock a self-replicating portfolio of new problems."]],
+  [/^(she's|he's|they're|i'm|she is|he is|they are|i am) burning the candle at both ends$/, ["{S} working too hard without enough rest.", "{S} stretched very thin.", "{S} running a dual-shift personal capacity model that is not sustainable."]],
+  [/^(we're|we are|they're|they are|i'm|i am) (?:just )?spinning (?:our|their|my) wheels$/, ["{S} putting in effort without making progress.", "{S} busy but not moving forward.", "{S} generating significant activity with zero forward motion, which is impressive in its own way."]],
+  [/^(that's|that is|this is|it's) the elephant in the room$/, ["That's the obvious issue nobody is talking about.", "That's the big issue we haven't discussed yet.", "That is the largest unaddressed stakeholder in the room, and it has not been invited to speak."]],
+  [/^(we|i|they) bit off more than (?:we|i|they) can chew$/, ["{W} took on more than {w} can handle.", "{W} overcommitted on this.", "{W} strategically over-indexed on ambition relative to capacity."]],
+  [/^(that's|that is|this is|it's) a (?:hard|tough|bitter) pill to swallow$/, ["That's hard to accept.", "That's a tough one to accept.", "That is a high-friction truth that will require significant organizational digestion."]],
+  [/^(he's|she's|they're|he is|she is|they are) (?:going to|gonna) hit the roof$/, ["{S} going to be very angry.", "{S} going to be very upset about this.", "{S} about to experience a significant escalation in emotional altitude."]],
+  [/^(we're|we are|i'm|i am|they're|they are) running on fumes$/, ["{S} nearly out of energy.", "{S} running very low on energy.", "{S} operating on reserve capacity only, with the fuel light very much on."]],
+  [/^that train has (?:already )?left the station$/, ["It's too late for that now.", "That window has closed.", "That opportunity has already departed, and there are no further scheduled services."]],
+  [/^(?:we|i) (?:need|have|had|will have) to cut corners( to .+)?$/, ["We need to skip some steps{T}.", "We'll need to take some shortcuts{T}.", "We'll need to activate a streamlined, corner-optional delivery model{T}."]],
+  [/^(we're|we are|they're|they are) putting lipstick on a pig$/, ["{S} making something look better without fixing it.", "{S} polishing something that still isn't working.", "{S} applying a premium cosmetic layer to a fundamentally unchanged asset."]],
+];
+const ISUBJ = { "we're": "We're", "we are": "We're", "i'm": "I'm", "i am": "I'm", "they're": "They're", "they are": "They're", "you're": "You're", "you are": "You're", "he's": "He's", "he is": "He's", "she's": "She's", "she is": "She's" };
+const ISUBJ3 = { "We're": "We are", "I'm": "I am", "They're": "They are", "You're": "You are", "He's": "He is", "She's": "She is" };
+function idiomScene(text) {
+  const t = text.toLowerCase().replace(/[’]/g, "'").replace(/[.!]+$/, "").trim();
+  for (const [re, outs] of IDIOMS) {
+    const m = t.match(re);
+    if (!m) continue;
+    const S = ISUBJ[m[1]] ?? "";
+    const W = m[1] && /^(?:we|i|they)$/.test(m[1]) ? (m[1] === "i" ? "I" : m[1][0].toUpperCase() + m[1].slice(1)) : "";
+    const again = /\bagain\b/.test(t) ? " again" : "";
+    const T = re.source.includes("cut corners") && m[1] ? m[1].replace(/\bmake the date\b/, "hit the date").replace(/\bmake the deadline\b/, "hit the deadline") : "";
+    if (re.source.includes("cut corners")) return outs.map((o) => o.replace("{T}", T));
+    return outs.map((o, i) => o.replace("{S}", i === 2 && ISUBJ3[S] ? ISUBJ3[S] : S).replace("{W}", W).replace("{w}", W === "I" ? "I" : W.toLowerCase()).replace("{A}", again));
+  }
+  return null;
+}
 const SCENES = [
+  // Round 14: "I want to take the afternoon off and do absolutely nothing" / "I want to call in tomorrow and just
+  // play video games" / "I'm going to bail early and go to the beach" / "I really want to blow off work today".
+  // Unknown activities are kept word for word.
+  {
+    id: "hooky",
+    re: /^(?:honestly,? |ngl,? |ok so |so )?(i(?:'d| would) (?:really )?(?:like|love) to|i (?:really )?want to|i wanna|i(?:'m| am) (?:gonna|going to)|gonna|i'll|i will)\s+(?:just )?(take (?:the|this) (?:whole |entire )?(?:day|afternoon|morning) off|take (?:today|tomorrow|monday|tuesday|wednesday|thursday|friday) off|call in(?: sick)?(?: today| tomorrow)?|blow off work(?: today| tomorrow)?|bail early(?: today)?|duck out early(?: today)?|leave early(?: today)?|duck out at \d{1,2}(?::\d\d)?(?: ?[ap]m)?|skip work(?: today| tomorrow)?|bail)(?: (to the beach))?(?:,? (?:and|to) (?:just |literally |absolutely )?(.+?))?[.!]*$/i,
+    build(t, time, m) {
+      const lower = t.toLowerCase();
+      const want = /^(?:\S+ )?i(?:'d| would) (?:really )?(?:like|love) to|i (?:really )?want to|i wanna/i.test(m[1]);
+      const lead1 = want ? "I'd like to" : "I'm going to";
+      const lead3 = want ? "I'd like to designate" : "I'll be designating";
+      const leave = m[2].toLowerCase();
+      let act = (m[4] ?? "").trim();
+      const dest = (lower.match(/\bto the (beach)\b/) ?? [])[1];
+      if (!act && dest) act = `go to the ${dest}`;
+      const early = /early|duck out at/.test(leave);
+      const at = (leave.match(/at (\d{1,2}(?::\d\d)?(?: ?[ap]m)?)/) ?? [])[1];
+      const half = (leave.match(/(?:the|this) (?:whole |entire )?(afternoon|morning|day)/) ?? [])[1];
+      const lw = false;
+      const hw = (leave.match(/(the|this) (?:whole |entire )?(?:afternoon|morning|day)/) ?? [])[1];
+      const when = lw ? "this long weekend" : half ? (half === "day" && hw === "the" ? "the whole day" : `${hw} ${half}`) : time.when;
+      const noBack = /not come back|not coming back/.test(act);
+      if (noBack) act = "";
+      const dflt3 = noBack ? "" : " to restore my bandwidth and return fully aligned";
+      const A = [
+        [/^(?:do )?(?:absolutely |literally )?nothing$/, "and do nothing work-related", " in which I will deliver absolutely nothing, with excellence"],
+        [/^sleep(?: in)?$|^nap$|^take a nap$/, "to get some extra sleep", " anchored by an extended sleep initiative"],
+        [/^play video ?games$|^game$|^play games$/, "to play video games", " dedicated to hands-on video game research"],
+        [/^go to the (beach)$/, "to go to the $1", " at a $1side offsite with a team of one"],
+        [/^go (fishing|golfing|hiking|skiing|surfing|bowling|kayaking)$/, "to go $1", " dedicated to hands-on $1 research"],
+      ];
+      let a1 = act ? ` to ${act}` : "", a3 = act ? `, dedicated to the following initiative: ${act}` : dflt3;
+      for (const [re, x1, x3] of A) { const mm = act.toLowerCase().match(re); if (mm) { a1 = " " + x1.replace("$1", mm[1] ?? ""); a3 = x3.replace("$1", (mm[1] ?? "").replace(/^mountains$/, "mountain")); break; } }
+      if (/\b(?:fuck|shit|damn|ass|crap|hell)\b/i.test(act)) return null;
+      if (early) {
+        const from = at ? `at ${at}` : /today/.test(leave) ? "early today" : "early";
+        return [
+          `${lead1} head out ${from}${noBack ? " and won't be back" : ""}${a1}.`,
+          `Heads-up: ${lead1} sign off ${from}${noBack ? " and won't be back" : ""}${a1}.`,
+          `After a thoughtful review of my personal roadmap, ${lead3} ${at ? `everything after ${at}` : "an early exit and everything after it"} as a strategic recharge window${a3}${noBack ? ", and I won't be back" : ""}. Rest is a deliverable.`,
+        ];
+      }
+      const off = when === "today" && !half ? "today" : when;
+      return [
+        `${lead1} take ${off} off${a1}.`,
+        `Heads-up: ${lead1} be out of office ${/^the /.test(off) ? "for " : ""}${off}${a1}.`,
+        `After a thoughtful review of my personal roadmap, ${lead3} ${off} as a strategic recharge window${a3}. Rest is a deliverable.`,
+      ];
+    },
+  },
   // "I'd like to fuck off the whole day today" / "I'm slacking off this afternoon" / "I'm phoning it in today"
   {
     id: "goof-off",
@@ -381,8 +470,10 @@ export function satireScene(input) {
   const text = String(input ?? "").trim().replace(/\s+/g, " ");
   if (!text || text.length > 160 || /\n/.test(text)) return null;
   const hasQ = /\?/.test(text);
-  const { body, tail } = splitTail(text);
+  const hooky = SCENES[0].re.test(text.toLowerCase().replace(/[’]/g, "'"));
+  const { body, tail } = hooky ? { body: text, tail: null } : splitTail(text);
   const lower = body.toLowerCase().replace(/[’]/g, "'").replace(/^(slacking off|goofing off|coasting|chilling|phoning it in|fucking off|dicking around|messing around|screwing around)\b/, "i'm $1");
+  if (!hasQ) { const id = idiomScene(text); if (id) return id; }
   for (const s of SCENES) {
     if (hasQ && !s.q) continue;
     const m = lower.match(s.re) ?? (s.q ? body.replace(/[’]/g, "'").match(s.re) : null);

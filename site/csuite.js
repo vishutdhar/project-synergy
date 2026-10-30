@@ -152,6 +152,54 @@ const SATIRE = [
   [/\bwants this yesterday\b/g, "has set a highly aggressive timeline: yesterday"],
   [/\bwhoops, wrong channel\b/gi, "Apologies, this message was deployed to the wrong channel"],
   [/\bfar too much work for one person\b/g, "a workload that would challenge a team of three, scoped for one person"],
+  // Round 15: general inflations of everyday complaint phrases, so the joke lives in the sentence, not only the closer.
+  [/\b(chewed|ripped|tore) me out\b/g, "delivered some high-visibility developmental feedback to me"],
+  [/\bI'm so done with\b/g, "I've reached full emotional saturation on"],
+  [/\b(is|are) (?:pretty rough|terrible|awful|really bad|so bad)\b(?! that)/g, (_m, v) => `${v} delivering a below-baseline experience`],
+  [/\bkeeps taking credit for my (?:stuff|work|ideas?)\b/g, "keeps strategically co-owning my deliverables"],
+  [/\bI'm too old for\b/g, "my operating model no longer supports"],
+  [/\bI'm struggling with\b/g, "I'm on a deeply personal growth journey with"],
+  [/\bI'm dreading\b/g, "I'm proactively pre-grieving"],
+  [/\b(is|are) beating us\b/g, (_m, v) => `${v} currently out-executing us in the marketplace`],
+  [/\bI can hardly believe\b|\bI'm unable to believe\b/g, "I remain professionally astonished that"],
+  [/\b(is|are) (?:not great|not good)\b/g, (_m, v) => `${v} tracking below our aspirational baseline`],
+  [/\ba waste of (?:my |our )?time\b/g, "a low-ROI use of calendar real estate"],
+  [/\bI'm (?:so |really )?bored\b/g, "I'm experiencing a meaningful engagement deficit"],
+  [/\bI'm (?:completely |totally |so )?burn(?:ed|t) out\b/g, "I'm operating at a sustained bandwidth deficit"],
+  [/\bI'm (?:so |really )?(?:exhausted|tired)\b(?! of)/g, "I'm running at reduced battery capacity"],
+  [/\bnobody reads my emails\b/gi, (m) => `${m[0] === "N" ? "M" : "m"}y emails are achieving limited stakeholder penetration`],
+  [/\bnobody listens to me\b/g, "my input is experiencing low adoption"],
+  [/\b(?:this|that) meeting could have been an email\b/gi, (m) => `${m[0] === "T" ? "T" : "t"}his meeting had strong asynchronous potential`],
+  [/\bI hate (?:this|my) job\b/g, "my role and I are exploring a period of mutual reflection"],
+  // Round 15: common workplace idioms, translated by meaning into inflated corporate (Full C-Suite only).
+  [/\bburning the candle at both ends\b/g, "running a dual-shift personal energy model"],
+  [/\bmoving the goalposts\b/g, "dynamically re-baselining the success criteria"],
+  [/\bhanging by a thread\b/g, "operating with minimal structural redundancy"],
+  [/\bputting lipstick on a pig\b/g, "applying a premium visual layer to a legacy asset"], [/\blipstick on a pig\b/g, "a premium visual layer on a legacy asset"],
+  [/\bI've got too many irons in the fire\b/g, "I'm running an overextended portfolio of parallel workstreams"], [/\btoo many irons in the fire\b/g, "an overextended portfolio of parallel workstreams"],
+  [/\b(?:is|was) a drop in the bucket\b/g, (m) => `${m.split(" ")[0]} immaterial at scale`],
+  [/\b(?:is|are) getting cold feet\b/g, (m) => `${m.split(" ")[0]} experiencing late-stage commitment hesitancy`],
+  [/\bit's a no-brainer\b/gi, (m) => `${m[0]}t's a zero-deliberation value proposition`],
+  [/\bback to square one\b/g, "back in an exciting new discovery phase"],
+  [/\bnot boil the ocean\b/g, "not launch an enterprise-wide moonshot"],
+  [/\bcutting corners\b/g, "piloting an accelerated quality posture"], [/\bcut corners\b/g, "pilot an accelerated quality posture"],
+  [/\bthe elephant in the room\b/g, "the unaddressed strategic mammal in the room"],
+  [/\bthrew me under the bus\b/g, "strategically repositioned me as the accountable party"],
+  [/\bwe dropped the ball\b/g, "we experienced an execution gap"], [/\bdropped the ball\b/g, "experienced an execution gap"],
+  [/\bbite the bullet\b/g, "lean into a strategic discomfort"],
+  [/\bis dead in the water\b/g, "is operating at zero momentum"],
+  [/\bthat ship has sailed\b/gi, (m) => `${m[0] === "T" ? "T" : "t"}hat window has been strategically closed`],
+  [/\bbetween a rock and a hard place\b/g, "navigating a constrained optionality landscape"],
+  [/\breinvent the wheel\b/g, "rebuild an existing capability from first principles"],
+  [/\bflying by the seat of our pants\b/g, "running an improvisation-first delivery model"],
+  [/\bputting out fires\b/g, "triaging a steady stream of unplanned escalations"],
+  [/\bherding cats\b/g, "aligning a highly autonomous stakeholder group"],
+  [/\bpulling teeth\b/g, "a high-friction extraction process"],
+  [/\bup in the air\b/g, "pending strategic clarity"],
+  [/\ba wild goose chase\b/g, "a low-yield discovery exercise"],
+  [/\bput(?:ting)? the cart before the horse\b/g, (m) => /ting/.test(m) ? "sequencing the deliverables in a bold new order" : "sequence the deliverables in a bold new order"],
+  [/\bopen Pandora's box\b/g, "unlock a large inventory of unforeseen consequences"],
+  [/\ba hill I'm willing to die on\b/g, "a non-negotiable pillar of my personal roadmap"],
 ];
 
 export function upgrade(text) {
@@ -198,7 +246,7 @@ export function intentOf(clean, core) {
   if (/^(?:I'm concerned|I'm not thrilled|I'm not looking forward|I'm not happy|That's not ideal|The timing isn't ideal|Unfortunately|I have \d+)\b/.test(core)) return "problem";
   const DOING = /\b(?:make|do|doing|take|attend|join|help|commit|support|offer|be at|be there|sign|signing|cover|go|come|work|working|approve|approving|give|giving|move|fit|present|presenting|host|hosting|speak|speaking|rewrite|rewriting|hire|hiring|joining|attending|making|taking|coming|going|covering|helping)\b/i;
   if (/^(?:absolutely not|hell no|no way|nope|not happening)\b/i.test(c) || /^(?:that's|that is) a (?:hard |firm |big )?no\b/i.test(c)) return "decline";
-  if (/^(?:no|nope|not interested|hard pass|not this)\b/i.test(c) || /^(?:I|we)(?:'m| am|'re| are)? (?:not|can't|won't|cannot|will not)\b/i.test(c) && DOING.test(c) && !/\b(?:not sure|no idea)\b/i.test(c) || /^(?:I'll have to pass|I won't|We won't|We can't|I can't|We're not|I'm not|I'm unable|We're unable)\b/.test(core) && DOING.test(core)) return "decline";
+  if (/^(?:no|nope|not interested|hard pass|not this)\b(?! (?:update|updates|news|changes?|problems?|worries|rush|issues?|blockers?)\b)/i.test(c) || /^(?:I|we)(?:'m| am|'re| are)? (?:not|can't|won't|cannot|will not)\b/i.test(c) && DOING.test(c) && !/\b(?:not sure|no idea)\b/i.test(c) || /^(?:I'll have to pass|I won't|We won't|We can't|I can't|We're not|I'm not|I'm unable|We're unable)\b/.test(core) && DOING.test(core)) return "decline";
   if (/^(?:Welcome|A warm welcome)\b(?! back)/.test(core)) return "welcome";
   if (/^[A-Z][a-z]+ (?:fixed|caught|solved|rescued|unblocked)\b/.test(core) && !/^(?:The|This|That|We|They|It|There|Our|My|Your|I)\b/.test(core) || /^(?:The|Our) [\w ]*team (?:caught|fixed|solved|shipped)\b/.test(core) || /\b(?:really|so) sharp\b/.test(core)) return "praise";
   if (/^Welcome back\b/.test(core)) return "thanks";

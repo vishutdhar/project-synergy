@@ -1,6 +1,7 @@
 import { hasCrude } from "./profanity.js";
 import { round12, genericClause } from "./round12.js";
 import { round13 } from "./round13.js";
+import { round14, round14late, fixCaps14 } from "./round14.js";
 
 // Input pre-pass for Normal to corporate (see shortfalls/research.md).
 // Runs on the cleaned input before the level rules, so every level starts from a sincere, well-formed message:
@@ -954,7 +955,8 @@ export function prepass(clean, nested = false) {
   return clean.split("\n").map((line) => {
     if (/^\s*(?:[-*\u2022]|\d{1,2}[.)])\s+/.test(line) || !line.trim()) return line;
     const lead = line.match(/^\s*/)[0];
-    let t = round6(round7(round8(round9(round10(round11(round12(round13(fixNamesAndTools(line.trim()))))))))).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
+    const t14 = round14(fixNamesAndTools(line.trim()));
+    let t = fixCaps14(line, round14late(t14, round6(round7(round8(round9(round10(round11(round12(round13(t14)))))))))).replace(/\bbug (you|me|him|her|them)\b/gi, "bother $1").replace(/^(fun|classic|great|awesome|perfect|lovely|wonderful|cool|nice|brilliant)[.!]+\s+(?=[a-z])/i, "$1, ");
     const sents = t.split(/(?<=[.!?])\s+(?=[A-Za-z])/);
     t = sents.map((s, i) => {
       const sar = desarcasm(s);

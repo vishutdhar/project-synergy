@@ -162,7 +162,7 @@ const INFLATE = [
   [/\bI(?:'d like to| would like to|'ll be| will be|'m going to| am going to) (?:leave|leaving) early today\b/gi, (m) => `${m.match(/^I(?:'d like to| would like to)/i) ? "I'd like to execute" : "I'll be executing"} a strategic early departure today`],
   [/\bI(?:'m going to| am going to|'ll) take a long lunch today\b/gi, "I'll be running an extended midday refuel initiative today"],
   [/\bI'd like to take tomorrow off and rest\b/gi, "I'd like to take tomorrow off and rest, a full-day strategic recharge to protect my bandwidth"],
-  [/\bwe lost (\d+) (customers|clients)\b/gi, "we released $1 $2 to pursue other opportunities"], [/\bwe lost our (biggest|largest|best) (customer|client)\b/gi, "our $1 $2 has chosen to explore a future without us"],
+  [/\bwe lost (\d+) (customers|clients)\b(?! to\b)/gi, "we released $1 $2 to pursue other opportunities"], [/\bwe lost our (biggest|largest|best) (customer|client)\b/gi, "our $1 $2 has chosen to explore a future without us"],
   [/\bour biggest customer wants to cancel\b/gi, "our biggest customer wants to cancel, which they are framing as a strategic pivot away from us"],
   [/\bthe backup didn't run((?: overnight| last night| this morning| today| again| this week| yesterday)?)\b/gi, "the backup didn't run$1, opting into a strategic day off"],
   [/\bthe website is down((?: overnight| last night| this morning| today| again| this week| yesterday)?)\b/gi, "the website is down$1, taking an unscheduled break from availability"],

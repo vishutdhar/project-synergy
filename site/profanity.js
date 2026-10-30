@@ -18,7 +18,7 @@ const CANON = [
   [/\bsh(?:\*|!|1)t(ty|s)?\b|\bs\*\*t\b|\bshyt\b/gi, (_m, suf = "") => "shit" + (suf ?? "").toLowerCase()],
   [/\bb(?:\*|!)tch(es|ing|y)?\b|\bbiatch\b/gi, (_m, suf = "") => "bitch" + (suf ?? "").toLowerCase()],
   [/\ba(?:\*\*|\$\$|-)hole(s)?\b|\bahole(s)?\b/gi, (_m, s1, s2) => "asshole" + (s1 ?? s2 ?? "")],
-  [/\bd(?:\*|@)mn(it)?\b|\bdamnit\b|\bdammit\b|\bgoddamn ?it\b|\bgod damn it\b/gi, "damn it"],
+  [/\bd(?:\*|@)mn(it)?\b|\bdamnit\b|\bdammit\b|\bgoddamn ?it\b|\bgoddam+it\b|\bgod damn it\b/gi, "damn it"],
   [/\bcr(?:\*|@)p(py)?\b/gi, (_m, suf = "") => "crap" + (suf ?? "")],
   [/\bb\.?s\.?\b(?=\s*[.!?]?\s*$)|\b(?:is|that's|thats|such|total|complete|pure|absolute|utter|of) (?:bs|b\.s\.)\b/gi, (m) => m.replace(/bs|b\.s\./i, "bullshit")],
   // Hyphenated forms read the same as spaced ones.
@@ -410,10 +410,11 @@ export const CRUDE_SWAPS = expand(PHRASES).join("\n");
 // Anything left after the rewrite is crude. Matching is whole word.
 const CRUDE_WORDS = [
   String.raw`fuck\w*`, String.raw`\w*fuck(?:er|ers|ing|ed)?`, FUCK_STEM + String.raw`\w*`, String.raw`shit\w*`, String.raw`\w+shit`, String.raw`bullshit\w*`,
-  String.raw`crap(?:py|s|load|ton)?`, String.raw`damn\w*`, String.raw`goddamn\w*`, "dammit", "hell", String.raw`ass(?:es)?`, String.raw`arse\w*`, String.raw`asshole\w*`, String.raw`asshat\w*`, "dumbass", "jackass", "badass", "smartass", String.raw`half-ass\w*`,
+  String.raw`crap(?:py|s|load|ton)?`, String.raw`damn\w*`, String.raw`goddamn\w*`, String.raw`goddam+it`, "dammit", "hell", String.raw`ass(?:es)?`, String.raw`arse\w*`, String.raw`asshole\w*`, String.raw`asshat\w*`, "dumbass", "jackass", "badass", "smartass", String.raw`half-ass\w*`,
   String.raw`bitch\w*`, String.raw`bastard\w*`, String.raw`dick(?:s|head|heads|ish)?`, "prick", "pricks", String.raw`cock(?!tails?\b|pits?\b|roach\w*|atoos?\b|ney\w*|erels?\b|les?\b|y\b|ed\b|ing\b)\w*`, String.raw`cunt\w*`, "twat", "twats", String.raw`wanker\w*`, "bollocks", String.raw`bugger\w*`, "knobhead", "bellend", "tosser",
   String.raw`piss\w*`, String.raw`douche\w*`, String.raw`motherf\w*`, String.raw`idiot\w*`, String.raw`moron\w*`, String.raw`(?<!knee-)jerks?`, "stupid", "dumb", "dumbest", "stupidest", String.raw`suck(?:s|ed|y)?`, String.raw`(?<=\b(?:this|it|that) )blows`,
   "wtf", "stfu", "gtfo", "ffs", "fml", "omfg", "lmfao", String.raw`screw(?:ed|ing|s)?(?= (?:this|that|it|you|him|her|them|us|me|up|over|around)\b)`, String.raw`screwed(?=[.!?,]|$)`,
+  String.raw`(?<=\b(?:bust\w*|break\w*|suck\w*|kick\w*|ball-?bust\w*) (?:my |our |your |his |her |their )?)balls`, String.raw`ball-?bust\w*`, String.raw`dogshit\w*`,
   String.raw`f+k+(?:i?n'?g?|n)`, "effing", String.raw`fr[ei]+(?:ak|ck|gg)in[g']?`,
 ];
 // An apostrophe after the word still counts: "fuck's sake", "shit'll".
