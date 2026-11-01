@@ -1,7 +1,8 @@
 // Project Synergy rewrite engine. Pure functions, no network, runs in the browser and in Node.
+import { preclean17, postfix17 } from "./round17.js";
 import { satireScene } from "./satire.js";
 import { preclean15, postfix15, dropCrude15, rescue15 } from "./round15.js";
-import { readNews, readNews15, readGood15, NEWS_SIGNALS, NEWS_RANK } from "./news.js";
+import { readNews, readNews15, readGood15, readFirst17, readLast17, NEWS_SIGNALS, NEWS_RANK } from "./news.js";
 import { restructure, tokenSim, polishRegister, lowerFirst } from "./register.js";
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
@@ -662,7 +663,7 @@ function toCorporateDetailed0(input, opts = {}) {
 export function toCorporateDetailed(input, opts = {}) {
   const raw = String(input ?? "");
   const lvl = clampLevel(opts.level ?? 2);
-  const pre = preclean15(raw);
+  const pre = preclean15(preclean17(raw));
   let r = toCorporateDetailed0(pre, opts);
   if (pre !== raw && (!r.text || hasCrude(r.text))) { const r0 = toCorporateDetailed0(raw, opts); if (r0.text && !hasCrude(r0.text)) r = r0; }
   if (!r.text && raw.trim()) { const rs = rescue15(pre); if (rs !== pre) { const r3 = toCorporateDetailed0(rs, opts); if (r3.text && !hasCrude(r3.text)) r = r3; } }
@@ -670,7 +671,7 @@ export function toCorporateDetailed(input, opts = {}) {
     const bare = dropCrude15(pre, hasCrude);
     if (bare) { const r2 = toCorporateDetailed0(bare, opts); r = r2.text && !hasCrude(r2.text) ? { ...r2, fallback: r2.fallback || "dropped-crude" } : { ...r, text: bare, fallback: "dropped-crude" }; }
   }
-  return r.text ? { ...r, text: postfix15(raw, r.text, lvl) } : r;
+  return r.text ? { ...r, text: postfix17(raw, postfix15(raw, r.text, lvl), lvl) } : r;
 }
 
 // Round 10: Middle Manager gets a light, topical aside on statements, so it is mildly funny too.
@@ -946,6 +947,8 @@ export function detectThemes(sentence) {
   for (const id of conceptThemes(sentence)) if (!found.includes(id)) found.push(id);
   // A benefit being discontinued is a benefit cut, not a product shutdown.
   if (found.includes("benefits")) return found.filter((id) => id !== "shutdown");
+  // Round 17: "the in-office dry cleaning service" is a perk, not a return-to-office order.
+  if (found.includes("rto") && /\bin-office (?:[\w-]+ ){0,2}(?:service|cleaning|gym|caf[eé]|kitchen|snacks?|perks?|barista|massages?|childcare|daycare|amenit\w+|lunch\w*)\b/i.test(sentence) && !/\b(?:days?|week|return\w*|back to|required|expected|attendance|mandatory|hybrid|remote)\b/i.test(sentence)) return found.filter((id) => id !== "rto");
   return found;
 }
 
@@ -1034,6 +1037,7 @@ export function bluntNo(text) {
 }
 
 const BROAD_ALIKE = { hedge: ["deflection", "vague"], departure: ["new-chapter", "leader-exit"], layoffs: ["layoff-you", "outsourcing", "acquisition-layoffs"], delay: ["no-raises"], "no-raises": ["delay"], "hiring-freeze": ["budget-freeze", "cost-cuts"], "budget-freeze": ["hiring-freeze", "cost-cuts"], shutdown: ["sunset"], rejection: ["deflection"], performance: ["pip"], problem: ["pip", "performance", "bad-results", "incident", "outage", "miss", "layoffs", "layoff-you", "shutdown", "cost-cuts", "budget-freeze", "hiring-freeze", "deflection"], benefits: ["cost-cuts", "no-raises", "budget-freeze"], "cost-increase": ["cost-cuts"] };
+const FAMILY17 = { "layoff-you": "layoffs", "acquisition-layoffs": "layoffs", outsourcing: "layoffs", "no-raises": "benefits", "cost-cuts": "freeze", "budget-freeze": "freeze", "hiring-freeze": "freeze", "leader-exit": "departure", "new-chapter": "departure", deflection: "hedge", vague: "hedge", pip: "performance", "bad-results": "problem", incident: "problem", outage: "problem", miss: "problem", sunset: "shutdown", "record-year": "good-news", good: "good-news" };
 export function toNormal(input, { level = 2, seed = 1 } = {}) {
   const lvl = clampLevel(level);
   const clean = normalizeInput(input).trim();
@@ -1062,8 +1066,11 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       total++;
       // Round 9: the plain news with its facts (news.js). Good news and temporary closures don't score themes.
       let news = readGood15(sentence) ?? readNews(sentence);
+      // Round 17: a newer reader for misreads. It only wins when the older readers missed the sentence or read a different kind of news.
+      { const r17 = readFirst17(sentence); if (r17) { const fam = (id) => FAMILY17[id] ?? id; const old = news ? [news.id] : detectThemes(sentence); if (!old.some((id) => fam(id) === fam(r17.id))) news = r17; } }
       // Round 15: the general reader only speaks when nothing else read the sentence.
       if (!news && !detectThemes(sentence).length) news = readNews15(sentence);
+      if (!news && !detectThemes(sentence).length) news = readLast17(sentence);
       // Round 10b: the broad keyword families only speak when no older, more specific detector did.
       // When the older detector agrees on the family, its wording wins; when it disagrees, the keyword family is the closer read.
       // Exception: delay, benefits, shutdown and price families keep the keyword wording, which names the thing ("The release is delayed").
@@ -1072,7 +1079,7 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
         const sameOnly = /^(?:delay|benefits|shutdown|cost-increase|budget-freeze|departure)$/.test(news.id) && th.every((id) => id === news.id);
         if (!sameOnly && th.some((id) => id === news.id || (BROAD_ALIKE[news.id] ?? []).includes(id))) news = null;
       }
-      const themes = news && news.broad ? [] : news && (news.tone === "good" || news.id === "fyi") ? detectThemes(sentence).filter((id) => id === "record-year") : detectThemes(sentence);
+      const themes = news && (news.broad || news.r17) ? [] : news && (news.tone === "good" || news.id === "fyi") ? detectThemes(sentence).filter((id) => id === "record-year") : detectThemes(sentence);
       for (const id of themes) scores.set(id, (scores.get(id) ?? 0) + themeById[id].weight);
       if (!news) for (const id of themes) plainThemes.add(id);
       if (news) {

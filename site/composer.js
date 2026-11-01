@@ -183,6 +183,23 @@ const INFLATE = [
   [/\bI started on the\b/gi, "I've formally kicked off the"],
   [/\bthere are too many (catch-ups|syncs|alignment sessions|meetings) on my calendar\b/gi, "my calendar is running at a meeting density that exceeds its design capacity"],
   [/\bthe timing of the (\w+) (crashing|dying|breaking|going down|failing)\b/gi, "the timing of the $1 $2, while bold,"],
+  // Round 17: more deadpan inflation of everyday objects and complaints, so Full C-Suite jokes live in the sentence, not only in a closer.
+    [/\bthe toddler meltdown\b/gi, "a junior-stakeholder escalation"], [/\bthe boxes\b/gi, "the transitional storage assets"], [/\bthe typo\b/gi, "the unplanned creative spelling"],
+  [/\b(\d+-person )?webinar\b/gi, (_m, n) => `${n ?? ""}thought-leadership broadcast`],
+  [/\bthe cake\b/gi, "the celebratory carbohydrate deliverable"], [/\ba burrito\b/gi, "a handheld nourishment solution"], [/\bthe (new )?standing desk\b/gi, (_m, n) => `the ${n ?? ""}vertical productivity platform`],
+  [/\b(?:a |my )?(blue |red |green |black )?water bottle\b/gi, (m, c) => `${/^my/i.test(m) ? "my" : "a"} ${c ?? ""}hydration asset`], [/\bmy umbrella\b/gi, "my personal weatherproofing asset"], [/\ba new (?:chair|seat)\b/gi, "a new ergonomic seating solution"],
+  [/\btakes forever\b/gi, "operates on a geological timeline"], [/\btake forever\b/gi, "operate on a geological timeline"],
+  [/\bI worked (\d+) hours\b/gi, "I invested $1 hours of discretionary passion"], [/\b(fell|dropped) (\d+) points\b/gi, "completed a $2-point downward realignment"],
+  [/\bis slower than\b/gi, "has been optimized for a more contemplative pace than"], [/\bsplit up our team\b/gi, "geographically diversified our team"],
+  [/\bchanges every month\b/gi, "is refreshed on an agile monthly cadence"], [/\bmakes no sense\b/gi, "remains one of our more fascinating puzzles"],
+  [/\blosing good (?:people|folks|team members) to competitors who pay more\b/gi, "exporting top talent to competitors with more generous compensation philosophies"],
+  [/\bonly (\d+) (?:people|folks|team members) (?:came to|showed up (?:to|for)|attended|joined)\b/gi, "a highly curated audience of $1 attended"],
+  [/\bsupport tickets are up (\d+%)/gi, "demand for our support team has grown a robust $1"], [/\btook (four|five|six|seven|three|two|\d+) (days|weeks|hours) to\b/gi, "took a thoughtfully paced $1 $2 to"],
+  [/\bI keep getting pinged at\b/gi, "my availability keeps getting stress-tested at"], [/\bwith no lunch\b/gi, "with zero allocated refueling windows"],
+  [/\bI'm out of ideas\b/gi, "I have fully depleted my idea inventory"], [/\bour standups go for (\d+ \w+)/gi, "our standups have matured into $1 of immersive alignment"],
+  [/\bthe VPN died\b/gi, "the VPN entered an unscheduled rest period"],
+  [/\bI'm mentally exhausted\b/gi, "my cognitive bandwidth has been fully allocated"], [/\bhungover\b/gi, "post-celebration recovery"],
+  [/\bthe dentist\b/gi, "my oral-wellness partner"],
 ];
 export function inflate(text) {
   let t = text;

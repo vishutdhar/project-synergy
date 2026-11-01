@@ -23177,5 +23177,213 @@
    "The summary isn't fully landing the core message."
   ],
   "source": "normal-round8.txt"
+ },
+ {
+  "id": "r17d01",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "rto",
+  "input": "We are moving from two office days to four office days starting March 1.",
+  "ideal": [
+   "More office time: two days a week becomes four.",
+   "Office: four days now.",
+   "Your commute missed you."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d02",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "rto",
+  "input": "Starting in May, required in-office days will increase from two to three.",
+  "ideal": [
+   "You need to come back to the office.",
+   "Remote work is over. Come back to the office.",
+   "Back to your desk, where we can watch you."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d03",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "no-raises",
+  "input": "Base pay will be held at current levels for the coming year.",
+  "ideal": [
+   "No raises: pay stays where it is.",
+   "No raises.",
+   "Your pay: frozen."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d04",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "shutdown",
+  "input": "The Basic plan is no longer offered to new customers.",
+  "ideal": [
+   "Something is being shut down.",
+   "They're shutting it down.",
+   "It's dead. They're pulling the plug."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d05",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "rejection",
+  "input": "After careful consideration, we have decided to keep our current policy.",
+  "ideal": [
+   "The answer is no: nothing changes. We have decided to keep our current policy.",
+   "No. Nothing changes.",
+   "No, with a bow on it."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d06",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "rejection",
+  "input": "We have decided to pass on the acquisition.",
+  "ideal": [
+   "The answer is no: they're passing on the acquisition.",
+   "No.",
+   "No, with a bow on it."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d07",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "delay",
+  "input": "Bonuses normally paid in March will be paid in June this year.",
+  "ideal": [
+   "Bonuses normally paid in March is coming later than planned: now June instead of March.",
+   "Bonuses normally paid in March: later.",
+   "Bonuses normally paid in March: later than promised."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d08",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "departure",
+  "input": "Carla is leaving to pursue her next adventure.",
+  "ideal": [
+   "Carla is leaving.",
+   "Carla is leaving.",
+   "Carla is out."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d09",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "hedge",
+  "input": "We will monitor conditions and changes may be necessary.",
+  "ideal": [
+   "They're bracing for more changes and won't say what yet.",
+   "Vague on purpose: change is coming.",
+   "They know. You don't."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d10",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "cost-increase",
+  "input": "There will be a new $15 fee on paper statements starting November 1.",
+  "ideal": [
+   "You'll pay more for this than before.",
+   "It costs more now.",
+   "Same thing, bigger bill."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d11",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "good-news",
+  "input": "The learning budget doubles to $2,000 per person next year.",
+  "ideal": [
+   "Good news, no catch: the learning budget doubles to $2,000 per person next year.",
+   "Good news: the learning budget doubles to $2,000 per person next year.",
+   "Good news. Actual good news."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d12",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "good-news",
+  "input": "The cafeteria will now offer free lunch on Fridays.",
+  "ideal": [
+   "Good news, no catch: the cafeteria will now offer free lunch on Fridays.",
+   "Good news: the cafeteria will now offer free lunch on Fridays.",
+   "Good news. Actual good news."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d13",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "no-raises",
+  "input": "Merit increases have been deferred to next year.",
+  "ideal": [
+   "Don't expect much of a raise this year.",
+   "Raises are small or zero.",
+   "Little or no raise for you."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d14",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "none",
+  "input": "Holiday decorations go up in the lobby on Monday.",
+  "ideal": [
+   "Nothing hidden here: Holiday decorations go up in the lobby on Monday.",
+   "Says what it says: Holiday decorations go up in the lobby on Monday.",
+   "Nothing to decode. Rare. Holiday decorations go up in the lobby on Monday."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d15",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "none",
+  "input": "The team meeting is at 3 PM in Room 4.",
+  "ideal": [
+   "Nothing hidden here: The team meeting is at 3 PM in Room 4.",
+   "Says what it says: The team meeting is at 3 PM in Room 4.",
+   "Nothing to decode. Rare. The team meeting is at 3 PM in Room 4."
+  ],
+  "source": "round17 dev (hand-read)"
+ },
+ {
+  "id": "r17d16",
+  "direction": "toNormal",
+  "category": "round17",
+  "signal": "none",
+  "input": "The new dry cleaning service opens in the lobby on Tuesday.",
+  "ideal": [
+   "Nothing hidden here: The new dry cleaning service opens in the lobby on Tuesday.",
+   "Says what it says: The new dry cleaning service opens in the lobby on Tuesday.",
+   "Nothing to decode. Rare. The new dry cleaning service opens in the lobby on Tuesday."
+  ],
+  "source": "round17 dev (hand-read)"
  }
 ]

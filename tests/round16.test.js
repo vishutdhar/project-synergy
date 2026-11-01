@@ -47,5 +47,6 @@ test("round 16: soft euphemism verbs decode to the real news, good news stays go
   assert.equal(sig("We are introducing a modest service fee to continue investing in your experience."), "cost-increase");
   assert.equal(sig("Your request for an exception has been carefully reviewed and cannot be accommodated."), "rejection");
   assert.equal(sig("The audit surfaced several control gaps that we are now remediating."), "problem");
-  for (const s of ["We are expanding parental leave to 20 weeks.", "Open enrollment for 2027 benefits runs from November 2 to November 16.", "Please complete the annual security awareness training by November 20."]) assert.equal(sig(s), "none", s);
+  assert.equal(sig("We are expanding parental leave to 20 weeks."), "good-news"); // round 17: reads as good news now, still never a cut
+  for (const s of ["Open enrollment for 2027 benefits runs from November 2 to November 16.", "Please complete the annual security awareness training by November 20."]) assert.equal(sig(s), "none", s);
 });

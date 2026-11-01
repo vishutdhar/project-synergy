@@ -1022,7 +1022,7 @@ export const THEMES = [
     patterns: [
       /return(?:ing)?[ -]to[ -](?:the )?office/i, /\bRTO\b/, /in[ -]person collaboration/i, /\bin[ -]office\b/i,
       /days? (?:a|per) week in/i, /back (?:to|in) the office/i, /\bour offices\b/i, /badge (?:data|swipes?)\b|\bbadging\b|\bbadge in (?:at least|\w+ days|on)\b/i, /\b(?:office|in-person|collaboration) hubs?\b|\bhub days?\b|\bour hubs\b/i,
-      /(?<!(?:carryover|carry-over|limit|up) to )(?<!(?:extra|additional) )(?:three|four|five|3|4|5) days(?! (?:of (?:PTO|leave|vacation|carryover)|off\b|notice))/i, /serendipit/i, /water ?cooler/i,
+      /(?<!(?:carryover|carry-over|limit|up) to )(?<!(?:extra|additional) )(?<!\b(?:in|within|\d+ to|\d+-) )\b(?:three|four|five|3|4|5) days(?! (?:of (?:PTO|leave|vacation|carryover)|off\b|notice|business days|working days))(?! (?:business|working)\b)/i, /serendipit/i, /water ?cooler/i,
     ],
     summary: ["You need to come back to the office.", "Remote work is over. Come back to the office.", "Back to your desk, where we can watch you."],
     line: ["You need to be in the office more.", "Come back to the office.", "Get back to your desk."],
