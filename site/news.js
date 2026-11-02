@@ -516,7 +516,7 @@ const RULES = [
   { id: "cost-increase", tone: "bad", re: /\b(?:a |an )?(\$[\d,.]+) (?:charge|fee|surcharge) for ([^.]+?)(?:\.|$)|\b(late|processing|service|admin\w*|handling|convenience) fee of (\$[\d,.]+) will be (?:applied|charged|added)(?: to ([^.]+?))?(?:\.|$)/i,
     build: (s, m) => m[1] ? L(`${cap(m[2])} now cost ${m[1]}.`, `New ${m[1]} charge for ${m[2]}.`, `${cap(m[2])} aren't free anymore: ${m[1]}.`) : L(`New ${m[3]} fee: ${m[4]}${m[5] ? ` on ${m[5]}` : ""}.`, `Pay ${m[4]} extra${m[5] ? ` on ${m[5]}` : ""}.`, `${m[4]} ${m[3]} fee${m[5] ? ` on ${m[5]}` : ""}. Pay on time.`) },
   { id: "problem", tone: "bad", re: /\b(?:experiencing|having|had) an? (?:outage|service outage|incident|disruption)\b(?: affecting ([^.]+?))?(?:\.|$)|\bencountered (?:unexpected |some |several )?(?:issues|problems|errors)\b|\bhas been rolled back\b|\b(?:decided not to renew|will not renew|won't renew|not renewing)\b|\b(?:scores?|engagement|satisfaction|NPS|morale)\b[^.]*\b(?:dropped|declined|fell|decreased)\b|\buncovered (?:several |some |a number of |multiple )?(?:issues|gaps|findings|problems|deficiencies)\b/i,
-    build: (s, m) => { if (/outage|incident|disruption/i.test(s) && m[1]) return L(`It's broken right now: ${m[1]}.`, `Outage: ${m[1]}.`, `It's down. ${cap(m[1])}.`); if (/rolled back|encountered/i.test(s)) { const t = subjectOf(s) || "it"; return L(`${cap(t)} failed${/rolled back/i.test(s) ? " and was undone" : ""}.`, `${cap(t)} broke${/rolled back/i.test(s) ? ", so they undid it" : ""}.`, `${cap(t)} failed. Back to square one.`); } if (/renew/i.test(s)) { const t = subjectOf(s) || "a customer"; return L(`${cap(t)} is leaving.`, `We lost ${t.replace(/^the /, "our ")}.`, `${cap(t)} quit us. That hurts.`); } if (/uncovered/i.test(s)) { const t = subjectOf(s) || "the review"; return L(`${cap(t)} found problems${/expense/i.test(s) ? " with expense controls" : ""}.`, `${cap(t)} found issues we have to fix.`, `${cap(t)} failed us on several points.`); } const t = subjectOf(s) || "scores"; return L(`${cap(t)} went down${/significantly/i.test(s) ? " a lot" : ""}.`, `${cap(t)} fell.`, `${cap(t)} dropped. People are unhappy.`); } },
+    build: (s, m) => { if (/outage|incident|disruption/i.test(s) && m[1]) return L(`It's broken right now: ${m[1]}.`, `Outage: ${m[1]}.`, `It's down. ${cap(m[1])}.`); if (/rolled back|encountered/i.test(s)) { const t = subjectOf(s) || "it"; return L(`${cap(t)} failed${/rolled back/i.test(s) ? " and was undone" : ""}.`, `${cap(t)} broke${/rolled back/i.test(s) ? ", so they undid it" : ""}.`, `${cap(t)} failed. Back to square one.`); } if (/renew/i.test(s)) { const t = subjectOf(s) || "a customer"; return L(`${cap(t)} ${/s$/i.test(t) ? "are" : "is"} leaving.`, `We lost ${t.replace(/^the /, "our ").replace(/^(?:Two|Three|Four|Five|Several|Some|Many|One|A few)\b/, (w) => w.toLowerCase())}.`, `${cap(t)} quit us. That hurts.`); } if (/uncovered/i.test(s)) { const t = subjectOf(s) || "the review"; return L(`${cap(t)} found problems${/expense/i.test(s) ? " with expense controls" : ""}.`, `${cap(t)} found issues we have to fix.`, `${cap(t)} failed us on several points.`); } const t = subjectOf(s) || "scores"; return L(`${cap(t)} went down${/significantly/i.test(s) ? " a lot" : ""}.`, `${cap(t)} fell.`, `${cap(t)} dropped. People are unhappy.`); } },
   { id: "performance", tone: "warn", re: /\b(?:fallen|fell|falls) (?:below|short of) (?:the )?(?:standard|bar|expectations?)\b|\bhas not met (?:the )?expectations\b|\bbelow (?:the )?(?:standard|expectations?) (?:we|for)\b/i,
     build: () => L("Your work isn't good enough, according to your manager.", "Your performance is a problem.", "This is a warning about your performance.") },
   { id: "hedge", tone: "warn", unless: /\b(?:specifics|can.t (?:share|comment|discuss|go into|get into))\b/i, re: /\blooking at (?:all |our |every |several )?options\b|\bno decisions? (?:have|has) been made\b|\breviewing (?:our )?(?:organizational |org |team )?structure\b|\bthere may be (?:some )?changes\b|\bwill share more (?:information |details )?(?:as|when)\b|\bas (?:it|more|information) becomes available\b|\bevaluating (?:our )?real estate\b|\ball options (?:remain|are) on the table\b|\bcontinue to evaluate\b/i,
@@ -1199,3 +1199,127 @@ function readLast17(sentence) {
   return null;
 }
 export { readLast17 };
+
+// Round 18: plain-spoken memos. Held-out fresh50 showed the older readers miss news said in plain words
+// ("We are cutting 85 jobs", "Fridays are no longer a work-from-home day") and, worse, read a denial as the
+// thing denied ("We are not planning any layoffs" read as layoffs). Two readers:
+//  - readFirst18 runs before every other reader and only takes sentences it is sure about: denials and
+//    "no news yet" lines, reversals and no-cost additions that are good news, and a few misreads where an older
+//    rule grabbed one word (a pricing update that "won't go out on the 15th" is a delay, not a price rise).
+//  - readLast18 runs last, when nothing else found news. It pairs a topic (jobs, perks, pay, remote work,
+//    reporting lines, your work, money lost) with a direction (cut, ending, later, required, wrong) and says the
+//    change in the memo's own words, so the reader sees what changed. Built from fresh52 (Nov 1, dev).
+const R18_PEOPLE = String.raw`(?:jobs|roles|positions|employees|staff(?:ers)?|people|colleagues|workers|team members|members|agents|associates|contractors|designers|engineers|editors|reporters|nurses|drivers|managers|our workforce|the workforce|headcount)`;
+function body18(s) {
+  let b = S14(s).replace(/^(?:hi|hey|hello)?\s*(?:team|all|everyone|folks)[,:—-]\s*/i, "").replace(/^(?:after (?:a |careful |thoughtful )?(?:review|consideration)[^,]*|going forward|unfortunately|effective (?:immediately|today)|today|this morning|as part of [^,]+),\s*/i, "");
+  b = b.replace(/^(?:this is a |just a |a )?(?:quick |friendly )?reminder(?: that)?:?\s*/i, "").replace(/^(?:we are|we're|I'm|I am) (?:so |very )?(?:thrilled|excited|happy|pleased|delighted|proud) to (?:announce|share|let you know)(?: that)?,?\s*/i, "").replace(/^I (?=can't|cannot|won't|will|am|have)/, "they ").replace(/^they (?=am )/, "they ").replace(/^we(?:'ve| have) no\b/i, "they have no").replace(/^we(?:'re| are) /i, "they're ").replace(/^we(?:'ve| have) /i, "they've ").replace(/^we(?:'ll| will) /i, "they'll ").replace(/^we /i, "they ").replace(/^our /i, "the ").replace(/^(?:rachel|[A-Z][a-z]+) and I\b/, "leadership").replace(/\bour\b/g, "the").replace(/\bwe(?:'re| are)\b/gi, "they're").replace(/\bwe\b/g, "they").replace(/\bus\b/g, "them");
+  return lc18(b);
+}
+// Lowercase the first word so the line reads mid-sentence, unless it looks like a name ("Maria is leaving") or an acronym.
+const R18_KEEP = /^(?:I|[A-Z]{2,}\w*|[A-Z]\w*[A-Z]\w*)$/;
+function lc18(b) {
+  const m = b.match(/^([A-Z][\w'-]*)(\s+\S+)?/); if (!m) return b;
+  const w = m[1], next = (m[2] ?? "").trim();
+  if (R18_KEEP.test(w)) return b;
+  const nameLike = /^[A-Z][a-z]+(?:'s)?$/.test(w) && (/'s$/.test(w) || /^(?:is|has|was|will|and|said|told|left|joined|resigned|retired|,)/.test(next)) && !/s$/.test(w) && !/^(?:It|This|That|There|Everyone|Nobody|Someone|Payroll|Parking|Shipping|Construction|Hiring|Pay|Leadership|Management|Today|Tomorrow|Everything|Nothing|Each|Every|One|Revenue|Attendance|Turnover|Overtime|Training|Travel|Coverage|Support|Lunch|Dental|Vision|Medical|Health|Being|Work|Remote|Office)$/.test(w);
+  return nameLike ? b : b[0].toLowerCase() + b.slice(1);
+}
+const R18_BADEVENT = /\b(?:laid off|lay(?:ing)? off|eliminat\w+|cutting|closing|closed|outage|breach|went down|failed|lost|bankrupt|recall)\b/i;
+function readFirst18(sentence) {
+  const s = String(sentence ?? "").trim().replace(/\s+/g, " ");
+  if (!s || s.length > 300 || /\?$/.test(s)) return null;
+  const out = (id, tone, a, b, c) => ({ id, tone, broad: false, r18: true, lines: L(a, b, c) });
+  // "soft" reads only win when the older readers found nothing or a different kind of news, so their better wording stays.
+  const soft = (id, tone, a, b, c) => ({ ...out(id, tone, a, b, c), soft: true });
+  const has = (re) => re.test(s);
+  const body = body18(s);
+  // A denial or "no news yet" is not the news it mentions. Never turn "no plans to close the office" into a closure.
+  if (has(/\b(?:(?:are|is) not (?:currently )?planning|not currently planning|there are no (?:current )?plans|(?:have|has) no (?:current )?plans|no plans (?:to|for)|(?:don't|do not) (?:have|anticipate|expect) (?:any )?(?:plans for |further )?(?:layoffs|job cuts|cuts|closures|changes))\b/i) && !has(/\b(?:but|however|instead|here to stay)\b|\bplan(?:s|ning)? to (?:bring back|restore|reinstate|offer|extend|change|add|keep|continue)\b/i))
+    return out("hedge", "warn", `No news yet: ${body}. "At this time" isn't a promise, but nothing is announced.`, "Not now, they say.", "Not now. Ask again later.");
+  if (!has(R18_BADEVENT) && !has(/\b(?:more time|later date|rescheduled|delay\w*|postpon\w*|pushed|updated timeline|new date)\b/i) && has(/\b(?:no (?:new )?updates?(?: to share)?|nothing (?:further|new|more) to (?:share|add)|(?:any|no) (?:further )?(?:information|details|news) to share|no (?:further )?comment|(?:can't|cannot|won't|will not) comment|too (?:early|soon) to (?:say|know|tell)|(?:we'll|we will|you'll|you will) (?:know|hear|learn) more|still being (?:discussed|finalized|reviewed|worked out|decided)|still (?:discussing|deciding|working (?:through|out))|(?:will|we'll) (?:share|update you|let you know|follow up|provide (?:an )?update)[\w ]* (?:soon|when|as soon|once)|(?:share|update you)[\w ]* when (?:we|we're) (?:can|are able)|looking into (?:the|this|it)\b[^.]*\bupdate|will revisit|revisit the (?:question|topic|issue|matter)|working on a plan|aware of (?:the )?(?:reports|concerns|rumou?rs|speculation))\b/i)) {
+    const topic = s.match(/\b(?:about|on|regarding|around|of) ((?:the |our |next year's |this year's |any |job )?(?:merger|acquisition|deal|raises|bonus(?:es)?|budget|reorg|job cuts|layoffs|office|tariffs|new structure|structure|question of [\w ]+|rumou?rs about the \w+|[\w-]+ (?:plans?|policy|changes?)))\b/i)?.[1]?.replace(/^our /i, "the ").replace(/^rumou?rs about /i, "");
+    return soft("hedge", "warn", topic ? `No real answer yet on ${topic}. They're not saying more for now.` : `No real answer yet: ${body}.`, `No answer yet${topic ? ` on ${topic}` : ""}.`, "Stay tuned, indefinitely.");
+  }
+  // Good news the older rules read as bad: costs that stay flat because the company pays, reversed increases, additions at no cost.
+  if (has(/\b(?:stay|remain)\w* (?:the same|flat|unchanged|where they are)\b[^.]*\b(?:company|we|employer)\b[^.]*\b(?:cover|absorb|pay)\w*\b|\b(?:company|we|employer) (?:will )?(?:cover|absorb)\w* (?:the|this|any) (?:increase|difference|cost increase)\b/i))
+    return out("good-news", "good", `Good news, no catch: ${body}.`, "Good news: you won't pay more.", "Good news. Actual good news.");
+  if (has(/\b(?:rolling back|reversing|cancel+ing|scrapping|dropping|walking back) (?:the |our )?(?:planned |proposed |announced )?(?:[\w-]+ ){0,2}(?:increase|hike|cut|reduction)\b/i))
+    return out("good-news", "good", `Good news, no catch: ${body}.`, `Good news: the planned ${s.match(/\b(increase|hike|cut|reduction)\b/i)[1].toLowerCase()} is off.`, "Good news. Actual good news.");
+  if (has(/\bat no (?:extra|additional) cost\b|\bfree of charge\b|\bno cost to (?:you|employees)\b/i) && has(/\b(?:expand\w*|add\w*|new|offer\w*|introduc\w*|launch\w*|cover\w*)\b/i) && !has(/\b(?:no longer|ending|end|cut|reduc\w*|remov\w*)\b/i))
+    return out("good-news", "good", `Good news, no catch: ${body}.`, `Good news: ${body}.`, "Good news. Actual good news.");
+  // Something extra given to people, with no catch words: an extra week of PTO, a one-time thank-you payment, a new childcare center.
+  if (has(/\b(?:we(?:'re| are| will be) hiring|hiring) (?:\d+|dozens of|hundreds of) (?:new )?(?:engineers|people|roles|nurses|staff|employees|team members|[a-z]+ers)\b/i) && !has(/\b(?:instead|replac\w*|while|after|cut\w*|lay\w* off|offshor\w*|contract\w*)\b/i))
+    return soft("good-news", "good", `Good news: ${body}.`, `Good news: ${body}.`, "Good news. Actual good news.");
+  if (has(/\b(?:extra|additional|one-time|free|early|bonus|thank-you|time-and-a-half|double pay|more|opened a new|opening a new|adding a new|new (?:childcare|daycare|benefits?|perks?|holidays?|wellness|parental))\b/i)
+    && has(/\b(?:PTO|vacation|paid (?:time off|leave|holidays?)|days? off|bonus(?:es)?|payment|stipend|lunch|meals?|snacks|childcare|daycare|401\(?k\)?|match|time-and-a-half|double pay|raises?|parental leave|wellness days?|holidays?|center)\b/i)
+    && has(/\b(?:receive|get|gets|getting|will be (?:offered|paid|added|given)|now be offered|opened|opening|adding|add|giving|give|contribute|hiring|paid early|be paid early|increas\w*|doubl\w*)\b/i)
+    && !has(/\b(?:no longer|end(?:s|ing)?|cut\w*|reduc\w*|less|fewer|instead of|delay\w*|later|postpon\w*|cost|fee|deductible|premium|lay\w* off|layoffs?|eliminat\w*|not|won't|unless|only if|require\w*|must|close|closing|replac\w*|cap\w*|limit\w*|unpaid|furlough\w*|in exchange|only|just|twice|once|reduction|severance|transition|affected|impacted|last day|paus\w*|freez\w*|hold\w*|held|modest|defer\w*|suspend\w*|skip\w*|flat|prudent|uncertain\w*|tight\w*)\b/i))
+    return soft("good-news", "good", `Good news: ${body}.`, `Good news: ${body}.`, "Good news. Actual good news.");
+  if (((x) => x && (/early|noon/i.test(x[1]) || (/p/i.test(x[1]) && Number(x[1].match(/\d+/)?.[0]) <= 4)))(s.match(/\b(?:office|offices|building|we|we'll|we're) (?:will )?(?:now )?(?:clos\w+|shut\w*) (early|at (?:noon|\d{1,2}(?::\d\d)? ?(?:[ap]\.?m\.?)))\b/i)) && !has(/\binstead of\b/i) && !has(/\b(?:permanent\w*|for good|unpaid|without pay|use (?:your )?PTO)\b/i))
+    return soft("fyi", "none", `Just an FYI, and a nice one: ${body}.`, `FYI: ${body}.`, "FYI. Shorter day.");
+  // A raise or increase you can't have is a no.
+  if (has(/\b(?:cannot|can't|unable to|not able to|won't be able to|will not be able to) (?:offer|give|provide|approve|grant)\b[^.]*\b(?:salary increase|pay increase|raise|increase|promotion|bonus)\b/i))
+    return out("rejection", "bad", `The answer is no: ${body.replace(/^unfortunately,? /i, "")}.`, "No raise.", "No, with a bow on it.");
+  // Misreads: one word grabbed by an older rule.
+  if (has(/\b(?:won't|will not|isn't|is not|aren't|are not) (?:be )?(?:ready|going out|go out|ship\w*|happen\w*|launch\w*|arriv\w*|available)\b[^.]*\b(?:until|as planned|on the \d|in time|for|so|after all|this week)\b|\b(?:won't|will not) be able to (?:deliver|ship|finish|complete|launch)\b[^.]*\buntil\b|\bneed (?:more|extra|another) (?:time|\w+ weeks?|\w+ days?)\b|\bhold (?:the |our )?[\w ]+ until after\b|\bwill (?:now )?arrive (?:in )?(?:late|mid|early)\b|\b(?:run|running) (?:about )?(?:\w+ )?(?:weeks?|months?|days?) (?:past|behind|late)\b|\b(?:behind|past) (?:the )?(?:original )?(?:schedule|date)\b|\bmoved from (?:January|February|March|April|May|June|July|August|September|October|November|December|Q[1-4]|spring|summer|fall|winter) to\b|\bpostponed indefinitely\b|\btake (?:\d+|\w+) business days\b/i) && !has(/\b(?:laid off|layoffs?|eliminat\w+|bankrupt|breach|recall|over budget)\b/i))
+    return soft("delay", "warn", `It's later than planned: ${body}.`, "Later than planned.", "Later than promised.");
+  if (has(new RegExp(String.raw`\blast (?:working )?day (?:is |will be )?(?:today |for )?(?:about |roughly |some |approximately )?(?:\d[\d,]*|dozens of|many|several|some) (?:members|${R18_PEOPLE})\b|\b(?:\d[\d,]*|about \d+|around \d+) ${R18_PEOPLE} (?:will not|won't) be part of the new\b|\b(?:cut|cutting|reduc\w+|shrink\w*) (?:about |roughly |nearly )?(?:\d+%|a third|half|a quarter|\d+ percent) of (?:the company|our company|the team|our team|the workforce|our workforce|staff|our staff|employees|headcount)\b|\b(?:cut|cutting) (?:the )?[\w ]*(?:staff|team) in half\b|\blet go of \d+\b`, "i")))
+    return soft("layoffs", "bad", `Layoffs: ${body}.`, "Layoffs.", "Layoffs, in a nicer font.");
+  if (has(new RegExp(String.raw`\b(?:clos\w+|shut\w* down) (?:the |our )?[\w ]*(?:office|plant|site|center|centre|store|warehouse|facility|location)\b[^.]*\b(?:people|employees|staff|agents|workers|team|${R18_PEOPLE})\b[^.]*\b(?:not be offered|laid off|let go|lose|will not|won't|terminat\w*)\b`, "i")))
+    return soft("layoffs", "bad", `A site is closing and people are losing their jobs: ${body}.`, "Closure and layoffs.", "Layoffs, with a building attached.");
+  if (has(/\bwill (?:now )?cost (?:us|the company)\b|\bcost (?:us|the company) (?:an estimated |about |roughly )?\$/i))
+    return soft("problem", "bad", `Something went wrong, and it's expensive: ${body}.`, "Something went wrong.", "Something broke, and it has a price tag.");
+  if (has(/\b(?:renew\w*|bill\w*|charged?) at (?:a )?(?:higher|new) (?:rate|price)\b/i))
+    return soft("cost-increase", "bad", `It costs more: ${body}.`, "It costs more.", "Same thing, bigger bill.");
+  // A perk "going away" is a benefit cut, not a product shutdown.
+  if (has(/^(?:the |our |your )?(?:[\w-]+ ){0,2}(?:stipends?|allowances?|reimbursements?|bonus(?:es)?|subsid(?:y|ies)|perks?|benefits?|match|gift|massages?|snacks|lunches)\b[^.]*\b(?:going away|is ending|are ending|will end|cancel+ed|eliminated|discontinued|ending)\b/i) && !has(/\b(?:more|increas\w*|expand\w*|extra|back to the office|return to (?:the )?office|in-office)\b/i))
+    return soft("benefits", "bad", `A perk is ending: ${body}.`, "A perk is ending.", "Less for you, nicer words.");
+  return null;
+}
+export { readFirst18 };
+
+function readLast18(sentence) {
+  const s = String(sentence ?? "").trim().replace(/\s+/g, " ");
+  if (!s || s.length > 300 || /\?$/.test(s) || /^please\b/i.test(s)) return null;
+  const out = (id, tone, a, b, c) => ({ id, tone, broad: false, r18: true, lines: L(a, b, c) });
+  const has = (re) => re.test(s);
+  const body = body18(s);
+  const GOODISH = /\b(?:increas\w* (?:the|our|your|to)|rais\w+ (?:the|our|your)|more (?:days|PTO|pay|money)|extra|bonus(?:es)? (?:will be paid|paid out)|congratulations|thrilled|excited|proud|record|hiring \d+|adding \d+|new (?:hires|childcare|benefit))\b/i;
+  if (GOODISH.test(s)) return null;
+  // Jobs being cut, said plainly.
+  if (has(new RegExp(String.raw`\b(?:cut\w*|eliminat\w+|lay(?:ing)? off|laid off|let(?:ting)? go|terminat\w+|reduc\w+|shed\w*)\b[^.]*\b${R18_PEOPLE}\b|\b${R18_PEOPLE}\b[^.]*\b(?:will be|are being|have been|were) (?:cut|eliminated|laid off|let go|terminated|reduced)\b`, "i")) && !has(/\b(?:hours|costs?|spend\w*|budget|travel|meetings|emissions|waste|wait times?)\b/i))
+    return out("layoffs", "bad", `Layoffs: ${body}.`, "Layoffs.", "Layoffs.");
+  // Remote work ending or shrinking.
+  if (has(/\b(?:remote|work[- ]from[- ](?:home|anywhere)|WFH|hybrid|telework\w*)\b/i) && has(/\b(?:no longer|ending|end\b|going away|resubmit\w*|re-?approv\w*|not (?:be )?allowed|eliminat\w+|cancel\w*)\b/i) && !has(/\b(?:expand\w*|more|now allowed|now available|can now)\b/i))
+    return out("rto", "bad", `Less remote work: ${body}.`, "Back to the office, more often.", "Your commute missed you.");
+  if (has(/\b(?:come|be) (?:in|into the office|on[- ]site) (?:on |every |at least |\w+ days)\b[^.]*\b(?:no exceptions|required|must|expect\w*|asking)\b|\b(?:asking|requiring|expect\w*) (?:all of you|everyone|you all|all employees|employees|staff) to (?:come in|be in)\b/i))
+    return out("rto", "bad", `Office days are now set: ${body}.`, "Back to the office.", "Your commute missed you.");
+  // Pay held flat.
+  if (has(/\b(?:salar(?:y|ies)|pay(?! dates?| schedules?| periods?| days?| stubs?)|wages|compensation)\b[^.]*\b(?:stay (?:where (?:they|it) (?:are|is)|the same|flat)|(?:won't|will not) (?:go up|change|increase))\b/i) && !has(/\b(?:premiums?|prices?|costs?)\b/i))
+    return out("no-raises", "bad", `No raises: ${body}.`, "No raises.", "Your pay: frozen.");
+  // A perk getting worse in plain words: less money, a new deductible or requirement, a free thing swapped for a discount.
+  if (has(/\b(?:HSA|FSA|401\(k\)|match|stipend|allowance|coverage|insurance|dental|vision|medical|benefits?|reimbursement|shuttle|daycare|childcare|PTO|holidays?|bonus plan)\b/i) && has(/\b(?:\$?\d[\d,]* less|less (?:to|toward|for)|now require\w*|(?:a|an) \$\d[\d,]* (?:deductible|copay|fee)|replaced (?:with|by) (?:a )?(?:discount\w*|cheaper|lower|smaller)|close to new|no longer|lower target|reduced|cut)\b/i))
+    return out("benefits", "bad", `A benefit is getting worse: ${body}.`, "Your benefits are shrinking.", "Less for you, nicer words.");
+  // Money for events and trips pulled.
+  if (has(/\b(?:offsites?|parties|party|trips?|travel|conferences?|events?|lunch budget|team dinners?|expansion|hiring plans?)\b[^.]*\b(?:cancel+ed|called off|on pause|paused|suspended|on hold|scrapped|shelved)\b|\b(?:putting|put) (?:the |our )?[\w ]+ on (?:pause|hold)\b/i) && !has(/\b(?:weather|storm|snow|illness|sick)\b/i))
+    return out("budget-freeze", "bad", `Spending is being pulled back: ${body}.`, "Spending freeze.", "No money. Don't ask.");
+  // Reporting lines and who runs what.
+  if (has(/\bwill (?:now )?be (?:run|managed|led|handled|overseen) (?:from|by|out of)\b|\b(?:go|goes|will go|routed|must go) through (?:the )?(?:central|new|a single|one) [\w ]{0,30}?(?:team|group|department|desk|function|office)\b|\bcentrali[sz]\w+\b|\b(?:combining|merging|consolidat\w+) (?:the |our )?[\w ]+ (?:into|under|with)\b|\bmoving (?:from [\w ]+ )?(?:to|under) (?:the )?(?:Head|VP|Chief|CRO|CFO|COO|CTO|IT|Finance|Operations)\b|\bnew manager will be\b/i))
+    return out("reorg", "warn", `Teams are being reshuffled: ${body}. Check who your boss is.`, "Reshuffle.", "Another reorg.");
+  // Something went wrong.
+  if (has(/\b(?:made an error|made a mistake|an error|a mistake|a bug|glitch)\b[^.]*\b(?:underpaid|overcharged|charged|paid|sent|exposed|wrong)\b|\bbankrupt\w*|\baudit (?:found|identified|uncovered|flagged)\b|\bfound (?:serious |significant |major )?(?:problems|issues|errors)\b|\b(?:were|was) sent to the wrong\b|\bfiled a lawsuit\b|\bwere fined\b|\bfined by\b|\boverstated\b|\b(?:far|well) (?:behind|below) (?:its |our |the )?(?:targets?|plan|forecast)\b|\bdid not go well\b|\bcyberattack\b|\bbounced\b|\bfailed (?:its|our|the|a) [\w ]*inspection\b/i))
+    return out("problem", "bad", `Something went wrong: ${body}.`, "Something went wrong.", "Something broke, and they're spinning it.");
+  // Your work, addressed to you.
+  if (has(/\b(?:your|you)\b/i) && has(/\b(?:has to stop|needs to stop|must stop|needs to change|has to change|pattern|set (?:clear )?expectations|concerned about your|concerns about your|progress against (?:these|your|the) goals|check in (?:weekly|daily|every)|final warning|improvement plan|did not meet your goals|bottom of the team|needs to get better|has slipped)\b/i))
+    return out("performance", "bad", `They're unhappy with your work: ${body}. Take it seriously.`, "Performance warning.", "This is the paper trail.");
+  if (has(/^(?:being late|missing deadlines|showing up late|leaving early)\b[^.]*\b(?:has to|needs to|must) stop\b/i))
+    return out("performance", "bad", `A warning about your work: ${body}.`, "Performance warning.", "This is the paper trail.");
+  // A decision not to do something, whoever made it, is a no.
+  if (has(/\b(?:decided|chose|elected|opted) not to\b|\bdecided against\b/i))
+    return out("rejection", "bad", `The answer is no: ${body}.`, "No.", "No, with a bow on it.");
+  // Someone leaving.
+  if (has(/\b(?:will|is going to|plans to) (?:leave|step down from|depart)\b|\bhas left\b|\bhas stepped down\b/i) && /\b(?:[A-Z][a-z]+|founder|CEO|CFO|COO|CTO|VP|head of|chair\w*|president|director)\b/.test(s.replace(/^\w+/, "")))
+    return out("departure", "warn", `Someone is leaving: ${body}.`, "Someone's leaving.", "Another exit, gift-wrapped.");
+  return null;
+}
+export { readLast18 };

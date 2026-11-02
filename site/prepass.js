@@ -206,7 +206,7 @@ const FINITE = "didn't|doesn't|hasn't|haven't|signed|quit|handled|approved|rejec
 const BARE_SUBJECT = new RegExp(`^((?:[a-z][a-z0-9-]+ ){0,2}[a-z][a-z-]+(?<!s)|(?:[a-z][a-z0-9-]+ ){1,2}[A-Z]{2,4})(?: (?:on|in|at|from|for|of|with|about|to) (?:the |a |an )?(?:\\d+\\w* )?[a-z][a-z-]+(?: [a-z][a-z-]+)?)? (?=(?:${FINITE})\\b)`);
 const NOT_HEAD = /^(?:sorry|apologies|oops|my bad|i|we|you|they|he|she|it|this|that|these|those|there|here|everything|everyone|everybody|nobody|nothing|someone|something|anyone|anything|what|who|whose|whom|why|how|where|when|which|my|our|your|their|his|her|its|the|a|an|no|any|some|each|every|all|both|traffic|weather|money|payroll|lunch|dinner|breakfast|coffee|internet|prod|production|staging|email|slack|jira|github|google|everything|stuff|life|work|time|it|today|tonight|tomorrow|yesterday|mom|dad|management|leadership|legal|finance|hr|marketing|sales|engineering|support|security|design|ops|it|qa|sarcasm|food|parking|attendance|morale|pay|rent|tax|stock|revenue|churn|demand|velocity)$/i;
 export function restoreArticle(sentence) {
-  if (/^(?:somebody|someone|anybody|anyone|everybody|everyone|nobody|no one)\b/i.test(sentence)) return sentence;
+  if (/^(?:somebody|someone|anybody|anyone|everybody|everyone|nobody|no one|whoever|whatever|whichever)\b/i.test(sentence)) return sentence;
   const m = sentence.match(BARE_SUBJECT);
   if (!m) return sentence;
   // Round 8: "legal still hasn't reviewed it": "still" is an adverb, so the head is "legal".
@@ -366,6 +366,8 @@ function fragThing(w) { const lw = w.toLowerCase(); if (/^[A-Z]{2,}$/.test(w)) r
 export function fragClause(c0, first) {
   const c = c0.trim().replace(/[.!]+$/, ""); let m;
   if (!c) return null;
+  // Round 18: "Grace brought her dog in" and "whoever is microwaving popcorn" are full clauses already.
+  if (/^(?:[A-Z][a-z]+ (?:brought|got|took|made|left|sent|found|put|ate|bought|gave|won|wrote|built|caught|dropped|fixed|shipped|booked|ordered|baked|cleaned|finished|picked|signed|approved|grabbed|covered|saved|crushed|nailed)\b \S|whoever (?:is|was|keeps|left|took|ate|parked|brought|made)\b)/.test(c) && c.split(" ").length >= 3) return { s: /^whoever/.test(c) ? c : c, kind: "clause" };
   // Round 11i: fresh34 families that must win over older, looser rules.
   if ((m = c.match(/^(?:a |my )?(parent-teacher conference|school conference|IEP meeting|landlord inspection|home inspection|inspection|furniture delivery|repair appointment|vet run|bank run|school run|pharmacy run)( at [\w:]+(?: ?[ap]m)?| today| tomorrow| this morning| this afternoon)?$/i))) return { s: `I have ${/^[aeiou]/i.test(m[1]) ? "an" : "a"} ${m[1]}${m[2] ?? ""}`, kind: "cause" };
   if ((m = c.match(/^(?:my )?(kid's|son's|daughter's|nephew's|niece's) ([\w -]+?) (at [\w:]+(?: ?[ap]m)?|today|tonight|tomorrow)$/i))) return { s: `I have my ${m[1].toLowerCase()} ${m[2]} ${m[3]}`, kind: "cause" };
