@@ -87,7 +87,7 @@ test("interjections and tags get their comma", () => {
   assert.equal(corp("ok but why", 1), "Okay, but could you help me understand why?");
   assert.equal(corp("ok so the api is borked again", 1), "It looks like the API is down again.");
   // Sarcasm becomes the sincere complaint underneath it (shortfalls round).
-  assert.match(corp("sure, I'll just work 3 jobs, no problem", 3), /not happy about having to work 3 jobs\./);
+  assert.match(corp("sure, I'll just work 3 jobs, no problem", 3), /(?:not happy about|strategic upside in|synergy in|long-term value in|growth opportunity in) having to work 3 jobs\./);
 });
 
 test("slang found in the live check gets swapped at every level", () => {

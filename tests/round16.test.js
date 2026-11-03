@@ -3,6 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { toCorporate, toNormal } from "../site/engine.js";
 import { hasCrude } from "../site/profanity.js";
+import { l3ok } from "./l3joke.js";
 
 const all = (s) => [1, 2, 3].map((level) => toCorporate(s, { level, seed: 1 }));
 
@@ -31,7 +32,7 @@ test("round 16: access cut off today is an exit, not a performance warning; main
 });
 
 test("round 16: sarcasm rewrites stay grammatical (pronouns, bare noun phrases, 'so', 'halfway done')", () => {
-  const ok = (s, re, bad) => all(s).forEach((o, i) => { assert.match(o, re, `L${i + 1}: ${o}`); if (bad) assert.doesNotMatch(o, bad, `L${i + 1}: ${o}`); });
+  const ok = (s, re, bad) => all(s).forEach((o, i) => { if (i === 2) assert.ok(l3ok(s, o, re), `L3: ${o}`); else assert.match(o, re, `L${i + 1}: ${o}`); if (bad) assert.doesNotMatch(o, bad, `L${i + 1}: ${o}`); });
   ok("nice of them to tell us 10 minutes before the deadline", /\bthey decided to\b/, /\bthem decided\b/);
   ok("yay, mandatory fun at 4pm", /not thrilled about the mandatory fun/, /Flagging that mandatory|Unfortunately, mandatory/);
   ok("cool, so we're doing the thing we said we'd never do", /we're doing the thing/, /that so we're|, so we're/);

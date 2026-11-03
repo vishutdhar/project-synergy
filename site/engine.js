@@ -1,9 +1,10 @@
 // Project Synergy rewrite engine. Pure functions, no network, runs in the browser and in Node.
 import { preclean17, postfix17 } from "./round17.js";
 import { preclean18, postfix18, isTimeOff18, timeOff3, milestone3, isStock18, numbers3 } from "./round18.js";
+import { preclean19, postfix19, inflate3, milestone19, isTimeOff19, isSandwich19 } from "./round19.js";
 import { satireScene } from "./satire.js";
 import { preclean15, postfix15, dropCrude15, rescue15 } from "./round15.js";
-import { readNews, readNews15, readGood15, readFirst17, readLast17, readFirst18, readLast18, NEWS_SIGNALS, NEWS_RANK } from "./news.js";
+import { readNews, readNews15, readGood15, readFirst17, readLast17, readFirst18, readLast18, readFirst19, readLast19, NEWS_SIGNALS, NEWS_RANK } from "./news.js";
 import { restructure, tokenSim, polishRegister, lowerFirst } from "./register.js";
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
@@ -664,7 +665,7 @@ function toCorporateDetailed0(input, opts = {}) {
 export function toCorporateDetailed(input, opts = {}) {
   const raw = String(input ?? "");
   const lvl = clampLevel(opts.level ?? 2);
-  const pre = preclean15(preclean17(preclean18(raw)));
+  const pre = preclean15(preclean17(preclean18(preclean19(raw))));
   let r = toCorporateDetailed0(pre, opts);
   if (pre !== raw && (!r.text || hasCrude(r.text))) { const r0 = toCorporateDetailed0(raw, opts); if (r0.text && !hasCrude(r0.text)) r = r0; }
   if (!r.text && raw.trim()) { const rs = rescue15(pre); if (rs !== pre) { const r3 = toCorporateDetailed0(rs, opts); if (r3.text && !hasCrude(r3.text)) r = r3; } }
@@ -672,14 +673,19 @@ export function toCorporateDetailed(input, opts = {}) {
     const bare = dropCrude15(pre, hasCrude);
     if (bare) { const r2 = toCorporateDetailed0(bare, opts); r = r2.text && !hasCrude(r2.text) ? { ...r2, fallback: r2.fallback || "dropped-crude" } : { ...r, text: bare, fallback: "dropped-crude" }; }
   }
-  let out = r.text ? { ...r, text: postfix18(raw, postfix17(raw, postfix15(raw, r.text, lvl), lvl), lvl) } : r;
+  let out = r.text ? { ...r, text: postfix19(raw, postfix18(raw, postfix17(raw, postfix15(raw, r.text, lvl), lvl), lvl)) } : r;
   // Round 18: Full C-Suite time off and personal news get a joke that fits (round18.js), still meaning-checked.
   if (lvl === 3 && out.text && !out.scene && opts.r18 !== false) {
     const ref = prepass(canonicalizeCrude(normalizeCasual(normalizeInput(raw)) || normalizeInput(raw)).replace(/[ \t]{2,}/g, " ").trim());
     const ok = (t) => t && !hasCrude(t) && checkMeaning(ref, t).ok;
     let t3 = null;
-    t3 = milestone3(out.text, raw);
-    if (!t3 && isTimeOff18(raw) && isStock18(out.text)) t3 = timeOff3(toCorporateDetailed(raw, { ...opts, level: 1 }).text, raw);
+    const l1 = () => toCorporateDetailed(raw, { ...opts, level: 1 }).text;
+    t3 = milestone19(raw, l1());
+    if (!t3) t3 = milestone3(out.text, raw);
+    // Round 19: the joke goes in the body when a rule fits (round19.js inflate3).
+    const off = isTimeOff18(raw) || isTimeOff19(raw);
+    if (!t3 && !off) { const m1 = l1(); const t = inflate3(m1, raw, { generic: isStock18(out.text) || isSandwich19(out.text, m1) }); if (ok(t)) t3 = t; }
+    if (!t3 && off && !/^\s*(?:please|pls|plz|can you|could you|reminder|remember to)\b/i.test(raw) && (isStock18(out.text) || isTimeOff19(raw))) t3 = timeOff3(toCorporateDetailed(raw, { ...opts, level: 1 }).text, raw);
     if (!t3 && isStock18(out.text)) t3 = numbers3(toCorporateDetailed(raw, { ...opts, level: 1 }).text, raw);
     if (ok(t3)) out = { ...out, text: polishCase(tidy(t3)) };
   }
@@ -1086,6 +1092,9 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       // Round 18: plain-spoken news nothing else read; readFirst18 (denials, good-news reversals, one-word misreads) outranks all.
       if (!news && !detectThemes(sentence).length) news = readLast18(sentence);
       { const r18 = readFirst18(sentence); if (r18) { const fam = (id) => FAMILY17[id] ?? id; const old = news ? [news.id] : detectThemes(sentence); const badOld = r18.soft && r18.tone === "good" && old.some((id) => /^(?:no-raises|layoffs|layoff-you|cost-cuts|budget-freeze|hiring-freeze|benefits|cost-increase|shutdown|pip)$/.test(id)); if (!badOld && (!r18.soft || (!old.some((id) => fam(id) === fam(r18.id)) && !old.some((id) => /^(?:good-news|record-year)$/.test(id))))) news = r18; } }
+      // Round 19: number direction, warnings to you, polite no's and non-answers (news.js readFirst19 / readLast19).
+      if (!news && !detectThemes(sentence).length) news = readLast19(sentence);
+      { const r19 = readFirst19(sentence); if (r19) { const fam = (id) => FAMILY17[id] ?? id; const old = news ? [news.id] : detectThemes(sentence); if (!old.some((id) => fam(id) === fam(r19.id)) || (news && news.tone === "good")) news = r19; } }
       // Round 10b: the broad keyword families only speak when no older, more specific detector did.
       // When the older detector agrees on the family, its wording wins; when it disagrees, the keyword family is the closer read.
       // Exception: delay, benefits, shutdown and price families keep the keyword wording, which names the thing ("The release is delayed").
@@ -1094,7 +1103,7 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
         const sameOnly = /^(?:delay|benefits|shutdown|cost-increase|budget-freeze|departure)$/.test(news.id) && th.every((id) => id === news.id);
         if (!sameOnly && th.some((id) => id === news.id || (BROAD_ALIKE[news.id] ?? []).includes(id))) news = null;
       }
-      const themes = news && (news.broad || news.r17 || news.r18) ? [] : news && (news.tone === "good" || news.id === "fyi") ? detectThemes(sentence).filter((id) => id === "record-year") : detectThemes(sentence);
+      const themes = news && (news.broad || news.r17 || news.r18 || news.r19) ? [] : news && (news.tone === "good" || news.id === "fyi") ? detectThemes(sentence).filter((id) => id === "record-year") : detectThemes(sentence);
       for (const id of themes) scores.set(id, (scores.get(id) ?? 0) + themeById[id].weight);
       if (!news) for (const id of themes) plainThemes.add(id);
       if (news) {

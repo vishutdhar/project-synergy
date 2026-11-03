@@ -41,7 +41,7 @@ test("round 17: decode wording has no broken grammar", () => {
 test("round 17: corporate direction keeps meaning and fixes grammar", () => {
   const cases = [
     ["the printer is being a little bitch again", /printer|print/i, /being a bit\b|bitch/i],
-    ["we sat on our asses for a month", /sat on our hands/i, /sat on our\.|asses/i],
+    ["we sat on our asses for a month", /sat on our hands|watchful waiting/i, /sat on our\.|asses/i],
     ["stop screwing with the config", /config/i, /screwing/i],
     ["cut the crap, what's the deadline", /\?/, /junk|crap/i],
     ["does anyone want coffee", /coffee\?/i, /would like|Could anyone would/i],

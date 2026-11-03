@@ -6,6 +6,7 @@
 // that had nothing to do with the message. The joke now sits in the body: the reason is dressed up, the closer fits.
 // postfix18 repairs output shapes that are never grammatical. Nothing here adds a fact, a person or a date.
 
+import { REASONS19 } from "./round19.js";
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 const SENSITIVE = /\b(?:funeral|passed away|bereavement|hospital\w*|surgery|emergency|ER\b|chemo\w*|cancer|diagnos\w*|treatment|miscarriage|memorial|grief|grieving|sick|ill\b|illness|flu\b|covid|migraine|fever|labou?r|contractions|home sick|throwing up|injur\w*|broke my|broken (?:arm|leg|wrist|ankle)|therapy|rehab|divorce|lost my)\b/i;
 export function isSensitive18(t) { return SENSITIVE.test(String(t ?? "")); }
@@ -68,13 +69,14 @@ export function timeOff3(l1, raw) {
   t = t.replace(/^(?:Just to let you know|Just so you know|Quick update|Just a quick update|Unfortunately|Heads-up|FYI)[,:]\s*/i, "").replace(/^\w/, (c) => c.toUpperCase());
   t = t.replace(/\s*(?:Thanks!?|Thank you!?)$/i, "");
   let reasoned = false;
+  for (const [re, f] of REASONS19) if (re.test(t)) { t = t.replace(re, (m) => (typeof f === "function" ? f(m) : f)); reasoned = true; }
   for (const [re, f] of REASONS) if (re.test(t)) { t = t.replace(re, (m) => f(m)); reasoned = true; }
-  t = t.replace(/\bon vacation\b/i, "on a strategic recharge sabbatical").replace(/\bon PTO\b/i, "on pre-approved strategic recharge leave")
+  t = t.replace(/\bon vacation\b/i, "on a strategic recharge sabbatical").replace(/\bon PTO\b/i, "on fully pre-aligned strategic recharge PTO").replace(/\btaking PTO\b/i, "taking fully pre-aligned strategic recharge PTO")
     .replace(/\b(tak(?:e|ing)) a half day\b/i, "$1 a half-day strategic recharge window").replace(/\ba long weekend\b/i, "an extended strategic recharge window")
     .replace(/\b(leave|leaving) at (noon|\d{1,2}(?::\d\d)?(?: ?[ap]m)?)\b/i, (_m, v, h) => `${v === "leave" ? "transition" : "transitioning"} out of the office at ${h}`);
   const sentences = t.split(/(?<=[.!])\s+/);
   const first = sentences[0].replace(/[.!]+$/, "");
-  const offOnly = !reasoned && !/\b(?:recharge|sabbatical|read-never|transition|leave)\b/i.test(t) && !/\b(?:for (?:a|an|my|the|our|his|her)\b|to [a-z]+\b|because|since|so\b|and\b|,)/i.test(first);
+  const offOnly = !reasoned && sentences.length === 1 && !/\b(?:recharge|sabbatical|read-never|transition|leave)\b/i.test(t) && !/\b(?:for (?:a|an|my|the|our|his|her)\b|to [a-z]+\b|because|since|so\b|and\b|,)/i.test(first);
   const body = offOnly ? `${first} to recharge and return with renewed strategic clarity` : first;
   const rest = sentences.slice(1).join(" ");
   const closer = /recharge|sabbatical|read-never/i.test(body + rest) ? "Rest is a deliverable." : "My out-of-office message has been strategically pre-aligned.";

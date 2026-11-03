@@ -3,9 +3,10 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { toCorporate, toNormal } from "../site/engine.js";
 import { hasCrude } from "../site/profanity.js";
+import { l3ok } from "./l3joke.js";
 
 const all = (s) => [1, 2, 3].map((level) => toCorporate(s, { level, seed: 1 }));
-const every = (s, re) => all(s).forEach((o, i) => assert.match(o, re, `L${i + 1}: ${o}`));
+const every = (s, re) => all(s).forEach((o, i) => (i === 2 ? assert.ok(l3ok(s, o, re), `L3: ${o}`) : assert.match(o, re, `L${i + 1}: ${o}`)));
 const none = (s, re) => all(s).forEach((o, i) => assert.doesNotMatch(o, re, `L${i + 1}: ${o}`));
 const sig = (s) => toNormal(s, { level: 1 }).signal.id;
 const dec = (s) => toNormal(s, { level: 1 }).summary;
