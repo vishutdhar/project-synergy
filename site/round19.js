@@ -239,7 +239,7 @@ export function inflate3(l1, raw, opts = {}) {
 }
 
 // Personal news the round-18 list missed. The joke is a closer that fits.
-const MILESTONES19 = [
+export const MILESTONES19 = [
   [/\b(?:had|welcomed) (?:twins|triplets)\b/i, "Our family headcount plan exceeded forecast by 100%."],
   [/\b(?:got into|accepted (?:in)?to|admitted to) (?:his|her|their) (?:first[- ]choice )?(?:college|university|school)\b/i, "The family talent pipeline is performing ahead of plan."],
   [/\bgot my (?:citizenship|green card)\b/i, "My personal compliance journey is now complete."],
@@ -248,6 +248,8 @@ const MILESTONES19 = [
   [/\b(?:finished|completed|got) my (?:MBA|master's|masters|PhD|degree)\b/i, "I'm now formally accredited to use the word synergy."],
   [/\bstarting night classes\b/i, "My growth mindset is going after hours."],
   [/\badopted a (?:rescue )?(?:dog|cat|puppy|kitten)\b/i, "Our household headcount plan has been fully approved."],
+  [/\bhad our (?:first|second|third|fourth) (?:kid|baby|child)\b|\bhad (?:a|our) baby\b/i, "Our household headcount plan has been approved for expansion."],
+  [/\bgoing back to school\b[^.]*\b(?:MBA|degree|master's|masters|PhD|nursing|law)\b/i, "My growth mindset has enrolled in continuing education."],
 ];
 export function milestone19(raw, l1) {
   const src = String(raw ?? "");
@@ -277,7 +279,7 @@ export const REASONS19 = [
 ];
 
 // Time off the round-18 detector missed: personal days, leaving early, PTO weeks, "out the 3rd through the 7th".
-const TIMEOFF19 = /\b(?:taking a (?:personal|mental health|wellness) day|personal day (?:tomorrow|today|on \w+|friday|monday)|leaving early (?:today|tomorrow|on \w+)|heading out early|taking PTO|PTO (?:the week|next week|on)|(?:I'm|I am|I'll be) out (?:the \d+(?:st|nd|rd|th)?|on the \d+)|need (?:the )?(?:afternoon|morning|day) off)\b/i;
+const TIMEOFF19 = /\b(?:taking a (?:personal|mental health|wellness) day|personal day (?:tomorrow|today|on \w+|friday|monday)|leaving early (?:today|tomorrow|on \w+)|(?:need|have) to leave early (?:today|tomorrow|on \w+|\w+day)|heading out early|taking PTO|PTO (?:the week|next week|on)|(?:I'm|I am|I'll be) out (?:the \d+(?:st|nd|rd|th)?|on the \d+)|need (?:the )?(?:afternoon|morning|day) off)\b/i;
 export function isTimeOff19(raw) {
   const t = String(raw ?? "");
   return t.length < 160 && !/\n|\?/.test(t) && TIMEOFF19.test(t) && !SENSITIVE.test(t);
