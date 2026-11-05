@@ -4,9 +4,10 @@ import { preclean18, postfix18, isTimeOff18, timeOff3, milestone3, isStock18, nu
 import { preclean19, postfix19, inflate3, milestone19, isTimeOff19, isSandwich19 } from "./round19.js";
 import { satire20, preclean20, fix20 } from "./round20.js";
 import { preclean21, fix21, isSensitive21, sincere21 } from "./round21.js";
+import { preclean22, fix22 } from "./round22.js";
 import { satireScene } from "./satire.js";
 import { preclean15, postfix15, dropCrude15, rescue15 } from "./round15.js";
-import { readNews, readNews15, readGood15, readFirst17, readLast17, readFirst18, readLast18, readFirst19, readLast19, readFirst20, readLast20, readFirst21, NEWS_SIGNALS, NEWS_RANK } from "./news.js";
+import { readNews, readNews15, readGood15, readFirst17, readLast17, readFirst18, readLast18, readFirst19, readLast19, readFirst20, readLast20, readFirst21, readFirst22, NEWS_SIGNALS, NEWS_RANK } from "./news.js";
 import { restructure, tokenSim, polishRegister, lowerFirst } from "./register.js";
 import {
   CORPORATE_SWAPS, OPENERS, CLOSERS, INTERJECTIONS,
@@ -667,7 +668,7 @@ function toCorporateDetailed0(input, opts = {}) {
 export function toCorporateDetailed(input, opts = {}) {
   const raw = String(input ?? "");
   const lvl = clampLevel(opts.level ?? 2);
-  const pre = preclean15(preclean17(preclean18(preclean19(preclean20(preclean21(raw))))));
+  const pre = preclean15(preclean17(preclean18(preclean19(preclean20(preclean21(preclean22(raw)))))));
   let r = toCorporateDetailed0(pre, opts);
   if (pre !== raw && (!r.text || hasCrude(r.text))) { const r0 = toCorporateDetailed0(raw, opts); if (r0.text && !hasCrude(r0.text)) r = r0; }
   if (!r.text && raw.trim()) { const rs = rescue15(pre); if (rs !== pre) { const r3 = toCorporateDetailed0(rs, opts); if (r3.text && !hasCrude(r3.text)) r = r3; } }
@@ -675,7 +676,7 @@ export function toCorporateDetailed(input, opts = {}) {
     const bare = dropCrude15(pre, hasCrude);
     if (bare) { const r2 = toCorporateDetailed0(bare, opts); r = r2.text && !hasCrude(r2.text) ? { ...r2, fallback: r2.fallback || "dropped-crude" } : { ...r, text: bare, fallback: "dropped-crude" }; }
   }
-  let out = r.text ? { ...r, text: fix21(fix20(postfix19(raw, postfix18(raw, postfix17(raw, postfix15(raw, r.text, lvl), lvl), lvl))), raw) } : r;
+  let out = r.text ? { ...r, text: fix22(fix21(fix20(postfix19(raw, postfix18(raw, postfix17(raw, postfix15(raw, r.text, lvl), lvl), lvl))), raw), raw) } : r;
   // Round 18: Full C-Suite time off and personal news get a joke that fits (round18.js), still meaning-checked.
   if (lvl === 3 && out.text && !out.scene && opts.r18 !== false) {
     const ref = prepass(canonicalizeCrude(normalizeCasual(normalizeInput(raw)) || normalizeInput(raw)).replace(/[ \t]{2,}/g, " ").trim());
@@ -691,7 +692,7 @@ export function toCorporateDetailed(input, opts = {}) {
     if (!t3 && !off) { const m1 = l1(); if (isStock18(out.text) || isSandwich19(out.text, m1)) { const t = satire20(m1, raw); if (ok(t)) t3 = t; } }
     if (!t3 && off && !/^\s*(?:please|pls|plz|can you|could you|reminder|remember to)\b/i.test(raw) && (isStock18(out.text) || isTimeOff19(raw))) t3 = timeOff3(toCorporateDetailed(raw, { ...opts, level: 1 }).text, raw);
     if (!t3 && isStock18(out.text)) t3 = numbers3(toCorporateDetailed(raw, { ...opts, level: 1 }).text, raw);
-    if (ok(t3)) out = { ...out, text: fix21(fix20(polishCase(tidy(t3))), raw) };
+    if (ok(t3)) out = { ...out, text: fix22(fix21(fix20(polishCase(tidy(t3))), raw), raw) };
   }
   // Round 21: grief, illness and medical news stay sincere at Middle Manager and Full C-Suite (round21.js).
   if (lvl >= 2 && out.text && isSensitive21(raw) && opts.r21 !== false) {
@@ -1110,6 +1111,8 @@ export function toNormal(input, { level = 2, seed = 1 } = {}) {
       { const r20 = readFirst20(sentence); if (r20) { const fam = (id) => FAMILY17[id] ?? id; const old = news ? [news.id] : detectThemes(sentence); if (!old.some((id) => fam(id) === fam(r20.id))) news = r20; } }
       // Round 21: sure misreads from the fresh57 read (news.js readFirst21); also overrides a wrong good-news read.
       { const r21 = readFirst21(sentence); if (r21) { const fam = (id) => FAMILY17[id] ?? id; const old = news ? [news.id] : detectThemes(sentence); if (!old.some((id) => fam(id) === fam(r21.id)) || (news && news.tone === "good")) news = r21; } }
+      // Round 22: broader soft-news shapes (pay moves, free->paid, keep-as-is, soft layoffs/PIP/hedges); overrides wrong good-news.
+      { const r22 = readFirst22(sentence); if (r22) { const fam = (id) => FAMILY17[id] ?? id; const old = news ? [news.id] : detectThemes(sentence); if (!old.some((id) => fam(id) === fam(r22.id)) || (news && news.tone === "good") || (r22.tone !== "good" && news && /^(?:none|fluff|fyi)$/.test(news.id))) news = r22; } }
       // Round 10b: the broad keyword families only speak when no older, more specific detector did.
       // When the older detector agrees on the family, its wording wins; when it disagrees, the keyword family is the closer read.
       // Exception: delay, benefits, shutdown and price families keep the keyword wording, which names the thing ("The release is delayed").

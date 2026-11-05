@@ -1584,4 +1584,154 @@ function readFirst21(sentence) {
     return out("performance", "bad", `They're watching your work closely: ${body}. Take it seriously.`, "Performance warning.", "This is the paper trail.");
   return null;
 }
-export { readFirst21 };
+
+function readFirst22(sentence) {
+  const s = String(sentence ?? "").trim().replace(/\s+/g, " ");
+  if (!s || s.length > 320 || /\?$/.test(s)) return null;
+  const out = (id, tone, a, b, c) => ({ id, tone, broad: false, r22: true, lines: L(a, b, c) });
+  const has = (re) => re.test(s);
+  const body = body18(s.replace(/^(?:hi|hey|hello|dear) [A-Z][a-z]+,\s*/i, "")).replace(/^i'll\b/, "they'll").replace(/^i'm\b/, "they're").replace(/^i've\b/, "they've").replace(/\bi\b/g, "I");
+  const payFrozen = /\b(?:merit (?:increases?|raises?)|raises|salary (?:increases?|reviews?)|pay (?:increases?|raises?)|bonuses?)\b[^.]*\b(?:deferred|delayed|postponed|paused|frozen|on hold|held|suspended|until further notice)\b/i.test(s);
+
+  // Perk kept as-is after feedback = good news. Bare "keep the policy" after a change request stays a NO (older rules).
+  if (!has(/\bremain(?:s|ing)? as (?:written|published)\b/i)
+    && has(/\b(?:keeping|keep|will keep|maintaining|will maintain|leaving)\b[^.]*\b(?:remote|hybrid|flexible(?: Friday)?|Friday|PTO|parental|leave policy|work[- ]from[- ]home|WFH)\b[^.]*\b(?:unchanged|as (?:it )?is|in place)\b/i)
+    && !has(/\b(?:but|however)\b[^.]*\b(?:cut|end|reduc\w+|eliminat\w+|no longer)\b/i))
+    return out("good-news", "good", `Good news: ${body}. Nothing is being taken away.`, "Good news: no change to the perk.", "They didn't take it. Rare.");
+  if (!has(/\bremain(?:s|ing)? as (?:written|published)\b/i)
+    && has(/\b(?:following|after) (?:feedback|listening)\b[^.]*\b(?:keeping|keep|maintaining)\b[^.]*\b(?:unchanged|as (?:it )?is|in place|flexible|remote|hybrid|Friday)\b/i)
+    && !has(/\b(?:but|however)\b[^.]*\b(?:cut|end|reduc\w+|eliminat\w+|no longer)\b/i))
+    return out("good-news", "good", `Good news: ${body}. Nothing is being taken away.`, "Good news: no change to the perk.", "They didn't take it. Rare.");
+
+  // Price / fee / plan increases for customers or employees paying more. Never a company cost ("will cost us") or a benefit raise.
+  const benefitRaise = has(/\b(?:stipend|learning budget|wellness|commuter benefits?|tuition|match|retirement|401)\b[^.]*\b(?:increasing|increase|rising|will increase)\b/i)
+    || has(/\b(?:increasing|increase|rising|will increase)\b[^.]*\b(?:stipend|learning budget|wellness|commuter|tuition|match)\b/i)
+    || has(/\bwill cost (?:us|the company)\b/i)
+    || has(/\bproduct recall\b/i);
+  if (!benefitRaise
+    && (has(/\b(?:plan|price|pricing|fee|rate|subscription|seat|license)\b[^.]*\b(?:increases?|increasing|will increase|goes up|going up|raised|rising) (?:to |by |from )?\$?\d/i)
+    || has(/\b(?:adding|introducing|new) a? ?\$\d[\d.]*(?:\/| per )?[\w ]{0,20}(?:fee|charge|surcharge)\b/i)
+    || has(/\bcharged back to (?:each |your |our )?(?:department|cost center|team)s?\b/i)
+    || has(/\b(?:shipping|delivery) (?:will )?(?:no longer be|is no longer|isn't) free\b/i)
+    || has(/\b(?:cafe|cafeteria|lobby|break[- ]?room|kitchen)\b[^.]*\b(?:will |now )?(?:charge|bill|cost)\b/i)
+    || has(/\b(?:previously|used to be|was) (?:free|complimentary)\b[^.]*\b(?:will |now )?(?:have a |cost |charge|\$\d)/i)
+    || has(/\bthat (?:used to be|was) (?:free|complimentary) will have a \$\d/i)
+    || has(/\bparking\b[^.]*\b(?:will (?:now )?be|will cost|now cost|costs?) \$\d/i)))
+    return out("cost-increase", "bad", `It costs more now: ${body}.`, "You pay more now.", "Free is over. Prices went up.");
+
+  // Soft delay shapes. Exclude "did not go as planned" / outcomes, and pay freezes.
+  if (!payFrozen
+    && !has(/\b(?:did not|didn't|didnt) go as planned\b|\bdeclined\b|\bscores? declined\b|\battendance than planned\b|\blower than planned\b/i)
+    && (has(/\b(?:pay banding|compensation calibration|salary review|merit cycle|banding exercise|calibration exercise|open enrollment|go-live|cutover|migration|redesign|rebuild)\b[^.]*\b(?:typically|usually|normally|planned for|originally|set for|targeted for|lands in|happens in|takes place in|runs in)\b/i)
+    || has(/\b(?:typically|usually|normally) (?:lands|runs|happens|takes place) in \w+\b[^.]*\bwill (?:run|happen|take place) in\b/i)
+    || has(/\b(?:will|now) (?:run|happen|take place|land|open|ship|go live) in (?:January|February|March|April|May|June|July|August|September|October|November|December|Q[1-4]|late \w+|early \w+)\b[^.]*\b(?:instead|rather)\b/i)
+    || has(/\b(?:is|are) now looking like\b|\blooking like (?:late |early )?(?:January|February|March|April|May|June|July|August|September|October|November|December|Q[1-4]|summer|fall|spring)\b/i)
+    || has(/\b(?:resume|pick up again|resumes|continues) (?:once|when)\b[^.]*\b(?:capacity|bandwidth)\b/i)
+    || has(/\bneed(?:s| a)? (?:a bit |a little |some |additional )?(?:more )?time\b|\brequire(?:s)? additional (?:runway|time)\b|\brevised go-live\b|\bnew target (?:date )?(?:is|of)\b/i)
+    || has(/\b(?:postponed|pushed|slipped) (?:until|to|from|into)\b|\bopens? (?:a week|two weeks|\d+ weeks?) later\b/i)
+    || has(/\b(?:shipment|ship|launch event|store openings?|warehouse go-live|first (?:units|batch))\b[^.]*\b(?:slipped|pushed|postponed|delayed|looking like|now targeted|now expect)\b/i)))
+    return out("delay", "warn", `It's later than planned: ${body}.`, "Later than planned.", "Later than promised.");
+
+  // Soft freezes.
+  if (has(/\b(?:freelance|agency|consultant|contractor|outside counsel|software seats?|new hires?|retainers?|engagements?|agreements?)\b[^.]*\b(?:needs?|requires?|now needs?|now requires?) (?:written )?(?:sign-off|approval|signoff) from\b/i)
+    || has(/\b(?:celebrations?|offsites?|team events?|swag)\b[^.]*\b(?:are not funded|not funded|unfunded|not budgeting|no budget)\b/i)
+    || has(/\b(?:pausing|holding|on hold|frozen) (?:all )?(?:non-critical |non-essential )?(?:hiring|backfills?|travel|conferences?)\b/i)
+    || has(/\b(?:replacements?|backfills?) for (?:people|employees|staff) who leave\b[^.]*\b(?:decided|reviewed|approved) (?:individually|case by case)\b/i)
+    || has(/\b(?:discretionary|any) (?:purchase|spend|spending)\b[^.]*\b(?:over|above) \$\d+[^.]*\b(?:needs?|requires?) (?:director|VP|CFO|exec)\b/i)
+    || has(/\b(?:title changes|promotions)\b[^.]*\b(?:limited to|only)\b/i))
+    return out("budget-freeze", "bad", `Spending is being held back: ${body}.`, "Spending freeze, with paperwork.", "No money unless leadership says so.");
+
+  // Soft RTO. Skip office-day reductions (good). Skip gym/dues. Skip campus-move delays.
+  if (!(has(/\b(?:reduc\w+|fewer|cutting|cut)\b[^.]*\b(?:required )?office days\b/i) && has(/\bfrom\b/i))
+    && !has(/\bgym|dues for the onsite|move to the new campus|new headquarters\b/i)
+    && (has(/\b(?:relocate|move) (?:nearer|closer|near)\b[^.]*\b(?:hub|campus|office)\b|\b(?:within|inside) (?:commuting distance|[\d]+ miles)\b[^.]*\b(?:relocate|on site|onsite|office)\b/i)
+    || has(/\b(?:fully remote|remote (?:setups?|approvals?|arrangements?))\b[^.]*\b(?:end|conclude|reviewed|revisited|mostly end)\b/i)
+    || has(/\b(?:badge swipe|badge data)\b[^.]*\b(?:understand|review|track|patterns?|attendance)\b/i)
+    || has(/\b(?:in person only)\b[^.]*\b(?:beginning|starting|from)\b/i)
+    || has(/\bshifting to (?:four|three|five|\d) office days\b|\bexpected (?:in the office|on site) (?:Monday|Tuesday|Wednesday|Thursday|Friday|beginning|starting)\b/i)
+    || has(/\bending remote\b|\bremote Fridays\b|\bplan on (?:two|three|four|2|3|4) (?:to \w+ )?office days\b/i)
+    || has(/\b(?:remote (?:work )?stipend|home office stipend|WFH stipend)\b[^.]*\b(?:ends?|ending|return to (?:the )?office|as we return)\b/i)
+    || has(/\b(?:remote (?:work )?stipend)\b[^.]*\bcontinues\b[^.]*\boffice days\b/i)))
+    return out("rto", "bad", `Back to the office: ${body}.`, "Back to the office.", "Your commute called. It missed you.");
+
+  // Soft reorg.
+  if (has(/\b(?:merging|merged|combining|combined|uniting|united)\b[^.]*\bunder (?:one|a single|a new)\b/i)
+    || has(/\b(?:becomes?|will become|is becoming) the (?:main |primary )?(?:campus|hub)\b[^.]*\b(?:relocate|move)\b/i)
+    || has(/\b(?:will|going forward)?\s*(?:sit|report)(?:s|ing)? (?:under|into)\b/i)
+    || (has(/\b(?:flatten|flattening) (?:spans|layers)\b|\breducing (?:management )?layers\b/i) && !has(/\b(?:roles?|jobs?|positions?) (?:are |will be )?(?:going away|eliminated|cut)\b/i))
+    || has(/\b(?:broken up|split up|embedded)\b[^.]*\b(?:product line|each product|inside each)\b/i)
+    || has(/\bwill oversee both\b|\bwill (?:now )?lead both\b/i)
+    || has(/\breport to one [\w ]+ lead\b/i))
+    return out("reorg", "warn", `Teams are being reshuffled: ${body}. Check who your boss is and where you sit.`, "Reshuffle.", "Another reorg, possibly with a moving truck.");
+
+  // Soft no / rejection. Avoid bare "declined" on scores.
+  if (has(/\bcannot (?:be )?(?:extended|stretched) (?:beyond|past)\b|\bwill remain as (?:written|published)\b/i)
+    || has(/\b(?:appreciate|hear|heard) (?:the |your )?(?:input|concerns|feedback)\b[^.]*\b(?:but|yet|however)\b[^.]*\b(?:remain|stays?|will not change|won't change)\b/i)
+    || has(/\b(?:request|exception|ask|application)[^.]*\b(?:has been |have been )?(?:turned down|declined|rejected)\b/i)
+    || has(/\b(?:not in a position|unable|won't|will not) to (?:approve|offer|support|proceed|move forward)\b/i)
+    || has(/\b(?:considered|reviewed)\b[^.]*\b(?:but|and) (?:decided|chosen|opted) to (?:keep|stay|retain) (?:the )?(?:current )?(?:limit|cap|budget)\b/i)
+    || has(/\bisn't something we can (?:offer|support|do)\b|\bnot something we can (?:offer|support)\b/i))
+    return out("rejection", "bad", `The answer is no: ${body}.`, "No.", "No, with a bow on it.");
+
+  // Soft performance.
+  if (has(/\b(?:end-of-day|daily|weekly) (?:update|wrap-up|summary|written update)s?\b/i)
+    || has(/\bI'll need you to (?:send|give|share)\b[^.]*\b(?:update|summary|report|wrap)\b/i)
+    || has(/\b(?:please )?have [A-Z][a-z]+ (?:review|look over|look at)\b[^.]*\b(?:before|first)\b/i)
+    || has(/\bbefore (?:anything|any\w*|emails?|messages?) (?:goes|go|goes out) to (?:the |a )?(?:client|customer)\b/i)
+    || has(/\b(?:I've )?noticed (?:that )?your [\w ]{2,40}?(?:are|is|arrive|arrives|come) (?:often|always|frequently) (?:late|missing|behind|after)\b/i)
+    || has(/\b(?:flagged|calls out|flagging)\b[^.]*\b(?:as )?(?:an? )?(?:area )?(?:that )?(?:needs?|needing) (?:significant |real )?(?:improvement|to (?:improve|change))\b/i)
+    || has(/\b(?:set up|schedule) time with you and (?:HR|People Ops)\b[^.]*\b(?:talk|discuss)\b/i)
+    || has(/\b(?:\d+-day|45-day|60-day|90-day) plan\b[^.]*\b(?:weekly|clear targets|check-ins)\b/i))
+    return out("performance", "bad", `They're watching your work closely: ${body}. Take it seriously.`, "Performance warning.", "This is the paper trail.");
+
+  // Soft hedges.
+  if (has(/\bcontinu\w+ (?:to )?(?:look at|review(?:ing)?|assess(?:ing)?|sort(?:ing)? out)\b[^.]*\b(?:cost base|expense structure|options|impact|duties|tariffs|pricing)\b/i)
+    || has(/\bworking through what (?:the )?[\w ]{0,40}?(?:tariffs?|duties|import)\b/i)
+    || has(/\bstill sorting out how (?:the )?new (?:import )?duties\b/i)
+    || has(/\btoo (?:early|soon) to (?:say|comment)\b|\bdo(?:n't| not) (?:comment|respond) on (?:market )?(?:speculation|rumor|chatter)\b/i)
+    || has(/\bweighing several paths\b|\bhave not (?:chosen|made) (?:one|any decisions?)\b/i))
+    return out("hedge", "warn", `No real answer yet: ${body}. Watch for cuts.`, "No answer yet.", "Stay tuned, indefinitely.");
+
+  // Soft departure (individual only). Case-sensitive name after "today is".
+  if (!has(/\b(?:reduction|RIF|workforce|headcount|impacted|roles? will not|colleagues to leave|positions? eliminated|about \d+ people|\d+ (?:people|members|employees)|several people)\b/i)
+    && (has(/\b(?:has )?(?:decided to )?step(?:ping)? down as\b|\bis leaving (?:the company )?to pursue other opportunities\b/i)
+    || has(/\b(?:is )?departing\b[^.]*\b(?:search|successor)\b/i)
+    || has(/\bwill (?:be )?transition(?:ing)? out of (?:her|his|their) role\b/i)
+    || has(/\b(?:after|following) (?:\w+ )?(?:years|wonderful years|great years)\b[^.]*\b(?:step(?:ping)? down|leaving|departing)\b/i)
+    || /^[Tt]oday is [A-Z][a-z]+(?:'s)? (?:final|last) day\b/.test(s)))
+    return out("departure", "warn", `Someone's leaving: ${body}.`, "Someone's leaving.", "Someone's out. Boxes may follow.");
+
+  // Soft layoffs.
+  if (has(/\basking (?:a small number of )?colleagues to leave\b|\b(?:positions?|roles?) (?:in [\w ]{2,40}?)?will not (?:be )?continu(?:e|ing)\b/i)
+    || has(/\bduplication of roles\b|\breduce headcount\b|\bworkforce by (?:approximately )?\d+\b/i)
+    || has(/\b(?:team size|recruiting team|headcount)\b[^.]*\b(?:reduced|reducing|reduction)\b/i)
+    || has(/\bparting ways with\b|\bpositions? (?:will not|won't) (?:be )?continu/i)
+    || has(/\b(?:overlapping functions) will be eliminated\b|\brole is included in the reduction\b/i)
+    || has(/\b(?:site|office|studio) will close\b[^.]*\b(?:not be offered|no transfer|portion of the team)\b/i)
+    || has(/\blast day for (?:about )?\d+ (?:people|members|employees)\b/i)
+    || has(/\b(?:several people|some colleagues|a number of (?:people|colleagues|employees)) will transition out\b/i)
+    || has(/\btransition out of the company\b/i)
+    || has(/\bcontractor conversions will not proceed\b/i)
+    || has(/\bwinding down the [\w -]{2,30}? team\b/i)
+    || has(/\breducing (?:management )?layers\b[^.]*\b(?:roles?|jobs?|positions?) (?:are |will be )?(?:going away|eliminated)\b/i))
+    return out("layoffs", "bad", `Layoffs: ${body}.`, "Layoffs.", "Layoffs, in a nicer font.");
+
+  // Soft sunset.
+  if (!has(/\b(?:team|roles?|headcount|staff|employees|positions?)\b/i)
+    && (has(/\b(?:wind(?:s|ing)? down|shut(?:ting)? off|switched off|turned off|stop producing|will stop producing|will not be (?:offered|renewed)|exiting the|leaving the)\b[^.]*\b(?:program|beta|spreadsheet|tool|newsletter|studio|office|API|line|circle|podcast|console|hardware|accessories)\b/i)
+    || has(/\b(?:support for|support on)\b[^.]*\bends?\b/i)
+    || has(/\bwill not be (?:offered|renewed) (?:again )?next year\b/i)
+    || has(/\b(?:studio|office|site) will (?:close|shut) when the lease\b/i)))
+    return out("shutdown", "bad", `It's shutting down: ${body}.`, "It's ending.", "They're turning it off.");
+
+  // Soft benefits cuts. Skip RTO-tied stipends, people "leave" exits, and pay timing delays.
+  if (!has(/\breturn to (?:the )?office\b|\boffice days\b|\bending remote\b|\bleave the company\b|\bdecided to leave\b|\bwill leave\b|\b(?:reimbursement|bonus|reviews?)\b[^.]*\bwill be (?:processed|paid|completed)\b|\b(?:instead of|rather than) (?:this|December|the|that)\b/i)
+    && (has(/\b(?:stipend|reimbursement|match|premiums?|holiday|subsidy|tuition|equity|vest)\b[^.]*\b(?:down from|up from|instead of|rather than|ends?|discontinu\w+|limited to|only cover|cliff-vest|move(?:s)? from)\b/i)
+    || has(/\b(?:employees|team members) will (?:now )?cover \d+%\b/i)
+    || has(/\bparental leave\b[^.]*\b(?:move(?:s)? from|down from|cut|reduc)\b/i)))
+    return out("benefits", "bad", `A benefit is shrinking: ${body}.`, "Smaller benefit.", "Less money, same smile.");
+
+  return null;
+}
+export { readFirst21, readFirst22 };
+
